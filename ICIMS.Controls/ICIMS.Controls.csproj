@@ -65,6 +65,7 @@
     <Compile Include="MenuTabControl.cs" />
     <Compile Include="MessageContentList.cs" />
     <Compile Include="MessageDecorator.cs" />
+    <Compile Include="PasswordBoxHelper.cs" />
     <Compile Include="PvirtechCommandSelecter.cs" />
     <Compile Include="PvirtechCommandSelecterItem.cs" />
     <Compile Include="PvirtechToggleButton.cs" />

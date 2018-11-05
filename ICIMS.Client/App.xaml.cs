@@ -1,5 +1,7 @@
-﻿using ICIMS.Client.Views;
+﻿using ICIMS.Client.ViewModels;
+using ICIMS.Client.Views;
 using ICIMS.Core;
+using ICIMS.Core.Common;
 using ICIMS.Metro.Controls;
 using ICIMS.Modules.BaseData;
 using ICIMS.Modules.SystemAdmin;
@@ -11,10 +13,14 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using Telerik.Windows.Controls;
+using WJDeviceClient.ViewModels;
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = @"Log4Net\log4Net.config", Watch = true)]
 namespace ICIMS.Client
@@ -27,14 +33,53 @@ namespace ICIMS.Client
         public App()
         {
             log4net.Config.XmlConfigurator.Configure();
+            this.DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_DispatcherUnhandledException);
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
         }
-         
+
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            LogHelper.Error((Exception)e.ExceptionObject);
+        }
+
+        private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            LogHelper.Error((Exception)e.Exception);
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            if (!SingleInstanceCheck())
+            {
+                return;
+            }
+            base.OnStartup(e);
+        }
 
         protected override Window CreateShell()
         {
-            return Container.Resolve<MainWindow>();
-        }
+            Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            var loginView = Container.Resolve<LoginView>();
+            loginView.ShowDialog();
+            if (loginView.DialogResult == true)
+            {
+                return Container.Resolve<MainWindow>();
+            }
+            else
+            {
+                System.Environment.Exit(0);
+                return null;
+            }
 
+           //return Container.Resolve<MainWindow>();
+        }
+        protected override void InitializeShell(Window shell)
+        {
+            base.InitializeShell(shell);
+            Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+            Application.Current.MainWindow = (Window)shell;
+            Application.Current.MainWindow.Show();
+        }
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
            
@@ -62,6 +107,47 @@ namespace ICIMS.Client
             moduleCatalog.AddModule<BaseDataModule>(); 
             moduleCatalog.AddModule<SystemAdminModule>();
         }
-        
+        private static Mutex SingleInstanceMutex = new Mutex(true, "{86A802DF-C96C-8765-BAA8-1BC527857BEB}");
+
+        private static bool SingleInstanceCheck()
+        {
+
+            if (!SingleInstanceMutex.WaitOne(TimeSpan.Zero, true))
+            {
+                Process thisProc = Process.GetCurrentProcess();
+                Process process = Process.GetProcessesByName(thisProc.ProcessName).FirstOrDefault(delegate (Process p)
+                {
+                    if (p.Id != thisProc.Id)
+                    {
+                        return true;
+                    }
+                    return false;
+                });
+                if (process != null)
+                {
+                    IntPtr mainWindowHandle = process.MainWindowHandle;
+                    if (NativeMethods.IsIconic(mainWindowHandle))
+                    {
+                        NativeMethods.ShowWindow(mainWindowHandle, 9);
+                    }
+                    NativeMethods.SetForegroundWindow(mainWindowHandle);
+                }
+                Application.Current.Shutdown(1);
+                return false;
+            }
+            return true;
+        }
+
+        internal static void FlushMemory()
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+            {
+                NativeMethods.SetProcessWorkingSetSize(System.Diagnostics.Process.GetCurrentProcess().Handle, -1, -1);
+            }
+            GC.Collect();
+        }
+
     }
 }

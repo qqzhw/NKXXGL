@@ -252,24 +252,7 @@
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands ShowLastSeparator="False">
-            <Button 
-                    Content="Flyouts"
-                    ToolTip="Flyouts demo window" />
-            <Button  
-                    Content="IconPacks"
-                    ToolTip="All MahApp icons" />
-            <Button  
-                    Content="VS"
-                    ToolTip="Visual Studio style demo" />
-            <Button  
-                    Content="Clean"
-                    ToolTip="Clean window style demo" />
-            <Button  
-                    Content="Interop"
-                    ToolTip="The interop demo" />
-            <Button  
-                    Content="Navigation"
-                    ToolTip="Window navigation demo" />
+          
             <ToggleButton Content="Confirm quit"
                           IsChecked="{Binding QuitConfirmationEnabled}"
                           ToolTip="Enable quit confirmation dialog on exit" />
@@ -298,10 +281,9 @@
             <ListBox.ItemTemplate>
                 <DataTemplate >
                     <Grid>
-                        <control:SwitchControl   Margin="15,8,15,8"  IsSelected="{Binding IsSelected}"
-											      VerticalAlignment="Stretch"   SelectedBackground="#222328"  
-                                                  Content="{Binding Title}">
-                        </control:SwitchControl>
+                        <control:MenuNavControl   Margin="15,8,15,8" Width="48" ImageSource="pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu1_基础信息.ico"  
+											      VerticalAlignment="Stretch"  SecText="{Binding Title}">
+                        </control:MenuNavControl>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -334,9 +316,9 @@
         </telerik:RadTabControl>
 
         <StatusBar Grid.Row="1" Grid.ColumnSpan="2">
-            <StatusBarItem>MahApps.Metro DEMO Application</StatusBarItem>
+            <StatusBarItem>操作员</StatusBarItem>
             <Separator Style="{StaticResource MetroStatusBarSeparator}" />
-            <StatusBarItem>Selected Tab:</StatusBarItem>
+            <StatusBarItem>管理员</StatusBarItem>
             <StatusBarItem  Content="{Binding ElementName=MainTabControl, Path=SelectedItem.Header, Mode=OneWay}" />
         </StatusBar>
 
