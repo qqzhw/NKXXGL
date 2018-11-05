@@ -1,0 +1,11 @@
+﻿<controls:MetroWindow x:Class="ICIMS.Core.Interactivity.DefaultPopupWindows.DefaultWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:controls="http://metro.wenge.com/winfx/xaml/controls"
+        >
+    <controls:MetroWindow.Style>
+        <Style TargetType="{x:Type controls:MetroWindow}" >
+            <Setter Property="SizeToContent" Value="WidthAndHeight" />
+        </Style>
+    </controls:MetroWindow.Style>
+</controls:MetroWindow>

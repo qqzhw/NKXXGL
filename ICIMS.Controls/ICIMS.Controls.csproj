@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DD105B6C-76A1-4BAB-93E6-1C51374BF8C8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ICIMS.Controls</RootNamespace>
+    <AssemblyName>ICIMS.Controls</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="AnimatedTabControl.cs" />
+    <Compile Include="ContainerItemAttribute.cs" />
+    <Compile Include="CustomWrapPanel.cs" />
+    <Compile Include="Direction.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="ImageButton.cs" />
+    <Compile Include="MenuNavControl.cs" />
+    <Compile Include="MenuTabControl.cs" />
+    <Compile Include="MessageContentList.cs" />
+    <Compile Include="MessageDecorator.cs" />
+    <Compile Include="PvirtechCommandSelecter.cs" />
+    <Compile Include="PvirtechCommandSelecterItem.cs" />
+    <Compile Include="PvirtechToggleButton.cs" />
+    <Compile Include="SwitchControl.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CustomControl1.cs" />
+    <Compile Include="ImageRadioButton.cs" />
+    <Compile Include="ImageToggleButton.cs" />
+    <Compile Include="LeftNavControl.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ICIMS.Metro\ICIMS.Metro.csproj">
+      <Project>{A352BF5F-8655-499A-B0EC-195AAB99E83A}</Project>
+      <Name>ICIMS.Metro</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MenuImage\BaseInfo.png" />
+    <Resource Include="MenuImage\BusManage.png" />
+    <Resource Include="MenuImage\Menu1_业务管理.ico" />
+    <Resource Include="MenuImage\Menu1_基础信息.ico" />
+    <Resource Include="MenuImage\Menu1_基础资料.ico" />
+    <Resource Include="MenuImage\Menu1_系统管理.ico" />
+    <Resource Include="MenuImage\Menu1_资产管理.ico" />
+    <Resource Include="MenuImage\Menu1_软件接口.ico" />
+    <Resource Include="MenuImage\Menu2_业务管理_报表管理.ico" />
+    <Resource Include="MenuImage\Menu2_基础信息.ico" />
+    <Resource Include="MenuImage\Menu2_基础资料_基础信息.ico" />
+    <Resource Include="MenuImage\Menu2_报表管理.ico" />
+    <Resource Include="MenuImage\Menu2_系统管理.ico" />
+    <Resource Include="MenuImage\Menu2_财政业务.ico" />
+    <Resource Include="MenuImage\Menu2_资产管理.ico" />
+    <Resource Include="MenuImage\Menu2_资产管理_基础信息.ico" />
+    <Resource Include="MenuImage\Menu2_软件接口.ico" />
+    <Resource Include="MenuImage\Menu2_项目管理.ico" />
+    <Resource Include="MenuImage\Menu2_项目管理_预算管理.ico" />
+    <Resource Include="MenuImage\Menu2_预算管理.ico" />
+    <Resource Include="MenuImage\Menu3_.ico" />
+    <Resource Include="MenuImage\Menu3_业务管理_报表管理_预算执行明细.ico" />
+    <Resource Include="MenuImage\Menu3_业务管理_报表管理_预算执行汇总.ico" />
+    <Resource Include="MenuImage\Menu3_业务管理_预算管理_预算执行.ico" />
+    <Resource Include="MenuImage\Menu3_业务管理_预算管理_预算批复.ico" />
+    <Resource Include="MenuImage\Menu3_中期调整.ico" />
+    <Resource Include="MenuImage\Menu3_功能科目.ico" />
+    <Resource Include="MenuImage\Menu3_合同备案系统.ico" />
+    <Resource Include="MenuImage\Menu3_合同明细表.ico" />
+    <Resource Include="MenuImage\Menu3_合同汇总表.ico" />
+    <Resource Include="MenuImage\Menu3_合同登记.ico" />
+    <Resource Include="MenuImage\Menu3_合同类别.ico" />
+    <Resource Include="MenuImage\Menu3_合同类型.ico" />
+    <Resource Include="MenuImage\Menu3_基础资料_基础信息_供应商信息.ico" />
+    <Resource Include="MenuImage\Menu3_基础资料_基础信息_功能科目.ico" />
+    <Resource Include="MenuImage\Menu3_基础资料_基础信息_合同分类.ico" />
+    <Resource Include="MenuImage\Menu3_基础资料_基础信息_支付类型.ico" />
+    <Resource Include="MenuImage\Menu3_基础资料_基础信息_政府采购分类.ico" />
+    <Resource Include="MenuImage\Menu3_基础资料_基础信息_文档分类.ico" />
+    <Resource Include="MenuImage\Menu3_基础资料_基础信息_资金来源.ico" />
+    <Resource Include="MenuImage\Menu3_基础资料_基础信息_部门信息.ico" />
+    <Resource Include="MenuImage\Menu3_基础资料_基础信息_采购分类.ico" />
+    <Resource Include="MenuImage\Menu3_基础资料_基础信息_项目分类.ico" />
+    <Resource Include="MenuImage\Menu3_基础资料_基础信息_预算分类.ico" />
+    <Resource Include="MenuImage\Menu3_审核流设置.ico" />
+    <Resource Include="MenuImage\Menu3_密码修改.ico" />
+    <Resource Include="MenuImage\Menu3_承建单位.ico" />
+    <Resource Include="MenuImage\Menu3_投资方式.ico" />
+    <Resource Include="MenuImage\Menu3_操作员管理.ico" />
+    <Resource Include="MenuImage\Menu3_支付审核系统.ico" />
+    <Resource Include="MenuImage\Menu3_支付类型.ico" />
+    <Resource Include="MenuImage\Menu3_支出管理.ico" />
+    <Resource Include="MenuImage\Menu3_收支明细表.ico" />
+    <Resource Include="MenuImage\Menu3_收支汇总表.ico" />
+    <Resource Include="MenuImage\Menu3_文件分类.ico" />
+    <Resource Include="MenuImage\Menu3_文档类型.ico" />
+    <Resource Include="MenuImage\Menu3_文档综合管理.ico" />
+    <Resource Include="MenuImage\Menu3_日志管理.ico" />
+    <Resource Include="MenuImage\Menu3_机构单位.ico" />
+    <Resource Include="MenuImage\Menu3_档案管理.ico" />
+    <Resource Include="MenuImage\Menu3_用友.png" />
+    <Resource Include="MenuImage\Menu3_立项登记.ico" />
+    <Resource Include="MenuImage\Menu3_系统管理_系统管理_审核流设置.ico" />
+    <Resource Include="MenuImage\Menu3_职员信息.ico" />
+    <Resource Include="MenuImage\Menu3_职员管理.ico" />
+    <Resource Include="MenuImage\Menu3_角色权限.ico" />
+    <Resource Include="MenuImage\Menu3_评审登记.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_业务管理_资产借用.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_业务管理_资产入库.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_业务管理_资产报废.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_业务管理_资产盘点.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_业务管理_资产维修.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_业务管理_资产转移.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_业务管理_资产领用.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_业务管理_领借返还.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_基础信息_仓库信息.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_基础信息_供应商信息.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_基础信息_折旧设置.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_基础信息_职员信息.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_基础信息_计量单位.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_基础信息_资产分类.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_基础信息_部门信息.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_报表管理_使用统计.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_报表管理_借领统计.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_报表管理_入库统计.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_报表管理_库存统计.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_报表管理_报废统计.ico" />
+    <Resource Include="MenuImage\Menu3_资产管理_报表管理_维修统计.ico" />
+    <Resource Include="MenuImage\Menu3_资金来源.ico" />
+    <Resource Include="MenuImage\Menu3_资金进度申请.ico" />
+    <Resource Include="MenuImage\Menu3_采购分类.ico" />
+    <Resource Include="MenuImage\Menu3_金算盘.png" />
+    <Resource Include="MenuImage\Menu3_金蝶.png" />
+    <Resource Include="MenuImage\Menu3_项目分类.ico" />
+    <Resource Include="MenuImage\Menu3_项目初始化.ico" />
+    <Resource Include="MenuImage\Menu3_项目归类.ico" />
+    <Resource Include="MenuImage\Menu3_项目性质.ico" />
+    <Resource Include="MenuImage\Menu3_项目明细表.ico" />
+    <Resource Include="MenuImage\Menu3_项目汇总表.ico" />
+    <Resource Include="MenuImage\Menu3_项目督察.ico" />
+    <Resource Include="MenuImage\Menu3_项目管理_项目管理_合同备案.ico" />
+    <Resource Include="MenuImage\Menu3_项目管理_项目管理_合同登记.ico" />
+    <Resource Include="MenuImage\Menu3_项目管理_项目管理_合同结算.ico" />
+    <Resource Include="MenuImage\Menu3_项目管理_项目管理_支付报账.ico" />
+    <Resource Include="MenuImage\Menu3_项目管理_项目管理_档案管理.ico" />
+    <Resource Include="MenuImage\Menu3_项目管理_项目管理_立项登记.ico" />
+    <Resource Include="MenuImage\Menu3_项目管理_项目管理_评审登记.ico" />
+    <Resource Include="MenuImage\Menu3_项目管理_项目管理_项目决算.ico" />
+    <Resource Include="MenuImage\Menu3_项目管理_项目管理_项目初始化.ico" />
+    <Resource Include="MenuImage\Menu3_项目管理_项目管理_项目绩效评价.ico" />
+    <Resource Include="MenuImage\Menu3_项目管理_预算管理_中期批复.ico" />
+    <Resource Include="MenuImage\Menu3_项目管理_预算管理_中期调整.ico" />
+    <Resource Include="MenuImage\Menu3_项目管理_预算管理_项目归类.ico" />
+    <Resource Include="MenuImage\Menu3_项目管理_预算管理_预算归类.ico" />
+    <Resource Include="MenuImage\Menu3_项目管理_预算管理_预算批复.ico" />
+    <Resource Include="MenuImage\Menu3_项目管理_预算管理_预算编制.ico" />
+    <Resource Include="MenuImage\Menu3_项目管理_预算管理_预算调整.ico" />
+    <Resource Include="MenuImage\Menu3_项目类别.ico" />
+    <Resource Include="MenuImage\Menu3_预算执行情况表.ico" />
+    <Resource Include="MenuImage\Menu3_预算批复.ico" />
+    <Resource Include="MenuImage\Menu3_预算编制.ico" />
+    <Resource Include="MenuImage\Menu3_预算调整.ico" />
+    <Resource Include="MenuImage\Query.png" />
+    <Resource Include="MenuImage\SubSelect.png" />
+    <Resource Include="MenuImage\SystemManage.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

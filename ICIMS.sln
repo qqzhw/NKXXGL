@@ -1,0 +1,77 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICIMS.Core", "ICIMS.Core\ICIMS.Core.csproj", "{E642B971-FC28-48E8-9015-A863AA148D6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICIMS.Client", "ICIMS.Client\ICIMS.Client.csproj", "{D4DFB410-BA45-4336-BA97-442B87E47641}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICIMS.Service", "ICIMS.Service\ICIMS.Service.csproj", "{D0DB70EE-E7AB-479A-8AB0-3214359825B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICIMS.Metro", "ICIMS.Metro\ICIMS.Metro.csproj", "{A352BF5F-8655-499A-B0EC-195AAB99E83A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICIMS.Controls", "ICIMS.Controls\ICIMS.Controls.csproj", "{DD105B6C-76A1-4BAB-93E6-1C51374BF8C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DLLs", "DLLs", "{AF1C8B75-C751-49C2-B679-F74435FFD54C}"
+	ProjectSection(SolutionItems) = preProject
+		D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.Data.dll = D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.Data.dll
+		D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.dll = D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.dll
+		D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.GridView.dll = D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.GridView.dll
+		D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.Input.dll = D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.Input.dll
+		D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.Navigation.dll = D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.Navigation.dll
+		D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Data.dll = D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Data.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{9C43A223-14C0-4944-88A8-094FE6264455}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICIMS.Modules.BaseData", "Modules\ICIMS.Modules.BaseData\ICIMS.Modules.BaseData.csproj", "{D1C89AA2-20E5-40D1-B9EC-85D1790DE85B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICIMS.Modules.SystemAdmin", "Modules\ICIMS.Modules.SystemAdmin\ICIMS.Modules.SystemAdmin.csproj", "{6A9DF827-AEC4-434D-A444-CF888E20DDCB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E642B971-FC28-48E8-9015-A863AA148D6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E642B971-FC28-48E8-9015-A863AA148D6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E642B971-FC28-48E8-9015-A863AA148D6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E642B971-FC28-48E8-9015-A863AA148D6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4DFB410-BA45-4336-BA97-442B87E47641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4DFB410-BA45-4336-BA97-442B87E47641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4DFB410-BA45-4336-BA97-442B87E47641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4DFB410-BA45-4336-BA97-442B87E47641}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0DB70EE-E7AB-479A-8AB0-3214359825B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0DB70EE-E7AB-479A-8AB0-3214359825B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0DB70EE-E7AB-479A-8AB0-3214359825B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0DB70EE-E7AB-479A-8AB0-3214359825B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A352BF5F-8655-499A-B0EC-195AAB99E83A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A352BF5F-8655-499A-B0EC-195AAB99E83A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A352BF5F-8655-499A-B0EC-195AAB99E83A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A352BF5F-8655-499A-B0EC-195AAB99E83A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD105B6C-76A1-4BAB-93E6-1C51374BF8C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD105B6C-76A1-4BAB-93E6-1C51374BF8C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD105B6C-76A1-4BAB-93E6-1C51374BF8C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD105B6C-76A1-4BAB-93E6-1C51374BF8C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1C89AA2-20E5-40D1-B9EC-85D1790DE85B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1C89AA2-20E5-40D1-B9EC-85D1790DE85B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1C89AA2-20E5-40D1-B9EC-85D1790DE85B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1C89AA2-20E5-40D1-B9EC-85D1790DE85B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A9DF827-AEC4-434D-A444-CF888E20DDCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A9DF827-AEC4-434D-A444-CF888E20DDCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A9DF827-AEC4-434D-A444-CF888E20DDCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A9DF827-AEC4-434D-A444-CF888E20DDCB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D1C89AA2-20E5-40D1-B9EC-85D1790DE85B} = {9C43A223-14C0-4944-88A8-094FE6264455}
+		{6A9DF827-AEC4-434D-A444-CF888E20DDCB} = {9C43A223-14C0-4944-88A8-094FE6264455}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F69C6824-41C4-4FB6-A5D4-A7C9D2B332AF}
+	EndGlobalSection
+EndGlobal
