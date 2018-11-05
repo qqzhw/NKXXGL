@@ -22,7 +22,7 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                           Margin="{TemplateBinding BorderMargion}" >
                         <StackPanel Orientation="Horizontal" >
-                            <Image  Source="{TemplateBinding ImageSource}"  Width="{TemplateBinding Width}"/>
+                            <Image  Source="{TemplateBinding ImageSource}"  Width="{TemplateBinding ImgWidth}"/>
                             <StackPanel>
                                 <TextBlock x:Name="pText" Text="{TemplateBinding Text}" Margin="0,6,0,0" FontSize="{TemplateBinding FontSize}"  Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" VerticalAlignment="Center" ></TextBlock>
                                 <TextBlock Text="{TemplateBinding SecText}" FontSize="{TemplateBinding FontSize}" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" VerticalAlignment="Center" ></TextBlock>
