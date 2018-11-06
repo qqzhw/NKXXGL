@@ -670,12 +670,12 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="180"/>
             <ColumnDefinition Width="8"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.RowSpan="2" Grid.Column="0" Background="#DEDEDE">
-            <ListBox Margin="5" BorderThickness="0" Background="#DEDEDE"   HorizontalContentAlignment="Left" SelectedIndex="0"   SelectedItem="{Binding SelectedItem}"  SelectionMode="Single" VerticalAlignment="Stretch"   ItemsSource="{Binding SystemInfos}"   x:Name="LstBoxMore">
+        <Grid  Grid.Column="0" Background="#DEDEDE">
+            <ListBox  BorderThickness="0" Background="#DEDEDE"   HorizontalContentAlignment="Left" SelectedIndex="0"   SelectedItem="{Binding SelectedItem}"  SelectionMode="Single" VerticalAlignment="Stretch"   ItemsSource="{Binding SystemInfos}"   x:Name="LstBoxMore">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <prism:InvokeCommandAction Command="{Binding SelectedCommand}"    TriggerParameterPath="AddedItems" />
