@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ICIMS.Controls
+namespace ICIMS.Modules.BaseData.Views
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// VendorView.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class VendorView : UserControl
     {
-        public MainWindow()
+        public VendorView()
         {
             InitializeComponent();
         }

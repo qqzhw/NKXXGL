@@ -76,7 +76,67 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\BuyCategoryEditViewModel.cs" />
+    <Compile Include="ViewModels\BuyCategoryViewModel.cs" />
+    <Compile Include="ViewModels\ContractEditViewModel.cs" />
+    <Compile Include="ViewModels\ContractViewModel.cs" />
+    <Compile Include="ViewModels\DocumentTypeEditViewModel.cs" />
+    <Compile Include="ViewModels\DocumentTypeViewModel.cs" />
+    <Compile Include="ViewModels\FundEditViewModel.cs" />
+    <Compile Include="ViewModels\FundViewModel.cs" />
+    <Compile Include="ViewModels\ItemCategoryEditViewModel.cs" />
+    <Compile Include="ViewModels\ItemCategoryViewModel.cs" />
+    <Compile Include="ViewModels\PaymentTypeEditViewModel.cs" />
+    <Compile Include="ViewModels\PaymentTypeViewModel.cs" />
+    <Compile Include="ViewModels\SubjectEditViewModel.cs" />
+    <Compile Include="ViewModels\SubjectViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModels\VendorEditViewModel.cs" />
+    <Compile Include="ViewModels\VendorViewModel.cs" />
+    <Compile Include="ViewModels\YsCategoryEditViewModel.cs" />
+    <Compile Include="ViewModels\YsCategoryViewModel.cs" />
+    <Compile Include="Views\BuyCategoryEditView.xaml.cs">
+      <DependentUpon>BuyCategoryEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BuyCategoryView.xaml.cs">
+      <DependentUpon>BuyCategoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContractEditView.xaml.cs">
+      <DependentUpon>ContractEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContractView.xaml.cs">
+      <DependentUpon>ContractView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DocumentTypeEditView.xaml.cs">
+      <DependentUpon>DocumentTypeEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DocumentTypeView.xaml.cs">
+      <DependentUpon>DocumentTypeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FundEditView.xaml.cs">
+      <DependentUpon>FundEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FundView.xaml.cs">
+      <DependentUpon>FundView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ItemCategoryEditView.xaml.cs">
+      <DependentUpon>ItemCategoryEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ItemCategoryView.xaml.cs">
+      <DependentUpon>ItemCategoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PaymentTypeEditView.xaml.cs">
+      <DependentUpon>PaymentTypeEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PaymentTypeView.xaml.cs">
+      <DependentUpon>PaymentTypeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SubjectEditView.xaml.cs">
+      <DependentUpon>SubjectEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SubjectView.xaml.cs">
+      <DependentUpon>SubjectView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TestView.xaml.cs">
       <DependentUpon>TestView.xaml</DependentUpon>
     </Compile>
@@ -84,11 +144,95 @@
       <DependentUpon>UserView.xaml</DependentUpon>
     </Compile>
     <Compile Include="BaseDataModule.cs" />
+    <Compile Include="Views\VendorEditView.xaml.cs">
+      <DependentUpon>VendorEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VendorView.xaml.cs">
+      <DependentUpon>VendorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\YsCategoryEditView.xaml.cs">
+      <DependentUpon>YsCategoryEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\YsCategoryView.xaml.cs">
+      <DependentUpon>YsCategoryView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\BuyCategoryEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BuyCategoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContractEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContractView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DocumentTypeEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DocumentTypeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FundEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FundView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ItemCategoryEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ItemCategoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PaymentTypeEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PaymentTypeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SubjectEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SubjectView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\TestView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VendorEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VendorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\YsCategoryEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\YsCategoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

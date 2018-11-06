@@ -28,7 +28,7 @@
                             </Grid.ColumnDefinitions>
                             <Image  Source="{TemplateBinding ImageSource}"  Width="40" />
 
-                            <TextBlock Grid.Column="1" x:Name="pText" Text="{TemplateBinding Text}" Margin="10,1,0,0" FontSize="{TemplateBinding FontSize}"  Foreground="Black" FontWeight="{TemplateBinding FontWeight}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" x:Name="pText" Text="{TemplateBinding Text}"  FontFamily="SimSun"  Margin="10,1,0,0" FontSize="{TemplateBinding FontSize}"  Foreground="#333333" FontWeight="{TemplateBinding FontWeight}" VerticalAlignment="Center"/>
 
 
                         </Grid>

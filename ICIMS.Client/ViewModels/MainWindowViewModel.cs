@@ -131,7 +131,7 @@ namespace ICIMS.Client.ViewModels
         {
             _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "MainView",
+                Id = "BaseDataView",
                 Title = "基础资料",
                 InitMode = InitializationMode.OnDemand,
                 IsDefaultShow = true,
