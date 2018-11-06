@@ -267,8 +267,8 @@
             <ColumnDefinition Width="220"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.ColumnSpan="2" Background="#DEDEDE">
-            <ListBox Margin="5" BorderThickness="0" Background="Transparent" Grid.RowSpan="2" HorizontalContentAlignment="Left" SelectedIndex="0"   SelectedItem="{Binding SelectedItem}"  SelectionMode="Single" VerticalAlignment="Stretch"   ItemsSource="{Binding SystemInfos}"   x:Name="LstBoxMore">
+        <Grid Grid.RowSpan="2" Grid.Column="0" Background="#DEDEDE">
+            <ListBox Margin="5" BorderThickness="0" Background="#DEDEDE"   HorizontalContentAlignment="Left" SelectedIndex="0"   SelectedItem="{Binding SelectedItem}"  SelectionMode="Single" VerticalAlignment="Stretch"   ItemsSource="{Binding SystemInfos}"   x:Name="LstBoxMore">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <prism:InvokeCommandAction Command="{Binding SelectedCommand}"    TriggerParameterPath="AddedItems" />
@@ -281,9 +281,10 @@
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate >
-                        <control:MenuNavControl x:Name="menu" Margin="0,5,0,5" ImgWidth="36" ImageSource="pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu1_基础信息.ico">                           
+                        <Grid>
+                        <control:MenuNavControl x:Name="menu" Margin="0,5,0,5" FontSize="24" Foreground="Black"  FontWeight="Medium" ImageSource="pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu1_基础信息.ico"  Text="{Binding Title}" >                           
                         </control:MenuNavControl>
-                      
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

@@ -58,20 +58,20 @@ namespace ICIMS.Client
 
         protected override Window CreateShell()
         {
-            Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-            var loginView = Container.Resolve<LoginView>();
-            loginView.ShowDialog();
-            if (loginView.DialogResult == true)
-            {
-                return Container.Resolve<MainWindow>();
-            }
-            else
-            {
-                System.Environment.Exit(0);
-                return null;
-            }
+            //Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            //var loginView = Container.Resolve<LoginView>();
+            //loginView.ShowDialog();
+            //if (loginView.DialogResult == true)
+            //{
+            //    return Container.Resolve<MainWindow>();
+            //}
+            //else
+            //{
+            //    System.Environment.Exit(0);
+            //    return null;
+            //}
 
-           //return Container.Resolve<MainWindow>();
+            return Container.Resolve<MainWindow>();
         }
         protected override void InitializeShell(Window shell)
         {

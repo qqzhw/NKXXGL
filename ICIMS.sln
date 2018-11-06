@@ -15,6 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICIMS.Controls", "ICIMS.Con
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DLLs", "DLLs", "{AF1C8B75-C751-49C2-B679-F74435FFD54C}"
 	ProjectSection(SolutionItems) = preProject
+		ICIMS.Metro\bin\Debug\ControlzEx.dll = ICIMS.Metro\bin\Debug\ControlzEx.dll
+		ICIMS.Metro\bin\Debug\JetBrains.Annotations.dll = ICIMS.Metro\bin\Debug\JetBrains.Annotations.dll
+		ICIMS.Metro\bin\Debug\System.Windows.Interactivity.dll = ICIMS.Metro\bin\Debug\System.Windows.Interactivity.dll
 		D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.Data.dll = D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.Data.dll
 		D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.dll = D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.dll
 		D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.GridView.dll = D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.GridView.dll
