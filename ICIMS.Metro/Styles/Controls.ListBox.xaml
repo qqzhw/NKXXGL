@@ -65,7 +65,7 @@
     </Style>
 
     <Style x:Key="MetroListBoxItem" TargetType="{x:Type ListBoxItem}">
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="#DEDEDE" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Controls:ItemHelper.ActiveSelectionBackgroundBrush" Value="{DynamicResource AccentColorBrush}" />
         <Setter Property="Controls:ItemHelper.ActiveSelectionForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}" />
@@ -76,7 +76,7 @@
         <Setter Property="Controls:ItemHelper.HoverSelectedBackgroundBrush" Value="{DynamicResource AccentColorBrush}" />
         <Setter Property="Controls:ItemHelper.SelectedBackgroundBrush" Value="{DynamicResource AccentColorBrush2}" />
         <Setter Property="Controls:ItemHelper.SelectedForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+        <Setter Property="Foreground" Value="Black" />
         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, Mode=OneWay, FallbackValue=Stretch, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="MinHeight" Value="25" />
@@ -101,7 +101,7 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Controls:ItemHelper.SelectedForegroundBrush), Mode=OneWay}" />
+                            <Setter Property="Foreground" Value="Black" />
                             <Setter TargetName="Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ItemHelper.SelectedBackgroundBrush), Mode=OneWay}" />
                         </Trigger>
                         <MultiTrigger>

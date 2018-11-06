@@ -14,8 +14,7 @@
         xmlns:framework="clr-namespace:ICIMS.Core.Interactivity;assembly=ICIMS.Core"
         xmlns:Interaction="clr-namespace:ICIMS.Core.Interactivity.InteractionRequest;assembly=ICIMS.Core"
                       mc:Ignorable="d" Closing="MetroWindow_Closing"
-                      GlowBrush="{DynamicResource AccentColorBrush}"
-                     
+                      GlowBrush="{DynamicResource AccentColorBrush}" 
                       NonActiveGlowBrush="#CDFF0000"
                       ShowIconOnTitleBar="True"
                       ShowTitleBar="{Binding ShowMyTitleBar, Mode=TwoWay}"
@@ -252,10 +251,7 @@
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands ShowLastSeparator="False">
-          
-            <ToggleButton Content="Confirm quit"
-                          IsChecked="{Binding QuitConfirmationEnabled}"
-                          ToolTip="Enable quit confirmation dialog on exit" />
+           
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
     <Grid>
@@ -264,7 +260,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="8"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.RowSpan="2" Grid.Column="0" Background="#DEDEDE">
@@ -280,19 +277,18 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
-                    <DataTemplate >
-                        <Grid>
-                        <control:MenuNavControl x:Name="menu" Margin="0,5,0,5" FontSize="24" Foreground="Black"  FontWeight="Medium" ImageSource="pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu1_基础信息.ico"  Text="{Binding Title}" >                           
-                        </control:MenuNavControl>
-                        </Grid>
+                    <DataTemplate > 
+                        <control:MenuNavControl x:Name="menu" Margin="0,5,0,5"  Height="32" FontSize="24"    FontWeight="Medium" ImageSource="pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu1_基础信息.ico"  Text="{Binding Title}" >                           
+                        </control:MenuNavControl> 
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
 
         </Grid>
-       <telerik:RadTabControl HorizontalAlignment="Stretch" 
+        <Rectangle Width="8" Fill="#B0C4DE" Grid.Column="1"/>
+        <telerik:RadTabControl HorizontalAlignment="Stretch" 
 			
-			  telerik:StyleManager.Theme="Office2016Touch"  VerticalContentAlignment="Stretch"  prism:RegionManager.RegionName="MainRegion" x:Name="MainTabControl" Grid.Row="0"  Grid.Column="1">
+			  telerik:StyleManager.Theme="Office2016Touch" BorderThickness="0" VerticalContentAlignment="Stretch"  prism:RegionManager.RegionName="MainRegion" x:Name="MainTabControl" Grid.Row="0"  Grid.Column="2">
 
             <telerik:RadTabControl.ItemContainerStyle> 
                 <Style TargetType="{x:Type telerik:RadTabItem}">
@@ -317,9 +313,9 @@
            
         </telerik:RadTabControl>
 
-        <StatusBar Grid.Row="1" Grid.ColumnSpan="2">
+        <StatusBar Grid.Row="1" Grid.ColumnSpan="3" Height="30" BorderBrush="#999999" Background="#DEDEDE" Foreground="Black" BorderThickness="0,1,0,0">
             <StatusBarItem>操作员</StatusBarItem>
-            <Separator Style="{StaticResource MetroStatusBarSeparator}" />
+            <Separator  Foreground="#333333"/>
             <StatusBarItem>管理员</StatusBarItem>
             <StatusBarItem  Content="{Binding ElementName=MainTabControl, Path=SelectedItem.Header, Mode=OneWay}" />
         </StatusBar>

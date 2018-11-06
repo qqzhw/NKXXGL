@@ -36,7 +36,7 @@ namespace ICIMS.Controls
     ///     <MyNamespace:MenuNavControl/>
     ///
     /// </summary>
-    public class MenuNavControl : ToggleButton
+    public class MenuNavControl : Control
     {
         private const string SwitchPart = "NumberBorder";
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(MenuNavControl), new PropertyMetadata(default(string)));
@@ -143,7 +143,7 @@ namespace ICIMS.Controls
             //this.Background = brush; 
             //this.Foreground =new SolidColorBrush(Colors.White);
             this.Opacity = 0.8;
-            Raise(Click, this, e);
+           // Raise(Click, this, e);
         }
 
         public static void Raise<T>(EventHandler<T> eventToRaise, object sender, T args) where T : EventArgs

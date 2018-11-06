@@ -132,7 +132,7 @@ namespace ICIMS.Client.ViewModels
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "MainView",
-                Title = "实时数据",
+                Title = "基础资料",
                 InitMode = InitializationMode.OnDemand,
                 IsDefaultShow = true,
                 IsSelected = true,
@@ -140,28 +140,28 @@ namespace ICIMS.Client.ViewModels
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "UsersView",
-                Title = "设备管理",
+                Title = "内控管理",
                 InitMode = InitializationMode.OnDemand,
                 IsDefaultShow = false,
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "UserView",
-                Title = "设备工况",
+                Title = "资产管理",
                 InitMode = InitializationMode.OnDemand,
                 IsDefaultShow = false,
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "ViewB",
-                Title = "水情数据",
+                Title = "数据采集",
                 InitMode = InitializationMode.OnDemand,
                 IsDefaultShow = false,
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "ViewA",
-                Title = "基本设置",
+                Title = "系统管理",
                 InitMode = InitializationMode.OnDemand,
                 IsDefaultShow = false,
             });

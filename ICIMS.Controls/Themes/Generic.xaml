@@ -17,22 +17,25 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MenuNavControl}">
-                    <Border  x:Name="NumberBorder" Background="{TemplateBinding Background}"  CornerRadius="{TemplateBinding CornerRadius}"
+                    <Border  x:Name="NumberBorder"   CornerRadius="{TemplateBinding CornerRadius}"
                             BorderBrush="{TemplateBinding BorderBrush}" 
                             BorderThickness="{TemplateBinding BorderThickness}"
                           Margin="{TemplateBinding BorderMargion}" >
-                        <StackPanel Orientation="Horizontal" >
-                            <Image  Source="{TemplateBinding ImageSource}"  Width="40"/>
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image  Source="{TemplateBinding ImageSource}"  Width="40" />
 
-                            <TextBlock x:Name="pText" Text="{TemplateBinding Text}" Margin="10,1,0,0" FontSize="{TemplateBinding FontSize}"  Foreground="Black" FontWeight="{TemplateBinding FontWeight}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" x:Name="pText" Text="{TemplateBinding Text}" Margin="10,1,0,0" FontSize="{TemplateBinding FontSize}"  Foreground="Black" FontWeight="{TemplateBinding FontWeight}" VerticalAlignment="Center"/>
 
 
-                        </StackPanel>
+                        </Grid>
                     </Border>
 
                     <ControlTemplate.Triggers>
-
-
+ 
                         <Trigger Property="IsMouseOver"  Value="true">
                             <Trigger.Setters>
                                 <Setter Property="Foreground" TargetName="pText" Value="White"/>
@@ -40,10 +43,10 @@
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="false">
                             <Trigger.Setters>
-                                <Setter Property="Foreground" TargetName="pText" Value="#FF74B8DF"/>
+                                <Setter Property="Foreground" TargetName="pText" Value="Black"/>
                             </Trigger.Setters>
                         </Trigger>
-
+   
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
