@@ -103,7 +103,7 @@ namespace ICIMS.Service
                                 throw new ICIMSException("Could not made request to " + url + "! StatusCode: " + response.StatusCode + ", ReasonPhrase: " + response.ReasonPhrase);
                             }
 
-                            var ajaxResponse = JsonString2Object<AjaxResponse<TResult>>(await response.Content.ReadAsStringAsync());
+                            var ajaxResponse = JsonStringToObject<AjaxResponse<TResult>>(await response.Content.ReadAsStringAsync());
                             if (!ajaxResponse.Success)
                             {
                                 throw new RemoteCallException(ajaxResponse.Error);
@@ -142,7 +142,7 @@ namespace ICIMS.Service
                 });
         }
 
-        private static TObj JsonString2Object<TObj>(string str)
+        private static TObj JsonStringToObject<TObj>(string str)
         {
             return JsonConvert.DeserializeObject<TObj>(str,
                 new JsonSerializerSettings
@@ -207,14 +207,14 @@ namespace ICIMS.Service
                             }
                         }
 
-                        using (var response = await client.GetAsync(url + "?" + Object2QueryString(requestContent)))
+                        using (var response = await client.GetAsync(url + "?" + ObjectToQueryString(requestContent)))
                         {
                             if (!response.IsSuccessStatusCode)
                             {
                                 throw new ICIMSException("Could not made request to " + url + "! StatusCode: " + response.StatusCode + ", ReasonPhrase: " + response.ReasonPhrase);
                             }
 
-                            var ajaxResponse = JsonString2Object<AjaxResponse<TResult>>(await response.Content.ReadAsStringAsync());
+                            var ajaxResponse = JsonStringToObject<AjaxResponse<TResult>>(await response.Content.ReadAsStringAsync());
                             if (!ajaxResponse.Success)
                             {
                                 throw new RemoteCallException(ajaxResponse.Error);
@@ -228,7 +228,7 @@ namespace ICIMS.Service
         }
 
 
-        private string Object2QueryString(StringContent requestContent)
+        private string ObjectToQueryString(StringContent requestContent)
         {
             var properties = from p in requestContent.GetType().GetProperties()
                              where p.GetValue(requestContent, null) != null
