@@ -40,7 +40,7 @@ namespace ICIMS.Service
             Cookies = new Collection<Cookie>();
             RequestHeaders = new List<NameValue>();
             ResponseHeaders = new List<NameValue>();
-            BaseUrl = "http://localhost:5000/";
+            BaseUrl = "http://localhost:21025/";
         }
 
         public virtual async Task PostAsync(string url, int? timeout = null)

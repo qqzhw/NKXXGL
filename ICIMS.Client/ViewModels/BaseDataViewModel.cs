@@ -86,6 +86,13 @@ namespace ICIMS.Client.ViewModels
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu2_资产管理_基础信息.ico",
                 IsDefaultShow = false,
             });
+            _systemInfos.Add(new SystemInfoViewModel()
+            {
+                Id = "FundView",
+                Title = "资金来源",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu2_资产管理_基础信息.ico",
+                IsDefaultShow = false,
+            });
         }
 
         private void OnItemSelected(SystemInfoViewModel selectedItem)

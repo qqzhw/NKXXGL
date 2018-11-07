@@ -6,6 +6,7 @@ using ICIMS.Metro.Controls;
 using ICIMS.Modules.BaseData;
 using ICIMS.Modules.SystemAdmin;
 using ICIMS.Service;
+using ICIMS.Service.BaseData;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
@@ -86,6 +87,7 @@ namespace ICIMS.Client
         {
             containerRegistry.Register<IWebApiClient, WebApiClient>();
             containerRegistry.Register<IUserService, UserService>();
+            containerRegistry.Register<IFundFromService, FundFromService>();
             
         }
        

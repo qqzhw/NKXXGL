@@ -39,6 +39,7 @@ namespace ICIMS.Modules.BaseData
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<UserView>();
+            containerRegistry.RegisterForNavigation<FundView>();
             //containerRegistry.RegisterForNavigation<ViewB>();
         }
     }
