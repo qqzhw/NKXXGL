@@ -72,15 +72,15 @@
     <Compile Include="Utils\WebApiClient.cs" />
     <Compile Include="Utils\AjaxResponse.cs" />
     <Compile Include="Utils\AjaxResponseBase.cs" />
-    <Compile Include="AuthenticateResultDto.cs" />
+    <Compile Include="Utils\AuthenticateResultDto.cs" />
     <Compile Include="BaseData\BuyCategoryService.cs" />
     <Compile Include="BaseData\IBuyCategoryService.cs" />
     <Compile Include="Utils\CollectionExtensions.cs" />
-    <Compile Include="UserService.cs" />
+    <Compile Include="User\UserService.cs" />
     <Compile Include="Utils\ErrorInfo.cs" />
     <Compile Include="Utils\IWebApiClient.cs" />
     <Compile Include="Utils\ICIMSException.cs" />
-    <Compile Include="IUserService.cs" />
+    <Compile Include="User\IUserService.cs" />
     <Compile Include="Utils\NameValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -120,8 +120,6 @@
       <Name>ICIMS.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="User\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

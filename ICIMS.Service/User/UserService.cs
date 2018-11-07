@@ -83,7 +83,7 @@ namespace ICIMS.Service
             _webApiClient.Password = "123qwe";
             _webApiClient.TokenBasedAuth();
             var ss1 = await _webApiClient.GetAsync<User>(_webApiClient.BaseUrl + "api/services/app/Session/GetCurrentLoginInformations", null);
-            var user =await _webApiClient.GetAsync<User>(_webApiClient.BaseUrl+ "api/services/app/Role/GetAll", null, null);
+            var user =await _webApiClient.GetAsync<ResultData<List<User>>>(_webApiClient.BaseUrl+ "api/services/app/Role/GetAll", null, null);
             return "";
         }
 

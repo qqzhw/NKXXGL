@@ -29,9 +29,6 @@ namespace ICIMS.Service
         /// </summary>
         public bool UnAuthorizedRequest { get; set; }
 
-        /// <summary>
-        /// A special signature for AJAX responses. It's used in the client to detect if this is a response wrapped by ABP.
-        /// </summary>
-        public bool __abp { get; } = true;
+        
     }
 }
