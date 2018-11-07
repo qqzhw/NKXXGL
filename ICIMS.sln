@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICIMS.Modules.SystemAdmin",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICIMS.Model", "ICIMS.Model\ICIMS.Model.csproj", "{EC6B9D27-D03E-48AB-A6DF-060A8AB7F25F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{85E9E79F-979E-4FFB-89A3-4B9F06474A2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,10 @@ Global
 		{EC6B9D27-D03E-48AB-A6DF-060A8AB7F25F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC6B9D27-D03E-48AB-A6DF-060A8AB7F25F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC6B9D27-D03E-48AB-A6DF-060A8AB7F25F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85E9E79F-979E-4FFB-89A3-4B9F06474A2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85E9E79F-979E-4FFB-89A3-4B9F06474A2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85E9E79F-979E-4FFB-89A3-4B9F06474A2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85E9E79F-979E-4FFB-89A3-4B9F06474A2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,4 @@
-﻿using ICIMS.Modules.BaseData.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,22 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ICIMS.Modules.BaseData.Views
+namespace TestProject
 {
     /// <summary>
-    /// FundView.xaml 的交互逻辑
+    /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class FundView : UserControl
+    public partial class MainWindow : Window
     {
-        public FundView(FundViewModel viewModel)
+        public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = viewModel;
+            this.DataContext = new MainViewViewModel();
         }
-
-        //public FundView()
-        //{
-        //    InitializeComponent();
-        //}
     }
 }
