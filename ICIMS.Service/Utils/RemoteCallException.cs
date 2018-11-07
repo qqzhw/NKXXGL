@@ -8,7 +8,7 @@ namespace ICIMS.Service
     /// This exception is thrown when a remote method call made and remote application sent an error message.
     /// </summary>
     [Serializable]
-    public class AbpRemoteCallException : ICIMSException
+    public class RemoteCallException : ICIMSException
     {
         /// <summary>
         /// Remote error information.
@@ -18,7 +18,7 @@ namespace ICIMS.Service
         /// <summary>
         /// Creates a new <see cref="AbpException"/> object.
         /// </summary>
-        public AbpRemoteCallException()
+        public RemoteCallException()
         {
 
         }
@@ -26,7 +26,7 @@ namespace ICIMS.Service
         /// <summary>
         /// Creates a new <see cref="AbpException"/> object.
         /// </summary>
-        public AbpRemoteCallException(SerializationInfo serializationInfo, StreamingContext context)
+        public RemoteCallException(SerializationInfo serializationInfo, StreamingContext context)
             : base(serializationInfo, context)
         {
 
@@ -36,7 +36,7 @@ namespace ICIMS.Service
         /// Creates a new <see cref="AbpException"/> object.
         /// </summary>
         /// <param name="errorInfo">Exception message</param>
-        public AbpRemoteCallException(ErrorInfo errorInfo)
+        public RemoteCallException(ErrorInfo errorInfo)
             : base(errorInfo.Message)
         {
             ErrorInfo = errorInfo;

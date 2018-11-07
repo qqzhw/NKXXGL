@@ -40,7 +40,7 @@ namespace ICIMS.Service
             Cookies = new Collection<Cookie>();
             RequestHeaders = new List<NameValue>();
             ResponseHeaders = new List<NameValue>();
-            BaseUrl = "http://120.78.240.7:8088/";
+            BaseUrl = "http://localhost:5000/";
         }
 
         public virtual async Task PostAsync(string url, int? timeout = null)
@@ -106,7 +106,7 @@ namespace ICIMS.Service
                             var ajaxResponse = JsonString2Object<AjaxResponse<TResult>>(await response.Content.ReadAsStringAsync());
                             if (!ajaxResponse.Success)
                             {
-                                throw new AbpRemoteCallException(ajaxResponse.Error);
+                                throw new RemoteCallException(ajaxResponse.Error);
                             }
 
                             return ajaxResponse.Result;
@@ -217,7 +217,7 @@ namespace ICIMS.Service
                             var ajaxResponse = JsonString2Object<AjaxResponse<TResult>>(await response.Content.ReadAsStringAsync());
                             if (!ajaxResponse.Success)
                             {
-                                throw new AbpRemoteCallException(ajaxResponse.Error);
+                                throw new RemoteCallException(ajaxResponse.Error);
                             }
 
                             return ajaxResponse.Result;
