@@ -103,7 +103,7 @@ namespace ICIMS.Client.ViewModels
         public async void InitLoadSetting()
         {
             // _title = Settings.Default.AppName;
-            var ss =await _userSerice.GetUserInfoAsync(1);
+            //var ss =await _userSerice.GetUserInfoAsync(1);
         }
 
         [InjectionMethod]

@@ -26,10 +26,5 @@ namespace ICIMS.Modules.BaseData.Views
             InitializeComponent();
             this.DataContext = viewModel;
         }
-
-        //public FundView()
-        //{
-        //    InitializeComponent();
-        //}
     }
 }

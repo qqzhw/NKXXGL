@@ -1,4 +1,5 @@
-﻿using ICIMS.Modules.BaseData.Views;
+﻿using ICIMS.Modules.BaseData.ViewModels;
+using ICIMS.Modules.BaseData.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
@@ -32,7 +33,7 @@ namespace ICIMS.Modules.BaseData
         {
            
             var regionManager = containerProvider.Resolve<IRegionManager>();
-
+            
 
         }
 
@@ -40,6 +41,7 @@ namespace ICIMS.Modules.BaseData
         {
             containerRegistry.RegisterForNavigation<UserView>();
             containerRegistry.RegisterForNavigation<FundView>();
+             
             //containerRegistry.RegisterForNavigation<ViewB>();
         }
     }

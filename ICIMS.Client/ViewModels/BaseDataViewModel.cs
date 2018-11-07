@@ -106,7 +106,7 @@ namespace ICIMS.Client.ViewModels
             //  var model = selectedItems[0] as SystemInfoViewModel;
             selectedItem.IsSelected = true;
             var region = _regionManager.Regions["MainRegion"];
-            _regionManager.RequestNavigate("MainRegion", new Uri(selectedItem.Id, UriKind.Relative), navigationCallback);
+            _regionManager.RequestNavigate("MainRegion", new Uri(selectedItem.Id, UriKind.RelativeOrAbsolute), navigationCallback);
 
             // _regionManager.RequestNavigate(RegionNames.TabControlRegion, new Uri("FlandersView", UriKind.Relative));
             //  CustomPopupRequest.Raise(new Notification { Title = "Custom Popup", Content = "Custom Popup Message " });

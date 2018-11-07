@@ -11,7 +11,7 @@ namespace ICIMS.Service.BaseData
     {
         private IWebApiClient _webApiClient;
         private string _baseUrl = "api/services/app/FundFrom/GetPaged";
-        private FundFromService(IWebApiClient webApiClient)
+        public FundFromService(IWebApiClient webApiClient)
         {
             this._webApiClient = webApiClient;
         }
