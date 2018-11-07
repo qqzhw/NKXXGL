@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ICIMS.Service.BaseData
 {
-    public class IBuyCategoryService
+    public interface IBuyCategoryService
     {
+
     }
 }
