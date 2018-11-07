@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Collections.ObjectModel;
 namespace ICIMS.Client.ViewModels
 { 
     public class SystemInfoViewModel : BindableBase
@@ -56,6 +56,19 @@ namespace ICIMS.Client.ViewModels
         {
             get { return _moduleInfo; }
             set { SetProperty(ref _moduleInfo, value); }
+        }
+
+        public string _icon;
+        public string Icon
+        {
+            get { return _icon; }
+            set { SetProperty(ref _icon, value); }
+        }
+        private ObservableCollection<SystemInfoViewModel> _childs;
+        public ObservableCollection<SystemInfoViewModel> Childs
+        {
+            get { return _childs; }
+            set { SetProperty(ref _childs, value); }
         }
     }
 }

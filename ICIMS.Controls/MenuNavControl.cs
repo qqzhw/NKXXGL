@@ -45,7 +45,7 @@ namespace ICIMS.Controls
         public static readonly DependencyProperty ImageSourceProperty = DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(MenuNavControl), new PropertyMetadata(default(ImageSource)));
         //CornerRadius
         public static readonly DependencyProperty CornerRadiusProperty = DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(MenuNavControl), new PropertyMetadata(default(CornerRadius)));
-        public static readonly DependencyProperty ImgWidthProperty = DependencyProperty.Register("ImgWidth", typeof(int), typeof(LeftNavControl), new PropertyMetadata(16));
+        public static readonly DependencyProperty ImgWidthProperty = DependencyProperty.Register("ImgWidth", typeof(int), typeof(MenuNavControl), new PropertyMetadata(16));
 
         public static readonly DependencyProperty BorderMargionProperty = DependencyProperty.Register(
             "BorderMargion",

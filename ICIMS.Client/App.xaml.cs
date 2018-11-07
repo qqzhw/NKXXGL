@@ -5,6 +5,7 @@ using ICIMS.Core.Common;
 using ICIMS.Metro.Controls;
 using ICIMS.Modules.BaseData;
 using ICIMS.Modules.SystemAdmin;
+using ICIMS.Service;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
@@ -20,6 +21,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using Telerik.Windows.Controls;
+using Unity.Lifetime;
 using WJDeviceClient.ViewModels;
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = @"Log4Net\log4Net.config", Watch = true)]
@@ -82,8 +84,11 @@ namespace ICIMS.Client
         }
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-           
+            containerRegistry.Register<IWebApiClient, WebApiClient>();
+            containerRegistry.Register<IUserService, UserService>();
+            
         }
+       
 
         protected override void ConfigureRegionAdapterMappings(RegionAdapterMappings regionAdapterMappings)
         {

@@ -688,7 +688,12 @@
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate >
-                        <control:MenuNavControl x:Name="menu" Margin="0,5,0,5"  Height="36" FontSize="20"    FontWeight="Black" ImageSource="pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu1_基础信息.ico"  Text="{Binding Title}" />
+                        <!--<control:MenuNavControl x:Name="menu" Margin="0,5,0,5"  Height="36" FontSize="20"    FontWeight="Black" ImageSource="pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu1_基础信息.ico"  Text="{Binding Title}" />-->
+
+                        <control:SwitchControl   Margin="15,8,15,8"  IsSelected="{Binding IsSelected}" 
+											      VerticalAlignment="Stretch"   SelectedBackground="#222328"  
+                                                  Title="{Binding Title}">
+                        </control:SwitchControl>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

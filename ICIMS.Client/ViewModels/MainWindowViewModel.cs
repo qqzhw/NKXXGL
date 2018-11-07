@@ -1,5 +1,6 @@
 ﻿using CommonServiceLocator;
 using ICIMS.Core.Events;
+using ICIMS.Service;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
@@ -32,13 +33,15 @@ namespace ICIMS.Client.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IModuleManager _moduleManager;
         private readonly IServiceLocator _serviceLocator;
-        public MainWindowViewModel(IUnityContainer container, IEventAggregator eventAggregator, IRegionManager regionManager, IModuleManager moduleManager, IServiceLocator serviceLocator)
+        private readonly IUserService _userSerice;
+        public MainWindowViewModel(IUnityContainer container, IEventAggregator eventAggregator, IRegionManager regionManager, IModuleManager moduleManager, IServiceLocator serviceLocator, IUserService userSerice)
         {
             _container = container;
             _eventAggregator = eventAggregator;
             _regionManager = regionManager;
             _moduleManager = moduleManager;
             _serviceLocator = serviceLocator;
+            _userSerice = userSerice;
           //  CustomPopupRequest = new InteractionRequest<INotification>();
             CustomPopupCommand = new DelegateCommand(RaiseCustomPopup);
             _systemInfos = new ObservableCollection<SystemInfoViewModel>();
@@ -97,9 +100,10 @@ namespace ICIMS.Client.ViewModels
         /// <summary>
         /// 加载设置选项
         /// </summary>
-        public void InitLoadSetting()
+        public async void InitLoadSetting()
         {
-           // _title = Settings.Default.AppName;
+            // _title = Settings.Default.AppName;
+            var ss =await _userSerice.GetUserInfoAsync(1);
         }
 
         [InjectionMethod]

@@ -411,14 +411,19 @@ VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixe
                     <Border x:Name="switchBorder" Background="{TemplateBinding Background}" CornerRadius="5"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
+                       
+                            <ContentControl  x:Name="cControl" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="Auto" Background="Transparent"  FontWeight="ExtraBold"  VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" /> 
                             </Grid.RowDefinitions>
-                            <ContentControl  x:Name="cControl" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="Auto" Background="Transparent" FontSize="17" FontWeight="ExtraBold" FontFamily="SimHei" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="{TemplateBinding Content}"/>
+                                <Image Source="{TemplateBinding ImageSource}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="50"/>
+                                <TextBlock Grid.Row="1" Margin="0,5,0,0" FontSize="{TemplateBinding FontSize}" FontWeight="{TemplateBinding FontWeight}" VerticalAlignment="Top" HorizontalAlignment="Center" Text="{TemplateBinding Title}" />
+                            </Grid>
+                        </ContentControl>
                             <!--<Border x:Name="border" Margin="0" BorderThickness="0"  Grid.Row="1" HorizontalAlignment="Stretch" Height="6" VerticalAlignment="Stretch"  />-->
-                        </Grid>
+                        
                     </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
@@ -426,7 +431,7 @@ VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixe
                                 <Condition Property="IsSelected" Value="False" />
                                 <Condition Property="IsMouseOver" Value="True" />
                             </MultiTrigger.Conditions>
-                            <!--<Setter TargetName="switchBorder"  Property="Background" Value="red"/>-->
+                            <Setter TargetName="switchBorder"  Property="Background" Value="#B0C4DE"/>
                             <Setter TargetName="switchBorder"  Property="Opacity" Value="0.8"/>
                         </MultiTrigger>
                         <MultiTrigger>
@@ -438,7 +443,7 @@ VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixe
                         </MultiTrigger>
                         <Trigger Property="IsSelected" Value="True">
                             <!--<Setter TargetName="switchBorder" Property="Background" Value="green"/>-->
-                            <Setter TargetName="cControl" Property="Foreground" Value="White"/>
+                            <Setter TargetName="cControl" Property="Foreground" Value="Black"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="False">
                             <Setter TargetName="cControl" Property="Foreground" Value="#383838"/>

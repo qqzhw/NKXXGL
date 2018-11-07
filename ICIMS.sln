@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICIMS.Modules.BaseData", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICIMS.Modules.SystemAdmin", "Modules\ICIMS.Modules.SystemAdmin\ICIMS.Modules.SystemAdmin.csproj", "{6A9DF827-AEC4-434D-A444-CF888E20DDCB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICIMS.Model", "ICIMS.Model\ICIMS.Model.csproj", "{EC6B9D27-D03E-48AB-A6DF-060A8AB7F25F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,10 @@ Global
 		{6A9DF827-AEC4-434D-A444-CF888E20DDCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A9DF827-AEC4-434D-A444-CF888E20DDCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A9DF827-AEC4-434D-A444-CF888E20DDCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC6B9D27-D03E-48AB-A6DF-060A8AB7F25F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC6B9D27-D03E-48AB-A6DF-060A8AB7F25F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC6B9D27-D03E-48AB-A6DF-060A8AB7F25F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC6B9D27-D03E-48AB-A6DF-060A8AB7F25F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

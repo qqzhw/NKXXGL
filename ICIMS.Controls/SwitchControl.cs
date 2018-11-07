@@ -45,13 +45,17 @@ namespace ICIMS.Controls
 	///
 	/// </summary>
 	 
-	public class SwitchControl : Control
+	public class SwitchControl : Button
 	{
 		public static DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(string), typeof(SwitchControl));
 		public static DependencyProperty IsSelectedProperty = DependencyProperty.Register("IsSelected", typeof(bool), typeof(SwitchControl), new UIPropertyMetadata(false, new PropertyChangedCallback(OnValueChanged)));
 		public static DependencyProperty SelectedBackgroundProperty = DependencyProperty.Register("SelectedBackground", typeof(Brush), typeof(SwitchControl));
+        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(SwitchControl), new PropertyMetadata(default(string)));
+        public static readonly DependencyProperty ImageSourceProperty = DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(SwitchControl), new PropertyMetadata(default(ImageSource)));
 
-		public Brush SelectedBackground
+        public static readonly DependencyProperty ImgWidthProperty = DependencyProperty.Register("ImgWidth", typeof(double), typeof(SwitchControl), new PropertyMetadata(default(double)));
+
+        public Brush SelectedBackground
 		{
 			get
 			{
@@ -80,7 +84,9 @@ namespace ICIMS.Controls
 				//_toggleBorder.MouseLeftButtonDown += ToggleBorderMouseLeftButtonDown;
 				//_toggleBorder.MouseEnter += _toggleBorder_MouseEnter;
 				//SBorder = _toggleBorder; 
+                
 			}
+           
 		}
 
 		void _toggleBorder_MouseEnter(object sender, MouseEventArgs e)
@@ -88,10 +94,22 @@ namespace ICIMS.Controls
 			//   SelectedBackground=random.Next(0,3)
 		}
 
-
-
-
-		public bool IsSelected
+        public string Title
+        {
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
+        }
+        public ImageSource ImageSource
+        {
+            get { return (ImageSource)GetValue(ImageSourceProperty); }
+            set { SetValue(ImageSourceProperty, value); }
+        }
+        public double ImgWidth
+        {
+            get { return (double)GetValue(ImgWidthProperty); }
+            set { SetValue(ImgWidthProperty, value); }
+        }
+        public bool IsSelected
 		{
 			get { return (bool)GetValue(IsSelectedProperty); }
 			set { SetValue(IsSelectedProperty, value); }

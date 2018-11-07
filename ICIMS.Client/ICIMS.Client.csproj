@@ -232,6 +232,10 @@
       <Project>{a352bf5f-8655-499a-b0ec-195aab99e83a}</Project>
       <Name>ICIMS.Metro</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ICIMS.Service\ICIMS.Service.csproj">
+      <Project>{d0db70ee-e7ab-479a-8ab0-3214359825b5}</Project>
+      <Name>ICIMS.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Modules\ICIMS.Modules.BaseData\ICIMS.Modules.BaseData.csproj">
       <Project>{d1c89aa2-20e5-40d1-b9ec-85d1790de85b}</Project>
       <Name>ICIMS.Modules.BaseData</Name>
