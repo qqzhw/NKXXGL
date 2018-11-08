@@ -45,7 +45,7 @@
                         </i:Interaction.Triggers>-->
                         <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <WrapPanel Orientation="Horizontal"  ItemWidth="120" Height="100"/>
+                                    <telerik:VirtualizingWrapPanel Orientation="Horizontal"    ItemWidth="120" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
