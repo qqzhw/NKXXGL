@@ -19,15 +19,29 @@ namespace ICIMS.Modules.BaseData.ViewModels
     public class FundViewModel : BindableBase, INavigationAware
     {
          
-
-       
         private readonly IEventAggregator _eventAggregator;
         private readonly IFundFromService _fundFromService;
-        public FundViewModel(IEventAggregator eventAggregator,IFundFromService fundFromService)
+        private readonly IRegionManager _regionManager;
+        public FundViewModel(IEventAggregator eventAggregator,IFundFromService fundFromService, IRegionManager regionManager)
         {
             _eventAggregator = eventAggregator;
             _fundFromService = fundFromService;
+            this._regionManager = regionManager;
+            eventAggregator.GetEvent<TabCloseEvent>().Subscribe(OnTabActive);
         }
+
+        private void OnTabActive(UserControl view)
+        {
+            var region = _regionManager.Regions["MainRegion"];
+            if (region.Views.Count() > 1)
+            {
+                if (view != null)
+                {
+                    region.Remove(view);
+                }
+            }
+        }
+
         [InjectionMethod]
         public async  void Init()
         {

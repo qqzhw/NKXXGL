@@ -66,7 +66,10 @@ namespace ICIMS.Client.ViewModels
             var region = _regionManager.Regions["MainRegion"];
             if (region.Views.Count()>1)
             {
-                region.Remove(view);
+                if (view != null)
+                {
+                    region.Remove(view);
+                }
             }
           
         }

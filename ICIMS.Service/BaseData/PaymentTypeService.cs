@@ -7,22 +7,22 @@ using ICIMS.Model.BaseData;
 
 namespace ICIMS.Service.BaseData
 {
-    public class FundFromService : IFundFromService
+    public class PaymentTypeService : IPaymentTypeService
     {
         private IWebApiClient _webApiClient;
-        private string _baseUrl = "api/services/app/FundFrom/GetPaged";
-        public FundFromService(IWebApiClient webApiClient)
+        private string _baseUrl = "api/services/app/PaymentType/GetPaged";
+        public PaymentTypeService(IWebApiClient webApiClient)
         {
             this._webApiClient = webApiClient;
         }
-        public async Task<List<FundItem>> GetPageItems()
+        public async Task<List<PaymentTypeItem>> GetPaged()
         {
             _webApiClient.TenancyName = "Default";
             _webApiClient.UserName = "admin";
             _webApiClient.Password = "123qwe";
             _webApiClient.TokenBasedAuth();
             var para = new { MaxResultCount = 200 };
-            var data = await _webApiClient.GetAsync<ResultData<List<FundItem>>>($"{_webApiClient.BaseUrl}/{_baseUrl}", para);
+            var data = await _webApiClient.GetAsync<ResultData<List<PaymentTypeItem>>>($"{_webApiClient.BaseUrl}{_baseUrl}", para);
 
             return data.Items;
         }

@@ -89,7 +89,13 @@ namespace ICIMS.Client
             containerRegistry.Register<IWebApiClient, WebApiClient>();
             containerRegistry.Register<IUserService, UserService>();
             containerRegistry.Register<IFundFromService, FundFromService>();
-           
+            containerRegistry.Register<IPaymentTypeService, PaymentTypeService>();
+            containerRegistry.Register<IItemCategoryService, ItemCategoryService>();
+            
+
+
+
+
         }
        
 

@@ -4,9 +4,50 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ICIMS.Modules.BaseData.Views"
+              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <telerik:RadTreeListView x:Name="RadTreeListView1"
+								 AutoExpandItems="True"
+								 IsReadOnly="False"
+								 ItemsSource="{Binding Items}"
+								 Width="auto"
+								 MinHeight="300"
+								 Height="auto"
+								 CanUserFreezeColumns="False"
+								 RowIndicatorVisibility="Collapsed"
+                                 AutoGenerateColumns="False"
+								 ColumnWidth="*">
+            <telerik:RadTreeListView.ChildTableDefinitions>
+                <telerik:TreeListViewTableDefinition ItemsSource="{Binding Children}" />
+            </telerik:RadTreeListView.ChildTableDefinitions>
+            <telerik:RadTreeListView.Columns>
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding No}"
+											IsReadOnly="False"
+                                            Header="编号"
+											Width="150" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding Name}"
+											IsReadOnly="False"
+                                            Header="名称"
+											Width="150" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding Description}"
+											IsReadOnly="False"
+                                             Header="备注"
+											Width="150" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding Level}"
+											IsReadOnly="True"
+                                            Header="层级"
+											Width="150" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding IsLast}"
+											IsReadOnly="True"
+                                            Header="末级"
+											Width="150" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding IsForbiddened}"
+											IsReadOnly="False"
+                                            Header="禁用"
+											Width="150" />
+            </telerik:RadTreeListView.Columns>
+        </telerik:RadTreeListView>
     </Grid>
 </UserControl>

@@ -214,7 +214,8 @@ namespace ICIMS.Service
                                 throw new ICIMSException("Could not made request to " + url + "! StatusCode: " + response.StatusCode + ", ReasonPhrase: " + response.ReasonPhrase);
                             }
 
-                            var ajaxResponse = JsonStringToObject<AjaxResponse<TResult>>(await response.Content.ReadAsStringAsync());
+                            var rsStr = await response.Content.ReadAsStringAsync();
+                            var ajaxResponse = JsonStringToObject<AjaxResponse<TResult>>(rsStr);
                             if (!ajaxResponse.Success)
                             {
                                 throw new RemoteCallException(ajaxResponse.Error);

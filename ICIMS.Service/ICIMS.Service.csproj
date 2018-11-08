@@ -70,6 +70,10 @@
   <ItemGroup>
     <Compile Include="BaseData\FundFromService.cs" />
     <Compile Include="BaseData\IFundFromService.cs" />
+    <Compile Include="BaseData\IItemCategoryService.cs" />
+    <Compile Include="BaseData\IPaymentTypeService.cs" />
+    <Compile Include="BaseData\ItemCategoryService.cs" />
+    <Compile Include="BaseData\PaymentTypeService.cs" />
     <Compile Include="Utils\AsyncHelper.cs" />
     <Compile Include="Utils\RemoteCallException.cs" />
     <Compile Include="Utils\WebApiClient.cs" />

@@ -25,6 +25,7 @@ namespace ICIMS.Modules.BaseData.Views
         {
             InitializeComponent();
             this.DataContext = viewModel;
+            viewModel.View = this;
         }
     }
 }
