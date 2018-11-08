@@ -85,10 +85,11 @@ namespace ICIMS.Client
         }
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterForNavigation<BaseDataView>();
             containerRegistry.Register<IWebApiClient, WebApiClient>();
             containerRegistry.Register<IUserService, UserService>();
             containerRegistry.Register<IFundFromService, FundFromService>();
-            
+           
         }
        
 

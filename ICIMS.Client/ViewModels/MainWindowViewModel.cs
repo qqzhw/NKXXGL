@@ -45,11 +45,19 @@ namespace ICIMS.Client.ViewModels
           //  CustomPopupRequest = new InteractionRequest<INotification>();
             CustomPopupCommand = new DelegateCommand(RaiseCustomPopup);
             _systemInfos = new ObservableCollection<SystemInfoViewModel>();
-            SelectedCommand = new DelegateCommand<object[]>(OnItemSelected);
+            LoadedCommand = new DelegateCommand<object>(OnLoad);
+            SelectedCommand = new DelegateCommand<SystemInfoViewModel>(OnItemSelected);
             ConnectCmd = new DelegateCommand<string>(OnConnectedDevice);
             eventAggregator.GetEvent<TabCloseEvent>().Subscribe(OnTabActive);
-         //   Telerik.Windows.Controls.StyleManager.ApplicationTheme = new Telerik.Windows.Controls.Windows8Theme();
+            Telerik.Windows.Controls.StyleManager.ApplicationTheme = new Telerik.Windows.Controls.Office2016TouchTheme();
             InitLoadSetting();
+        }
+
+        private void OnLoad(object obj)
+        {
+            //默认加载首页
+            var defaultView = SystemInfos.FirstOrDefault(o => o.IsDefaultShow);
+            OnItemSelected(defaultView);
         }
 
         private void OnTabActive(UserControl view)
@@ -78,9 +86,9 @@ namespace ICIMS.Client.ViewModels
             SelectedItem = model;
         }
 
-        public DelegateCommand<object[]> SelectedCommand { get; private set; }
+        public ICommand SelectedCommand { get; private set; }
         public ICommand ConnectCmd { get; private set; }
-        public ICommand SdkInitCmd { get; private set; }
+        public ICommand LoadedCommand { get; private set; }
 
         private ObservableCollection<SystemInfoViewModel> _systemInfos;
         public ObservableCollection<SystemInfoViewModel> SystemInfos
@@ -133,20 +141,23 @@ namespace ICIMS.Client.ViewModels
 
         private void InitHeader()
         {
-            _systemInfos.Add(new SystemInfoViewModel()
+            var defaultview = new SystemInfoViewModel()
             {
                 Id = "BaseDataView",
                 Title = "基础资料",
                 InitMode = InitializationMode.OnDemand,
                 IsDefaultShow = true,
                 IsSelected = true,
-            });
-            _systemInfos.Add(new SystemInfoViewModel()
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu1_基础资料.ico",
+            };
+            _systemInfos.Add(defaultview);
+           _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "UsersView",
                 Title = "内控管理",
                 InitMode = InitializationMode.OnDemand,
                 IsDefaultShow = false,
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu1_业务管理.ico",
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
@@ -154,6 +165,7 @@ namespace ICIMS.Client.ViewModels
                 Title = "资产管理",
                 InitMode = InitializationMode.OnDemand,
                 IsDefaultShow = false,
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu1_资产管理.ico",
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
@@ -161,6 +173,7 @@ namespace ICIMS.Client.ViewModels
                 Title = "数据采集",
                 InitMode = InitializationMode.OnDemand,
                 IsDefaultShow = false,
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu1_软件接口.ico",
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
@@ -168,7 +181,9 @@ namespace ICIMS.Client.ViewModels
                 Title = "系统管理",
                 InitMode = InitializationMode.OnDemand,
                 IsDefaultShow = false,
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu1_系统管理.ico",
             });
+          
         }
 
         private void RaiseCustomPopup()
@@ -176,22 +191,22 @@ namespace ICIMS.Client.ViewModels
 
         }
 
-        private void OnItemSelected(object[] selectedItems)
+        private void OnItemSelected(SystemInfoViewModel selectedItem)
         {
-            if (selectedItems != null && selectedItems.Count() > 0)
+            if (selectedItem != null )
             {
                 foreach (var item in _systemInfos)
                 {
                     item.IsSelected = false;
                 }
-                var model = selectedItems[0] as SystemInfoViewModel;
-                model.IsSelected = true;
+                //var model = selectedItems[0] as SystemInfoViewModel;
+                selectedItem.IsSelected = true;
                 var region = _regionManager.Regions["MainRegion"];
-                _regionManager.RequestNavigate("MainRegion", new Uri(model.Id, UriKind.Relative), navigationCallback);
+                _regionManager.RequestNavigate("MainRegion", new Uri(selectedItem.Id, UriKind.Relative), navigationCallback);
 
                 // _regionManager.RequestNavigate(RegionNames.TabControlRegion, new Uri("FlandersView", UriKind.Relative));
                 //  CustomPopupRequest.Raise(new Notification { Title = "Custom Popup", Content = "Custom Popup Message " });
-                
+
             }
         }
 

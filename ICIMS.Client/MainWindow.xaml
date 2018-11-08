@@ -12,14 +12,15 @@
         xmlns:Controls="http://metro.wenge.com/winfx/xaml/controls"
         xmlns:framework="clr-namespace:ICIMS.Core.Interactivity;assembly=ICIMS.Core"
         xmlns:Interaction="clr-namespace:ICIMS.Core.Interactivity.InteractionRequest;assembly=ICIMS.Core"
-                      xmlns:Primitives="clr-namespace:Telerik.Windows.Controls.Primitives;assembly=Telerik.Windows.Controls.Navigation" xmlns:TabControl="clr-namespace:Telerik.Windows.Controls.TabControl;assembly=Telerik.Windows.Controls.Navigation" x:Class="ICIMS.Client.Views.MainWindow"
+        xmlns:Primitives="clr-namespace:Telerik.Windows.Controls.Primitives;assembly=Telerik.Windows.Controls.Navigation" xmlns:TabControl="clr-namespace:Telerik.Windows.Controls.TabControl;assembly=Telerik.Windows.Controls.Navigation" x:Class="ICIMS.Client.Views.MainWindow"
         TitleBarHeight="36"
+        x:Name="window"
         prism:ViewModelLocator.AutoWireViewModel="True"
                       mc:Ignorable="d" Closing="MetroWindow_Closing"
                       GlowBrush="{DynamicResource AccentColorBrush}" 
                       NonActiveGlowBrush="#CDFF0000"
                       ShowIconOnTitleBar="True"
-                      ShowTitleBar="{Binding ShowMyTitleBar, Mode=TwoWay}"
+                      ShowTitleBar="True"
                       WindowStartupLocation="CenterScreen"
         Title="Title"  Width="1024" Height="680">
     <Controls:MetroWindow.Resources>
@@ -234,7 +235,7 @@
                 <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                 <Setter Property="IsTabStop" Value="False"/>
                 <Setter Property="HeaderBackground" Value="{telerik:Office2016TouchResource ResourceKey={x:Static telerik:Office2016TouchResourceKey.AccentBrush}}"/>
-                <Setter Property="FontFamily" Value="{telerik:Office2016TouchResource ResourceKey={x:Static telerik:Office2016TouchResourceKey.FontFamily}}"/>
+                <Setter Property="FontFamily" Value="SimHei"/>
                 <Setter Property="FontSize" Value="{telerik:Office2016TouchResource ResourceKey={x:Static telerik:Office2016TouchResourceKey.FontSize}}"/>
                 <Setter Property="Foreground" Value="{telerik:Office2016TouchResource ResourceKey={x:Static telerik:Office2016TouchResourceKey.MarkerBrush}}"/>
                 <Setter Property="ItemsPanel">
@@ -678,7 +679,7 @@
             <ListBox  BorderThickness="0" Background="#DEDEDE"   HorizontalContentAlignment="Left" SelectedIndex="0"   SelectedItem="{Binding SelectedItem}"  SelectionMode="Single" VerticalAlignment="Stretch"   ItemsSource="{Binding SystemInfos}"   x:Name="LstBoxMore">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <prism:InvokeCommandAction Command="{Binding SelectedCommand}"    TriggerParameterPath="AddedItems" />
+                        <prism:InvokeCommandAction Command="{Binding SelectedCommand}"  CommandParameter="{Binding SelectedItem}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <ListBox.ItemsPanel>
@@ -688,12 +689,12 @@
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate >
-                        <!--<control:MenuNavControl x:Name="menu" Margin="0,5,0,5"  Height="36" FontSize="20"    FontWeight="Black" ImageSource="pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu1_基础信息.ico"  Text="{Binding Title}" />-->
+                        <control:MenuNavControl x:Name="menu" Margin="0,5,0,5"  Height="36" FontSize="20"    FontWeight="Black" ImageSource="{Binding Icon}"  Text="{Binding Title}" />
 
-                        <control:SwitchControl   Margin="15,8,15,8"  IsSelected="{Binding IsSelected}" 
+                        <!--<control:SwitchControl   Margin="15,8,15,8"  IsSelected="{Binding IsSelected}" 
 											      VerticalAlignment="Stretch"   SelectedBackground="#222328"  
                                                   Title="{Binding Title}">
-                        </control:SwitchControl>
+                        </control:SwitchControl>-->
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
