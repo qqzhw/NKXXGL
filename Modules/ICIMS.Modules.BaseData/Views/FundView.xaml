@@ -9,12 +9,12 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <telerik:RadTreeListView x:Name="RadTreeListView1"
-								 AutoExpandItems="True"
-								 IsReadOnly="False"
+								 AutoExpandItems="True" 
+								 IsReadOnly="False" FontFamily="SimSun"
 								 ItemsSource="{Binding Items}"
 								 Width="auto"
-								 MinHeight="300"
-								 Height="auto"
+								 MinHeight="300" TextBlock.FontFamily="SimSun"
+								 Height="auto" IsFilteringAllowed="False"
 								 CanUserFreezeColumns="False"
 								 RowIndicatorVisibility="Collapsed"
                                  AutoGenerateColumns="False"
@@ -34,22 +34,23 @@
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Description}"
 											IsReadOnly="False"
                                              Header="备注"
-											Width="150" />
+											Width="*" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Level}"
 											IsReadOnly="True"
                                             Header="层级"
 											Width="150" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Published}"
 											IsReadOnly="False"
-											Width="150" />
+                                            Header="启用"
+											Width="100" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding IsLast}"
 											IsReadOnly="True"
                                             Header="末级"
-											Width="150" />
+											Width="100" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding IsForbiddened}"
 											IsReadOnly="False"
                                             Header="禁用"
-											Width="150" />
+											Width="100" />
             </telerik:RadTreeListView.Columns>
         </telerik:RadTreeListView>
     </Grid>
