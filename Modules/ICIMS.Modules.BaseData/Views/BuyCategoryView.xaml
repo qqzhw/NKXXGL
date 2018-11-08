@@ -4,9 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ICIMS.Modules.BaseData.Views"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <telerik:RadTreeListView x:Name="RadTreeListView1"
+								 AutoExpandItems="{Binding IsChecked, ElementName=AutoExpandItemsCheckBox, Mode=TwoWay}"
+								 IsReadOnly="True"
+								 ItemsSource="{Binding Folders}"
+								 Width="600"
+								 MinHeight="300"
+								 Height="550"
+								 CanUserFreezeColumns="False"
+								 RowIndicatorVisibility="Collapsed"
+								 ColumnWidth="*">
+            <telerik:RadTreeListView.ChildTableDefinitions>
+                <telerik:TreeListViewTableDefinition ItemsSource="{Binding Items}" />
+            </telerik:RadTreeListView.ChildTableDefinitions>
+        </telerik:RadTreeListView>
     </Grid>
 </UserControl>

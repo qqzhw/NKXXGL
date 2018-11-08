@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseData\BuyCategory.cs" />
     <Compile Include="BaseData\FundItem.cs" />
     <Compile Include="BaseData\ItemCategoryItem.cs" />
     <Compile Include="BaseData\PaymentTypeItem.cs" />
