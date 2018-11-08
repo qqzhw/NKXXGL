@@ -4,9 +4,63 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ICIMS.Modules.BaseData.Views"
+              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <telerik:RadTreeListView x:Name="RadTreeListView1"
+								 AutoExpandItems="True"
+								 IsReadOnly="False"
+								 ItemsSource="{Binding Items}"
+								 Width="auto"
+								 MinHeight="300"
+								 Height="auto"
+								 CanUserFreezeColumns="False"
+								 RowIndicatorVisibility="Collapsed"
+                                 AutoGenerateColumns="False"
+								 ColumnWidth="*">
+            <telerik:RadTreeListView.ChildTableDefinitions>
+                <telerik:TreeListViewTableDefinition ItemsSource="{Binding Children}" />
+            </telerik:RadTreeListView.ChildTableDefinitions>
+            <telerik:RadTreeListView.Columns>
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding No}"
+											IsReadOnly="False"
+                                            Header="编号"
+											Width="150" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding Name}"
+											IsReadOnly="False"
+                                            Header="名称"
+											Width="150" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding Address}"
+											IsReadOnly="False"
+                                             Header="公司地址"
+											Width="150" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding LinkPerson}"
+											IsReadOnly="True"
+                                            Header="联系人"
+											Width="150" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding LinkPhone}"
+											IsReadOnly="True"
+                                            Header="移动电话"
+											Width="150" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding OpenBank}"
+											IsReadOnly="False"
+                                            Header="开户行"
+											Width="150" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding AccountName}"
+											IsReadOnly="False"
+                                            Header="账户"
+											Width="150" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding Remark}"
+											IsReadOnly="False"
+                                            Header="备注"
+											Width="150" />
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding Published}"
+											IsReadOnly="False"
+                                            Header="禁用"
+											Width="150" />
+
+            </telerik:RadTreeListView.Columns>
+        </telerik:RadTreeListView>
     </Grid>
 </UserControl>

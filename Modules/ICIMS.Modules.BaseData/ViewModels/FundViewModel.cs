@@ -37,6 +37,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
             {
                 if (view != null)
                 {
+                    if(region.Views.Contains(view))
                     region.Remove(view);
                 }
             }

@@ -91,6 +91,12 @@ namespace ICIMS.Client
             containerRegistry.Register<IFundFromService, FundFromService>();
             containerRegistry.Register<IPaymentTypeService, PaymentTypeService>();
             containerRegistry.Register<IItemCategoryService, ItemCategoryService>();
+            containerRegistry.Register<IDocumentTypeService, DocumentTypeService>();
+            containerRegistry.Register<IContractService, ContractService>();
+            containerRegistry.Register<IVendorService, VendorService>();
+            containerRegistry.Register<IYsCategoryService, YsCategoryService>();
+            containerRegistry.Register<ISubjectService, SubjectService>();
+            containerRegistry.Register<IOrganizationUnitService, OrganizationUnitService>();
             
 
 

@@ -17,11 +17,11 @@ using System.Windows.Shapes;
 namespace ICIMS.Modules.BaseData.Views
 {
     /// <summary>
-    /// DocumentTypeView.xaml 的交互逻辑
+    /// OrganizationUnit.xaml 的交互逻辑
     /// </summary>
-    public partial class DocumentTypeView : UserControl
+    public partial class OrganizationUnitView : UserControl
     {
-        public DocumentTypeView(DocumentTypeViewModel viewModel)
+        public OrganizationUnitView(OrganizationUnitViewModel viewModel)
         {
             InitializeComponent();
             this.DataContext = viewModel;

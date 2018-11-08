@@ -1,28 +1,28 @@
-﻿using System;
+﻿using ICIMS.Model.BaseData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ICIMS.Model.BaseData;
 
 namespace ICIMS.Service.BaseData
 {
-    public class FundFromService : IFundFromService
+    public class YsCategoryService: IYsCategoryService
     {
         private IWebApiClient _webApiClient;
-        private string _baseUrl = "api/services/app/FundFrom/GetPaged";
-        public FundFromService(IWebApiClient webApiClient)
+        private string _baseUrl = "api/services/app/YsCategory/GetPaged";
+        public YsCategoryService(IWebApiClient webApiClient)
         {
             this._webApiClient = webApiClient;
         }
-        public async Task<List<FundItem>> GetPageItems()
+        public async Task<List<YsCategoryItem>> GetPaged()
         {
             _webApiClient.TenancyName = "Default";
             _webApiClient.UserName = "admin";
             _webApiClient.Password = "123qwe";
             _webApiClient.TokenBasedAuth();
             var para = new { MaxResultCount = 200 };
-            var data = await _webApiClient.GetAsync<ResultData<List<FundItem>>>($"{_webApiClient.BaseUrl}{_baseUrl}", para);
+            var data = await _webApiClient.GetAsync<ResultData<List<YsCategoryItem>>>($"{_webApiClient.BaseUrl}{_baseUrl}", para);
 
             return data.Items;
         }

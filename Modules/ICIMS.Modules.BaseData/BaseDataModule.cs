@@ -42,8 +42,14 @@ namespace ICIMS.Modules.BaseData
             containerRegistry.RegisterForNavigation<UserView>();
             containerRegistry.RegisterForNavigation<FundView>();
             containerRegistry.RegisterForNavigation<PaymentTypeView>();
+            containerRegistry.RegisterForNavigation<ItemCategoryView>();
+            containerRegistry.RegisterForNavigation<DocumentTypeView>();
+            containerRegistry.RegisterForNavigation<ContractView>();
+            containerRegistry.RegisterForNavigation<VendorView>();
+            containerRegistry.RegisterForNavigation<YsCategoryView>();
+            containerRegistry.RegisterForNavigation<SubjectView>();
+            containerRegistry.RegisterForNavigation<OrganizationUnitView>();
             
-
             //containerRegistry.RegisterForNavigation<ViewB>();
         }
     }
