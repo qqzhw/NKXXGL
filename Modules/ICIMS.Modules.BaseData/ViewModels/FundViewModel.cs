@@ -29,11 +29,11 @@ namespace ICIMS.Modules.BaseData.ViewModels
             _fundFromService = fundFromService;
         }
         [InjectionMethod]
-        public void Init()
+        public async  void Init()
         {
             _title = "资金来源";
             this.Items = new ObservableCollection<FundItem>();
-            List<FundItem> datas = _fundFromService.GetPageItems().Result;
+            List<FundItem> datas =await _fundFromService.GetPageItems();
             foreach (var data in datas)
             {
                 if (data.GroupNo != data.No)
