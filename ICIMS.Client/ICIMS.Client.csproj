@@ -136,6 +136,7 @@
     <Compile Include="ViewModels\ILoginView.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\SystemAdminViewModel.cs" />
     <Compile Include="ViewModels\SystemInfoViewModel.cs" />
     <Compile Include="Views\BaseDataView.xaml.cs">
       <DependentUpon>BaseDataView.xaml</DependentUpon>
@@ -145,6 +146,9 @@
     </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SystemAdminView.xaml.cs">
+      <DependentUpon>SystemAdminView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewA.xaml.cs">
       <DependentUpon>ViewA.xaml</DependentUpon>
@@ -183,6 +187,10 @@
     <Page Include="Views\SettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SystemAdminView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ViewA.xaml">
       <SubType>Designer</SubType>
