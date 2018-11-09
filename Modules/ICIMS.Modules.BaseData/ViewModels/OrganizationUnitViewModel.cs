@@ -16,13 +16,13 @@ using Unity.Attributes;
 
 namespace ICIMS.Modules.BaseData.ViewModels
 {
-    public class DocumentTypeViewModel : BindableBase, INavigationAware
+    public class OrganizationUnitViewModel : BindableBase, INavigationAware
     {
 
         private readonly IEventAggregator _eventAggregator;
-        private readonly IDocumentTypeService _service;
+        private readonly IOrganizationUnitService _service;
         private readonly IRegionManager _regionManager;
-        public DocumentTypeViewModel(IEventAggregator eventAggregator, IDocumentTypeService service, IRegionManager regionManager)
+        public OrganizationUnitViewModel(IEventAggregator eventAggregator, IOrganizationUnitService service, IRegionManager regionManager)
         {
             _eventAggregator = eventAggregator;
             _service = service;
@@ -45,9 +45,9 @@ namespace ICIMS.Modules.BaseData.ViewModels
         [InjectionMethod]
         public async void Init()
         {
-            _title = "文档分类";
-            this.Items = new ObservableCollection<DocumentTypeItem>();
-            List<DocumentTypeItem> datas = await _service.GetPaged();
+            _title = "部门信息";
+            this.Items = new ObservableCollection<OrganizationUnitItem>();
+            List<OrganizationUnitItem> datas = await _service.GetPaged();
             foreach (var data in datas)
             {
                 if (data.GroupNo != data.No)
@@ -61,7 +61,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 }
             }
         }
-        public ObservableCollection<DocumentTypeItem> Items { get; set; }
+        public ObservableCollection<OrganizationUnitItem> Items { get; set; }
         #region 通用属性
 
 

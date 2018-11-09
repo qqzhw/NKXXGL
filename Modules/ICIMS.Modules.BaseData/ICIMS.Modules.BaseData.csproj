@@ -108,6 +108,7 @@
     <Compile Include="ViewModels\FundViewModel.cs" />
     <Compile Include="ViewModels\ItemCategoryEditViewModel.cs" />
     <Compile Include="ViewModels\ItemCategoryViewModel.cs" />
+    <Compile Include="ViewModels\OrganizationUnitViewModel.cs" />
     <Compile Include="ViewModels\PaymentTypeEditViewModel.cs" />
     <Compile Include="ViewModels\PaymentTypeViewModel.cs" />
     <Compile Include="ViewModels\SubjectEditViewModel.cs" />
@@ -146,6 +147,9 @@
     </Compile>
     <Compile Include="Views\ItemCategoryView.xaml.cs">
       <DependentUpon>ItemCategoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrganizationUnitView.xaml.cs">
+      <DependentUpon>OrganizationUnitView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PaymentTypeEditView.xaml.cs">
       <DependentUpon>PaymentTypeEditView.xaml</DependentUpon>
@@ -215,6 +219,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ItemCategoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrganizationUnitView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

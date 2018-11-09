@@ -68,12 +68,24 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseData\ContractService.cs" />
+    <Compile Include="BaseData\DocumentTypeService.cs" />
     <Compile Include="BaseData\FundFromService.cs" />
+    <Compile Include="BaseData\IContractService.cs" />
+    <Compile Include="BaseData\IDocumentTypeService.cs" />
     <Compile Include="BaseData\IFundFromService.cs" />
     <Compile Include="BaseData\IItemCategoryService.cs" />
+    <Compile Include="BaseData\IOrganizationUnitService.cs" />
     <Compile Include="BaseData\IPaymentTypeService.cs" />
+    <Compile Include="BaseData\ISubjectService.cs" />
     <Compile Include="BaseData\ItemCategoryService.cs" />
+    <Compile Include="BaseData\IVendorService.cs" />
+    <Compile Include="BaseData\IYsCategoryService.cs" />
+    <Compile Include="BaseData\OrganizationUnitService.cs" />
     <Compile Include="BaseData\PaymentTypeService.cs" />
+    <Compile Include="BaseData\SubjectService.cs" />
+    <Compile Include="BaseData\VendorService.cs" />
+    <Compile Include="BaseData\YsCategoryService.cs" />
     <Compile Include="Utils\AsyncHelper.cs" />
     <Compile Include="Utils\RemoteCallException.cs" />
     <Compile Include="Utils\WebApiClient.cs" />
