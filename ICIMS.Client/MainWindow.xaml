@@ -711,7 +711,11 @@
                         <Setter.Value>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding Title}" FontSize="14" Foreground="#333333"/>
+                                    <TextBlock Text="{Binding Title}"  FontSize="14" Foreground="#333333">
+                                        <TextBlock.InputBindings>
+                                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeView}}, Path=DataContext.TreeViewClickCommand}"  />
+                                        </TextBlock.InputBindings>
+                                    </TextBlock>
                                     <telerik:RadButton Command="{Binding CloseCommand}"
                         Style="{StaticResource CloseButton}"
                         Margin="10,0,0,0"

@@ -1,6 +1,7 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:iconPack="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:ICIMS.Controls">
 
 
@@ -392,18 +393,7 @@ VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixe
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type local:CustomControl1}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:CustomControl1}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+    
     <Style TargetType="{x:Type local:SwitchControl}">
         <Setter Property="Template">
             <Setter.Value>
@@ -452,6 +442,35 @@ VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixe
 
                 </ControlTemplate>
             </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:CustomButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:CustomButton}">
+                    <Border x:Name="border" Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <StackPanel x:Name="sp"  Orientation="Horizontal">
+                            <Grid>
+                            <Ellipse Width="32" Height="32" Fill="Gainsboro" />
+                                <iconPack:PackIconFontAwesome Kind="{TemplateBinding Kind}" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="{TemplateBinding Title}" />
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers> 
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="sp" Property="Background" Value="#DEDEDE"/>
+                            <Setter TargetName="border" Property="Background" Value="#DEDEDE"/>
+                        </Trigger>
+                        <!--<Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="red"/>
+                        </Trigger>-->
+                    </ControlTemplate.Triggers> 
+                </ControlTemplate>
+            </Setter.Value> 
         </Setter>
     </Style>
 </ResourceDictionary>

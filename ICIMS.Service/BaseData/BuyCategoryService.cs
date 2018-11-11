@@ -9,7 +9,7 @@ namespace ICIMS.Service.BaseData
 {
     public class BuyCategoryService : IBuyCategoryService
     {
-        private IWebApiClient _webApiClient;
+        private readonly IWebApiClient _webApiClient;
         public BuyCategoryService(IWebApiClient webApiClient)
         {
             _webApiClient = webApiClient;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.IconPacks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,14 +42,28 @@ namespace ICIMS.Controls
     /// 步骤 2)
     /// 继续操作并在 XAML 文件中使用控件。
     ///
-    ///     <MyNamespace:CustomControl1/>
+    ///     <MyNamespace:CustomButton/>
     ///
     /// </summary>
-    public class CustomControl1 : Control
+    public class CustomButton : Button
     {
-        static CustomControl1()
+        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(CustomButton), new PropertyMetadata(default(string)));
+        public static readonly DependencyProperty KindProperty = DependencyProperty.Register("Kind", typeof(PackIconFontAwesomeKind), typeof(CustomButton), new PropertyMetadata(default(PackIconFontAwesomeKind)));
+        static CustomButton()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomControl1), new FrameworkPropertyMetadata(typeof(CustomControl1)));
+            
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomButton), new FrameworkPropertyMetadata(typeof(CustomButton)));
+        }
+
+        public string Title
+        {
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
+        }
+        public PackIconFontAwesomeKind Kind
+        {
+            get { return (PackIconFontAwesomeKind)GetValue(KindProperty); }
+            set { SetValue(KindProperty, value); }
         }
     }
 }

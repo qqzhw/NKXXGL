@@ -4,6 +4,7 @@ using ICIMS.Core;
 using ICIMS.Core.Common;
 using ICIMS.Metro.Controls;
 using ICIMS.Modules.BaseData;
+using ICIMS.Modules.BusinessManages;
 using ICIMS.Modules.SystemAdmin;
 using ICIMS.Service;
 using ICIMS.Service.BaseData;
@@ -126,6 +127,7 @@ namespace ICIMS.Client
             };
             moduleCatalog.AddModule<BaseDataModule>(); 
             moduleCatalog.AddModule<SystemAdminModule>();
+            moduleCatalog.AddModule<BusinessManagesModule>();
         }
         private static Mutex SingleInstanceMutex = new Mutex(true, "{86A802DF-C96C-8765-BAA8-1BC527857BEB}");
 
