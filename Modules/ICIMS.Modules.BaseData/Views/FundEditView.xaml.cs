@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ICIMS.Modules.BaseData.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,10 @@ namespace ICIMS.Modules.BaseData.Views
     /// </summary>
     public partial class FundEditView : UserControl
     {
-        public FundEditView()
+        public FundEditView(FundEditViewModel viewModel)
         {
             InitializeComponent();
+            this.DataContext = viewModel;
         }
     }
 }

@@ -6,9 +6,33 @@
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:local="clr-namespace:ICIMS.Modules.BaseData.Views"
              mc:Ignorable="d" 
+             Background="White"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Button Content="新增" Command="{Binding AddCommand}" Margin="20 0 "/>
+            <Button Content="编辑" Command="{Binding AddCommand}" Margin="20 0"/>
+            <Button Content="删除" Margin="20 0"/>
+            <Button Content="刷新" Margin="20 0"/>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1">
+            <StackPanel Margin="100 0" VerticalAlignment="Center" Orientation="Horizontal" >
+                <TextBlock VerticalAlignment="Center" Text="编号:"/>
+                <TextBox Text="{Binding No}" Margin="10 0" Width="100"/>
+            </StackPanel>
+            <StackPanel Margin="1 0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock VerticalAlignment="Center" Text="名称:"/>
+                <TextBox Text="{Binding Name}" Margin="10 0 20 0" Width="100"/>
+            </StackPanel>
+        </StackPanel>
         <telerik:RadTreeListView x:Name="RadTreeListView1"
+                                 Grid.Row="2"
 								 AutoExpandItems="True" 
 								 IsReadOnly="False" FontFamily="SimSun"
 								 ItemsSource="{Binding Items}"
@@ -18,6 +42,7 @@
 								 CanUserFreezeColumns="False"
 								 RowIndicatorVisibility="Collapsed"
                                  AutoGenerateColumns="False"
+                                 NewRowPosition="None"
 								 ColumnWidth="*">
             <telerik:RadTreeListView.ChildTableDefinitions>
                 <telerik:TreeListViewTableDefinition ItemsSource="{Binding Children}" />
@@ -53,5 +78,16 @@
 											Width="100" />
             </telerik:RadTreeListView.Columns>
         </telerik:RadTreeListView>
+        <telerik:RadDataPager Grid.Row="3" 
+                              Source="{Binding Items, ElementName=RadTreeListView1}"
+                              IsTotalItemCountFixed="True"
+                              PageSize="{Binding PageSize}"
+                              PageIndex="{Binding PageIndex}"
+                              ItemCount="{Binding ItemCount}"
+                              
+                              >
+
+        </telerik:RadDataPager>
+
     </Grid>
 </UserControl>

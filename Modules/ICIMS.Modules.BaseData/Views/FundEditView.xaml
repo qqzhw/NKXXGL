@@ -5,8 +5,30 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ICIMS.Modules.BaseData.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             Background="White"
+             d:DesignHeight="450" d:DesignWidth="380">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Button Content="确定" Width="120" Height="35" Command="{Binding OkCmd}" Margin="20 10"/>
+            <Button Content="取消" Width="120" Height="35" Command="{Binding CancelCmd}"  Margin="20 10"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Margin="20">编  号</TextBlock>
+                <TextBox Height="35" Text="{Binding Item.No}" Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock Margin="20">名  称</TextBlock>
+                <TextBox Height="35" Text="{Binding Item.Name}" Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
+                <TextBlock VerticalAlignment="Center" Margin="20">备  注</TextBlock>
+                <TextBox MinHeight="200" TextWrapping="Wrap" Text="{Binding Item.Description}" Width="200"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -9,7 +9,7 @@ namespace ICIMS.Service.BaseData
 {
     public interface IFundFromService
     {
-        Task<List<FundItem>> GetPageItems();
+        Task<(int totalCount, List<FundItem> datas)> GetPageItems(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue);
 
     }
 }

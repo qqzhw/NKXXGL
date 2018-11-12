@@ -15,16 +15,14 @@ namespace ICIMS.Service.BaseData
         {
             this._webApiClient = webApiClient;
         }
-        public async Task<List<FundItem>> GetPageItems()
+
+        public async Task<(int totalCount, List<FundItem> datas)> GetPageItems(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            _webApiClient.TenancyName = "Default";
-            _webApiClient.UserName = "admin";
-            _webApiClient.Password = "123qwe";
-            _webApiClient.TokenBasedAuth();
-            var para = new { MaxResultCount = 200 };
+            var skipCount = (pageIndex - 1) * pageSize;
+            var para = new { No, Name, MaxResultCount = pageSize, SkipCount = skipCount > 0 ? skipCount : 0 };
             var data = await _webApiClient.GetAsync<ResultData<List<FundItem>>>($"{_webApiClient.BaseUrl}{_baseUrl}", para);
 
-            return data.Items;
+            return (totalCount: data.TotalCount, datas: data.Items);
         }
     }
 }

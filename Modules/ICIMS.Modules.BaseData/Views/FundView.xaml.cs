@@ -27,5 +27,10 @@ namespace ICIMS.Modules.BaseData.Views
             this.DataContext = viewModel;
             viewModel.View = this;
         }
+
+        private void RadDataPager_PageIndexChanged(object sender, Telerik.Windows.Controls.PageIndexChangedEventArgs e)
+        {
+            var newIndex = e.NewPageIndex;
+        }
     }
 }

@@ -87,7 +87,14 @@ namespace ICIMS.Client
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<BaseDataView>();
-            containerRegistry.Register<IWebApiClient, WebApiClient>();
+            //containerRegistry.Register<IWebApiClient, WebApiClient>();
+            var webApiClient = new WebApiClient();
+            webApiClient.TenancyName = "Default";
+            webApiClient.UserName = "admin";
+            webApiClient.Password = "123qwe";
+            webApiClient.TokenBasedAuth();
+            containerRegistry.RegisterInstance<IWebApiClient>(webApiClient);
+
             containerRegistry.Register<IUserService, UserService>();
             containerRegistry.Register<IFundFromService, FundFromService>();
             containerRegistry.Register<IPaymentTypeService, PaymentTypeService>();
@@ -99,10 +106,6 @@ namespace ICIMS.Client
             containerRegistry.Register<ISubjectService, SubjectService>();
             containerRegistry.Register<IOrganizationUnitService, OrganizationUnitService>();
             
-
-
-
-
         }
        
 

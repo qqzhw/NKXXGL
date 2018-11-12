@@ -10,17 +10,22 @@ namespace ICIMS.Model.BaseData
 {
     public class FundItem : BindableBase
     {
-        public string No { get; set; }
+        private string _no;
+        private string _name;
+        private string _description;
+        private bool _published;
 
-        public string Name { get; set; }
+        public string No { get => _no; set { _no = value; this.RaisePropertyChanged(nameof(No)); } }
 
-        public string Description { get; set; }
+        public string Name { get => _name; set { _name = value; this.RaisePropertyChanged(nameof(Name)); } }
+
+        public string Description { get => _description; set { _description = value; this.RaisePropertyChanged(nameof(Description)); } }
 
         //上级编号
         public int ParentId { get; set; }
 
 
-        public bool Published { get; set; }
+        public bool Published { get => _published; set { _published = value; this.RaisePropertyChanged(nameof(Published)); } }
 
         public int DisplayOrder { get; set; }
         public DateTime CreationTime { get; set; }
@@ -34,8 +39,12 @@ namespace ICIMS.Model.BaseData
         {
             get
             {
+                if (string.IsNullOrEmpty(this.No))
+                {
+                    return "";
+                }
                 var idx = this.No.LastIndexOf('-');
-                if(idx != -1)
+                if (idx != -1)
                 {
                     return this.No.Substring(0, idx);
                 }
