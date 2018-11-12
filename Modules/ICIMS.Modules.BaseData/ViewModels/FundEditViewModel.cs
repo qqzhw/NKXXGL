@@ -23,14 +23,16 @@ namespace ICIMS.Modules.BaseData.ViewModels
             this.CancelCmd = new DelegateCommand<object>(OnCancelCmd);
         }
 
+        public bool IsOkClicked { get; private set; }
+
         private void OnCancelCmd(object obj)
         {
-            throw new NotImplementedException();
+            this.IsOkClicked = false;
         }
 
         private void OnOkCmd(object obj)
         {
-            
+            this.IsOkClicked = true;
         }
     }
 }

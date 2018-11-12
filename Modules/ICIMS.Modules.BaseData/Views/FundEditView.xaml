@@ -6,17 +6,17 @@
              xmlns:local="clr-namespace:ICIMS.Modules.BaseData.Views"
              mc:Ignorable="d" 
              Background="White"
-             d:DesignHeight="450" d:DesignWidth="380">
+             d:DesignHeight="420" d:DesignWidth="360">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-            <Button Content="确定" Width="120" Height="35" Command="{Binding OkCmd}" Margin="20 10"/>
-            <Button Content="取消" Width="120" Height="35" Command="{Binding CancelCmd}"  Margin="20 10"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button Content="确定" Width="80" Height="35" Command="{Binding OkCmd}" Margin="20 5"/>
+            <Button Content="取消" Width="80" Height="35" Command="{Binding CancelCmd}"  Margin="20 5"/>
         </StackPanel>
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Margin="20">编  号</TextBlock>
                 <TextBox Height="35" Text="{Binding Item.No}" Width="200"/>
