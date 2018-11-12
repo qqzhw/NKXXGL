@@ -156,7 +156,7 @@ namespace ICIMS.Client.ViewModels
             _systemInfos.Add(defaultview);
            _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "BusinessManagersView",
+                Id = "BusinessManagesView",
                 Title = "内控管理",
                 InitMode = InitializationMode.OnDemand,
                 IsDefaultShow = false,

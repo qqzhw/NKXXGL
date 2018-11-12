@@ -15,7 +15,7 @@ using Unity.Attributes;
 
 namespace ICIMS.Client.ViewModels
 {
-    public class BusinessManagesViewModel : BindableBase, INavigationAware
+    public partial class BusinessManagesViewModel : BindableBase, INavigationAware
     {
         private IEventAggregator _eventAggregator;
         private readonly IRegionManager _regionManager;
@@ -29,7 +29,7 @@ namespace ICIMS.Client.ViewModels
         {
             _regionManager = regionManager;
             _eventAggregator = eventAggregator;
-            _title = "基础资料";
+            _title = "内控管理";
 
         }
 
@@ -53,74 +53,69 @@ namespace ICIMS.Client.ViewModels
         {
             _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "BuyCategoryView",
-                Title = "采购分类",
-                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_基础资料_基础信息_采购分类.ico",
+                Id = "PaymentTypeView",
+                Title = "项目初始化",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_项目初始化.ico",
                 IsDefaultShow = false,
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "SubjectView",
-                Title = "功能科目",
-                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_基础资料_基础信息_功能科目.ico",
+                Id = "ItemDefineView",
+                Title = "立项登记",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_立项登记.ico",
+                IsDefaultShow = false,
+            });
+            _systemInfos.Add(new SystemInfoViewModel()
+            {
+                Id = "ReViewDefineEditView",
+                Title = "评审登记",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_评审登记.ico",
                 IsDefaultShow = false,
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "YsCategoryView",
-                Title = "预算分类",
-                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_基础资料_基础信息_预算分类.ico",
+                Title = "合同登记",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_合同登记.ico",
                 IsDefaultShow = false,
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "VendorView",
-                Title = "供应商信息",
-                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_基础资料_基础信息_供应商信息.ico",
+                Title = "支付审核",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_支付审核系统.ico",
                 IsDefaultShow = false,
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "ContractView",
-                Title = "合同分类",
-                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_基础资料_基础信息_合同分类.ico",
+                Title = "结算管理",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_合同结算.ico",
                 IsDefaultShow = false,
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "FundView",
-                Title = "部门信息",
-                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu2_资产管理_基础信息.ico",
+                Title = "项目决算",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_项目决算.ico",
                 IsDefaultShow = false,
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "DocumentTypeView",
-                Title = "文档分类",
-                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_基础资料_基础信息_文档分类.ico",
+                Title = "项目绩效评价",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_项目绩效评价.ico",
                 IsDefaultShow = false,
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "ItemCategoryView",
-                Title = "项目分类",
-                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_基础资料_基础信息_项目分类.ico",
+                Title = "档案管理",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_档案管理.ico",
                 IsDefaultShow = false,
             });
-            _systemInfos.Add(new SystemInfoViewModel()
-            {
-                Id = "PaymentTypeView",
-                Title = "支付类型",
-                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_基础资料_基础信息_支付类型.ico",
-                IsDefaultShow = false,
-            });
-            _systemInfos.Add(new SystemInfoViewModel()
-            {
-                Id = "FundView",
-                Title = "资金来源",
-                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_基础资料_基础信息_资金来源.ico",
-                IsDefaultShow = false,
-            });
+           
+            
         }
 
         private void OnItemSelected(SystemInfoViewModel selectedItem)

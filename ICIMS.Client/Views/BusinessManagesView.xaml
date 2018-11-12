@@ -23,8 +23,8 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Height="36" Margin="5,0,0,0" Source="pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu2_资产管理_基础信息.ico"/>
-                        <TextBlock Text="基础信息" Grid.Column="1" Margin="10,0,0,0" FontSize="22" VerticalAlignment="Center"  FontWeight="Black"/>
+                        <Image Height="36" Margin="5,0,0,0" Source="pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu2_项目管理.ico"/>
+                        <TextBlock Text="业务管理" Grid.Column="1" Margin="10,0,0,0" FontSize="22" VerticalAlignment="Center"  FontWeight="Black"/>
                     </Grid>
                     <DataTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">

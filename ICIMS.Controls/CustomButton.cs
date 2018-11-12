@@ -50,13 +50,19 @@ namespace ICIMS.Controls
         public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(CustomButton), new PropertyMetadata(default(string)));
         public static readonly DependencyProperty KindProperty = DependencyProperty.Register("Kind", typeof(PackIconFontAwesomeKind), typeof(CustomButton), new PropertyMetadata(default(PackIconFontAwesomeKind)));
         public static readonly DependencyProperty IconBackgroundProperty = DependencyProperty.Register("IconBackground", typeof(Brush), typeof(CustomButton), new PropertyMetadata(default(Brush)));
+        public static readonly DependencyProperty IconVisibilityProperty = DependencyProperty.Register("IconVisibility", typeof(Visibility), typeof(CustomButton), new PropertyMetadata(default(Visibility)));
+        public static readonly DependencyProperty KindForegroundProperty = DependencyProperty.Register("KindForeground", typeof(Brush), typeof(CustomButton), new PropertyMetadata(default(Brush)));
 
         static CustomButton()
         {
-           
+             
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomButton), new FrameworkPropertyMetadata(typeof(CustomButton)));
         }
-
+        public CustomButton()
+        {
+            KindForeground = Brushes.White;
+            IconVisibility = Visibility.Visible;
+        }
         public string Title
         {
             get { return (string)GetValue(TitleProperty); }
@@ -72,6 +78,18 @@ namespace ICIMS.Controls
         {
             get { return (Brush)GetValue(KindProperty); }
             set { SetValue(KindProperty, value); }
+        }
+
+        public Visibility IconVisibility
+        {
+            get { return (Visibility)GetValue(IconVisibilityProperty); }
+            set { SetValue(IconVisibilityProperty, value); }
+        }
+
+        public Brush KindForeground
+        {
+            get { return (Brush)GetValue(KindForegroundProperty); }
+            set { SetValue(KindForegroundProperty, value); }
         }
     }
 }

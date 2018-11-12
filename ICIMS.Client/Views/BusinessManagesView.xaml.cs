@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ICIMS.Client.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,11 @@ namespace ICIMS.Client.Views
     /// </summary>
     public partial class BusinessManagesView : UserControl
     {
-        public BusinessManagesView()
+        public BusinessManagesView(BusinessManagesViewModel viewModel)
         {
             InitializeComponent();
+            this.DataContext = viewModel;
+            viewModel.View = this;
         }
     }
 }
