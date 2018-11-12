@@ -49,20 +49,28 @@ namespace ICIMS.Controls
     {
         public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(CustomButton), new PropertyMetadata(default(string)));
         public static readonly DependencyProperty KindProperty = DependencyProperty.Register("Kind", typeof(PackIconFontAwesomeKind), typeof(CustomButton), new PropertyMetadata(default(PackIconFontAwesomeKind)));
+        public static readonly DependencyProperty IconBackgroundProperty = DependencyProperty.Register("IconBackground", typeof(Brush), typeof(CustomButton), new PropertyMetadata(default(Brush)));
+
         static CustomButton()
         {
-            
+           
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomButton), new FrameworkPropertyMetadata(typeof(CustomButton)));
         }
 
         public string Title
         {
             get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
+            set { SetValue(TitleProperty, value); } 
         }
         public PackIconFontAwesomeKind Kind
         {
             get { return (PackIconFontAwesomeKind)GetValue(KindProperty); }
+            set { SetValue(KindProperty, value); }
+        }
+
+        public Brush IconBackground
+        {
+            get { return (Brush)GetValue(KindProperty); }
             set { SetValue(KindProperty, value); }
         }
     }

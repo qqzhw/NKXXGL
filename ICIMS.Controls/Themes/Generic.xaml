@@ -453,21 +453,21 @@ VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixe
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                         <StackPanel x:Name="sp"  Orientation="Horizontal">
-                            <Grid>
-                            <Ellipse Width="32" Height="32" Fill="Gainsboro" />
+                            <Grid Margin="5,0,0,0">
+                                <Ellipse Width="28" Height="28" Fill="{TemplateBinding IconBackground}" />
                                 <iconPack:PackIconFontAwesome Kind="{TemplateBinding Kind}" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="{TemplateBinding Title}" />
-                        </StackPanel>
+                            <TextBlock Margin="6,0,0,0" VerticalAlignment="Center" Text="{TemplateBinding Title}" />
+                        </StackPanel> 
                     </Border>
                     <ControlTemplate.Triggers> 
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="sp" Property="Background" Value="#DEDEDE"/>
                             <Setter TargetName="border" Property="Background" Value="#DEDEDE"/>
                         </Trigger>
-                        <!--<Trigger Property="IsMouseOver" Value="False">
-                            <Setter TargetName="border" Property="Background" Value="red"/>
-                        </Trigger>-->
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="Transparent"/>
+                        </Trigger>
                     </ControlTemplate.Triggers> 
                 </ControlTemplate>
             </Setter.Value> 
