@@ -53,7 +53,7 @@ namespace ICIMS.Client.ViewModels
         {
             _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "PaymentTypeView",
+                Id = "ItemDefineEditView",
                 Title = "项目初始化",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_项目初始化.ico",
                 IsDefaultShow = false,
