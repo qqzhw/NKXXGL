@@ -142,6 +142,7 @@
     <Compile Include="Common\TabModel.cs" />
     <Compile Include="ICIMSModule.cs" />
     <Compile Include="ViewModels\BaseDataViewModel.cs" />
+    <Compile Include="ViewModels\BusinessManagesViewModel.cs" />
     <Compile Include="ViewModels\ILoginView.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -149,6 +150,9 @@
     <Compile Include="ViewModels\SystemInfoViewModel.cs" />
     <Compile Include="Views\BaseDataView.xaml.cs">
       <DependentUpon>BaseDataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BusinessManagesView.xaml.cs">
+      <DependentUpon>BusinessManagesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -186,6 +190,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\BaseDataView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BusinessManagesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
