@@ -100,10 +100,17 @@
   <ItemGroup>
     <Compile Include="Events\MessageEvent.cs" />
     <Compile Include="Events\TabCloseEvent.cs" />
+    <Compile Include="Interactivity\CustomPopupView.xaml.cs">
+      <DependentUpon>CustomPopupView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interactivity\PopupWindow.cs" />
     <Compile Include="Regions\DataItem.cs" />
     <Compile Include="Regions\RadTabControlAdapter.cs" />
     <Compile Include="Regions\RegionNames.cs" />
+    <Page Include="Interactivity\CustomPopupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -51,7 +51,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 Content = _unityContainer.Resolve<TestView>(),// (new ParameterOverride("name", "")),
             };
             PopupWindows.NotificationRequest.Raise(notification, (callback) => {
-
+                int s = 0;
             });
         }
 

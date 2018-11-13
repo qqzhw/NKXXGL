@@ -19,7 +19,9 @@ namespace ICIMS.Core.Interactivity
 		static PopupWindows()
 		{
 			CurrentWidows = new List<MetroWindow>();
-		}
+            CustomPopupRequest = new InteractionRequest<INotification>();
+
+        }
 		public static InteractionRequest<INotification> NotificationRequest
 		{
             get
@@ -27,7 +29,7 @@ namespace ICIMS.Core.Interactivity
                 return notification;
             }
         }
-
+        public static InteractionRequest<INotification> CustomPopupRequest { get; set; } 
         public static InteractionRequest<INotification> NormalNotificationRequest { get; } = new InteractionRequest<INotification>();
 
         public static InteractionRequest<IConfirmation> ConfirmationRequest
