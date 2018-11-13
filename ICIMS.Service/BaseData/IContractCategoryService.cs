@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ICIMS.Service.BaseData
 {
-    public interface IContractService
+    public interface IContractCategoryService
     {
         Task<List<ContractItem>> GetPaged();
     }

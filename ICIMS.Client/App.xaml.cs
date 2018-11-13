@@ -8,6 +8,7 @@ using ICIMS.Modules.BusinessManages;
 using ICIMS.Modules.SystemAdmin;
 using ICIMS.Service;
 using ICIMS.Service.BaseData;
+using ICIMS.Service.BusinessManages;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
@@ -100,12 +101,18 @@ namespace ICIMS.Client
             containerRegistry.Register<IPaymentTypeService, PaymentTypeService>();
             containerRegistry.Register<IItemCategoryService, ItemCategoryService>();
             containerRegistry.Register<IDocumentTypeService, DocumentTypeService>();
-            containerRegistry.Register<IContractService, ContractService>();
+            containerRegistry.Register<IContractCategoryService, ContractCategoryService>();
             containerRegistry.Register<IVendorService, VendorService>();
             containerRegistry.Register<IYsCategoryService, YsCategoryService>();
             containerRegistry.Register<ISubjectService, SubjectService>();
             containerRegistry.Register<IOrganizationUnitService, OrganizationUnitService>();
-            
+
+            containerRegistry.Register<IContractService, ContractService>();
+            containerRegistry.Register<IItemDefineService, ItemDefineService>();
+            containerRegistry.Register<IReViewDefineService, ReViewDefineService>();
+            containerRegistry.Register<IBudgetService, BudgetService>();
+            containerRegistry.Register<IPayAuditService, PayAuditService>();
+            containerRegistry.Register<IBusinessTypeService, BusinessTypeService>();
         }
        
 

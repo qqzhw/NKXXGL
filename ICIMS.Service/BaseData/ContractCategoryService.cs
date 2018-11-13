@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ICIMS.Service.BaseData
 {
-    public class ContractService: IContractService
+    public class ContractCategoryService: IContractCategoryService
     {
         private IWebApiClient _webApiClient;
         private string _baseUrl = "api/services/app/ContractCategory/GetPaged";
-        public ContractService(IWebApiClient webApiClient)
+        public ContractCategoryService(IWebApiClient webApiClient)
         {
             this._webApiClient = webApiClient;
         }

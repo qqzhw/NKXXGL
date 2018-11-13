@@ -65,6 +65,14 @@
     <Compile Include="BaseData\SubjectItem.cs" />
     <Compile Include="BaseData\VendorItem.cs" />
     <Compile Include="BaseData\YsCategoryItem.cs" />
+    <Compile Include="BusinessManages\Budget.cs" />
+    <Compile Include="BusinessManages\BusinessType.cs" />
+    <Compile Include="BusinessManages\Contract.cs" />
+    <Compile Include="BusinessManages\ItemDefine.cs" />
+    <Compile Include="BusinessManages\OrganizationUnit.cs" />
+    <Compile Include="BusinessManages\PayAudit.cs" />
+    <Compile Include="BusinessManages\ReViewDefine.cs" />
+    <Compile Include="CollectionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
