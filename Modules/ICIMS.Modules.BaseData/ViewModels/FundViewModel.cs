@@ -3,6 +3,7 @@ using ICIMS.Core.Interactivity;
 using ICIMS.Core.Interactivity.InteractionRequest;
 using ICIMS.Model.BaseData;
 using ICIMS.Modules.BaseData.Views;
+using ICIMS.Service;
 using ICIMS.Service.BaseData;
 using Prism.Commands;
 using Prism.Events;
@@ -14,6 +15,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Unity;
@@ -39,11 +41,48 @@ namespace ICIMS.Modules.BaseData.ViewModels
             this._regionManager = regionManager;
             eventAggregator.GetEvent<TabCloseEvent>().Subscribe(OnTabActive);
             AddCommand = new DelegateCommand<object>(OnAddCommand);
+            EditCommand = new DelegateCommand<object>(OnEditCommand);
+            DeleteCommand = new DelegateCommand<object>(OnDeleteCommand);
+            RefreshCommand = new DelegateCommand<object>(OnRefreshCommand);
+        }
+
+        private void OnDeleteCommand(object obj)
+        {
+            this._datas.Remove(this.SelectedItem);
+            this.Items.Remove(this.SelectedItem);
+        }
+
+        private void OnEditCommand(object obj)
+        {
+            var newItem = new FundEditViewModel() { ShowReAddBtn=false};
+            newItem.Item = CommonHelper.CopyItem(this.SelectedItem);
+            FundEditView view = new FundEditView(newItem);
+            var notification = new Notification()
+            {
+                Title = "资金来源",
+                Content = view,// (new ParameterOverride("name", "")),
+            };
+            PopupWindows.NotificationRequest.Raise(notification, (callback) =>
+            {
+                if (newItem.IsOkClicked != null)
+                {
+                    if (newItem.IsOkClicked.Value)
+                    {
+                        var oriItem = this._datas.FirstOrDefault(a => a.Id == newItem.Item.Id);
+                        CommonHelper.SetValue(oriItem, newItem.Item);
+                    }
+                }
+            });
+        }
+
+        private void OnRefreshCommand(object obj)
+        {
+            this.Init();
         }
 
         private void OnAddCommand(object obj)
         {
-            var newItem = new FundEditViewModel();
+            var newItem = new FundEditViewModel() {  ShowReAddBtn=true};
             newItem.Item = new FundItem();
             FundEditView view = new FundEditView(newItem);
             var notification = new Notification()
@@ -53,8 +92,18 @@ namespace ICIMS.Modules.BaseData.ViewModels
             };
             PopupWindows.NotificationRequest.Raise(notification, (callback) =>
             {
-                this._datas.Add(newItem.Item);
-                this.InitOneData(_datas, newItem.Item);
+                if (newItem.IsOkClicked != null)
+                {
+                    if (newItem.IsOkClicked.Value)
+                    {
+                        this._datas.Add(newItem.Item);
+                        this.InitOneData(_datas, newItem.Item);
+                    }
+                }
+                else
+                {
+
+                }
             });
         }
 
@@ -83,6 +132,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 InitOneData(_datas, data);
             }
             this.ItemCount = rs.totalCount;
+            this.SelectedItem = this.Items.FirstOrDefault();
         }
 
         private void InitOneData( List<FundItem> datas, FundItem data)
@@ -90,7 +140,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
             if (data.GroupNo != data.No)
             {
                 data.Parent = datas.FirstOrDefault(a => a.No == data.GroupNo);
-                data.Parent.Children.Add(data);
+                data.Parent?.Children.Add(data);
             }
             else
             {
@@ -103,6 +153,10 @@ namespace ICIMS.Modules.BaseData.ViewModels
         public FundItem SelectedItem { get => _selectedItem; set { this._selectedItem = value;this.RaisePropertyChanged(nameof(SelectedItem)); } }
 
         public ICommand AddCommand { get; private set; }
+        public ICommand EditCommand { get; private set; }
+        public ICommand DeleteCommand { get; private set; }
+
+        public ICommand RefreshCommand { get; private set; }
 
         private ObservableCollection<FundItem> _items;
 

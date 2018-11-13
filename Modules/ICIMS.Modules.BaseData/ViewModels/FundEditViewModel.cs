@@ -6,24 +6,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ICIMS.Modules.BaseData.ViewModels
 {
-    public class FundEditViewModel: BindableBase
+    public class FundEditViewModel : BindableBase
     {
+        private bool _showReAddBtn;
+
         public FundItem Item { get; set; }
 
         public ICommand OkCmd { get; private set; }
         public ICommand CancelCmd { get; private set; }
+        public ICommand ReAddCmd { get; private set; }
 
         public FundEditViewModel()
         {
             this.OkCmd = new DelegateCommand<object>(OnOkCmd);
             this.CancelCmd = new DelegateCommand<object>(OnCancelCmd);
+            this.ReAddCmd = new DelegateCommand<object>(OnReAddCmd);
         }
 
-        public bool IsOkClicked { get; private set; }
+        private void OnReAddCmd(object obj)
+        {
+            this.IsOkClicked = null;
+        }
+
+        public bool? IsOkClicked { get; private set; }
 
         private void OnCancelCmd(object obj)
         {
@@ -33,6 +43,19 @@ namespace ICIMS.Modules.BaseData.ViewModels
         private void OnOkCmd(object obj)
         {
             this.IsOkClicked = true;
+        }
+
+        public bool ShowReAddBtn
+        {
+            get => _showReAddBtn; set { this.SetProperty(ref _showReAddBtn, value); this.RaisePropertyChanged(nameof(ReAddVisibility)); }
+        }
+
+        public Visibility ReAddVisibility
+        {
+            get
+            {
+                return ShowReAddBtn ? Visibility.Visible : Visibility.Collapsed;
+            }
         }
     }
 }

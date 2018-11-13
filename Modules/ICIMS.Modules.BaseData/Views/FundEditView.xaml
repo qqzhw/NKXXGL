@@ -4,30 +4,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ICIMS.Modules.BaseData.Views"
+              xmlns:control="clr-namespace:ICIMS.Controls;assembly=ICIMS.Controls"
              mc:Ignorable="d" 
              Background="White"
-             d:DesignHeight="420" d:DesignWidth="360">
+             d:DesignHeight="320" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button Content="确定" Width="80" Height="35" Command="{Binding OkCmd}" Margin="20 5"/>
-            <Button Content="取消" Width="80" Height="35" Command="{Binding CancelCmd}"  Margin="20 5"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0">
+            <control:CustomButton Height="36" Command="{Binding OkCmd}" IconBackground="#91CE2D"  Kind="CheckSolid"  Width="80" Margin="10,0,0,0" Title="保存"/>
+            <control:CustomButton Height="36" Command="{Binding CancelCmd}" IconBackground="#AD372D"  Kind="TimesSolid"  Width="80" Margin="10,0,0,0" Title="取消"/>
+            <control:CustomButton Visibility="{Binding ReAddVisibility}" Height="36" Command="{Binding ReAddCmd}" IconBackground="#AD372D" Kind="SaveSolid"  Width="80" Margin="10,0,0,0" Title="新增"/>
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock Margin="20">编  号</TextBlock>
-                <TextBox Height="35" Text="{Binding Item.No}" Width="200"/>
+                <TextBlock Margin="20  20">编  号</TextBlock>
+                <TextBox Height="22" Text="{Binding Item.No}" Width="200"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Margin="20">名  称</TextBlock>
-                <TextBox Height="35" Text="{Binding Item.Name}" Width="200"/>
+                <TextBox Height="22" Text="{Binding Item.Name}" Width="200"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
-                <TextBlock VerticalAlignment="Center" Margin="20">备  注</TextBlock>
-                <TextBox MinHeight="200" TextWrapping="Wrap" Text="{Binding Item.Description}" Width="200"/>
+                <TextBlock VerticalAlignment="Center" Margin="20 10">备  注</TextBlock>
+                <TextBox MinHeight="120" TextWrapping="Wrap" Text="{Binding Item.Description}" Width="200"/>
             </StackPanel>
         </StackPanel>
     </Grid>

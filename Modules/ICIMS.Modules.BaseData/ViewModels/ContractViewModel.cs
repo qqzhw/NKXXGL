@@ -1,6 +1,7 @@
 ﻿using ICIMS.Core.Events;
 using ICIMS.Model.BaseData;
 using ICIMS.Service.BaseData;
+using ICIMS.Service.BusinessManages;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -20,9 +21,9 @@ namespace ICIMS.Modules.BaseData.ViewModels
     {
         
              private readonly IEventAggregator _eventAggregator;
-        private readonly IContractService _service;
+        private readonly IContractCategoryService _service;
         private readonly IRegionManager _regionManager;
-        public ContractViewModel(IEventAggregator eventAggregator, IContractService service, IRegionManager regionManager)
+        public ContractViewModel(IEventAggregator eventAggregator, IContractCategoryService service, IRegionManager regionManager)
         {
             _eventAggregator = eventAggregator;
             _service = service;
