@@ -73,6 +73,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                     }
                 }
             });
+            Close(false);//关闭
         }
 
         private void OnRefreshCommand(object obj)
@@ -314,6 +315,6 @@ namespace ICIMS.Modules.BaseData.ViewModels
             get => _pageChangedCommand;
             set => _pageChangedCommand = value;
         }
-
+        public Action<bool?> Close { get; internal set; }
     }
 }
