@@ -1,4 +1,5 @@
-﻿using ICIMS.Modules.BaseData.ViewModels;
+﻿using ICIMS.Core.Interactivity.InteractionRequest;
+using ICIMS.Modules.BaseData.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Unity.Attributes;
 
 namespace ICIMS.Modules.BaseData.Views
 {
@@ -21,12 +23,24 @@ namespace ICIMS.Modules.BaseData.Views
     /// </summary>
     public partial class FundView : UserControl
     {
-        public FundView(FundViewModel viewModel)
+        public FundView()
         {
-            InitializeComponent();
-            this.DataContext = viewModel;
-            viewModel.View = this;
+            InitializeComponent();  
         }
+        [Dependency]
+        public FundViewModel ViewModel { get; set; }
+        [InjectionMethod]
+        public void Init()
+        {
+            this.DataContext = ViewModel;
+            ViewModel.View = this;
+        }
+        internal void BindAction(Action<bool?> action)
+        {
+            ViewModel.Close = action;
+        }
+       
+       
 
         private void RadDataPager_PageIndexChanged(object sender, Telerik.Windows.Controls.PageIndexChangedEventArgs e)
         {

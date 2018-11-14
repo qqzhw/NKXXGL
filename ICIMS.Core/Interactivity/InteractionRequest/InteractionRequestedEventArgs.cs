@@ -19,7 +19,12 @@ namespace ICIMS.Core.Interactivity.InteractionRequest
             this.Context = context;
             this.Callback = callback;
         }
-
+        public InteractionRequestedEventArgs(INotification context, Action callback,Action close)
+        {
+            this.Context = context;
+            this.Callback = callback;
+            this.Closed = close;
+        }
         /// <summary>
         /// Gets the context for a requested interaction.
         /// </summary>
@@ -29,5 +34,6 @@ namespace ICIMS.Core.Interactivity.InteractionRequest
         /// Gets the callback to execute when an interaction is completed.
         /// </summary>
         public Action Callback { get; private set; }
+        public Action Closed { get; internal set; }
     }
 }

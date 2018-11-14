@@ -22,5 +22,7 @@ namespace ICIMS.Core.Interactivity.InteractionRequest
         /// Gets or sets the content of the notification.
         /// </summary>
         public object Content { get; set; }
+        public Action<bool?> Finish { get ; set ; }
+        public bool? DialogResult { get ; set; }
     }
 }

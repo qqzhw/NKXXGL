@@ -1,4 +1,5 @@
-﻿using ICIMS.Modules.BaseData.ViewModels;
+﻿using ICIMS.Core.Interactivity.InteractionRequest;
+using ICIMS.Modules.BaseData.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace ICIMS.Modules.BaseData.Views
     /// <summary>
     /// UserView.xaml 的交互逻辑
     /// </summary>
-    public partial class UserView : UserControl
+    public partial class UserView : UserControl, IInteractionRequestAware
     {
        
         public UserView(UserViewModel viewModel)
@@ -27,7 +28,10 @@ namespace ICIMS.Modules.BaseData.Views
             InitializeComponent();
             this.DataContext = viewModel;
             viewModel.View = this;
+            this.FinishInteraction += viewModel.Close;    
         }
 
+        public INotification Notification { get ; set; }
+        public Action FinishInteraction { get; set; }
     }
 }

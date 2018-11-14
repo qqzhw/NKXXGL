@@ -39,8 +39,15 @@ namespace ICIMS.Modules.BaseData.ViewModels
             this._regionManager = regionManager;
             eventAggregator.GetEvent<TabCloseEvent>().Subscribe(OnTabActive);
             AddCommand = new DelegateCommand<object>(OnAddCommand);
+            
         }
 
+        private void OnClose()
+        {
+            int s = 5;
+        }
+
+        public Action<bool?> Close { get; set; }
         private void OnAddCommand(object obj)
         {
             var newItem = new FundEditViewModel();

@@ -19,10 +19,10 @@ namespace ICIMS.Modules.BaseData.ViewModels
     public class ContractViewModel : BindableBase, INavigationAware
     {
         
-             private readonly IEventAggregator _eventAggregator;
-        private readonly IContractService _service;
+      private readonly IEventAggregator _eventAggregator;
+        private readonly IContractCategoryService _service;
         private readonly IRegionManager _regionManager;
-        public ContractViewModel(IEventAggregator eventAggregator, IContractService service, IRegionManager regionManager)
+        public ContractViewModel(IEventAggregator eventAggregator, IContractCategoryService service, IRegionManager regionManager)
         {
             _eventAggregator = eventAggregator;
             _service = service;

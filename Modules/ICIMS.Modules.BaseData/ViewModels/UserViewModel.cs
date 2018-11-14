@@ -36,6 +36,8 @@ namespace ICIMS.Modules.BaseData.ViewModels
             _title = "ViewB";
         }
 
+        public Action Close { get; set; }
+
         [InjectionMethod]
         public void Init()
         {
@@ -45,17 +47,20 @@ namespace ICIMS.Modules.BaseData.ViewModels
         private void OnMenuCommand(object obj)
         {
 
+            var view = _unityContainer.Resolve<FundView>(); 
             var notification = new Notification()
-            {
-                Title = "测试",
-                Content = _unityContainer.Resolve<TestView>(),// (new ParameterOverride("name", "")),
-            };
+            { 
+                Content =view ,// (new ParameterOverride("name", "")), 
+            }; 
             PopupWindows.NotificationRequest.Raise(notification, (callback) => {
                 int s = 0;
             });
+            view.BindAction(notification.Finish);
+             
+            
         }
 
-
+        public Action FinishInteraction { get; set; }
         #region 通用属性
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

@@ -240,6 +240,15 @@ namespace ICIMS.Core.Interactivity
             else
             {
                 wrapperWindow = this.CreateDefaultWindow(notification);
+                Action<INotification> setNotificationAndClose = (iira) =>
+                { 
+                    iira.Finish = (t) => {
+                        iira.DialogResult = t;
+                        wrapperWindow.Close();
+                        };
+                };
+
+                MvvmHelpers.ViewAndViewModelAction(wrapperWindow.Content, setNotificationAndClose);
             }
 
             if (AssociatedObject != null)

@@ -41,5 +41,14 @@ namespace ICIMS.Core.Interactivity.InteractionRequest
                 handler(this, new InteractionRequestedEventArgs(context, () => { if(callback != null) callback(context); } ));
             }
         }
+
+        public void Raise(T context, Action<T> callback,Action closed)
+        {
+            var handler = this.Raised;
+            if (handler != null)
+            {
+                handler(this, new InteractionRequestedEventArgs(context, () => { if (callback != null) callback(context); },closed));
+            }
+        }
     }
 }
