@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using Newtonsoft.Json;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,7 @@ namespace ICIMS.Model.BaseData
         private int _displayOrder;
         private DateTime _creationTime;
         private DateTime? _lastModificationTime;
+      
         private FundItem _parent;
 
         public FundItem()
@@ -49,6 +51,7 @@ namespace ICIMS.Model.BaseData
         public DateTime CreationTime { get => _creationTime; set => SetProperty(ref _creationTime, value); }
         public DateTime? LastModificationTime { get => _lastModificationTime; set => SetProperty(ref _lastModificationTime, value); }
 
+        [JsonIgnore]
         public FundItem Parent { get => _parent; set => _parent = value; }
 
         public ObservableCollection<FundItem> Children { get; set; } = new ObservableCollection<FundItem>();

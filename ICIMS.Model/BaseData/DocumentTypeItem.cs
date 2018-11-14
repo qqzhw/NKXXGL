@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using Newtonsoft.Json;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -49,6 +50,7 @@ namespace ICIMS.Model.BaseData
         public DateTime CreationTime { get => _creationTime; set => SetProperty(ref _creationTime, value); }
         public DateTime? LastModificationTime { get => _lastModificationTime; set => SetProperty(ref _lastModificationTime, value); }
 
+        [JsonIgnore]
         public DocumentTypeItem Parent { get => _parent; set => _parent = value; }
 
         public ObservableCollection<DocumentTypeItem> Children { get; set; } = new ObservableCollection<DocumentTypeItem>();

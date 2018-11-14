@@ -21,10 +21,19 @@ namespace ICIMS.Modules.BaseData.Views
     /// </summary>
     public partial class FundEditView : UserControl
     {
+        private FundEditViewModel ViewModel;
         public FundEditView(FundEditViewModel viewModel)
         {
             InitializeComponent();
             this.DataContext = viewModel;
+            viewModel.View = this;
+            this.ViewModel = viewModel;
         }
+
+        public void BindAction(Action<bool?> action)
+        {
+            ViewModel.Close = action;
+        }
+
     }
 }

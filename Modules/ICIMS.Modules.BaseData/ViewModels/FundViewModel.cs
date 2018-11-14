@@ -46,15 +46,28 @@ namespace ICIMS.Modules.BaseData.ViewModels
             RefreshCommand = new DelegateCommand<object>(OnRefreshCommand);
         }
 
-        private void OnDeleteCommand(object obj)
+        private async void OnDeleteCommand(object obj)
         {
-            this._datas.Remove(this.SelectedItem);
-            this.Items.Remove(this.SelectedItem);
+            if(MessageBox.Show("请确认是否删除", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+            {
+                try
+                {
+                    await _fundFromService.Delete(SelectedItem.Id);
+                    this._datas.Remove(this.SelectedItem);
+                    this.Items.Remove(this.SelectedItem);
+                }
+                catch (RemoteCallException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+               
+            }
+          
         }
 
         private void OnEditCommand(object obj)
         {
-            var newItem = new FundEditViewModel() { ShowReAddBtn=false};
+            var newItem = new FundEditViewModel() { ShowReAddBtn = false };
             newItem.Item = CommonHelper.CopyItem(this.SelectedItem);
             FundEditView view = new FundEditView(newItem);
             var notification = new Notification()
@@ -62,18 +75,32 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 Title = "资金来源",
                 Content = view,// (new ParameterOverride("name", "")),
             };
-            PopupWindows.NotificationRequest.Raise(notification, (callback) =>
+            PopupWindows.NotificationRequest.Raise(notification, async(callback) =>
             {
                 if (newItem.IsOkClicked != null)
                 {
                     if (newItem.IsOkClicked.Value)
                     {
-                        var oriItem = this._datas.FirstOrDefault(a => a.Id == newItem.Item.Id);
-                        CommonHelper.SetValue(oriItem, newItem.Item);
+                        try
+                        {
+                            var data = await _fundFromService.CreateOrUpdate(newItem.Item);
+                            if (data != null)
+                            {
+                                var oriItem = this._datas.FirstOrDefault(a => a.Id == newItem.Item.Id);
+
+                                CommonHelper.SetValue(oriItem, newItem.Item);
+                            }
+                        }
+                        catch (RemoteCallException ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                       
+                      
                     }
                 }
             });
-            Close(false);//关闭
+            view.BindAction(notification.Finish);
         }
 
         private void OnRefreshCommand(object obj)
@@ -83,7 +110,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
         private void OnAddCommand(object obj)
         {
-            var newItem = new FundEditViewModel() {  ShowReAddBtn=true};
+            var newItem = new FundEditViewModel() { ShowReAddBtn = true };
             newItem.Item = new FundItem();
             FundEditView view = new FundEditView(newItem);
             var notification = new Notification()
@@ -91,14 +118,26 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 Title = "资金来源",
                 Content = view,// (new ParameterOverride("name", "")),
             };
-            PopupWindows.NotificationRequest.Raise(notification, (callback) =>
+            PopupWindows.NotificationRequest.Raise(notification, async (callback) =>
             {
                 if (newItem.IsOkClicked != null)
                 {
                     if (newItem.IsOkClicked.Value)
                     {
-                        this._datas.Add(newItem.Item);
-                        this.InitOneData(_datas, newItem.Item);
+                        try
+                        {
+                            var data = await _fundFromService.CreateOrUpdate(newItem.Item);
+                            if (data != null)
+                            {
+                                this._datas.Add(data);
+                                this.InitOneData(_datas, data);
+                            }
+                        }
+                        catch (RemoteCallException ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                       
                     }
                 }
                 else
@@ -106,6 +145,8 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
                 }
             });
+            view.BindAction(notification.Finish);
+
         }
 
         private void OnTabActive(UserControl view)
@@ -136,7 +177,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
             this.SelectedItem = this.Items.FirstOrDefault();
         }
 
-        private void InitOneData( List<FundItem> datas, FundItem data)
+        private void InitOneData(List<FundItem> datas, FundItem data)
         {
             if (data.GroupNo != data.No)
             {
@@ -151,7 +192,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
         private List<FundItem> _datas;
 
-        public FundItem SelectedItem { get => _selectedItem; set { this._selectedItem = value;this.RaisePropertyChanged(nameof(SelectedItem)); } }
+        public FundItem SelectedItem { get => _selectedItem; set { this._selectedItem = value; this.RaisePropertyChanged(nameof(SelectedItem)); } }
 
         public ICommand AddCommand { get; private set; }
         public ICommand EditCommand { get; private set; }
@@ -305,6 +346,10 @@ namespace ICIMS.Modules.BaseData.ViewModels
         {
             return true;
         }
+
+        public Action<bool?> Close { get; internal set; }
+
+
         #endregion
 
         private DelegateCommand _pageChangedCommand;
@@ -315,6 +360,5 @@ namespace ICIMS.Modules.BaseData.ViewModels
             get => _pageChangedCommand;
             set => _pageChangedCommand = value;
         }
-        public Action<bool?> Close { get; internal set; }
     }
 }
