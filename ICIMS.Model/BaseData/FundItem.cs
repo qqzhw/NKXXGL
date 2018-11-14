@@ -13,25 +13,43 @@ namespace ICIMS.Model.BaseData
         private string _no;
         private string _name;
         private string _description;
+        private int _parentId;
         private bool _published;
+        private int _displayOrder;
+        private DateTime _creationTime;
+        private DateTime? _lastModificationTime;
+        private FundItem _parent;
 
-        public string No { get => _no; set { _no = value; this.RaisePropertyChanged(nameof(No)); } }
+        public FundItem()
+        {
+            this.Children = new ObservableCollection<FundItem>();
+            this.Children.CollectionChanged += Children_CollectionChanged;
+        }
 
-        public string Name { get => _name; set { _name = value; this.RaisePropertyChanged(nameof(Name)); } }
+        private void Children_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            this.RaisePropertyChanged(nameof(IsLast));
+        }
 
-        public string Description { get => _description; set { _description = value; this.RaisePropertyChanged(nameof(Description)); } }
+        public int Id { get; set; }
+
+        public string No { get => _no; set { SetProperty(ref _no, value); RaisePropertyChanged(nameof(GroupNo)); RaisePropertyChanged(nameof(Level)); } }
+
+        public string Name { get => _name; set => SetProperty(ref _name, value); }
+
+        public string Description { get => _description; set => SetProperty(ref _description, value); }
 
         //上级编号
-        public int ParentId { get; set; }
+        public int ParentId { get => _parentId; set => SetProperty(ref _parentId, value); }
 
 
-        public bool Published { get => _published; set { _published = value; this.RaisePropertyChanged(nameof(Published)); } }
+        public bool Published { get => _published; set { SetProperty(ref _published, value); RaisePropertyChanged(nameof(IsForbiddened)); } }
 
-        public int DisplayOrder { get; set; }
-        public DateTime CreationTime { get; set; }
-        public DateTime? LastModificationTime { get; set; }
+        public int DisplayOrder { get => _displayOrder; set => SetProperty(ref _displayOrder, value); }
+        public DateTime CreationTime { get => _creationTime; set => SetProperty(ref _creationTime, value); }
+        public DateTime? LastModificationTime { get => _lastModificationTime; set => SetProperty(ref _lastModificationTime, value); }
 
-        public FundItem Parent { get; set; }
+        public FundItem Parent { get => _parent; set => _parent = value; }
 
         public ObservableCollection<FundItem> Children { get; set; } = new ObservableCollection<FundItem>();
 
@@ -39,12 +57,12 @@ namespace ICIMS.Model.BaseData
         {
             get
             {
-                if (string.IsNullOrEmpty(this.No))
+                if (string.IsNullOrEmpty(_no))
                 {
                     return "";
                 }
-                var idx = this.No.LastIndexOf('-');
-                if (idx != -1)
+                var idx = this.No.LastIndexOf('-'); 
+                    if (idx != -1)
                 {
                     return this.No.Substring(0, idx);
                 }

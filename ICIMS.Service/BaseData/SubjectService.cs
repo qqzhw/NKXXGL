@@ -17,10 +17,7 @@ namespace ICIMS.Service.BaseData
         }
         public async Task<List<SubjectItem>> GetPaged()
         {
-            _webApiClient.TenancyName = "Default";
-            _webApiClient.UserName = "admin";
-            _webApiClient.Password = "123qwe";
-            _webApiClient.TokenBasedAuth();
+           
             var para = new { MaxResultCount = 200 };
             var data = await _webApiClient.GetAsync<ResultData<List<SubjectItem>>>($"{_webApiClient.BaseUrl}{_baseUrl}", para);
 
