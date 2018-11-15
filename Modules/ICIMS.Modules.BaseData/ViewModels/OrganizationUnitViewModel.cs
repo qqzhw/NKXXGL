@@ -83,7 +83,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                     {
                         try
                         {
-                            var data = await _service.CreateOrUpdate(newItem.Item);
+                            var data = await _service.Update(newItem.Item);
                             if (data != null)
                             {
                                 var oriItem = this._datas.FirstOrDefault(a => a.Id == newItem.Item.Id);
@@ -126,7 +126,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                     {
                         try
                         {
-                            var data = await _service.CreateOrUpdate(newItem.Item);
+                            var data = await _service.Create(newItem.Item);
                             if (data != null)
                             {
                                 this._datas.Add(data);
@@ -179,9 +179,9 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
         private void InitOneData(List<OrganizationUnitItem> datas, OrganizationUnitItem data)
         {
-            if (data.GroupNo != data.No)
+            if (data.GroupNo != data.Code)
             {
-                data.Parent = datas.FirstOrDefault(a => a.No == data.GroupNo);
+                data.Parent = datas.FirstOrDefault(a => a.Code == data.GroupNo);
                 data.Parent?.Children.Add(data);
             }
             else

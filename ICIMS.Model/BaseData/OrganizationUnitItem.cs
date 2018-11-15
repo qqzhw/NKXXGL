@@ -11,8 +11,8 @@ namespace ICIMS.Model.BaseData
 {
     public class OrganizationUnitItem : BindableBase
     {
-        private string _no;
-        private string _name;
+        private string _code;
+        private string _displayName;
         private string _description;
         private int _parentId;
         private bool _published;
@@ -33,9 +33,9 @@ namespace ICIMS.Model.BaseData
         }
 
         public int Id { get; set; }
-        public string No { get => _no; set { SetProperty(ref _no, value); RaisePropertyChanged(nameof(GroupNo)); RaisePropertyChanged(nameof(Level)); } }
+        public string Code { get => _code; set { SetProperty(ref _code, value); RaisePropertyChanged(nameof(GroupNo)); RaisePropertyChanged(nameof(Level)); } }
 
-        public string Name { get => _name; set => SetProperty(ref _name, value); }
+        public string DisplayName { get => _displayName; set => SetProperty(ref _displayName, value); }
 
         public string Description { get => _description; set => SetProperty(ref _description, value); }
 
@@ -58,17 +58,17 @@ namespace ICIMS.Model.BaseData
         {
             get
             {
-                if (string.IsNullOrEmpty(_no))
+                if (string.IsNullOrEmpty(_code))
                 {
                     return "";
                 }
-                var idx = this.No.LastIndexOf('-');
+                var idx = this.Code.LastIndexOf('-');
                 if (idx != -1)
                 {
-                    return this.No.Substring(0, idx);
+                    return this.Code.Substring(0, idx);
                 }
 
-                return this.No;
+                return this.Code;
             }
         }
 

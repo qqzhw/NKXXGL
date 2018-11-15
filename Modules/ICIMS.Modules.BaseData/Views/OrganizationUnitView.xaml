@@ -55,11 +55,11 @@
                 <telerik:TreeListViewTableDefinition ItemsSource="{Binding Children}" />
             </telerik:RadTreeListView.ChildTableDefinitions>
             <telerik:RadTreeListView.Columns>
-                <telerik:GridViewDataColumn DataMemberBinding="{Binding No}"
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding Code}"
 											IsReadOnly="False"
                                             Header="编号"
 											Width="150" />
-                <telerik:GridViewDataColumn DataMemberBinding="{Binding Name}"
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding DisplayName}"
 											IsReadOnly="False"
                                             Header="名称"
 											Width="150" />

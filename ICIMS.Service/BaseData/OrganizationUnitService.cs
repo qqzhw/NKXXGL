@@ -10,7 +10,7 @@ namespace ICIMS.Service.BaseData
     public class OrganizationUnitService: IOrganizationUnitService
     {
         private IWebApiClient _webApiClient;
-        private string _baseUrl = "api/services/app/OrganizationUnit";
+        private string _baseUrl = "api/services/app/Department";
         public OrganizationUnitService(IWebApiClient webApiClient)
         {
             this._webApiClient = webApiClient;
@@ -32,6 +32,16 @@ namespace ICIMS.Service.BaseData
         public async Task<OrganizationUnitItem> CreateOrUpdate(OrganizationUnitItem fundFrom)
         {
             return await _webApiClient.PostAsync<OrganizationUnitItem>($"{_webApiClient.BaseUrl}{_baseUrl}/CreateOrUpdate", new { fundFrom });
+        }
+
+        public async Task<OrganizationUnitItem> Create(OrganizationUnitItem fundFrom)
+        {
+            return await _webApiClient.PostAsync<OrganizationUnitItem>($"{_webApiClient.BaseUrl}{_baseUrl}/CreateAsync",  new { fundFrom.Code, fundFrom.DisplayName});
+        }
+
+        public async Task<OrganizationUnitItem> Update(OrganizationUnitItem fundFrom)
+        {
+            return await _webApiClient.PostAsync<OrganizationUnitItem>($"{_webApiClient.BaseUrl}{_baseUrl}/UpdateAsync",  fundFrom);
         }
     }
 }

@@ -30,9 +30,9 @@ namespace ICIMS.Service.BaseData
             await _webApiClient.DeleteAsync<object>($"{_webApiClient.BaseUrl}{_baseUrl}/Delete", new { Id = id });
         }
 
-        public async Task<PaymentTypeItem> CreateOrUpdate(PaymentTypeItem fundFrom)
+        public async Task<PaymentTypeItem> CreateOrUpdate(PaymentTypeItem paymentType)
         {
-            return await _webApiClient.PostAsync<PaymentTypeItem>($"{_webApiClient.BaseUrl}{_baseUrl}/CreateOrUpdate", new { fundFrom });
+            return await _webApiClient.PostAsync<PaymentTypeItem>($"{_webApiClient.BaseUrl}{_baseUrl}/CreateOrUpdate", new { paymentType });
         }
     }
 }

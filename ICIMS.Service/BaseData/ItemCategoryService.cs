@@ -31,7 +31,7 @@ namespace ICIMS.Service.BaseData
 
         public async Task<ItemCategoryItem> CreateOrUpdate(ItemCategoryItem fundFrom)
         {
-            return await _webApiClient.PostAsync<ItemCategoryItem>($"{_webApiClient.BaseUrl}{_baseUrl}/CreateOrUpdate", new { fundFrom });
+            return await _webApiClient.PostAsync<ItemCategoryItem>($"{_webApiClient.BaseUrl}{_baseUrl}/CreateOrUpdate", new { ItemCategory=fundFrom });
         }
     }
 }

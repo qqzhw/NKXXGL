@@ -29,9 +29,9 @@ namespace ICIMS.Service.BaseData
             await _webApiClient.DeleteAsync<object>($"{_webApiClient.BaseUrl}{_baseUrl}/Delete", new { Id = id });
         }
 
-        public async Task<SubjectItem> CreateOrUpdate(SubjectItem fundFrom)
+        public async Task<SubjectItem> CreateOrUpdate(SubjectItem functionSubject)
         {
-            return await _webApiClient.PostAsync<SubjectItem>($"{_webApiClient.BaseUrl}{_baseUrl}/CreateOrUpdate", new { fundFrom });
+            return await _webApiClient.PostAsync<SubjectItem>($"{_webApiClient.BaseUrl}{_baseUrl}/CreateOrUpdate", new { functionSubject });
         }
     }
 }

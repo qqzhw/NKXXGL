@@ -29,9 +29,9 @@ namespace ICIMS.Service.BaseData
             await _webApiClient.DeleteAsync<object>($"{_webApiClient.BaseUrl}{_baseUrl}/Delete", new { Id = id });
         }
 
-        public async Task<VendorItem> CreateOrUpdate(VendorItem fundFrom)
+        public async Task<VendorItem> CreateOrUpdate(VendorItem vendor)
         {
-            return await _webApiClient.PostAsync<VendorItem>($"{_webApiClient.BaseUrl}{_baseUrl}/CreateOrUpdate", new { fundFrom });
+            return await _webApiClient.PostAsync<VendorItem>($"{_webApiClient.BaseUrl}{_baseUrl}/CreateOrUpdate", new { vendor });
         }
     }
 }

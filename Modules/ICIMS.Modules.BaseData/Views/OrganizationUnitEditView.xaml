@@ -21,11 +21,11 @@
         <StackPanel Grid.Row="1" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Margin="20  20">编  号</TextBlock>
-                <TextBox Height="22" Text="{Binding Item.No}" Width="200"/>
+                <TextBox Height="22" Text="{Binding Item.Code}" Width="200"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Margin="20">名  称</TextBlock>
-                <TextBox Height="22" Text="{Binding Item.Name}" Width="200"/>
+                <TextBox Height="22" Text="{Binding Item.DisplayName}" Width="200"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock VerticalAlignment="Center" Margin="20 10">备  注</TextBlock>

@@ -53,7 +53,6 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 try
                 {
                     await _service.Delete(SelectedItem.Id);
-                    this._datas.Remove(this.SelectedItem);
                     this.Items.Remove(this.SelectedItem);
                 }
                 catch (RemoteCallException ex)
@@ -86,7 +85,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                             var data = await _service.CreateOrUpdate(newItem.Item);
                             if (data != null)
                             {
-                                var oriItem = this._datas.FirstOrDefault(a => a.Id == newItem.Item.Id);
+                                var oriItem = this.Items.FirstOrDefault(a => a.Id == newItem.Item.Id);
 
                                 CommonHelper.SetValue(oriItem, newItem.Item);
                             }
@@ -129,8 +128,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                             var data = await _service.CreateOrUpdate(newItem.Item);
                             if (data != null)
                             {
-                                this._datas.Add(data);
-                                this.InitOneData(_datas, data);
+                                this.Items.Add(data);
                             }
                         }
                         catch (RemoteCallException ex)
@@ -166,13 +164,8 @@ namespace ICIMS.Modules.BaseData.ViewModels
         public async void Init()
         {
             _title = "资金来源";
-            this.Items = new ObservableCollection<FundItem>();
             var rs = await _service.GetPageItems(this.No, this.Name, this.PageIndex, this.PageSize);
-            this._datas = rs.datas;
-            foreach (var data in _datas)
-            {
-                InitOneData(_datas, data);
-            }
+            this.Items = new ObservableCollection<FundItem>(rs.datas);
             this.ItemCount = rs.totalCount;
             this.SelectedItem = this.Items.FirstOrDefault();
         }
@@ -189,8 +182,6 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 this.Items.Add(data);
             }
         }
-
-        private List<FundItem> _datas;
 
         public FundItem SelectedItem { get => _selectedItem; set { this._selectedItem = value; this.RaisePropertyChanged(nameof(SelectedItem)); } }
 

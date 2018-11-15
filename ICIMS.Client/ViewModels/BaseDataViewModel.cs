@@ -88,7 +88,7 @@ namespace ICIMS.Client.ViewModels
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "FundView",
+                Id = "OrganizationUnitView",
                 Title = "部门信息",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu2_资产管理_基础信息.ico",
                 IsDefaultShow = false,
