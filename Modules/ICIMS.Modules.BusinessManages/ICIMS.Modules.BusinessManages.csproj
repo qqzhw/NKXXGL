@@ -127,6 +127,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ViewModels\BudgetViewModel.cs" />
     <Compile Include="ViewModels\ContractEditViewModel.cs" />
     <Compile Include="ViewModels\ContractViewModel.cs" />
     <Compile Include="ViewModels\ItemDefineEditViewModel.cs" />
@@ -135,6 +136,33 @@
     <Compile Include="ViewModels\PayAuditViewModel.cs" />
     <Compile Include="ViewModels\ReViewDefineEditViewModel.cs" />
     <Compile Include="ViewModels\ReViewDefineViewModel.cs" />
+    <Compile Include="Views\BudgetAdjustEditView.xaml.cs">
+      <DependentUpon>BudgetAdjustEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BudgetAdjustView.xaml.cs">
+      <DependentUpon>BudgetAdjustView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BudgetEditView.xaml.cs">
+      <DependentUpon>BudgetEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BudgetLabelEditView.xaml.cs">
+      <DependentUpon>BudgetLabelEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BudgetLabelView.xaml.cs">
+      <DependentUpon>BudgetLabelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BudgetMiddleAdjustView.xaml.cs">
+      <DependentUpon>BudgetMiddleAdjustView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BudgetReplyEditView.xaml.cs">
+      <DependentUpon>BudgetReplyEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BudgetReplyView.xaml.cs">
+      <DependentUpon>BudgetReplyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BudgetView.xaml.cs">
+      <DependentUpon>BudgetView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ContractEditView.xaml.cs">
       <DependentUpon>ContractEditView.xaml</DependentUpon>
     </Compile>
@@ -146,6 +174,9 @@
     </Compile>
     <Compile Include="Views\ItemDefineView.xaml.cs">
       <DependentUpon>ItemDefineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BudgetMiddleReplyView.xaml.cs">
+      <DependentUpon>BudgetMiddleReplyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PayAuditEditView.xaml.cs">
       <DependentUpon>PayAuditEditView.xaml</DependentUpon>
@@ -173,6 +204,42 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\BudgetAdjustEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BudgetAdjustView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BudgetEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BudgetLabelEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BudgetLabelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BudgetMiddleAdjustView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BudgetReplyEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BudgetReplyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BudgetView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ContractEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -186,6 +253,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ItemDefineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BudgetMiddleReplyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

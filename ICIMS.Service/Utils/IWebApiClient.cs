@@ -67,5 +67,7 @@ namespace ICIMS.Service
         /// <param name="timeout">Timeout as milliseconds</param>
         Task<TResult> PostAsync<TResult>(string url, object input, int? timeout = null) where TResult : class;
         Task<TResult> GetAsync<TResult>(string url, object input, int? timeout = null) where TResult : class;
+        Task<TResult> DeleteAsync<TResult>(string url, object input, int? timeout = null)
+        where TResult : class;
     }
 }

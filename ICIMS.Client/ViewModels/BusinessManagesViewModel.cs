@@ -42,12 +42,21 @@ namespace ICIMS.Client.ViewModels
             get { return _systemInfos; }
             set { SetProperty(ref _systemInfos, value); }
         }
+        private ObservableCollection<SystemInfoViewModel> _ysInfos;
+        public ObservableCollection<SystemInfoViewModel> YsInfos
+        {
+            get { return _ysInfos; }
+            set { SetProperty(ref _ysInfos, value); }
+        }
+
         [InjectionMethod]
         public void Init()
         {
             _systemInfos = new ObservableCollection<SystemInfoViewModel>();
+            _ysInfos= new ObservableCollection<SystemInfoViewModel>();
             SelectedCommand = new DelegateCommand<SystemInfoViewModel>(OnItemSelected);
             InitMenu();
+            InitMenu2();
         }
         private void InitMenu()
         {
@@ -116,6 +125,53 @@ namespace ICIMS.Client.ViewModels
             });
            
             
+        }
+        private void InitMenu2()
+        {
+            _ysInfos.Add(new SystemInfoViewModel()
+            {
+                Id = "BudgetView",
+                Title = "预算编制",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_预算管理_预算编制.ico",
+                IsDefaultShow = false,
+            });
+            _ysInfos.Add(new SystemInfoViewModel()
+            {
+                Id = "BudgetLabelView",
+                Title = "预算归类",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_预算管理_预算归类.ico",
+                IsDefaultShow = false,
+            });
+            _ysInfos.Add(new SystemInfoViewModel()
+            {
+                Id = "BudgetAdjustView",
+                Title = "预算调整",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_预算管理_预算调整.ico",
+                IsDefaultShow = false,
+            });
+            _ysInfos.Add(new SystemInfoViewModel()
+            {
+                Id = "BudgetReplyView",
+                Title = "预算批复",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_预算管理_预算批复.ico",
+                IsDefaultShow = false,
+            });
+            _ysInfos.Add(new SystemInfoViewModel()
+            {
+                Id = "BudgetMiddleAdjustView",
+                Title = "中期调整",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_预算管理_中期调整.ico",
+                IsDefaultShow = false,
+            });
+            _ysInfos.Add(new SystemInfoViewModel()
+            {
+                Id = "BudgetMiddleReplyView",
+                Title = "中期批复",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_预算管理_中期批复.ico",
+                IsDefaultShow = false,
+            });
+           
+
         }
 
         private void OnItemSelected(SystemInfoViewModel selectedItem)
