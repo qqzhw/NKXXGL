@@ -12,6 +12,7 @@ namespace ICIMS.Service
     {
         public T Items { get; set; }
         public int TotalCount { get; set; }
+        public bool Success { get; set; }
     }
     public static class Extensions
     {

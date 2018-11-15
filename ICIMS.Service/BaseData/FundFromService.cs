@@ -10,7 +10,7 @@ namespace ICIMS.Service.BaseData
     public class FundFromService : IFundFromService
     {
         private IWebApiClient _webApiClient;
-        private string _baseUrl = "api/services/app/FundFrom/GetPaged";
+        private string _baseUrl = "api/services/app/FundFrom";
         public FundFromService(IWebApiClient webApiClient)
         {
             this._webApiClient = webApiClient;
@@ -20,9 +20,20 @@ namespace ICIMS.Service.BaseData
         {
             var skipCount = (pageIndex - 1) * pageSize;
             var para = new { No, Name, MaxResultCount = pageSize, SkipCount = skipCount > 0 ? skipCount : 0 };
-            var data = await _webApiClient.GetAsync<ResultData<List<FundItem>>>($"{_webApiClient.BaseUrl}{_baseUrl}", para);
+            var data = await _webApiClient.GetAsync<ResultData<List<FundItem>>>($"{_webApiClient.BaseUrl}{_baseUrl}/GetPaged", para);
 
             return (totalCount: data.TotalCount, datas: data.Items);
         }
+
+        public async Task Delete(int id)
+        {
+            await _webApiClient.PostAsync($"{_webApiClient.BaseUrl}{_baseUrl}/Delete", new { Id=id });
+        }
+
+        public async Task<FundItem> CreateOrUpdate(FundItem fundFrom)
+        {
+            return await _webApiClient.PostAsync<FundItem>($"{_webApiClient.BaseUrl}{_baseUrl}/CreateOrUpdate", new { fundFrom });
+        }
+
     }
 }

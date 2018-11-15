@@ -10,6 +10,8 @@ namespace ICIMS.Service.BaseData
     public interface IFundFromService
     {
         Task<(int totalCount, List<FundItem> datas)> GetPageItems(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue);
+        Task Delete(int id);
+        Task<FundItem> CreateOrUpdate(FundItem fundFrom);
 
     }
 }

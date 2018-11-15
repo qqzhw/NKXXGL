@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace ICIMS.Modules.BaseData.ViewModels
@@ -38,11 +39,13 @@ namespace ICIMS.Modules.BaseData.ViewModels
         private void OnCancelCmd(object obj)
         {
             this.IsOkClicked = false;
+            this.Close?.Invoke(null);
         }
 
         private void OnOkCmd(object obj)
         {
             this.IsOkClicked = true;
+            this.Close?.Invoke(null);
         }
 
         public bool ShowReAddBtn
@@ -57,5 +60,11 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 return ShowReAddBtn ? Visibility.Visible : Visibility.Collapsed;
             }
         }
+
+        public virtual UserControl View { get; set; }
+
+
+
+        public Action<bool?> Close { get; internal set; }
     }
 }

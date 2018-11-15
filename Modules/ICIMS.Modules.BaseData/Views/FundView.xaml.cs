@@ -35,7 +35,7 @@ namespace ICIMS.Modules.BaseData.Views
             this.DataContext = ViewModel;
             ViewModel.View = this;
         }
-        internal void BindAction(Action<bool?> action)
+        public void BindAction(Action<bool?> action)
         {
             ViewModel.Close = action;
         }
