@@ -5,9 +5,62 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ICIMS.Modules.BaseData.Views"
              mc:Ignorable="d" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:prism="http://prismlibrary.com/"             
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <Grid.Resources>
+            <Style x:Key="AutoCompleteStyle" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="FontSize" Value="13.333" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <DataTemplate x:Key="FoodPlacesSearchAutoComplete">
+                <StackPanel Orientation="Horizontal">
+                    <Border Height="36" Width="36" >
+                        <Image Source="{Binding IconPath}" Height="26" Width="26" />
+                    </Border>
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource AutoCompleteStyle}" Margin="10 0 0 0" />
+                </StackPanel>
+            </DataTemplate>
+           
+        </Grid.Resources>
+        <telerik:RadNumericUpDown Width="100" Minimum="0"  telerik:StyleManager.Theme="Office2016" ValueFormat="Currency" Maximum="100000000000" />
         <Button Content="测试" Height="30" Width="80"   Command="{Binding ShowCommand}"/>
+        <StackPanel x:Name="CenterColumn"   Width="265.5" Margin="14 0 14 0">
+           
+            <telerik:RadAutoCompleteBox  WatermarkContent="Enter a movie..." 
+											 x:Name="movieAutoCompleteBox"
+											 TextSearchPath="MovieTitle"
+											 TextSearchMode="Contains"
+											 AutoCompleteMode="Suggest"
+											 SelectionMode="Single"
+											 ItemsSource="{Binding MoviesList}"
+											 DropDownItemTemplate="{StaticResource FoodPlacesSearchAutoComplete}"
+											 Margin="0 20 0 0"
+											 SelectionChanged="movieAutoCompleteBoxSelectionChanged"
+                                             NoResultsContent="Movie could not be found."/>
+            <StackPanel x:Name="movieInfoStackPanel" Visibility="Collapsed">
+                <telerik:Label Margin="0 30 0 0" FontFamily="Segoe UI Light" FontSize="13.333" Content="You choose the best movie of the day :"/>
+
+                <Rectangle HorizontalAlignment="Left" Height="1"  VerticalAlignment="Bottom" Width="280" Margin="0 0 0 8" Fill="{StaticResource W Grey}" StrokeThickness="0"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <telerik:Label Content="DATE:" FontFamily="Segoe UI" FontSize="10.667" Margin="0 0 10 0" Grid.Column="0"/>
+                    <telerik:Label Content="{Binding CurrentDate, StringFormat='MMM dd, yyyy'}" FontWeight="Bold" Opacity="0.7" FontSize="10.667" FontFamily="Segoe UI" Grid.Column="1"/>
+                    <telerik:Label Content="{Binding CurrentDate, StringFormat='h:mm tt'}" FontWeight="Bold" Opacity="0.7" FontSize="10.667" FontFamily="Segoe UI" HorizontalAlignment="Right" Grid.Column="2"/>
+                </Grid>
+
+                <telerik:Label FontFamily="Segoe UI Light" FontSize="18.667" Height="26" Margin="0 9 0 2" Content="{Binding ElementName=movieAutoCompleteBox, Path=SelectedItem.MovieTitle}" Padding="3 0 0 0"/>
+                <StackPanel Orientation="Horizontal">
+                    <telerik:Label HorizontalAlignment="Left" Margin="0 0 10 0"  VerticalAlignment="Bottom" Content="RATING:" FontWeight="Bold" FontSize="12" FontFamily="Segoe UI Light"/>
+                     
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

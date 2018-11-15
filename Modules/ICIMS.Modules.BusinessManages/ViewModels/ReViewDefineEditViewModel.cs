@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ICIMS.Modules.BusinessManages.ViewModels
 {
-    class ReViewDefineEditViewModel
+    public class ReViewDefineEditViewModel
     {
+
     }
+
 }

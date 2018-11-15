@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ICIMS.Modules.BusinessManages.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace ICIMS.Modules.BusinessManages.Views
     /// </summary>
     public partial class ContractView : UserControl
     {
-        public ContractView()
+       
+        public ContractView(ContractViewModel viewModel)
         {
             InitializeComponent();
+            this.DataContext = viewModel;
+            viewModel.View = this;
         }
     }
 }

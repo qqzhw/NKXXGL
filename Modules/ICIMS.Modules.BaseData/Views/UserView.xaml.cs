@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Telerik.Windows.Controls;
 
 namespace ICIMS.Modules.BaseData.Views
 {
@@ -33,5 +34,19 @@ namespace ICIMS.Modules.BaseData.Views
 
         public INotification Notification { get ; set; }
         public Action FinishInteraction { get; set; }
+
+        private void movieAutoCompleteBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var autoCompleteBox = sender as RadAutoCompleteBox;
+            if (autoCompleteBox.SelectedItem != null)
+            {
+                this.movieInfoStackPanel.Visibility = System.Windows.Visibility.Visible;
+               // this.viewModel.CurrentDate = DateTime.Now;
+            }
+            else
+            {
+                this.movieInfoStackPanel.Visibility = System.Windows.Visibility.Collapsed;
+            }
+        }
     }
 }

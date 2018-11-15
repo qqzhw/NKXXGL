@@ -67,21 +67,21 @@ namespace ICIMS.Client.ViewModels
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "ReViewDefineEditView",
+                Id = "ReViewDefineView",
                 Title = "评审登记",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_评审登记.ico",
                 IsDefaultShow = false,
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "YsCategoryView",
+                Id = "ContractView",
                 Title = "合同登记",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_合同登记.ico",
                 IsDefaultShow = false,
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "VendorView",
+                Id = "PayAuditView",
                 Title = "支付审核",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_支付审核系统.ico",
                 IsDefaultShow = false,
@@ -95,21 +95,21 @@ namespace ICIMS.Client.ViewModels
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "FundView",
+                Id = "PayAuditView",
                 Title = "项目决算",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_项目决算.ico",
                 IsDefaultShow = false,
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "DocumentTypeView",
+                Id = "PayAuditView",
                 Title = "项目绩效评价",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_项目绩效评价.ico",
                 IsDefaultShow = false,
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "ItemCategoryView",
+                Id = "PayAuditView",
                 Title = "档案管理",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_档案管理.ico",
                 IsDefaultShow = false,

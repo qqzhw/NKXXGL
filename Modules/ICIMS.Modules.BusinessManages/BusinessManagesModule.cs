@@ -40,7 +40,12 @@ namespace ICIMS.Modules.BusinessManages
         {
             containerRegistry.RegisterForNavigation<ItemDefineView>();
             containerRegistry.RegisterForNavigation<ItemDefineEditView>();
-
+            containerRegistry.RegisterForNavigation<ContractView>();
+            containerRegistry.RegisterForNavigation<ContractEditView>();
+            containerRegistry.RegisterForNavigation<PayAuditEditView>();
+            containerRegistry.RegisterForNavigation<PayAuditView>();
+            containerRegistry.RegisterForNavigation<ReViewDefineView>();
+            containerRegistry.RegisterForNavigation<ReViewDefineEditView>();
             //containerRegistry.RegisterForNavigation<ViewB>();
         }
     }

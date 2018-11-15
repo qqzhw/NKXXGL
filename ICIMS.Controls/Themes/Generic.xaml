@@ -454,7 +454,7 @@ VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixe
                             BorderThickness="{TemplateBinding BorderThickness}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                         <StackPanel x:Name="sp"  Orientation="Horizontal">
                             <Grid Margin="5,0,0,0">
-                                <Ellipse Width="28" Height="28" Fill="{TemplateBinding IconBackground}"/>
+                                <Ellipse Width="24" Height="24" Fill="{TemplateBinding IconBackground}"/>
                                 <iconPack:PackIconFontAwesome Kind="{TemplateBinding Kind}" Foreground="{TemplateBinding KindForeground}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
                             <TextBlock Margin="6,0,0,0" VerticalAlignment="Center" Text="{TemplateBinding Title}" />

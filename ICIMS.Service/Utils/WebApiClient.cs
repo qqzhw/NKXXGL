@@ -227,6 +227,64 @@ namespace ICIMS.Service
                 }
             }
         }
+        public virtual async Task<TResult> DeleteAsync<TResult>(string url, object input, int? timeout = null)
+          where TResult : class
+        {
+            var cookieContainer = new CookieContainer();
+            using (var handler = new HttpClientHandler { CookieContainer = cookieContainer })
+            {
+                using (var client = new HttpClient(handler))
+                {
+                    client.Timeout = timeout.HasValue ? TimeSpan.FromMilliseconds(timeout.Value) : Timeout;
+
+                    if (!BaseUrl.IsNullOrEmpty())
+                    {
+                        client.BaseAddress = new Uri(BaseUrl);
+                    }
+
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    foreach (var header in RequestHeaders)
+                    {
+                        client.DefaultRequestHeaders.Add(header.Name, header.Value);
+                    }
+
+                    using (var requestContent = new StringContent(Object2JsonString(input), Encoding.UTF8, "application/json"))
+                    {
+                        foreach (var cookie in Cookies)
+                        {
+                            if (!BaseUrl.IsNullOrEmpty())
+                            {
+                                cookieContainer.Add(new Uri(BaseUrl), cookie);
+                            }
+                            else
+                            {
+                                cookieContainer.Add(cookie);
+                            }
+                        }
+
+                        using (var response = await client.DeleteAsync(url+"?"+ ObjectToQueryString(requestContent)))
+                        {
+                            SetResponseHeaders(response);
+
+                            if (!response.IsSuccessStatusCode)
+                            {
+                                throw new ICIMSException("Could not made request to " + url + "! StatusCode: " + response.StatusCode + ", ReasonPhrase: " + response.ReasonPhrase);
+                            }
+
+                            var rsStr = await response.Content.ReadAsStringAsync();
+                            var ajaxResponse = JsonStringToObject<AjaxResponse<TResult>>(rsStr);
+                            if (!ajaxResponse.Success)
+                            {
+                                throw new RemoteCallException(ajaxResponse.Error);
+                            }
+
+                            return ajaxResponse.Result; 
+                            
+                        }
+                    }
+                }
+            }
+        }
 
 
         private string ObjectToQueryString(StringContent requestContent)
