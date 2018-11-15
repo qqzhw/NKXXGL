@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Unity.Attributes;
 
 namespace ICIMS.Modules.BaseData.Views
 {
@@ -21,11 +22,22 @@ namespace ICIMS.Modules.BaseData.Views
     /// </summary>
     public partial class VendorView : UserControl
     {
-        public VendorView(VendorViewModel viewModel)
+        public VendorView()
         {
             InitializeComponent();
-            this.DataContext = viewModel;
-            viewModel.View = this;
+        }
+
+        [Unity.Attributes.Dependency]
+        public VendorViewModel ViewModel { get; set; }
+        [InjectionMethod]
+        public void Init()
+        {
+            this.DataContext = ViewModel;
+            ViewModel.View = this;
+        }
+        public void BindAction(Action<bool?> action)
+        {
+            ViewModel.Close = action;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ICIMS.Modules.BaseData.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,19 @@ namespace ICIMS.Modules.BaseData.Views
     /// </summary>
     public partial class ContractEditView : UserControl
     {
-        public ContractEditView()
+        private readonly ContractEditViewModel ViewModel;
+
+        public ContractEditView(ContractEditViewModel viewModel)
         {
             InitializeComponent();
+            this.DataContext = viewModel;
+            viewModel.View = this;
+            this.ViewModel = viewModel;
+        }
+
+        public void BindAction(Action<bool?> action)
+        {
+            ViewModel.Close = action;
         }
     }
 }

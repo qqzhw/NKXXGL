@@ -1,5 +1,9 @@
 ﻿using ICIMS.Core.Events;
+using ICIMS.Core.Interactivity;
+using ICIMS.Core.Interactivity.InteractionRequest;
 using ICIMS.Model.BaseData;
+using ICIMS.Modules.BaseData.Views;
+using ICIMS.Service;
 using ICIMS.Service.BaseData;
 using Prism.Commands;
 using Prism.Events;
@@ -11,44 +15,138 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using Unity;
 using Unity.Attributes;
 
 namespace ICIMS.Modules.BaseData.ViewModels
 {
     public class PaymentTypeViewModel : BindableBase, INavigationAware
     {
+
         private readonly IEventAggregator _eventAggregator;
         private readonly IPaymentTypeService _service;
         private readonly IRegionManager _regionManager;
-        public PaymentTypeViewModel(IEventAggregator eventAggregator, IPaymentTypeService service, IRegionManager regionManager)
+        private IUnityContainer _unityContainer;
+        public PaymentTypeViewModel(IEventAggregator eventAggregator,
+            IPaymentTypeService service,
+            IRegionManager regionManager,
+            IUnityContainer unityContainer)
         {
+            _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
             _service = service;
             this._regionManager = regionManager;
             eventAggregator.GetEvent<TabCloseEvent>().Subscribe(OnTabActive);
+            AddCommand = new DelegateCommand<object>(OnAddCommand);
+            EditCommand = new DelegateCommand<object>(OnEditCommand);
+            DeleteCommand = new DelegateCommand<object>(OnDeleteCommand);
+            RefreshCommand = new DelegateCommand<object>(OnRefreshCommand);
         }
 
-
-
-        [InjectionMethod]
-        public async void Init()
+        private async void OnDeleteCommand(object obj)
         {
-            _title = "支付类型";
-            this.Items = new ObservableCollection<PaymentTypeItem>();
-            List<PaymentTypeItem> datas = await _service.GetPaged();
-            foreach (var data in datas)
+            if (MessageBox.Show("请确认是否删除", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
             {
-                if (data.GroupNo != data.No)
+                try
                 {
-                    data.Parent = datas.FirstOrDefault(a => a.No == data.GroupNo);
-                    data.Parent.Children.Add(data);
+                    await _service.Delete(SelectedItem.Id);
+                    this._datas.Remove(this.SelectedItem);
+                    this.Items.Remove(this.SelectedItem);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
+
+        }
+
+        private void OnEditCommand(object obj)
+        {
+            var newItem = new PaymentTypeEditViewModel() { ShowReAddBtn = false };
+            newItem.Item = CommonHelper.CopyItem(this.SelectedItem);
+            PaymentTypeEditView view = new PaymentTypeEditView(newItem);
+            var notification = new Notification()
+            {
+                Title = "支付类型",
+                Content = view,// (new ParameterOverride("name", "")),
+            };
+            PopupWindows.NotificationRequest.Raise(notification, async (callback) =>
+            {
+                if (newItem.IsOkClicked != null)
+                {
+                    if (newItem.IsOkClicked.Value)
+                    {
+                        try
+                        {
+                            var data = await _service.CreateOrUpdate(newItem.Item);
+                            if (data != null)
+                            {
+                                var oriItem = this._datas.FirstOrDefault(a => a.Id == newItem.Item.Id);
+
+                                CommonHelper.SetValue(oriItem, newItem.Item);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+
+
+                    }
+                }
+            });
+            view.BindAction(notification.Finish);
+        }
+
+        private void OnRefreshCommand(object obj)
+        {
+            this.Init();
+        }
+
+        private void OnAddCommand(object obj)
+        {
+            var newItem = new PaymentTypeEditViewModel() { ShowReAddBtn = true };
+            newItem.Item = new PaymentTypeItem();
+            PaymentTypeEditView view = new PaymentTypeEditView(newItem);
+            var notification = new Notification()
+            {
+                Title = "支付类型",
+                Content = view,// (new ParameterOverride("name", "")),
+            };
+            PopupWindows.NotificationRequest.Raise(notification, async (callback) =>
+            {
+                if (newItem.IsOkClicked != null)
+                {
+                    if (newItem.IsOkClicked.Value)
+                    {
+                        try
+                        {
+                            var data = await _service.CreateOrUpdate(newItem.Item);
+                            if (data != null)
+                            {
+                                this._datas.Add(data);
+                                this.InitOneData(_datas, data);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+
+                    }
                 }
                 else
                 {
-                    this.Items.Add(data);
+
                 }
-            }
+            });
+            view.BindAction(notification.Finish);
+
         }
 
         private void OnTabActive(UserControl view)
@@ -58,12 +156,146 @@ namespace ICIMS.Modules.BaseData.ViewModels
             {
                 if (view != null)
                 {
-                    region.Remove(view);
+                    if (region.Views.Contains(view))
+                        region.Remove(view);
                 }
             }
         }
 
-        public ObservableCollection<PaymentTypeItem> Items { get; set; }
+        [InjectionMethod]
+        public async void Init()
+        {
+            _title = "支付类型";
+            this.Items = new ObservableCollection<PaymentTypeItem>();
+            var rs = await _service.GetPageItems(this.No, this.Name, this.PageIndex, this.PageSize);
+            this._datas = rs.datas;
+            foreach (var data in _datas)
+            {
+                InitOneData(_datas, data);
+            }
+            this.ItemCount = rs.totalCount;
+            this.SelectedItem = this.Items.FirstOrDefault();
+        }
+
+        private void InitOneData(List<PaymentTypeItem> datas, PaymentTypeItem data)
+        {
+            if (data.GroupNo != data.No)
+            {
+                data.Parent = datas.FirstOrDefault(a => a.No == data.GroupNo);
+                data.Parent?.Children.Add(data);
+            }
+            else
+            {
+                this.Items.Add(data);
+            }
+        }
+
+        private List<PaymentTypeItem> _datas;
+
+        public PaymentTypeItem SelectedItem { get => _selectedItem; set { this._selectedItem = value; this.RaisePropertyChanged(nameof(SelectedItem)); } }
+
+        public ICommand AddCommand { get; private set; }
+        public ICommand EditCommand { get; private set; }
+        public ICommand DeleteCommand { get; private set; }
+
+        public ICommand RefreshCommand { get; private set; }
+
+        private ObservableCollection<PaymentTypeItem> _items;
+
+        public ObservableCollection<PaymentTypeItem> Items
+        {
+            get
+            {
+                return this._items;
+            }
+            set
+            {
+                this._items = value;
+                this.RaisePropertyChanged(nameof(Items));
+            }
+        }
+
+        private int _pageIndex = 0;
+        public int PageIndex
+        {
+            get
+            {
+                return _pageIndex;
+            }
+            set
+            {
+                this._pageIndex = value;
+                this.Init();
+                this.RaisePropertyChanged(nameof(PageIndex));
+            }
+        }
+
+
+
+        private int _pageSize = 3;
+        public int PageSize
+        {
+            get
+            {
+                return _pageSize;
+            }
+            set
+            {
+                this._pageSize = value;
+                this.Init();
+                this.RaisePropertyChanged(nameof(PageSize));
+            }
+        }
+
+        private int _itemCount = 3;
+        public int ItemCount
+        {
+            get
+            {
+                return this._itemCount;
+            }
+            set
+            {
+                this._itemCount = value;
+                this.RaisePropertyChanged(nameof(ItemCount));
+            }
+        }
+
+
+
+        private string _no;
+        public string No
+        {
+            get
+            {
+                return _no;
+            }
+            set
+            {
+                this._no = value;
+                this.Init();
+                this.RaisePropertyChanged(nameof(No));
+            }
+        }
+
+        private string _name;
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                this._name = value;
+                this.Init();
+                this.RaisePropertyChanged(nameof(Name));
+            }
+        }
+
+
+
+
         #region 通用属性
 
 
@@ -108,11 +340,25 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 }
             }));
 
+
         //It can be overwrite in inherited class to ask for confirming to closing the tab;
         protected virtual bool ConfirmToClose()
         {
             return true;
         }
+
+        public Action<bool?> Close { get; internal set; }
+
+
         #endregion
+
+        private DelegateCommand _pageChangedCommand;
+        private PaymentTypeItem _selectedItem;
+
+        public DelegateCommand PageChangedCommand
+        {
+            get => _pageChangedCommand;
+            set => _pageChangedCommand = value;
+        }
     }
 }

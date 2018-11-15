@@ -9,6 +9,8 @@ namespace ICIMS.Service.BaseData
 {
     public interface IItemCategoryService
     {
-        Task<List<ItemCategoryItem>> GetPaged();
+        Task<(int totalCount, List<ItemCategoryItem> datas)> GetPageItems(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue);
+        Task Delete(int id);
+        Task<ItemCategoryItem> CreateOrUpdate(ItemCategoryItem fundFrom);
     }
 }

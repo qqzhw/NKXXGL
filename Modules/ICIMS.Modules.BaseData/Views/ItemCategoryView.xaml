@@ -45,6 +45,7 @@
 								 CanUserFreezeColumns="False"
 								 RowIndicatorVisibility="Collapsed"
                                  AutoGenerateColumns="False"
+                                  SelectedItem="{Binding SelectedItem,UpdateSourceTrigger=PropertyChanged}"
                                  NewRowPosition="None"
                                  FontFamily="SimSun"   TextBlock.FontFamily="SimSun"
                                  telerik:StyleManager.Theme="Office2016" FontSize="14"  RowHeight="32" GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"  AlternateRowBackground="#FCFCFC"   AlternationCount="2" 
@@ -83,11 +84,10 @@
 											Width="100" />
             </telerik:RadTreeListView.Columns>
         </telerik:RadTreeListView>
-        <telerik:RadDataPager Grid.Row="3" 
-                              Source="{Binding Items, ElementName=RadTreeListView1}"
+        <telerik:RadDataPager Grid.Row="3"
                               IsTotalItemCountFixed="True"
                               PageSize="{Binding PageSize}"
-                              PageIndex="{Binding PageIndex}"
+                              PageIndex="{Binding PageIndex,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                               ItemCount="{Binding ItemCount}"
                               
                               >

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ICIMS.Modules.BaseData.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Unity.Attributes;
 
 namespace ICIMS.Modules.BaseData.Views
 {
@@ -20,9 +22,20 @@ namespace ICIMS.Modules.BaseData.Views
     /// </summary>
     public partial class DocumentTypeEditView : UserControl
     {
-        public DocumentTypeEditView()
+        private readonly DocumentTypeEditViewModel ViewModel;
+
+        public DocumentTypeEditView(DocumentTypeEditViewModel viewModel)
         {
             InitializeComponent();
+            this.DataContext = viewModel;
+            viewModel.View = this;
+            this.ViewModel = viewModel;
         }
+
+        public void BindAction(Action<bool?> action)
+        {
+            ViewModel.Close = action;
+        }
+
     }
 }

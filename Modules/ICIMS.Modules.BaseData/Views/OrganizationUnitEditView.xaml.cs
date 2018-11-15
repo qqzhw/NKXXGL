@@ -17,19 +17,18 @@ using System.Windows.Shapes;
 namespace ICIMS.Modules.BaseData.Views
 {
     /// <summary>
-    /// YsCategoryEditView.xaml 的交互逻辑
+    /// OrganizationUnitEditView.xaml 的交互逻辑
     /// </summary>
-    public partial class YsCategoryEditView : UserControl
+    public partial class OrganizationUnitEditView : UserControl
     {
-        private readonly YsCategoryEditViewModel ViewModel;
+        private readonly OrganizationUnitEditViewModel ViewModel;
 
-        public YsCategoryEditView(YsCategoryEditViewModel viewModel)
+        public OrganizationUnitEditView(OrganizationUnitEditViewModel viewModel)
         {
             InitializeComponent();
             this.DataContext = viewModel;
             viewModel.View = this;
             this.ViewModel = viewModel;
-
         }
 
         public void BindAction(Action<bool?> action)

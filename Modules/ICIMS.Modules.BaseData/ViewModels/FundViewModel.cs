@@ -27,17 +27,17 @@ namespace ICIMS.Modules.BaseData.ViewModels
     {
 
         private readonly IEventAggregator _eventAggregator;
-        private readonly IFundFromService _fundFromService;
+        private readonly IFundFromService _service;
         private readonly IRegionManager _regionManager;
         private IUnityContainer _unityContainer;
         public FundViewModel(IEventAggregator eventAggregator,
-            IFundFromService fundFromService,
+            IFundFromService service,
             IRegionManager regionManager,
             IUnityContainer unityContainer)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
-            _fundFromService = fundFromService;
+            _service = service;
             this._regionManager = regionManager;
             eventAggregator.GetEvent<TabCloseEvent>().Subscribe(OnTabActive);
             AddCommand = new DelegateCommand<object>(OnAddCommand);
@@ -48,11 +48,11 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
         private async void OnDeleteCommand(object obj)
         {
-            if(MessageBox.Show("请确认是否删除", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+            if (MessageBox.Show("请确认是否删除", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
             {
                 try
                 {
-                    await _fundFromService.Delete(SelectedItem.Id);
+                    await _service.Delete(SelectedItem.Id);
                     this._datas.Remove(this.SelectedItem);
                     this.Items.Remove(this.SelectedItem);
                 }
@@ -60,9 +60,9 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 {
                     MessageBox.Show(ex.Message);
                 }
-               
+
             }
-          
+
         }
 
         private void OnEditCommand(object obj)
@@ -75,7 +75,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 Title = "资金来源",
                 Content = view,// (new ParameterOverride("name", "")),
             };
-            PopupWindows.NotificationRequest.Raise(notification, async(callback) =>
+            PopupWindows.NotificationRequest.Raise(notification, async (callback) =>
             {
                 if (newItem.IsOkClicked != null)
                 {
@@ -83,7 +83,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                     {
                         try
                         {
-                            var data = await _fundFromService.CreateOrUpdate(newItem.Item);
+                            var data = await _service.CreateOrUpdate(newItem.Item);
                             if (data != null)
                             {
                                 var oriItem = this._datas.FirstOrDefault(a => a.Id == newItem.Item.Id);
@@ -95,8 +95,8 @@ namespace ICIMS.Modules.BaseData.ViewModels
                         {
                             MessageBox.Show(ex.Message);
                         }
-                       
-                      
+
+
                     }
                 }
             });
@@ -126,7 +126,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                     {
                         try
                         {
-                            var data = await _fundFromService.CreateOrUpdate(newItem.Item);
+                            var data = await _service.CreateOrUpdate(newItem.Item);
                             if (data != null)
                             {
                                 this._datas.Add(data);
@@ -137,7 +137,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                         {
                             MessageBox.Show(ex.Message);
                         }
-                       
+
                     }
                 }
                 else
@@ -167,7 +167,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
         {
             _title = "资金来源";
             this.Items = new ObservableCollection<FundItem>();
-            var rs = await _fundFromService.GetPageItems(this.No, this.Name, this.PageIndex, this.PageSize);
+            var rs = await _service.GetPageItems(this.No, this.Name, this.PageIndex, this.PageSize);
             this._datas = rs.datas;
             foreach (var data in _datas)
             {

@@ -39,6 +39,7 @@
 								 AutoExpandItems="True" 
 								 IsReadOnly="False" 
 								 ItemsSource="{Binding Items}"
+                                  SelectedItem="{Binding SelectedItem,UpdateSourceTrigger=PropertyChanged}"
 								 Width="auto"
 								 MinHeight="300" 
 								 Height="auto" IsFilteringAllowed="False"
@@ -83,11 +84,10 @@
 											Width="100" />
             </telerik:RadTreeListView.Columns>
         </telerik:RadTreeListView>
-        <telerik:RadDataPager Grid.Row="3" 
-                              Source="{Binding Items, ElementName=RadTreeListView1}"
+        <telerik:RadDataPager Grid.Row="3"
                               IsTotalItemCountFixed="True"
                               PageSize="{Binding PageSize}"
-                              PageIndex="{Binding PageIndex}"
+                              PageIndex="{Binding PageIndex,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                               ItemCount="{Binding ItemCount}"
                               
                               >
