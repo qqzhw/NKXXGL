@@ -66,5 +66,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
 
         public Action<bool?> Close { get; internal set; }
+
+        public Func<bool> CloseHandler { get; set; }
     }
 }
