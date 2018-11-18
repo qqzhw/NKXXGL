@@ -88,15 +88,15 @@ namespace ICIMS.Service
                         {
                             SetResponseHeaders(response);
 
-                            if (!response.IsSuccessStatusCode)
-                            {
-                               throw new ICIMSException("Could not made request to " + url + "! StatusCode: " + response.StatusCode + ", ReasonPhrase: " + response.ReasonPhrase);
-                            }
+                            //if (!response.IsSuccessStatusCode)
+                            //{
+                            //   throw new ICIMSException("Could not made request to " + url + "! StatusCode: " + response.StatusCode + ", ReasonPhrase: " + response.ReasonPhrase);
+                            //}
 
                             var ajaxResponse = JsonStringToObject<AjaxResponse<TResult>>(await response.Content.ReadAsStringAsync());
                             if (!ajaxResponse.Success)
                             {
-                                throw new RemoteCallException(ajaxResponse.Error);
+                                throw new RemoteCallException(new ErrorInfo($"{ajaxResponse.Error.Message}{Environment.NewLine}{ajaxResponse.Error.Details}"));
                             }
 
                             return ajaxResponse.Result;

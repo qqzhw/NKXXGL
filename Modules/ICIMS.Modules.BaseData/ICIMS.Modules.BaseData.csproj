@@ -137,8 +137,8 @@
     <Compile Include="Views\ContractEditView.xaml.cs">
       <DependentUpon>ContractEditView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ContractView.xaml.cs">
-      <DependentUpon>ContractView.xaml</DependentUpon>
+    <Compile Include="Views\ContractCategoryView.xaml.cs">
+      <DependentUpon>ContractCategoryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DocumentTypeEditView.xaml.cs">
       <DependentUpon>DocumentTypeEditView.xaml</DependentUpon>
@@ -207,7 +207,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ContractView.xaml">
+    <Page Include="Views\ContractCategoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

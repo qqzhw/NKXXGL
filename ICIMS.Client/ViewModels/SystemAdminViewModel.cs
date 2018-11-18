@@ -81,7 +81,7 @@ namespace ICIMS.Client.ViewModels
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "ContractView",
+                Id = "ContractCategoryView",
                 Title = "合同分类",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_基础资料_基础信息_合同分类.ico",
                 IsDefaultShow = false,
