@@ -100,6 +100,8 @@
     <Compile Include="BusinessManages\PayAuditService.cs" />
     <Compile Include="BusinessManages\ReViewDefineService.cs" />
     <Compile Include="CommonHelper.cs" />
+    <Compile Include="User\IRoleService.cs" />
+    <Compile Include="User\RoleService.cs" />
     <Compile Include="Utils\AsyncHelper.cs" />
     <Compile Include="Utils\RemoteCallException.cs" />
     <Compile Include="Utils\WebApiClient.cs" />
