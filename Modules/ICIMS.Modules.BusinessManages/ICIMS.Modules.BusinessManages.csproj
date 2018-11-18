@@ -136,6 +136,8 @@
     <Compile Include="ViewModels\PayAuditViewModel.cs" />
     <Compile Include="ViewModels\ReViewDefineEditViewModel.cs" />
     <Compile Include="ViewModels\ReViewDefineViewModel.cs" />
+    <Compile Include="ViewModels\SelectedItemDefineViewModel.cs" />
+    <Compile Include="ViewModels\SelectItemCategoryViewModel.cs" />
     <Compile Include="Views\BudgetAdjustEditView.xaml.cs">
       <DependentUpon>BudgetAdjustEditView.xaml</DependentUpon>
     </Compile>
@@ -189,6 +191,12 @@
     </Compile>
     <Compile Include="Views\ReViewDefineView.xaml.cs">
       <DependentUpon>ReViewDefineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectedItemDefineView.xaml.cs">
+      <DependentUpon>SelectedItemDefineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectItemCategoryView.xaml.cs">
+      <DependentUpon>SelectItemCategoryView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -276,6 +284,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SelectedItemDefineView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SelectItemCategoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ICIMS.Controls\ICIMS.Controls.csproj">
@@ -285,6 +301,10 @@
     <ProjectReference Include="..\..\ICIMS.Core\ICIMS.Core.csproj">
       <Project>{e642b971-fc28-48e8-9015-a863aa148d6c}</Project>
       <Name>ICIMS.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ICIMS.Model\ICIMS.Model.csproj">
+      <Project>{EC6B9D27-D03E-48AB-A6DF-060A8AB7F25F}</Project>
+      <Name>ICIMS.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ICIMS.Service\ICIMS.Service.csproj">
       <Project>{d0db70ee-e7ab-479a-8ab0-3214359825b5}</Project>

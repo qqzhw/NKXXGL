@@ -34,7 +34,7 @@ namespace ICIMS.Service
         /// <summary>
         /// Request headers.
         /// </summary>
-        ICollection<NameValue> RequestHeaders { get; }
+       // ICollection<NameValue> RequestHeaders { get; }
 
         /// <summary>
         /// Response headers.

@@ -1,5 +1,6 @@
 ﻿
 using ICIMS.Model.BaseData;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
  
@@ -10,7 +11,7 @@ namespace ICIMS.Model.BusinessManages
     /// <summary>
     /// 立项登记
     /// </summary>
-    public class ItemDefine 
+    public class ItemDefine: BindableBase
     {
         public int Id { get; set; }
         public int? TenantId { get; set; }
@@ -23,64 +24,85 @@ namespace ICIMS.Model.BusinessManages
         /// <summary>
         /// 立项状态
         /// </summary>
-        public int Status { get; set; }
+        private int _status;
+        public int Status { get => _status; set => SetProperty(ref _status, value); }
 
         /// <summary>
         /// 部门ID
         /// </summary>
-        public long UnitId { get; set; }
-        public virtual OrganizationUnit Unit { get; set; }
-        public int? BudgetId { get; set; }
-        public virtual Budget Budget { get; set; }
+        private long _unitId;
+        public long UnitId { get => _unitId; set => SetProperty(ref _unitId, value); }
+        private string _unitName;
+        public string UnitName { get => _unitName; set => SetProperty(ref _unitName, value); }
+
+        private int? _budgetId;
+        public int? BudgetId { get => _budgetId; set => SetProperty(ref _budgetId, value); }
+        private string _budgetName;
+        public string BudgetName { get => _budgetName; set => SetProperty(ref _budgetName, value); }
         /// <summary>
         /// 项目立项文号
         /// </summary>
-        public string ItemDocNo { get; set; }
+        private string _itemDocNo;
+        public string ItemDocNo { get => _itemDocNo; set => SetProperty(ref _itemDocNo, value); }
 
         /// <summary>
         /// 立项日期
         /// </summary>
-        public DateTime DefineDate { get; set; }
+        private DateTime _defineTime;
+        public DateTime DefineDate { get => _defineTime; set => SetProperty(ref _defineTime, value); }
 
         /// <summary>
         /// 项目编号
         /// </summary>
-        public string ItemNo { get; set; }
+        private string _itemNo;
+        public string ItemNo { get => _itemNo; set => SetProperty(ref _itemNo, value); }
         /// <summary>
         /// 项目名称
         /// </summary>
-        public string ItemName { get; set; }
+        private string _itemName;
+        public string ItemName { get => _itemName; set => SetProperty(ref _itemName, value); }
 
-        public int ItemCategoryId { get; set; }//项目类型
-        public virtual ItemCategoryItem ItemCategory { get; set; }
+        private int _itemcategoryId;
+        public int ItemCategoryId { get => _itemcategoryId; set => SetProperty(ref _itemcategoryId, value); }//项目类型 
+        private string _itemcategoryName;
+        public string ItemCategoryName { get => _itemcategoryName; set => SetProperty(ref _itemcategoryName, value); }
         /// <summary>
         /// 立项金额
         /// </summary>
-        public decimal DefineAmount { get; set; }
+        private decimal _defineAmount;
+        public decimal DefineAmount { get => _defineAmount; set => SetProperty(ref _defineAmount, value); }
 
-        public string ItemAddress { get; set; }//项目地址   
+        private string _itemAddress;
+        public string ItemAddress { get => _itemAddress; set => SetProperty(ref _itemAddress, value); }//项目地址   
 
-        public string ItemDescription { get; set; }//项目描述  
+        private string _itemdescription;
+        public string ItemDescription { get => _itemdescription; set => SetProperty(ref _itemdescription, value); }//项目描述  
 
-        public string Remark { get; set; }//备注  
+        private string _remark;
+        public string Remark { get => _remark; set => SetProperty(ref _remark, value); }//备注  
 
         /// <summary>
         /// 是否决算
         /// </summary>
-        public bool IsFinal { get; set; }
+        private bool _isfinal;
+        public bool IsFinal { get => _isfinal; set => SetProperty(ref _isfinal, value); }
 
         /// <summary>
         /// 是否评审
         /// </summary>
-        public bool IsAudit { get; set; }
+        private bool _isaudit;
+        public bool IsAudit { get => _isaudit; set => SetProperty(ref _isaudit, value); }
 
         /// <summary>
         /// 结审日期
         /// </summary>
-        public DateTime AuditDate { get; set; }
+        private DateTime? _auditDate;
+        public DateTime? AuditDate { get => _auditDate; set => SetProperty(ref _auditDate, value); }
 
-        public long? AuditUserId { get; set; }
-       
-        public virtual User AuditUser { get; set; }
+        private long? _audituserId;
+        public long? AuditUserId { get => _audituserId; set => SetProperty(ref _audituserId, value); }
+
+        private string _audituserName;
+        public string AuditUserName{ get => _audituserName; set => SetProperty(ref _audituserName, value); }
     }
 }

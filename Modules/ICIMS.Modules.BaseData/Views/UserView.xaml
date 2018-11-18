@@ -43,7 +43,7 @@
             <StackPanel x:Name="movieInfoStackPanel" Visibility="Collapsed">
                 <telerik:Label Margin="0 30 0 0" FontFamily="Segoe UI Light" FontSize="13.333" Content="You choose the best movie of the day :"/>
 
-                <Rectangle HorizontalAlignment="Left" Height="1"  VerticalAlignment="Bottom" Width="280" Margin="0 0 0 8" Fill="{StaticResource W Grey}" StrokeThickness="0"/>
+                <Rectangle HorizontalAlignment="Left" Height="1"  VerticalAlignment="Bottom" Width="280" Margin="0 0 0 8" StrokeThickness="0"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>

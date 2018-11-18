@@ -22,7 +22,7 @@ namespace ICIMS.Service
 
         public Collection<Cookie> Cookies { get; private set; }
 
-        public ICollection<NameValue> RequestHeaders { get; set; }
+        public static ICollection<NameValue> RequestHeaders { get; set; }
 
         public ICollection<NameValue> ResponseHeaders { get; set; }
         public string TenancyName { get; set; }
@@ -32,13 +32,14 @@ namespace ICIMS.Service
         static WebApiClient()
         {
             DefaultTimeout = TimeSpan.FromSeconds(90);
+            RequestHeaders = new List<NameValue>();
         }
 
         public WebApiClient()
         {
             Timeout = DefaultTimeout;
             Cookies = new Collection<Cookie>();
-            RequestHeaders = new List<NameValue>();
+          
             ResponseHeaders = new List<NameValue>();
             BaseUrl = "http://localhost:21025/";
         }
@@ -81,18 +82,7 @@ namespace ICIMS.Service
                     }
                     
                     using (var requestContent = new StringContent(Object2JsonString(input), Encoding.UTF8, "application/json"))
-                    {
-                        foreach (var cookie in Cookies)
-                        {
-                            if (!BaseUrl.IsNullOrEmpty())
-                            {
-                                cookieContainer.Add(new Uri(BaseUrl), cookie);
-                            }
-                            else
-                            {
-                                cookieContainer.Add(cookie);
-                            }
-                        }
+                    { 
 
                         using (var response = await client.PostAsync(url, requestContent))
                         {
@@ -100,7 +90,7 @@ namespace ICIMS.Service
 
                             if (!response.IsSuccessStatusCode)
                             {
-                                throw new ICIMSException("Could not made request to " + url + "! StatusCode: " + response.StatusCode + ", ReasonPhrase: " + response.ReasonPhrase);
+                               throw new ICIMSException("Could not made request to " + url + "! StatusCode: " + response.StatusCode + ", ReasonPhrase: " + response.ReasonPhrase);
                             }
 
                             var ajaxResponse = JsonStringToObject<AjaxResponse<TResult>>(await response.Content.ReadAsStringAsync());
@@ -194,18 +184,7 @@ namespace ICIMS.Service
                     }
 
                     using (var requestContent = new StringContent(Object2JsonString(input), Encoding.UTF8, "application/json"))
-                    {
-                        foreach (var cookie in Cookies)
-                        {
-                            if (!BaseUrl.IsNullOrEmpty())
-                            {
-                                cookieContainer.Add(new Uri(BaseUrl), cookie);
-                            }
-                            else
-                            {
-                                cookieContainer.Add(cookie);
-                            }
-                        }
+                    { 
 
                         using (var response = await client.GetAsync(url + "?" + ObjectToQueryString(input)))
                         {
@@ -249,19 +228,7 @@ namespace ICIMS.Service
                     }
 
                     using (var requestContent = new StringContent(Object2JsonString(input), Encoding.UTF8, "application/json"))
-                    {
-                        foreach (var cookie in Cookies)
-                        {
-                            if (!BaseUrl.IsNullOrEmpty())
-                            {
-                                cookieContainer.Add(new Uri(BaseUrl), cookie);
-                            }
-                            else
-                            {
-                                cookieContainer.Add(cookie);
-                            }
-                        }
-
+                    { 
                         using (var response = await client.DeleteAsync(url+"?"+ ObjectToQueryString(requestContent)))
                         {
                             SetResponseHeaders(response);
