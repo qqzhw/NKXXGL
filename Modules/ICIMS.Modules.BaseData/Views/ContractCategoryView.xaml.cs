@@ -21,9 +21,9 @@ namespace ICIMS.Modules.BaseData.Views
     /// <summary>
     /// ContractView.xaml 的交互逻辑
     /// </summary>
-    public partial class ContractView : UserControl
+    public partial class ContractCategoryView : UserControl
     {
-        public ContractView()
+        public ContractCategoryView()
         {
             InitializeComponent();
         }

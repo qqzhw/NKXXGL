@@ -30,7 +30,6 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
                 <TextBlock Margin="20">禁  用</TextBlock>
                 <CheckBox IsChecked="{Binding Item.Published}"/>
-                <!--<TextBox Height="22" Text="{Binding Item.Name}" Width="200"/>-->
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 0 0 10">
                 <TextBlock VerticalAlignment="Center" Margin="20 10">备  注</TextBlock>

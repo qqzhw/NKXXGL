@@ -223,7 +223,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
 
 
-        private int _pageSize = 3;
+        private int _pageSize = 10;
         public int PageSize
         {
             get

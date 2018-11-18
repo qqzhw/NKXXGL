@@ -14,7 +14,7 @@ namespace ICIMS.Model.BaseData
         private string _code;
         private string _displayName;
         private string _description;
-        private int _parentId;
+        private int? _parentId;
         private bool _published;
         private int _displayOrder;
         private DateTime _creationTime;
@@ -40,7 +40,7 @@ namespace ICIMS.Model.BaseData
         public string Description { get => _description; set => SetProperty(ref _description, value); }
 
         //上级编号
-        public int ParentId { get => _parentId; set => SetProperty(ref _parentId, value); }
+        public int? ParentId { get => _parentId; set => SetProperty(ref _parentId, value); }
 
 
         public bool Published { get => _published; set { SetProperty(ref _published, value); RaisePropertyChanged(nameof(IsForbiddened)); } }
@@ -86,7 +86,7 @@ namespace ICIMS.Model.BaseData
         {
             get
             {
-                return this.Children.Count == 0 ? "是" : "否";
+                return this.Children?.Count == 0 ? "是" : "否";
             }
         }
 

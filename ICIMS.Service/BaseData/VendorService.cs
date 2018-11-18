@@ -31,7 +31,24 @@ namespace ICIMS.Service.BaseData
 
         public async Task<VendorItem> CreateOrUpdate(VendorItem vendor)
         {
-            return await _webApiClient.PostAsync<VendorItem>($"{_webApiClient.BaseUrl}{_baseUrl}/CreateOrUpdate", new { vendor });
+            return await _webApiClient.PostAsync<VendorItem>($"{_webApiClient.BaseUrl}{_baseUrl}/CreateOrUpdate", new
+            {
+                vendor
+            });
+
+            //vendor = new
+            //{
+            //    vendor.No,
+            //    vendor.Email,
+            //    vendor.Name,
+            //    vendor.Address,
+            //    vendor.LinkPerson,
+            //    vendor.LinkPhone,
+            //    vendor.AccountName,
+            //    vendor.OpenBank,
+            //    vendor.Remark,
+            //    vendor.Published
+            //}
         }
     }
 }

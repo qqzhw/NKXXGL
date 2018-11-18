@@ -38,7 +38,7 @@
         <telerik:RadTreeListView x:Name="RadTreeListView1"
                                  Grid.Row="2"
 								 AutoExpandItems="True" 
-								 IsReadOnly="False" 
+								 IsReadOnly="True" 
 								 ItemsSource="{Binding Items}"
 								 Width="auto"
 								 MinHeight="300" 
@@ -56,33 +56,30 @@
             </telerik:RadTreeListView.ChildTableDefinitions>
             <telerik:RadTreeListView.Columns>
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Code}"
-											IsReadOnly="False"
+											IsReadOnly="True"
                                             Header="编号"
 											Width="150" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding DisplayName}"
-											IsReadOnly="False"
+											IsReadOnly="True"
                                             Header="名称"
 											Width="150" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Description}"
-											IsReadOnly="False"
+											IsReadOnly="True"
                                              Header="备注"
 											Width="*" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Level}"
 											IsReadOnly="True"
                                             Header="层级"
 											Width="150" />
-                <telerik:GridViewDataColumn DataMemberBinding="{Binding Published}"
-											IsReadOnly="False"
-                                            Header="启用"
-											Width="100" />
+               
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding IsLast}"
 											IsReadOnly="True"
                                             Header="末级"
 											Width="100" />
-                <telerik:GridViewDataColumn DataMemberBinding="{Binding IsForbiddened}"
-											IsReadOnly="False"
+                <!--<telerik:GridViewDataColumn DataMemberBinding="{Binding IsForbiddened}"
+											IsReadOnly="True"
                                             Header="禁用"
-											Width="100" />
+											Width="100" />-->
             </telerik:RadTreeListView.Columns>
         </telerik:RadTreeListView>
         <telerik:RadDataPager Grid.Row="3"
