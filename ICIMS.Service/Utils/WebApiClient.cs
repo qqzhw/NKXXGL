@@ -207,7 +207,7 @@ namespace ICIMS.Service
                             }
                         }
 
-                        using (var response = await client.GetAsync(url + "?" + ObjectToQueryString(requestContent)))
+                        using (var response = await client.GetAsync(url + "?" + ObjectToQueryString(input)))
                         {
                             if (!response.IsSuccessStatusCode)
                             {
@@ -287,7 +287,7 @@ namespace ICIMS.Service
         }
 
 
-        private string ObjectToQueryString(StringContent requestContent)
+        private string ObjectToQueryString(object requestContent)
         {
             var properties = from p in requestContent.GetType().GetProperties()
                              where p.GetValue(requestContent, null) != null

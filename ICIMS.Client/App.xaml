@@ -27,7 +27,9 @@
             <Style BasedOn="{StaticResource MetroValidationPopup}" TargetType="{x:Type controls:CustomValidationPopup}">
                 <Setter Property="CloseOnMouseLeftButtonDown" Value="False" />
             </Style>
-
+            <DataTemplate x:Key="dateTemplate">
+                <TextBlock Text="{Binding}" FontStyle="Normal" FontFamily="SimSun"  Opacity="0.6"/>
+            </DataTemplate>
             <!--  quick change of the collapse storyboard duration  -->
             <Storyboard x:Key="MetroExpanderCollapseStoryboard">
                 <DoubleAnimation Duration="0:0:0.1"
