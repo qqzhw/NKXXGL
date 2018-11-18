@@ -295,6 +295,15 @@ namespace ICIMS.Service
 
             return String.Join("&", properties.ToArray());
         }
+
+        private string ObjectToQueryString(object requestContent)
+        {
+            var properties = from p in requestContent.GetType().GetProperties()
+                             where p.GetValue(requestContent, null) != null
+                             select p.Name + "=" + UrlEncode(p.GetValue(requestContent, null).ToString());
+
+            return String.Join("&", properties.ToArray());
+        }
         private string UrlEncode(string str)
         {
             StringBuilder sb = new StringBuilder();

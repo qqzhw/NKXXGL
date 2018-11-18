@@ -9,6 +9,8 @@ namespace ICIMS.Service.BaseData
 {
     public interface IDocumentTypeService
     {
-        Task<List<DocumentTypeItem>> GetPaged();
+        Task<(int totalCount, List<DocumentTypeItem> datas)> GetPageItems(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue);
+        Task Delete(int id);
+        Task<DocumentTypeItem> CreateOrUpdate(DocumentTypeItem fundFrom);
     }
 }

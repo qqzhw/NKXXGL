@@ -9,6 +9,8 @@ namespace ICIMS.Service.BaseData
 {
     public interface ISubjectService
     {
-        Task<List<SubjectItem>> GetPaged();
+        Task<(int totalCount, List<SubjectItem> datas)> GetPageItems(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue);
+        Task Delete(int id);
+        Task<SubjectItem> CreateOrUpdate(SubjectItem fundFrom);
     }
 }

@@ -12,17 +12,17 @@ using System.Windows.Input;
 
 namespace ICIMS.Modules.BaseData.ViewModels
 {
-    public class ContractEditViewModel : BindableBase
+    public class OrganizationUnitEditViewModel : BindableBase
     {
         private bool _showReAddBtn;
 
-        public ContractItem Item { get; set; }
+        public OrganizationUnitItem Item { get; set; }
 
         public ICommand OkCmd { get; private set; }
         public ICommand CancelCmd { get; private set; }
         public ICommand ReAddCmd { get; private set; }
 
-        public ContractEditViewModel()
+        public OrganizationUnitEditViewModel()
         {
             this.OkCmd = new DelegateCommand<object>(OnOkCmd);
             this.CancelCmd = new DelegateCommand<object>(OnCancelCmd);

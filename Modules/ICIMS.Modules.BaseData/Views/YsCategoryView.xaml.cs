@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ICIMS.Modules.BaseData.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Unity.Attributes;
 
 namespace ICIMS.Modules.BaseData.Views
 {
@@ -23,6 +25,20 @@ namespace ICIMS.Modules.BaseData.Views
         public YsCategoryView()
         {
             InitializeComponent();
+        }
+
+
+        [Unity.Attributes.Dependency]
+        public YsCategoryViewModel ViewModel { get; set; }
+        [InjectionMethod]
+        public void Init()
+        {
+            this.DataContext = ViewModel;
+            ViewModel.View = this;
+        }
+        public void BindAction(Action<bool?> action)
+        {
+            ViewModel.Close = action;
         }
     }
 }

@@ -9,6 +9,11 @@ namespace ICIMS.Service.BaseData
 {
     public interface IOrganizationUnitService
     {
-        Task<List<OrganizationUnitItem>> GetPaged();
+        Task<(int totalCount, List<OrganizationUnitItem> datas)> GetPageItems(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue);
+        Task Delete(int id);
+        Task<OrganizationUnitItem> CreateOrUpdate(OrganizationUnitItem fundFrom);
+
+        Task<OrganizationUnitItem> Create(OrganizationUnitItem fundFrom);
+        Task<OrganizationUnitItem> Update(OrganizationUnitItem fundFrom);
     }
 }

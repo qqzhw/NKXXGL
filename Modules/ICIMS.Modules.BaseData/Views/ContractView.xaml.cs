@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Unity.Attributes;
 
 namespace ICIMS.Modules.BaseData.Views
 {
@@ -21,11 +23,22 @@ namespace ICIMS.Modules.BaseData.Views
     /// </summary>
     public partial class ContractView : UserControl
     {
-        public ContractView(ContractViewModel viewModel)
+        public ContractView()
         {
             InitializeComponent();
-            this.DataContext = viewModel;
-            viewModel.View = this;
+        }
+
+        [Unity.Attributes.Dependency]
+        public ContractViewModel ViewModel { get; set; }
+        [InjectionMethod]
+        public void Init()
+        {
+            this.DataContext = ViewModel;
+            ViewModel.View = this;
+        }
+        public void BindAction(Action<bool?> action)
+        {
+            ViewModel.Close = action;
         }
     }
 }

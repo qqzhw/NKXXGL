@@ -17,9 +17,9 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
             <control:CustomButton Height="36" Command="{Binding AddCommand}"  IconBackground="#682357"   Kind="PlusSolid"  Width="80" Margin="10,0,0,0" Title="新增"/>
-            <control:CustomButton Height="36"  IconBackground="#91CE2D"   Kind="EditSolid"  Width="80" Margin="10,0,0,0" Title="编辑"/>
-            <control:CustomButton Height="36"  IconBackground="#AD372D"   Kind="TimesSolid"  Width="80" Margin="10,0,0,0" Title="删除"/>
-            <control:CustomButton Height="36"  IconBackground="#C1852D"  Kind="SyncSolid"  Width="80" Margin="10,0,0,0" Title="刷新"/>
+            <control:CustomButton Height="36" Command="{Binding EditCommand}" IconBackground="#91CE2D"   Kind="EditSolid"  Width="80" Margin="10,0,0,0" Title="编辑"/>
+            <control:CustomButton Height="36" Command="{Binding DeleteCommand}"  IconBackground="#AD372D"   Kind="TimesSolid"  Width="80" Margin="10,0,0,0" Title="删除"/>
+            <control:CustomButton Height="36" Command="{Binding RefreshCommand}"  IconBackground="#C1852D"  Kind="SyncSolid"  Width="80" Margin="10,0,0,0" Title="刷新"/>
         </StackPanel>
         <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1">
             <StackPanel Margin="100 0" VerticalAlignment="Center" Orientation="Horizontal" >
@@ -43,6 +43,7 @@
 								 MinHeight="300" 
 								 Height="auto" IsFilteringAllowed="False"
 								 CanUserFreezeColumns="False"
+                                  SelectedItem="{Binding SelectedItem,UpdateSourceTrigger=PropertyChanged}"
 								 RowIndicatorVisibility="Collapsed"
                                  AutoGenerateColumns="False"
                                  NewRowPosition="None"
@@ -83,11 +84,10 @@
 											Width="100" />
             </telerik:RadTreeListView.Columns>
         </telerik:RadTreeListView>
-        <telerik:RadDataPager Grid.Row="3" 
-                              Source="{Binding Items, ElementName=RadTreeListView1}"
+        <telerik:RadDataPager Grid.Row="3"
                               IsTotalItemCountFixed="True"
                               PageSize="{Binding PageSize}"
-                              PageIndex="{Binding PageIndex}"
+                              PageIndex="{Binding PageIndex,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                               ItemCount="{Binding ItemCount}"
                               
                               >

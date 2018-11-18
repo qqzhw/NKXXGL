@@ -9,6 +9,8 @@ namespace ICIMS.Service.BaseData
 {
     public interface IPaymentTypeService
     {
-        Task<List<PaymentTypeItem>> GetPaged();
+        Task<(int totalCount, List<PaymentTypeItem> datas)> GetPageItems(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue);
+        Task Delete(int id);
+        Task<PaymentTypeItem> CreateOrUpdate(PaymentTypeItem fundFrom);
     }
 }
