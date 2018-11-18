@@ -68,14 +68,14 @@
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="32">
                         <TextBlock Text="登记部门"   VerticalAlignment="Center"/>
-                        <TextBox Width="140" Height="18" Text="{Binding Year}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox Width="140" Height="18" Text="{Binding ItemDefine.UnitName}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="项目分类"  Margin="5,0,0,0" VerticalAlignment="Center" />
                         <TextBox Width="140" Height="18" Text="{Binding ItemDefine.ItemCategoryName}"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <Button Command="{Binding SearchItemCommand}" Style="{x:Null}" BorderThickness="0" Height="18">
                             <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                         </Button>
                         <TextBlock Text="立项文号"  Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox Width="240" Height="18"  Margin="5,0,0,0" Text="{Binding Year}" VerticalAlignment="Center"/>
+                        <TextBox Width="240" Height="18"  Margin="5,0,0,0" Text="{Binding ItemDefine.ItemDocNo}" VerticalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Orientation="Horizontal"  HorizontalAlignment="Stretch" Height="32">
                         <TextBlock Text="立项日期"  VerticalAlignment="Center"/>
@@ -83,26 +83,26 @@
                     
                         <TextBlock Text="项目编号"  Margin="5,0,0,0" VerticalAlignment="Center" />
                         <TextBox Width="140" Height="18" IsReadOnly="True" Text="{Binding ItemNo}"  Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="预算金额"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <telerik:RadNumericUpDown Width="80"  Value="{Binding Year}"  Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Office2016" ValueFormat="Currency" Maximum="100000000000" />
+                        <TextBlock Text="项目名称"  Margin="23,0,0,0" VerticalAlignment="Center" />
+                        <TextBox Width="240" Height="18"  Margin="5,0,0,0" Text="{Binding ItemDefine.ItemName}" VerticalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Stretch" Height="32">
                         <TextBlock Text="立项金额" VerticalAlignment="Center"/>
-                        <telerik:RadNumericUpDown Width="80" Height="18"   Value="{Binding Year}"  Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Office2016" ValueFormat="Currency" Maximum="100000000000" />
+                        <telerik:RadNumericUpDown Width="140" Height="18"   Value="{Binding ItemDefine.DefineAmount}"  Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Office2016" ValueFormat="Currency" Maximum="100000000000" />
                         <TextBlock Text="项目地址"  Margin="5,0,0,0"  VerticalAlignment="Center" />
-                        <TextBox Width="438" Height="18" Text="{Binding ItemAddress}"  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox Width="440" Height="18" Text="{Binding ItemDefine.ItemAddress}"  Margin="5,0,0,0" VerticalAlignment="Center"/>
 
                     </StackPanel>
                     <StackPanel Grid.Row="3" Orientation="Horizontal"  HorizontalAlignment="Stretch" Height="32">
-                        <TextBlock Text="项目名称"  VerticalAlignment="Center"/>
-                        <TextBox Width="500" Height="18"   Margin="5,0,0,0" Text="{Binding ItemName}" VerticalAlignment="Center"/>
+                        <TextBlock Text="项目概况"  VerticalAlignment="Center"/>
+                        <TextBox Width="500" Height="18"   Margin="5,0,0,0" Text="{Binding ItemDefine.ItemName}" VerticalAlignment="Center"/>
 
 
                     </StackPanel>
 
                     <StackPanel Grid.Row="4"  Height="70" Orientation="Horizontal"  VerticalAlignment="Top"  >
                         <TextBlock Text="备注"  Margin="24,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox Width="500" AcceptsReturn="True" Margin="5,0,0,0" Text="{Binding Remark}" TextWrapping="Wrap"  Height="64" />
+                        <TextBox Width="500" AcceptsReturn="True" Margin="5,0,0,0" Text="{Binding ItemDefine.ItemDescription}" TextWrapping="Wrap"  Height="64" />
                     
                     </StackPanel>
 
