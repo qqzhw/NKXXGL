@@ -90,7 +90,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                                 CommonHelper.SetValue(oriItem, newItem.Item);
                             }
                         }
-                        catch (RemoteCallException ex)
+                        catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message);
                         }
@@ -131,7 +131,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                                 this.Items.Add(data);
                             }
                         }
-                        catch (RemoteCallException ex)
+                        catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message);
                         }

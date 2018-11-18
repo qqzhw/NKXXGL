@@ -45,7 +45,15 @@ namespace ICIMS.Model.BaseData
         public int ParentId { get => _parentId; set => SetProperty(ref _parentId, value); }
 
 
-        public bool Published { get => _published; set { SetProperty(ref _published, value); RaisePropertyChanged(nameof(IsForbiddened)); } }
+        public bool Published
+        {
+            get => _published;
+            set
+            {
+                SetProperty(ref _published, value);
+                RaisePropertyChanged(nameof(IsForbiddened));
+            }
+        }
 
         public int DisplayOrder { get => _displayOrder; set => SetProperty(ref _displayOrder, value); }
         public DateTime CreationTime { get => _creationTime; set => SetProperty(ref _creationTime, value); }
