@@ -35,7 +35,7 @@
         </Border>
         <Border Grid.Row="1" BorderThickness="0" Margin="10" BorderBrush="#D9EDF7"  >
             <telerik:RadBusyIndicator  IsBusy="{Binding IsBusy}"  telerik:StyleManager.Theme="Windows8Touch"  BusyContent="">
-                <telerik:RadGridView x:Name="dgInfo"  telerik:StyleManager.Theme="Windows10" FontSize="14"   ShowGroupPanel="False"
+                <telerik:RadGridView x:Name="dgInfo"  telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
 						    RowHeight="33" CanUserInsertRows="True"    GridLinesVisibility="Both" TextOptions.TextFormattingMode="Display"  IsFilteringAllowed="False" ItemsSource="{Binding WaterItems}"  
 							 RowIndicatorVisibility="Collapsed" BorderBrush="#E4E7F0"  FontWeight="Medium"  SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"   SelectedItem="{Binding Path=SelectedItem,Mode=TwoWay}"    GroupRenderMode="Flat"    AutoGenerateColumns="False"  
@@ -43,9 +43,9 @@
 
                     <telerik:RadGridView.Columns>
 
-                        <telerik:GridViewDataColumn Header="设备编号"  Width="100"     HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  DeviceId,Mode =TwoWay}"/>
+                        <telerik:GridViewDataColumn Header="项目编号"  Width="100"     HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  ItemNo,Mode =TwoWay}"/>
 
-                        <telerik:GridViewDataColumn Header="通道序号" Width="80"    DataMemberBinding="{Binding Stcd}" />
+                        <telerik:GridViewDataColumn Header="项目名称" Width="80"    DataMemberBinding="{Binding ItemName}" />
                         <!--<telerik:GridViewDataColumn Header="路径" Width="100"    DataMemberBinding="{Binding DirectoryName}" />-->
                         <telerik:GridViewDataColumn Header="设备名称" DataMemberBinding="{Binding DeviceName}" TextWrapping="Wrap" Width="200" />
                         <telerik:GridViewDataColumn Header="水位值(m)" DataMemberBinding="{Binding WaterValue}" TextWrapping="Wrap" Width="90" />

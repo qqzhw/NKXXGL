@@ -34,7 +34,8 @@ namespace ICIMS.Client.ViewModels
         private readonly IModuleManager _moduleManager;
         private readonly IServiceLocator _serviceLocator;
         private readonly IUserService _userSerice;
-        public MainWindowViewModel(IUnityContainer container, IEventAggregator eventAggregator, IRegionManager regionManager, IModuleManager moduleManager, IServiceLocator serviceLocator, IUserService userSerice)
+        private readonly IWebApiClient _webApiClient;
+        public MainWindowViewModel(IUnityContainer container, IEventAggregator eventAggregator, IRegionManager regionManager, IModuleManager moduleManager, IServiceLocator serviceLocator, IUserService userSerice, IWebApiClient webApiClient)
         {
             _container = container;
             _eventAggregator = eventAggregator;
@@ -42,6 +43,7 @@ namespace ICIMS.Client.ViewModels
             _moduleManager = moduleManager;
             _serviceLocator = serviceLocator;
             _userSerice = userSerice;
+            _webApiClient = webApiClient;
           //  CustomPopupRequest = new InteractionRequest<INotification>();
             CustomPopupCommand = new DelegateCommand(RaiseCustomPopup);
             _systemInfos = new ObservableCollection<SystemInfoViewModel>();
@@ -111,10 +113,14 @@ namespace ICIMS.Client.ViewModels
         /// <summary>
         /// 加载设置选项
         /// </summary>
-        public async void InitLoadSetting()
+        public  void InitLoadSetting()
         {
             // _title = Settings.Default.AppName;
             //var ss =await _userSerice.GetUserInfoAsync(1);
+            _webApiClient.TenancyName = "Default";
+            _webApiClient.UserName = "admin";
+            _webApiClient.Password = "123qwe";
+            _webApiClient.TokenBasedAuth();
         }
 
         [InjectionMethod]

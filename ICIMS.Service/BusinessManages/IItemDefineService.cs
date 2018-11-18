@@ -9,7 +9,7 @@ namespace ICIMS.Service.BusinessManages
 {
     public interface IItemDefineService
     {
-        Task<ResultData<ItemDefine>> GetAllItemDefines(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue);
+        Task<ResultData<List<ItemDefine>>> GetAllItemDefines(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue);
 
 
         Task<ItemDefine> GetById(int input);

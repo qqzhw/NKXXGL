@@ -63,12 +63,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             _title = "项目分类";
             this.Items = new ObservableCollection<ItemCategoryItem>();
-            List<ItemCategoryItem> datas = await _itemCategoryService.GetPaged();
-            foreach (var data in datas)
+            var  datas = await _itemCategoryService.GetPageItems();
+            foreach (var data in datas.datas)
             {
                 if (data.GroupNo != data.No)
                 {
-                    data.Parent = datas.FirstOrDefault(a => a.No == data.GroupNo);
+                    data.Parent = datas.datas.FirstOrDefault(a => a.No == data.GroupNo);
                     data.Parent.Children.Add(data);
                 }
                 else

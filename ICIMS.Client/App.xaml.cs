@@ -88,31 +88,30 @@ namespace ICIMS.Client
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<BaseDataView>();
-            //containerRegistry.Register<IWebApiClient, WebApiClient>();
-            var webApiClient = new WebApiClient();
-            webApiClient.TenancyName = "Default";
-            webApiClient.UserName = "admin";
-            webApiClient.Password = "123qwe";
-            webApiClient.TokenBasedAuth();
-            containerRegistry.RegisterInstance<IWebApiClient>(webApiClient);
+           containerRegistry.RegisterSingleton<IWebApiClient, WebApiClient>();
+           // var webApiClient = new WebApiClient();
+            //webApiClient.TenancyName = "Default";
+            //webApiClient.UserName = "admin";
+            //webApiClient.Password = "123qwe";
+            //webApiClient.TokenBasedAuth();
+           // containerRegistry.RegisterSingleton<IWebApiClient>();
 
-            containerRegistry.Register<IUserService, UserService>();
-            containerRegistry.Register<IFundFromService, FundFromService>();
-            containerRegistry.Register<IPaymentTypeService, PaymentTypeService>();
-            containerRegistry.Register<IItemCategoryService, ItemCategoryService>();
-            containerRegistry.Register<IDocumentTypeService, DocumentTypeService>();
-            containerRegistry.Register<IContractCategoryService, ContractCategoryService>();
-            containerRegistry.Register<IVendorService, VendorService>();
-            containerRegistry.Register<IYsCategoryService, YsCategoryService>();
-            containerRegistry.Register<ISubjectService, SubjectService>();
-            containerRegistry.Register<IOrganizationUnitService, OrganizationUnitService>();
-
-            containerRegistry.Register<IContractService, ContractService>();
-            containerRegistry.Register<IItemDefineService, ItemDefineService>();
-            containerRegistry.Register<IReViewDefineService, ReViewDefineService>();
-            containerRegistry.Register<IBudgetService, BudgetService>();
-            containerRegistry.Register<IPayAuditService, PayAuditService>();
-            containerRegistry.Register<IBusinessTypeService, BusinessTypeService>();
+            containerRegistry.RegisterSingleton<IUserService, UserService>();
+            containerRegistry.RegisterSingleton<IFundFromService, FundFromService>();
+            containerRegistry.RegisterSingleton<IPaymentTypeService, PaymentTypeService>();
+            containerRegistry.RegisterSingleton<IItemCategoryService, ItemCategoryService>();
+            containerRegistry.RegisterSingleton<IDocumentTypeService, DocumentTypeService>();
+            containerRegistry.RegisterSingleton<IContractCategoryService, ContractCategoryService>();
+            containerRegistry.RegisterSingleton<IVendorService, VendorService>();
+            containerRegistry.RegisterSingleton<IYsCategoryService, YsCategoryService>();
+            containerRegistry.RegisterSingleton<ISubjectService, SubjectService>();
+            containerRegistry.RegisterSingleton<IOrganizationUnitService, OrganizationUnitService>(); 
+            containerRegistry.RegisterSingleton<IContractService, ContractService>();
+            containerRegistry.RegisterSingleton<IItemDefineService, ItemDefineService>();
+            containerRegistry.RegisterSingleton<IReViewDefineService, ReViewDefineService>();
+            containerRegistry.RegisterSingleton<IBudgetService, BudgetService>();
+            containerRegistry.RegisterSingleton<IPayAuditService, PayAuditService>();
+            containerRegistry.RegisterSingleton<IBusinessTypeService, BusinessTypeService>();
         }
        
 

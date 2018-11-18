@@ -14,9 +14,10 @@ namespace ICIMS.Service.BusinessManages
         {
             _webApiClient = webApiClient;
         }
-        public Task CreateOrUpdate(ItemDefine input)
+        public async Task CreateOrUpdate(ItemDefine input)
         {
-            throw new NotImplementedException();
+            var param = new { ItemDefine=input };
+           await _webApiClient.PostAsync("http://localhost:21025/api/services/app/ItemDefine/CreateOrUpdate", param);
         }
 
         public Task Delete(int input)
@@ -24,7 +25,7 @@ namespace ICIMS.Service.BusinessManages
             throw new NotImplementedException();
         }
 
-        public async Task<ResultData<ItemDefine>> GetAllItemDefines(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue)
+        public async Task<ResultData<List<ItemDefine>>> GetAllItemDefines(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue)
         {
             var p = new {MaxResultCount = 1 ,SkipCount = 0 };
             var ss =await _webApiClient.GetAsync<object>("http://localhost:21025/api/services/app/ItemDefine/GetPaged",p);

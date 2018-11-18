@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-
+using Telerik.Windows;
 using Unity;
 using Unity.Attributes;
 
@@ -40,10 +40,16 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _regionManager = regionManager;
             _itemCategoryService = itemCategoryService;
             _itemDefineService = itemDefineService;
-            _title = "项目分类";
+            _title = "立项项目";
             SaveCommand = new DelegateCommand(OnAddItem);
             CancelCommand = new DelegateCommand(OnCancel);
             DoubleClick = new DelegateCommand<object>(OnDoubleClick);
+            SearchCommand = new Prism.Commands.DelegateCommand(OnSearchData);
+        }
+
+        internal void OnDoubleClick(object sender, RadRoutedEventArgs e)
+        {
+            Close(true);
         }
 
         private void OnDoubleClick(object obj)
@@ -54,12 +60,13 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         [InjectionMethod]
         public async Task Init()
         {
-            _title = "项目分类";
+            _title = "立项项目";
 
             int count = 0;
-           // var items = await _itemDefineService.GetAllItemDefines("","",PageIndex,PageSize);
-         //   count = items.TotalCount;
-           // this.Items = new ObservableCollection<ItemDefine>(datas.Items);
+            // var items = await _itemDefineService.GetAllItemDefines("","",PageIndex,PageSize);
+            //   count = items.TotalCount;
+            // this.Items = new ObservableCollection<ItemDefine>(datas.Items);
+            Initializer();
             await Task.CompletedTask;
         }
         public ObservableCollection<ItemDefine> Items { get; set; }
@@ -83,9 +90,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             long dataCount = 0;
             var items =await _itemDefineService.GetAllItemDefines("", "", PageIndex, PageSize);
             if (items != null)
-            {
-                TotalCount = dataCount; 
-               
+            {                
+                TotalCount = items.TotalCount;
+                Items.AddRange(items.Items);
             }
 
         }
@@ -171,6 +178,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public ICommand SaveCommand { get; protected set; }
         public ICommand CancelCommand { get; protected set; }
         public DelegateCommand<object> DoubleClick { get; private set; }
+        public DelegateCommand SearchCommand { get; private set; }
         public Action<bool?> Close { get; internal set; }
 
 

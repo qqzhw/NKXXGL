@@ -3,6 +3,7 @@ using ICIMS.Core.Interactivity;
 using ICIMS.Core.Interactivity.InteractionRequest;
 using ICIMS.Model.BusinessManages;
 using ICIMS.Modules.BusinessManages.Views;
+using ICIMS.Service.BusinessManages;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -22,23 +23,69 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
     {
         private IEventAggregator _eventAggregator;
         private readonly IUnityContainer _unityContainer;
-        private string _title;
+        private readonly IItemDefineService _itemDefineService;
 
+        public DelegateCommand SaveCommand { get; private set; }
+        public DelegateCommand SubmitCommand { get; private set; }
+        public DelegateCommand CancelCommand { get; private set; }
+        public DelegateCommand BackCommand { get; private set; }
+        public DelegateCommand LogCommand { get; private set; }
         public DelegateCommand SearchItemCommand { get; private set; }
-
+        private string _title;
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public ItemDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer)
+        public ItemDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IItemDefineService itemDefineService)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
+            _itemDefineService = itemDefineService;
             _title = "项目立项";
-            
+            SaveCommand = new DelegateCommand(OnSave);
+            SubmitCommand = new DelegateCommand(OnSubmit);
+            CancelCommand = new DelegateCommand(OnCancel);
+            BackCommand = new DelegateCommand(OnBack);
+            LogCommand = new DelegateCommand(OnShowLog);
             SearchItemCommand = new DelegateCommand(OnSelectedItemCategory);
         }
+        private async void OnSave()
+        {
+            ItemDefine.DefineAmount = 5000;
+            ItemDefine.DefineDate = DateTime.Now;
+            ItemDefine.ItemAddress = "成都";
+            ItemDefine.ItemCategoryId = 1;
+            ItemDefine.ItemDescription = "挥洒的阿萨德";
+            ItemDefine.ItemDocNo = "文号110";
+            ItemDefine.ItemName = "立项研究项目";
+            ItemDefine.Remark = "beizhu";
+            ItemDefine.UnitId = 1;
+           await _itemDefineService.CreateOrUpdate(ItemDefine);
+            
+        }
+        private void OnSubmit()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnCancel()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnBack()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnShowLog()
+        {
+            throw new NotImplementedException();
+        }
+
+      
+
         [InjectionMethod]
         public async void Init()
         {
