@@ -41,7 +41,7 @@ namespace ICIMS.Service.BaseData
 
         public async Task<OrganizationUnitItem> Update(OrganizationUnitItem fundFrom)
         {
-            return await _webApiClient.PostAsync<OrganizationUnitItem>($"{_webApiClient.BaseUrl}{_baseUrl}/UpdateAsync",  fundFrom);
+            return await _webApiClient.PutAsync<OrganizationUnitItem>($"{_webApiClient.BaseUrl}{_baseUrl}/UpdateAsync",  fundFrom);
         }
     }
 }

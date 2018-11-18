@@ -37,7 +37,7 @@
         <telerik:RadTreeListView x:Name="RadTreeListView1"
                                  Grid.Row="2"
 								 AutoExpandItems="True" 
-								 IsReadOnly="False" 
+								 IsReadOnly="True" 
 								 ItemsSource="{Binding Items}"
                                   SelectedItem="{Binding SelectedItem,UpdateSourceTrigger=PropertyChanged}"
 								 Width="auto"
@@ -55,15 +55,15 @@
             </telerik:RadTreeListView.ChildTableDefinitions>
             <telerik:RadTreeListView.Columns>
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding No}"
-											IsReadOnly="False"
+											IsReadOnly="True"
                                             Header="编号"
 											Width="150" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Name}"
-											IsReadOnly="False"
+											IsReadOnly="True"
                                             Header="名称"
 											Width="150" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Address}"
-											IsReadOnly="False"
+											IsReadOnly="True"
                                              Header="公司地址"
 											Width="150" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding LinkPerson}"
@@ -75,19 +75,19 @@
                                             Header="移动电话"
 											Width="150" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding OpenBank}"
-											IsReadOnly="False"
+											IsReadOnly="True"
                                             Header="开户行"
 											Width="150" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding AccountName}"
-											IsReadOnly="False"
+											IsReadOnly="True"
                                             Header="账户"
 											Width="150" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Remark}"
-											IsReadOnly="False"
+											IsReadOnly="True"
                                             Header="备注"
 											Width="150" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Published}"
-											IsReadOnly="False"
+											IsReadOnly="True"
                                             Header="禁用"
 											Width="150" />
 

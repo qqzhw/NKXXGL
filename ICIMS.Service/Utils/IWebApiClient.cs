@@ -69,5 +69,7 @@ namespace ICIMS.Service
         Task<TResult> GetAsync<TResult>(string url, object input, int? timeout = null) where TResult : class;
         Task<TResult> DeleteAsync<TResult>(string url, object input, int? timeout = null)
         where TResult : class;
+
+        Task<TResult> PutAsync<TResult>(string url, object input, int? timeout = null) where TResult : class;
     }
 }
