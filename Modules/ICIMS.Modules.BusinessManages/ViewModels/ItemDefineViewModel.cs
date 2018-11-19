@@ -7,10 +7,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls; 
+using System.Windows.Controls;
 using ICIMS.Core.Events;
 using System.Windows.Input;
 using Unity;
+using ICIMS.Core.Interactivity.InteractionRequest;
+using ICIMS.Modules.BusinessManages.Views;
+using ICIMS.Core.Interactivity;
+using Unity.Resolution;
+using System.Threading;
+using System.Collections.ObjectModel;
+using ICIMS.Service.BusinessManages;
+using ICIMS.Service;
+using Newtonsoft.Json;
+using ICIMS.Model.BusinessManages;
+using Unity.Attributes;
 
 namespace ICIMS.Modules.BusinessManages.ViewModels
 {
@@ -19,24 +30,81 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private IEventAggregator _eventAggregator;
         private readonly IUnityContainer _container;
         private readonly IRegionManager _regionManager;
+        private readonly IItemDefineService _itemDefineService;
         private string _title;
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public ItemDefineViewModel(IEventAggregator eventAggregator,IUnityContainer unityContainer, IRegionManager regionManager)
+        public ItemDefineViewModel(IEventAggregator eventAggregator,IUnityContainer unityContainer, IRegionManager regionManager, IItemDefineService itemDefineService)
         {
             _eventAggregator = eventAggregator;
             _container = unityContainer;
             _regionManager = regionManager;
+            _itemDefineService = itemDefineService;
             _title = "项目立项";
+            _itemDefineLists = new ObservableCollection<ItemDefineList>();
             AddCommand = new DelegateCommand(OnAddItem);
             EditCommand = new DelegateCommand<object>(OnEditItem);
             DeleteCommand = new DelegateCommand<object>(OnDelete);
             RefreshCommand= new DelegateCommand(OnRefresh);
+            PageChanged = new DelegateCommand<Telerik.Windows.Controls.PageIndexChangedEventArgs>(OnPageChanged);
+            SearchCommand = new Prism.Commands.DelegateCommand(OnSearchData);
+            Initializer();
         }
 
+        
+        private void OnPageChanged(Telerik.Windows.Controls.PageIndexChangedEventArgs e)
+        {
+            PageIndex = e.NewPageIndex;
+            Initializer(PageIndex, PageSize);
+        }
+
+        /// <summary>
+        /// 查询数据
+        /// </summary>
+        private void OnSearchData()
+        {
+            TotalCount = 0;
+            PageIndex = 0;
+            Initializer(PageIndex, PageSize);
+        }
+         
+
+        private void OnSaveData()
+        {
+
+        }
+
+        private async void Initializer(int pageIndex = 0, int pageSize = 20)
+        {
+            IsBusy = true;
+            _itemDefineLists.Clear();
+            if (BeginTime != null)
+            {
+                if (BeginTime == EndTime)
+                {
+                    EndTime = BeginTime.Value.AddDays(1);
+                }
+
+            }
+            var result = await _itemDefineService.GetAllItemDefines("", "", pageIndex: PageIndex, pageSize: PageSize);
+            long dataCount = 0;
+
+            TotalCount = result.TotalCount;
+            _itemDefineLists.AddRange(result.Items);
+            IsBusy = false;
+
+        }
+        private ObservableCollection<ItemDefineList> _itemDefineLists;
+        public ObservableCollection<ItemDefineList> ItemDefineLists
+        {
+            get { return _itemDefineLists; }
+            set { SetProperty(ref _itemDefineLists, value); }
+        }
+        public ICommand SearchCommand { get; set; }
+        public ICommand PageChanged { get; set; }
         private void OnDelete(object obj)
         {
              
@@ -49,10 +117,22 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private void OnEditItem(object obj)
         {
-            var navigationParameters = new NavigationParameters();
-            navigationParameters.Add("Id", 1);
-            var region = _regionManager.Regions["MainRegion"];
-            _regionManager.RequestNavigate("MainRegion", "ItemDefineEditView", navigationCallback, navigationParameters);
+            var view = _container.Resolve<ItemDefineEditView>(new ParameterOverride("viewModel", obj));
+            var notification = new Notification()
+            {
+                Title = "立项编辑",
+                WindowState = System.Windows.WindowState.Maximized,
+                Content = view,// (new ParameterOverride("name", "")), 
+            };
+            PopupWindows.NotificationRequest.Raise(notification, (callback) => {
+                //if (callback.DialogResult == true)
+                //{
+                //    var selectView = callback.Content as SelectItemCategoryView;
+                //    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
+
+                //}
+                int s = 0;
+            });
         }
         private void navigationCallback(NavigationResult nr)
         {
@@ -74,8 +154,22 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         private void OnAddItem()
         {
-            var region = _regionManager.Regions["MainRegion"];
-            _regionManager.RequestNavigate("MainRegion", "ItemDefineEditView", navigationCallback);
+            var view = _container.Resolve<ItemDefineEditView>();
+            var notification = new Notification()
+            {
+                Title="立项新增",
+                WindowState = System.Windows.WindowState.Maximized,
+                Content = view,// (new ParameterOverride("name", "")), 
+            };
+            PopupWindows.NotificationRequest.Raise(notification, (callback) => {
+                //if (callback.DialogResult == true)
+                //{
+                //    var selectView = callback.Content as SelectItemCategoryView;
+                //    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
+                    
+                //}
+                int s = 0;
+            }); 
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
@@ -124,6 +218,52 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             return true;
         }
+
+        #region  分页属性
+     
+        private string _deviceNo;
+        public string DeviceId
+        {
+            get { return _deviceNo; }
+            set { SetProperty(ref _deviceNo, value); }
+        }
+        private DateTime? _beginTime;
+        public DateTime? BeginTime
+        {
+            get { return _beginTime; }
+            set { SetProperty(ref _beginTime, value); }
+        }
+        private DateTime? _endTime;
+        public DateTime? EndTime
+        {
+            get { return _endTime; }
+            set { SetProperty(ref _endTime, value); }
+        }
+        private int _pageSize = 20;
+        public int PageSize
+        {
+            get { return _pageSize; }
+            set { SetProperty(ref _pageSize, value); }
+        }
+        private int _pageIndex;
+        public int PageIndex
+        {
+            get { return _pageIndex; }
+            set { SetProperty(ref _pageIndex, value); }
+        }
+        private long _totalCount;
+        public long TotalCount
+        {
+            get { return _totalCount; }
+            set { SetProperty(ref _totalCount, value); }
+        }
+        private bool _isbusy;
+        public bool IsBusy
+        {
+            get { return _isbusy; }
+            set { SetProperty(ref _isbusy, value); }
+        }
+        #endregion
     }
    
 }
