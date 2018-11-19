@@ -229,7 +229,7 @@ namespace ICIMS.Service
 
                     using (var requestContent = new StringContent(Object2JsonString(input), Encoding.UTF8, "application/json"))
                     { 
-                        using (var response = await client.DeleteAsync(url+"?"+ ObjectToQueryString(requestContent)))
+                        using (var response = await client.DeleteAsync(url+"?"+ ObjectToQueryString(input)))
                         {
                             SetResponseHeaders(response);
 

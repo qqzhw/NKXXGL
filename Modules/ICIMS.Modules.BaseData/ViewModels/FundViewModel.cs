@@ -74,6 +74,12 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 Title = "资金来源",
                 Content = view,// (new ParameterOverride("name", "")),
             };
+
+            newItem.CloseHandler = () => 
+            {
+                return true;
+            };
+
             PopupWindows.NotificationRequest.Raise(notification, async (callback) =>
             {
                 if (newItem.IsOkClicked != null)
@@ -94,9 +100,11 @@ namespace ICIMS.Modules.BaseData.ViewModels
                         {
                             MessageBox.Show(ex.Message);
                         }
-
-
                     }
+                }
+                else
+                {
+                    OnEditCommand(null);
                 }
             });
             view.BindAction(notification.Finish);
