@@ -69,9 +69,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             Initializer();
             await Task.CompletedTask;
         }
-        public ObservableCollection<ItemDefine> Items { get; set; }
-        private ItemDefine _selectedItem;
-        public ItemDefine SelectedItem { get => _selectedItem; set => SetProperty(ref _selectedItem, value); }
+        public ObservableCollection<ItemDefineList> Items { get; set; }
+        private ItemDefineList _selectedItem;
+        public ItemDefineList SelectedItem { get => _selectedItem; set => SetProperty(ref _selectedItem, value); }
 
 
         private async void Initializer(int pageIndex = 0, int pageSize = 20)

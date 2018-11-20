@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ICIMS.Core.Interactivity.InteractionRequest
 {
@@ -24,6 +25,10 @@ namespace ICIMS.Core.Interactivity.InteractionRequest
         public object Content { get; set; }
         public Action<bool?> Finish { get ; set ; }
         public bool? DialogResult { get ; set; }
+        public bool IsModal { get; set ; }
+        public bool Topmost { get ; set ; }
+        public ResizeMode ResizeMode { get ; set ; }
+        public WindowState WindowState { get; set; }
         public bool Maximized
         {
             get;

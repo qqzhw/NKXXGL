@@ -25,11 +25,11 @@ namespace ICIMS.Service.BusinessManages
             throw new NotImplementedException();
         }
 
-        public async Task<ResultData<List<ItemDefine>>> GetAllItemDefines(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue)
+        public async Task<ResultData<List<ItemDefineList>>> GetAllItemDefines(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            var p = new {MaxResultCount = 1 ,SkipCount = 0 };
-            var ss =await _webApiClient.GetAsync<object>("http://localhost:21025/api/services/app/ItemDefine/GetPaged",p);
-            return null;
+            var filter = new {No,Name,MaxResultCount = pageSize ,SkipCount =pageIndex*pageSize };
+            var items =await _webApiClient.GetAsync<ResultData<List<ItemDefineList>>>("http://localhost:21025/api/services/app/ItemDefine/GetPaged", filter);
+            return items;
         }
 
         public Task<ItemDefine> GetById(int input)

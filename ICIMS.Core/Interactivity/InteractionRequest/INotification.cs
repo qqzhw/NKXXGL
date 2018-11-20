@@ -1,6 +1,7 @@
 
 
 using System;
+using System.Windows;
 
 namespace ICIMS.Core.Interactivity.InteractionRequest
 {
@@ -20,6 +21,12 @@ namespace ICIMS.Core.Interactivity.InteractionRequest
         object Content { get; set; }
         bool? DialogResult { get; set; }
         Action<bool?> Finish { get; set; }
+        bool IsModal { get; set; }
+        bool Topmost { get; set; }
+         
+        ResizeMode ResizeMode { get; set; }
+
+        WindowState WindowState { get; set; }
         bool Maximized { get; set; }
     }
 }
