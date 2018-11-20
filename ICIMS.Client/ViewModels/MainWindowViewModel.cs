@@ -125,7 +125,7 @@ namespace ICIMS.Client.ViewModels
             keyValuePairs.Add(new KeyValuePair<string, string>("Id", "5"));
             keyValuePairs.Add(new KeyValuePair<string, string>("FileName", "FileNames"));
             keyValuePairs.Add(new KeyValuePair<string, string>("documenttype", "wORDWWEN文档"));
-            var sss = await _webApiClient.UploadFileAsync<object>("http://localhost:21025/api/services/app/FilesManage/UploadFileAsync", keyValuePairs, "d:\\te55555.png", "te55555.png");
+            //var sss = await _webApiClient.UploadFileAsync<object>("http://localhost:21025/api/FileManage/UploadAsync", keyValuePairs, "d:\\te55555.png", "te55555.png");
         }
 
         [InjectionMethod]
