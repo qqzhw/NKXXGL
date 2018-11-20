@@ -1,4 +1,5 @@
-﻿using ICIMS.Modules.BusinessManages.ViewModels;
+﻿using ICIMS.Model.BusinessManages;
+using ICIMS.Modules.BusinessManages.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace ICIMS.Modules.BusinessManages.Views
     /// </summary>
     public partial class ItemDefineEditView : UserControl
     {
-        public ItemDefineEditView(ItemDefineEditViewModel viewModel)
+        public ItemDefineEditView(ItemDefineEditViewModel viewModel,ItemDefineList data)
         {
             InitializeComponent();
             this.DataContext = viewModel;

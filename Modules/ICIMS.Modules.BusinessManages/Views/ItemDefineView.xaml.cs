@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Telerik.Windows;
+using Telerik.Windows.Controls.GridView;
 
 namespace ICIMS.Modules.BusinessManages.Views
 {
@@ -26,6 +28,7 @@ namespace ICIMS.Modules.BusinessManages.Views
             InitializeComponent();
             this.DataContext = viewModel;
             viewModel.View = this;
+            this.radInfo.AddHandler(GridViewCellBase.CellDoubleClickEvent, new EventHandler<RadRoutedEventArgs>(viewModel.OnDoubleClick), true);
         }
     }
 }

@@ -113,7 +113,7 @@ namespace ICIMS.Client.ViewModels
         /// <summary>
         /// 加载设置选项
         /// </summary>
-        public  void InitLoadSetting()
+        public  async void InitLoadSetting()
         {
             // _title = Settings.Default.AppName;
             //var ss =await _userSerice.GetUserInfoAsync(1);
@@ -121,6 +121,11 @@ namespace ICIMS.Client.ViewModels
             _webApiClient.UserName = "admin";
             _webApiClient.Password = "123qwe";
             _webApiClient.TokenBasedAuth();
+            List<KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>();
+            keyValuePairs.Add(new KeyValuePair<string, string>("Id", "5"));
+            keyValuePairs.Add(new KeyValuePair<string, string>("FileName", "FileNames"));
+            keyValuePairs.Add(new KeyValuePair<string, string>("documenttype", "wORDWWEN文档"));
+            var sss = await _webApiClient.UploadFileAsync<object>("http://localhost:21025/api/TokenAuth/UploadAsync", keyValuePairs, "d:\\te55555.png", "te55555.png");
         }
 
         [InjectionMethod]

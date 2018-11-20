@@ -341,5 +341,55 @@ namespace ICIMS.Service
 
             return (sb.ToString());
         }
+
+        public async Task<TResult> UploadFileAsync<TResult>(string url, List<KeyValuePair<string, string>> keyValuePairs,string filePath,string fileName, int? timeout = null) where TResult : class
+        {
+            var cookieContainer = new CookieContainer();
+            using (var handler = new HttpClientHandler { CookieContainer = cookieContainer })
+            {
+                using (var client = new HttpClient(handler))
+                {
+                    client.Timeout = timeout.HasValue ? TimeSpan.FromMilliseconds(timeout.Value) : TimeSpan.FromSeconds(90);
+
+                    if (!BaseUrl.IsNullOrEmpty())
+                    {
+                        client.BaseAddress = new Uri(BaseUrl);
+                    }
+                    //client.DefaultRequestHeaders.Accept.Add(new  "Content-Type", "multipart/form-data");
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("multipart/form-data"));
+                    foreach (var header in RequestHeaders)
+                    {
+                        client.DefaultRequestHeaders.Add(header.Name, header.Value);
+                    }
+                    using (var requestContent = new MultipartFormDataContent())
+                    {
+                        foreach (var item in keyValuePairs)
+                        {   
+                            requestContent.Add(new StringContent(item.Value), item.Key); 
+                        }                          
+                        var fileContent = new ByteArrayContent(System.IO.File.ReadAllBytes(filePath));
+                        fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                        {
+                            FileName = fileName                            
+                        };
+                        requestContent.Add(fileContent);
+                        using (var response = await client.PostAsync(url, requestContent))
+                        {
+                            if (!response.IsSuccessStatusCode)
+                            {
+                                throw new ICIMSException("Could not made request to " + url + "! StatusCode: " + response.StatusCode + ", ReasonPhrase: " + response.ReasonPhrase);
+                            }
+                            var rsStr = await response.Content.ReadAsStringAsync();
+                            var ajaxResponse = JsonStringToObject<AjaxResponse<TResult>>(rsStr);
+                            if (!ajaxResponse.Success)
+                            {
+                                throw new RemoteCallException(ajaxResponse.Error);
+                            }
+                            return ajaxResponse.Result;
+                        }
+                    }                    
+                }
+            }
+        }
     }
 }

@@ -22,6 +22,7 @@ using ICIMS.Service;
 using Newtonsoft.Json;
 using ICIMS.Model.BusinessManages;
 using Unity.Attributes;
+using Telerik.Windows;
 
 namespace ICIMS.Modules.BusinessManages.ViewModels
 {
@@ -31,6 +32,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IUnityContainer _container;
         private readonly IRegionManager _regionManager;
         private readonly IItemDefineService _itemDefineService;
+
+        
+
         private string _title;
         public string Title
         {
@@ -45,20 +49,54 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _itemDefineService = itemDefineService;
             _title = "项目立项";
             _itemDefineLists = new ObservableCollection<ItemDefineList>();
+            LoadedCommand = new DelegateCommand(OnLoad);
             AddCommand = new DelegateCommand(OnAddItem);
-            EditCommand = new DelegateCommand<object>(OnEditItem);
-            DeleteCommand = new DelegateCommand<object>(OnDelete);
+            EditCommand = new DelegateCommand(OnEditItem);
+            DeleteCommand = new DelegateCommand(OnDelete);
             RefreshCommand= new DelegateCommand(OnRefresh);
             PageChanged = new DelegateCommand<Telerik.Windows.Controls.PageIndexChangedEventArgs>(OnPageChanged);
             SearchCommand = new Prism.Commands.DelegateCommand(OnSearchData);
-            Initializer();
+            UploadCommand=new DelegateCommand(OnUploadedFiles);
+        }
+        /// <summary>
+        /// 上传附件
+        /// </summary>
+        private void OnUploadedFiles()
+        {
+             
         }
 
-        
+        //初始加载
+        private void OnLoad()
+        { 
+            Initializer(); 
+        }
+        //双击事件
+        internal void OnDoubleClick(object sender, RadRoutedEventArgs e)
+        {
+            if (SelectedItem == null)
+                return;
+            var view = _container.Resolve<ItemDefineEditView>(new ParameterOverride("data", SelectedItem));
+            var notification = new Notification()
+            {
+                Title = "立项编辑",
+                WindowState = System.Windows.WindowState.Maximized,
+                Content = view,
+            };
+            PopupWindows.NotificationRequest.Raise(notification, (callback) => {
+                //if (callback.DialogResult == true)
+                //{
+                //    var selectView = callback.Content as SelectItemCategoryView;
+                //    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
+
+                //}
+                int s = 0;
+            });
+        }
         private void OnPageChanged(Telerik.Windows.Controls.PageIndexChangedEventArgs e)
         {
             PageIndex = e.NewPageIndex;
-            Initializer(PageIndex, PageSize);
+            Initializer();
         }
 
         /// <summary>
@@ -67,8 +105,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private void OnSearchData()
         {
             TotalCount = 0;
-            PageIndex = 0;
-            Initializer(PageIndex, PageSize);
+            PageIndex = 0; 
+            Initializer();
         }
          
 
@@ -77,7 +115,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         }
 
-        private async void Initializer(int pageIndex = 0, int pageSize = 20)
+        private async void Initializer()
         {
             IsBusy = true;
             _itemDefineLists.Clear();
@@ -90,22 +128,31 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
             }
             var result = await _itemDefineService.GetAllItemDefines("", "", pageIndex: PageIndex, pageSize: PageSize);
-            long dataCount = 0;
-
+        
             TotalCount = result.TotalCount;
             _itemDefineLists.AddRange(result.Items);
             IsBusy = false;
 
         }
-        private ObservableCollection<ItemDefineList> _itemDefineLists;
+        private ObservableCollection<ItemDefineList> _itemDefineLists;  
         public ObservableCollection<ItemDefineList> ItemDefineLists
         {
             get { return _itemDefineLists; }
             set { SetProperty(ref _itemDefineLists, value); }
         }
+        private ItemDefineList _selectedItem;
+        public ItemDefineList SelectedItem
+        {
+            get { return _selectedItem; }
+            set { SetProperty(ref _selectedItem, value); }
+        }
+        public DelegateCommand LoadedCommand { get; private set; }
         public ICommand SearchCommand { get; set; }
+        public DelegateCommand UploadCommand { get; private set; }
         public ICommand PageChanged { get; set; }
-        private void OnDelete(object obj)
+
+
+        private void OnDelete()
         {
              
         }
@@ -115,9 +162,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             
         }
 
-        private void OnEditItem(object obj)
+        private void OnEditItem()
         {
-            var view = _container.Resolve<ItemDefineEditView>(new ParameterOverride("viewModel", obj));
+            if (SelectedItem == null)
+                return;
+            var view = _container.Resolve<ItemDefineEditView>(new ParameterOverride("data", SelectedItem));
             var notification = new Notification()
             {
                 Title = "立项编辑",
@@ -200,8 +249,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
 
         //To do:define the UI for tabcontrol's content;
-        public virtual UserControl View { get; set; }
-
+        public virtual UserControl View { get; set; } 
 
         //The command when clicking Close Button;
         private DelegateCommand _closeCommand;
@@ -221,11 +269,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         #region  分页属性
      
-        private string _deviceNo;
-        public string DeviceId
+        private string _itemNo;
+        public string ItemNo
         {
-            get { return _deviceNo; }
-            set { SetProperty(ref _deviceNo, value); }
+            get { return _itemNo; }
+            set { SetProperty(ref _itemNo, value); }
         }
         private DateTime? _beginTime;
         public DateTime? BeginTime
@@ -239,13 +287,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _endTime; }
             set { SetProperty(ref _endTime, value); }
         }
-        private int _pageSize = 20;
-        public int PageSize
-        {
-            get { return _pageSize; }
-            set { SetProperty(ref _pageSize, value); }
-        }
-        private int _pageIndex;
+
+        public int PageSize { get; set; } = 20;
+         
+        private int _pageIndex=0;
         public int PageIndex
         {
             get { return _pageIndex; }

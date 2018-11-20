@@ -71,5 +71,8 @@ namespace ICIMS.Service
         where TResult : class;
 
         Task<TResult> PutAsync<TResult>(string url, object input, int? timeout = null) where TResult : class;
+        Task<TResult> UploadFileAsync<TResult>(string url, List<KeyValuePair<string, string>> keyValuePairs, string filePath, string fileName, int? timeout = null) where TResult : class;
+      
+
     }
 }

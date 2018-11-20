@@ -4,6 +4,7 @@ using ICIMS.Core.Interactivity.InteractionRequest;
 using ICIMS.Model.BusinessManages;
 using ICIMS.Modules.BusinessManages.Views;
 using ICIMS.Service.BusinessManages;
+using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -11,9 +12,12 @@ using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using Telerik.Windows.Cloud.Controls;
 using Unity;
 using Unity.Attributes;
 
@@ -31,6 +35,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand BackCommand { get; private set; }
         public DelegateCommand LogCommand { get; private set; }
         public DelegateCommand SearchItemCommand { get; private set; }
+        public DelegateCommand UploadCommand { get; private set; }
+
         private string _title;
         public string Title
         {
@@ -49,7 +55,41 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             BackCommand = new DelegateCommand(OnBack);
             LogCommand = new DelegateCommand(OnShowLog);
             SearchItemCommand = new DelegateCommand(OnSelectedItemCategory);
+            UploadCommand = new DelegateCommand(OnUploadedFiles);
+        } 
+       
+        /// <summary>
+        /// 上传附件
+        /// </summary>
+        private void OnUploadedFiles()
+        {
+            var view = _unityContainer.Resolve<SelectedDocumentType>();
+            var notification = new Notification()
+            {
+                Title="文档分类",
+                Content = view,// (new ParameterOverride("name", "")), 
+            };
+            PopupWindows.NotificationRequest.Raise(notification, (callback) => {
+                if (callback.DialogResult == true)
+                {
+                    //选择文档类型
+                    var selectView = callback.Content as SelectedDocumentType;
+                    var viewModel = selectView.DataContext as SelectedDocumentTypeModel;
+                    OpenFileDialog fileDialog = new OpenFileDialog();
+                    if(fileDialog.ShowDialog()==true)
+                    {
+                        var fileName = fileDialog.FileName;
+                        using (HttpClient webClient = new HttpClient())
+                        {
+                          
+                        }
+                    }
+                }
+                int s = 0;
+            });
+            view.BindAction(notification.Finish);
         }
+        
         private async void OnSave()
         {
             ItemDefine.DefineAmount = 5000;

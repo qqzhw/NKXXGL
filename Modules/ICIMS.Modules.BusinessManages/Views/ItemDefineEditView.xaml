@@ -144,7 +144,25 @@
                     </telerik:RadGridView>
                 </GroupBox>
             </Grid>
-            <GroupBox Header="附件关联" Grid.Row="2">
+            <GroupBox Header="上传附件" Background="#DEDEDE" Grid.Row="2" >
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid Background="#DEDEDE" Height="32">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding}" FontSize="16" Foreground="#333333"  VerticalAlignment="Center"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <control:CustomButton Height="36"  IconBackground="#07AA7E" Command="{Binding ScanCommand}" Kind="CameraSolid"  Width="80" Margin="10,0,0,0" Title="扫描"/>
+                                <control:CustomButton Height="36"  IconBackground="#0382A6" Command="{Binding UploadCommand}" Kind="UploadSolid"  Width="80" Margin="10,0,0,0" Title="上传"/>
+                                <control:CustomButton Height="36"  IconBackground="#C0350A" Command="{Binding DeleteCommand}" Kind="TrashSolid"  Width="80" Margin="10,0,0,0" Title="删除"/>
+                                <control:CustomButton Height="36"  IconBackground="#666666" Command="{Binding BrowseCommand}" Kind="EyeSolid"  Width="80" Margin="10,0,0,0" Title="浏览"/>
+                                <control:CustomButton Height="36"  IconBackground="#777777" Command="{Binding DownloadCommand}" Kind="DownloadSolid"  Width="80" Margin="10,0,0,0" Title="下载"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
                 <telerik:RadGridView x:Name="dgInfo" FontFamily="SimSun" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
 						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
 							   BorderBrush="#E4E7F0"  FontWeight="Medium"  SelectionUnit="FullRow"  SelectionMode="Single"    

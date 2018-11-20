@@ -10,7 +10,7 @@ namespace ICIMS.Model.BusinessManages
     public class ItemDefineList : BindableBase
     {
 
-
+        public int Id { get; set; }
         /// <summary>
         /// TenantId
         /// </summary>
@@ -91,7 +91,7 @@ namespace ICIMS.Model.BusinessManages
 
         public long? CreatorUserId { get; set; }
         public string CreatorName { get; set; }
-
+        public DateTime CreationTime { get; set; }
         /// <summary>
         /// AuditDate
         /// </summary>

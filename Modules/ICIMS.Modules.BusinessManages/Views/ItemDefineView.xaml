@@ -5,15 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ICIMS.Modules.BusinessManages.Views"
              mc:Ignorable="d" FontFamily="SimSun"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:control="clr-namespace:ICIMS.Controls;assembly=ICIMS.Controls"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              d:DesignHeight="450" d:DesignWidth="800">
+       
     <Grid>
+        <i:Interaction.Triggers>
+            <i:EventTrigger  EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+            </i:EventTrigger> 
+        </i:Interaction.Triggers>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="36"/>
             <RowDefinition Height="2"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition/> 
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal"  Background="#FEFEFE">
             <TextBlock Text="项目名称" VerticalAlignment="Center"/>
@@ -29,8 +37,8 @@
             <control:CustomButton Height="36"  IconBackground="#C1852D"  Command="{Binding RefreshCommand}"  Kind="SyncSolid"  Width="80" Margin="10,0,0,0" Title="刷新"/>         
 
         </StackPanel>
-        <telerik:RadGridView Grid.Row="3" FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
+        <telerik:RadGridView Grid.Row="3" FontFamily="SimSun" x:Name="radInfo"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding ItemDefineLists}"  SelectedItem="{Binding SelectedItem}" 
 							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
@@ -48,29 +56,29 @@
 
 
 
-                <telerik:GridViewDataColumn Header="项目分类"  DataMemberBinding="{Binding ItemCategoryId}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="项目分类"  DataMemberBinding="{Binding ItemCategoryName}" TextWrapping="Wrap" Width="90" />
                 <telerik:GridViewDataColumn Header="项目编号" DataMemberBinding="{Binding ItemNo}" TextWrapping="Wrap" Width="90" />
                 <telerik:GridViewDataColumn Header="项目名称" DataMemberBinding="{Binding ItemName}" TextWrapping="Wrap" Width="*" />
-                <telerik:GridViewDataColumn Header="立项日期" DataMemberBinding="{Binding DefineDate}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="立项日期" DataMemberBinding="{Binding DefineDate,StringFormat=yyyy-MM-dd}" TextWrapping="Wrap" Width="90" />
                 <telerik:GridViewDataColumn Header="立项金额" DataMemberBinding="{Binding DefineAmount}" TextWrapping="Wrap" Width="90" />
                 <telerik:GridViewDataColumn Header="项目地址" DataMemberBinding="{Binding ItemAddress}" TextWrapping="Wrap" Width="*" />
                 <telerik:GridViewDataColumn Header="预算名称" DataMemberBinding="{Binding BudgetName}" TextWrapping="Wrap" Width="*" />
                 <!--<telerik:GridViewDataColumn Header="预算编号" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="*" />-->
-                <telerik:GridViewDataColumn Header="录入日期" Width="100">
-                    <telerik:GridViewDataColumn.CellTemplate>
-                        <DataTemplate >
-                            <TextBlock Text="{Binding CreationTime,StringFormat=yyyy-MM-dd}" />
-                        </DataTemplate>
-                    </telerik:GridViewDataColumn.CellTemplate>
-                </telerik:GridViewDataColumn>
-                <telerik:GridViewDataColumn Header="结审日期" DataMemberBinding="{Binding BudgetName}" TextWrapping="Wrap" Width="100" />
-                
-                <telerik:GridViewDataColumn Header="结审人" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="80" />
-                <telerik:GridViewDataColumn Header="是否决算" DataMemberBinding="{Binding IsFalue}" TextWrapping="Wrap" Width="80" />
+                <telerik:GridViewDataColumn Header="录入日期" Width="100" DataMemberBinding="{Binding CreationTime,StringFormat=yyyy-MM-dd}"/> 
+
+                <telerik:GridViewDataColumn Header="结审日期" DataMemberBinding="{Binding AuditDate,StringFormat=yyyy-MM-dd}" TextWrapping="Wrap" Width="100" />
+
+                <telerik:GridViewDataColumn Header="结审人" DataMemberBinding="{Binding AuditUserName}" TextWrapping="Wrap" Width="80" />
+                <telerik:GridViewDataColumn Header="是否决算" DataMemberBinding="{Binding IsFinal}" TextWrapping="Wrap" Width="80" />
               
             </telerik:RadGridView.Columns>
 
         </telerik:RadGridView>
-
+        <telerik:RadDataPager  Grid.Row="4" ItemCount="{Binding TotalCount,Mode=TwoWay}"     x:Name="radDataPager" telerik:StyleManager.Theme="Windows8"  DisplayMode="FirstLastPreviousNextNumeric"  HorizontalContentAlignment="Right" Height="30" PageIndex="{Binding PageIndex}"   PageSize="20"  >
+            <telerik:EventToCommandBehavior.EventBindings>
+                <telerik:EventBinding Command="{Binding PageChanged}" EventName="PageIndexChanged" 
+                        PassEventArgsToCommand="True" />
+            </telerik:EventToCommandBehavior.EventBindings>
+        </telerik:RadDataPager>
     </Grid>
 </UserControl>
