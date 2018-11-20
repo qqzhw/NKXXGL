@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              xmlns:control="clr-namespace:ICIMS.Controls;assembly=ICIMS.Controls"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="1800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -42,31 +42,45 @@
             <telerik:RadGridView.Columns>
                 <telerik:GridViewDataColumn Header="状态" Width="60"    DataMemberBinding="{Binding DeviceName}" />
                 <telerik:GridViewDataColumn Header="评审" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="80" />
-
+                <telerik:GridViewDataColumn Header="部门编号" Width="120"/>
                 <telerik:GridViewDataColumn Header="部门名称" Width="120"/>
 
 
 
 
-                <telerik:GridViewDataColumn Header="项目分类"  DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="项目编号" DataMemberBinding="{Binding GDDY}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="项目名称" DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="*" />
-                <telerik:GridViewDataColumn Header="立项日期" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="立项金额" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="合同分类"  DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="合同编号" DataMemberBinding="{Binding GDDY}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="合同名称" DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="*" />
+                <telerik:GridViewDataColumn Header="开始日期" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="结束日期" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="合同金额" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="暂列金额" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="印花税" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="印花税额" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="关联项目" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
                 <!--<telerik:GridViewDataColumn Header="项目地址" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="*" />-->
-                <telerik:GridViewDataColumn Header="预算名称" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="*" />
                 <!--<telerik:GridViewDataColumn Header="预算编号" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="*" />-->
-                <telerik:GridViewDataColumn Header="录入日期" Width="100">
+                <telerik:GridViewDataColumn Header="签订日期" Width="100">
                     <telerik:GridViewDataColumn.CellTemplate>
                         <DataTemplate >
                             <TextBlock Text="{Binding CreationTime,StringFormat=yyyy-MM-dd}" />
                         </DataTemplate>
                     </telerik:GridViewDataColumn.CellTemplate>
                 </telerik:GridViewDataColumn>
+                <telerik:GridViewDataColumn Header="承建单位" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="是否结算" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="结算金额" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="结算前支付比例" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="决算前支付比例" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="预警" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="预警日期" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="付款方式及比例" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="备注" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="录入日期" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="录入操作员" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
                 <telerik:GridViewDataColumn Header="结审日期" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
 
                 <telerik:GridViewDataColumn Header="结审人" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="80" />
-                <telerik:GridViewDataColumn Header="是否决算" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="80" />
 
             </telerik:RadGridView.Columns>
 

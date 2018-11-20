@@ -29,5 +29,10 @@ namespace ICIMS.Core.Interactivity.InteractionRequest
         public bool Topmost { get ; set ; }
         public ResizeMode ResizeMode { get ; set ; }
         public WindowState WindowState { get; set; }
+        public bool Maximized
+        {
+            get;
+            set;
+        }
     }
 }

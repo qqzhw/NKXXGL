@@ -8,7 +8,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 {
     public class ReViewDefineEditViewModel
     {
-
+        public bool Maximized { get; set; } = true;
     }
 
 }

@@ -2,14 +2,18 @@
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             MinWidth="300" MinHeight="150" 
-           WindowStartupLocation="CenterScreen"   ShowInTaskbar="True" ShowMaxRestoreButton="False"   SnapsToDevicePixels="True" WindowState="{Binding WindowState}"
         xmlns:controls="http://metro.wenge.com/winfx/xaml/controls"
-            Topmost="{Binding Topmost}" ResizeMode="{Binding ResizeMode}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-            Title="{Binding Title}" >
+            Title="{Binding Title}" ResizeMode="NoResize" ShowMaxRestoreButton="False" WindowState="Normal" SizeToContent="WidthAndHeight">
     <controls:MetroWindow.Style>
-        <Style TargetType="{x:Type Window}" >
-            <Setter Property="SizeToContent" Value="WidthAndHeight" />
+        <Style TargetType="{x:Type Window}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Maximized,UpdateSourceTrigger=PropertyChanged}" Value="True">
+                    <Setter Property="SizeToContent" Value="Manual"/>
+                    <Setter Property="WindowState" Value="Maximized"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
+        
     </controls:MetroWindow.Style>
 
     <Grid x:Name="LayoutRoot" Margin="5"> 

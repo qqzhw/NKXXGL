@@ -5,15 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ICIMS.Modules.BusinessManages.Views"
              mc:Ignorable="d" 
-               xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:control="clr-namespace:ICIMS.Controls;assembly=ICIMS.Controls"
             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             d:DesignHeight="450" d:DesignWidth="1000">
+             MinHeight="800" d:DesignWidth="1000">
     <Grid Background="#DEDEDE">
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="Width" Value="50"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="MinWidth" Value="100"/>
+            </Style>
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="42"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
         <StackPanel Orientation="Horizontal" Background="#FEFEFE">
 
             <control:CustomButton Height="36"  IconBackground="#682357" Command="{Binding SaveCommand}" Kind="SaveSolid"  Width="80" Margin="10,0,0,0" Title="保存"/>
@@ -31,7 +40,7 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.7*"/>
-                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition Width="0.3*"/>
             </Grid.ColumnDefinitions>
             <GroupBox Header="关联立项" FontFamily="SimSun" FontSize="12">
                 <Grid VerticalAlignment="Top" >
@@ -40,25 +49,25 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Stretch" Height="30">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Height="30">
                         <TextBlock Text="部  门" VerticalAlignment="Center"/>
-                        <TextBox Width="80" Height="20" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox Height="20" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="项目分类"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <TextBox Width="120" Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="立项文号"  Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox Width="322"  Margin="5,0,0,0" Height="20" VerticalAlignment="Center"/>
+                        <TextBox  Margin="5,0,0,0" Height="20" VerticalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Orientation="Horizontal"  HorizontalAlignment="Stretch" Height="30">
                         <TextBlock Text="关联项目" VerticalAlignment="Center"/>
-                        <TextBox Width="80" Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="立项金额"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <TextBox Width="200" Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="元"  Margin="2,0,0,0" VerticalAlignment="Center" />
                     </StackPanel>
-                    <StackPanel Grid.Row="2" Orientation="Vertical"  HorizontalAlignment="Stretch" >
-                        <TextBlock Text="项目概况" VerticalAlignment="Center"/>
-                        <TextBox Height="64"  AcceptsReturn="True" ></TextBox>
-                    </StackPanel>
+                    <DockPanel  Grid.Row="2" HorizontalAlignment="Stretch">
+                        <TextBlock DockPanel.Dock="Left" HorizontalAlignment="Left" Text="项目概况"  TextAlignment="Left"/>
+                        <TextBox  Margin="2,0,0,20" DockPanel.Dock="Right" Height="160" AcceptsReturn="True" ></TextBox>
+                    </DockPanel>
                 </Grid>
 
             </GroupBox>
@@ -66,24 +75,26 @@
                 <Grid VerticalAlignment="Top" Margin="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="25"/>
-                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                         <TextBlock Text="评审编号"   VerticalAlignment="Center"/>
-                        <TextBox Width="100" Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="评审名称"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <TextBox Width="100" Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="评审文号"  Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox Width="100" Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="评审金额"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBox Width="80" Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="元"  Margin="1,0,0,0" VerticalAlignment="Center"/>
                     </StackPanel>
-                
-                    <StackPanel Grid.Row="1"  Height="70" Orientation="Horizontal"  VerticalAlignment="Top"  >
-                        <TextBlock Text="备注"  Margin="24,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox Width="500" AcceptsReturn="True" Margin="5,0,0,0" TextWrapping="Wrap"  Height="64" />
-                    </StackPanel>
+
+                    <DockPanel Grid.Row="1" Height="160" HorizontalAlignment="Stretch"  VerticalAlignment="Top"  >
+                        <TextBlock DockPanel.Dock="Left"  HorizontalAlignment="Center" TextAlignment="Center" Text="备注" VerticalAlignment="Center"/>
+                       
+                        <TextBox DockPanel.Dock="Right"  AcceptsReturn="True" Margin="5,0,0,0" TextWrapping="Wrap"   />
+                        
+                    </DockPanel>
 
                 </Grid>
 
@@ -160,7 +171,7 @@
 						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
 							   BorderBrush="#E4E7F0"  FontWeight="Medium"  SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
-                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
+                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"  MinHeight="200" >
 
 
                     <telerik:RadGridView.Columns>
