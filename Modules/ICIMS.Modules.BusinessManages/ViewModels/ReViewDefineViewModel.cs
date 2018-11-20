@@ -80,6 +80,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             var notification = new Notification()
             {
                 Content = view,// (new ParameterOverride("name", "")), 
+                Maximized = true,
             };
             PopupWindows.NotificationRequest.Raise(notification, (callback) => {
                 int s = 0;

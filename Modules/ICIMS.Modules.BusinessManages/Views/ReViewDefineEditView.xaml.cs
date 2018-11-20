@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ICIMS.Modules.BusinessManages.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,10 @@ namespace ICIMS.Modules.BusinessManages.Views
     /// </summary>
     public partial class ReViewDefineEditView : UserControl
     {
-        public ReViewDefineEditView()
+        public ReViewDefineEditView(ReViewDefineEditViewModel viewModel)
         {
             InitializeComponent();
+            this.DataContext = viewModel;
         }
         private void CustomButton_Click(object sender, RoutedEventArgs e)
         {

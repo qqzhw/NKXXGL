@@ -20,5 +20,6 @@ namespace ICIMS.Core.Interactivity.InteractionRequest
         object Content { get; set; }
         bool? DialogResult { get; set; }
         Action<bool?> Finish { get; set; }
+        bool Maximized { get; set; }
     }
 }
