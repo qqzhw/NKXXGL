@@ -27,6 +27,10 @@ namespace ICIMS.Modules.BusinessManages.Views
             InitializeComponent();
             this.DataContext = viewModel;
             viewModel.View = this;
+            if (data!=null)
+            {
+                viewModel.BindData(data);
+            }
         }
 
         private void CustomButton_Click(object sender, RoutedEventArgs e)

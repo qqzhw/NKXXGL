@@ -19,7 +19,11 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using Telerik.Windows.Cloud.Controls;
 using Unity;
-using Unity.Attributes;
+using Unity.Attributes; 
+using AutoMapper;
+using System.Collections.ObjectModel;
+using ICIMS.Service;
+using System.Windows;
 
 namespace ICIMS.Modules.BusinessManages.ViewModels
 {
@@ -28,8 +32,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private IEventAggregator _eventAggregator;
         private readonly IUnityContainer _unityContainer;
         private readonly IItemDefineService _itemDefineService;
-
-        public DelegateCommand SaveCommand { get; private set; }
+        private readonly IFilesService _filesService;
+        private readonly IWebApiClient _webApiClient;
+        public DelegateCommand SaveCommand { get; private set; } 
         public DelegateCommand SubmitCommand { get; private set; }
         public DelegateCommand CancelCommand { get; private set; }
         public DelegateCommand BackCommand { get; private set; }
@@ -43,11 +48,13 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public ItemDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IItemDefineService itemDefineService)
+        public ItemDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
             _itemDefineService = itemDefineService;
+            _filesService = filesService;
+            _webApiClient = webApiClient;
             _title = "项目立项";
             SaveCommand = new DelegateCommand(OnSave);
             SubmitCommand = new DelegateCommand(OnSubmit);
@@ -56,33 +63,83 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             LogCommand = new DelegateCommand(OnShowLog);
             SearchItemCommand = new DelegateCommand(OnSelectedItemCategory);
             UploadCommand = new DelegateCommand(OnUploadedFiles);
-        } 
-       
+        }
+
+        internal  void BindData(ItemDefineList info)
+        {
+            //ItemDefine.AuditDate = info.AuditDate;
+            //ItemDefine.AuditUserId = info.AuditUserId;
+            //ItemDefine.AuditUserName = info.AuditUserName;
+            //ItemDefine.BudgetId = info.BudgetId;
+            //ItemDefine.BudgetName = info.BudgetName;
+            //ItemDefine.DefineAmount = info.DefineAmount;
+            //ItemDefine.DefineDate = info.DefineDate;
+            //ItemDefine.Id = info.Id;
+            //ItemDefine.IsAudit = info.IsAudit;
+            //ItemDefine.IsFinal = info.IsFinal;
+            //ItemDefine.ItemAddress = info.ItemAddress;
+            //ItemDefine.ItemCategoryId = info.ItemCategoryId;
+            //ItemDefine.ItemCategoryName = info.ItemCategoryName;
+            //ItemDefine.ItemDescription = info.ItemDescription;
+            //ItemDefine.ItemDocNo = info.ItemDocNo;
+            //ItemDefine.ItemName = info.ItemName;
+            ItemDefine = Mapper.Map<ItemDefine>(info);
+            GetFiles(ItemDefine);
+        }
+        private ObservableCollection<FilesManage> _filesManages;
+        public ObservableCollection<FilesManage>  FilesManages
+        {
+            get { return _filesManages; }
+            set { SetProperty(ref _filesManages, value); }
+        }
+        private async void GetFiles(ItemDefine itemDefine)
+        {
+            FilesManages.Clear();
+            var items =await _filesService.GetAllFiles(itemDefine.Id, "ItemDefine");
+            FilesManages = new ObservableCollection<FilesManage>(items.Items);
+        }
+
+        internal void BindData()
+        {
+
+        }
         /// <summary>
         /// 上传附件
         /// </summary>
-        private void OnUploadedFiles()
+        private  void OnUploadedFiles()
         {
+            if (ItemDefine.Id<1)
+            {
+                MessageBox.Show("请先保存立项");
+                return;
+            }
             var view = _unityContainer.Resolve<SelectedDocumentType>();
             var notification = new Notification()
             {
                 Title="文档分类",
                 Content = view,// (new ParameterOverride("name", "")), 
             };
-            PopupWindows.NotificationRequest.Raise(notification, (callback) => {
+            PopupWindows.NotificationRequest.Raise(notification, async(callback) => {
                 if (callback.DialogResult == true)
                 {
                     //选择文档类型
                     var selectView = callback.Content as SelectedDocumentType;
                     var viewModel = selectView.DataContext as SelectedDocumentTypeModel;
+                    if (viewModel.SelectedItem == null)
+                        return;
                     OpenFileDialog fileDialog = new OpenFileDialog();
                     if(fileDialog.ShowDialog()==true)
                     {
-                        var fileName = fileDialog.FileName;
+                        var filePath = fileDialog.FileName;
+                        var fileName = fileDialog.SafeFileName;
                         List<KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>();
-                        keyValuePairs.Add(new KeyValuePair<string, string>("Id", "5"));
-                        keyValuePairs.Add(new KeyValuePair<string, string>("FileName", "FileNames"));
-                        keyValuePairs.Add(new KeyValuePair<string, string>("documenttype", "wORDWWEN文档"));
+                        keyValuePairs.Add(new KeyValuePair<string, string>("EntityId", ItemDefine.Id.ToString()));
+                        keyValuePairs.Add(new KeyValuePair<string, string>("FileName", fileName));
+                        keyValuePairs.Add(new KeyValuePair<string, string>("UploadType", viewModel.SelectedItem.Name));
+                        keyValuePairs.Add(new KeyValuePair<string, string>("EntityKey", "ItemDefine"));
+                        keyValuePairs.Add(new KeyValuePair<string, string>("EntityName", "立项登记"));
+                        var filemanage =await _filesService.UploadFileAsync(keyValuePairs, filePath, fileName);
+                        FilesManages.Add(filemanage);
                     }
                 }
                 int s = 0;
@@ -130,6 +187,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public async void Init()
         {
             _itemDefine = new ItemDefine();
+            _filesManages = new ObservableCollection<FilesManage>();
         }
         private void OnSelectedItemCategory()
         { 

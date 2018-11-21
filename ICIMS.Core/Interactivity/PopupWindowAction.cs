@@ -204,7 +204,7 @@ namespace ICIMS.Core.Interactivity
                     };
                 wrapperWindow.SizeChanged += sizeHandler;
             }
-
+              
             if (this.IsModal)
             {
                 wrapperWindow.ShowDialog();
@@ -261,7 +261,10 @@ namespace ICIMS.Core.Interactivity
             // If the user has provided a startup location for a Window we set it as the window's startup location.
             if (WindowStartupLocation.HasValue)
                 wrapperWindow.WindowStartupLocation = WindowStartupLocation.Value;
-
+            if (notification.WindowState==WindowState.Maximized)
+            {
+                wrapperWindow.WindowState = WindowState.Maximized;
+            }
             return wrapperWindow;
         }
 
