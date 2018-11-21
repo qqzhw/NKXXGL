@@ -62,7 +62,14 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 {
                     await _service.Delete(SelectedItem.Id);
                     this._datas.Remove(this.SelectedItem);
-                    this.Items.Remove(this.SelectedItem);
+                    if (this.SelectedItem.Parent != null)
+                    {
+                        this.SelectedItem.Parent.Children.Remove(this.SelectedItem);
+                    }
+                    else
+                    {
+                        this.Items.Remove(this.SelectedItem);
+                    }
                 }
                 catch (Exception ex)
                 {

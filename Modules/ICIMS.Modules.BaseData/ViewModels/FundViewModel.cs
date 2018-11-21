@@ -61,7 +61,15 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 try
                 {
                     await _service.Delete(SelectedItem.Id);
-                    this.Items.Remove(this.SelectedItem);
+                    this._datas.Remove(this.SelectedItem);
+                    if (this.SelectedItem.Parent != null)
+                    {
+                        this.SelectedItem.Parent.Children.Remove(this.SelectedItem);
+                    }
+                    else
+                    {
+                        this.Items.Remove(this.SelectedItem);
+                    }
                 }
                 catch (RemoteCallException ex)
                 {
@@ -113,7 +121,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 }
                 else
                 {
-                    OnEditCommand(null);
+                    
                 }
             });
             view.BindAction(notification.Finish);
