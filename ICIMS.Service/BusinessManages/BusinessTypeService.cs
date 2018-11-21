@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,19 +10,31 @@ namespace ICIMS.Service.BusinessManages
 {
     public class BusinessTypeService : IBusinessTypeService
     {
-        public Task CreateOrUpdate(BusinessType input)
+        private readonly string BaseUrl = "/api/services/app/BusinessType/";
+        private readonly IWebApiClient _webApiClient;
+        public BusinessTypeService(IWebApiClient webApiClient)
         {
-            throw new NotImplementedException();
+            _webApiClient = webApiClient;
+        }
+        public async Task CreateOrUpdate(BusinessType input)
+        {
+           await Task.CompletedTask;
         }
 
-        public Task Delete(int input)
+        public async Task Delete(int input)
         {
-            throw new NotImplementedException();
+            await Task.CompletedTask;
         }
 
-        public Task<ResultData<BusinessType>> GetAllBusinessTypes(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue)
+        public async Task<ResultData<List<BusinessType>>> GetAllBusinessTypes(string Name = "", int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            throw new NotImplementedException();
+            var filter = new
+            {  Name,
+                MaxResultCount = pageSize,
+                SkipCount = pageIndex * pageSize
+            };
+            var items = await _webApiClient.GetAsync<ResultData<List<BusinessType>>>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "GetPaged"), filter);
+            return items;
         }
 
         public Task<BusinessType> GetById(int input)

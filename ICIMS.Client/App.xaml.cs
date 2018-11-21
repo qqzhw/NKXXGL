@@ -114,6 +114,8 @@ namespace ICIMS.Client
             containerRegistry.RegisterSingleton<IPayAuditService, PayAuditService>();
             containerRegistry.RegisterSingleton<IBusinessTypeService, BusinessTypeService>();
             containerRegistry.RegisterSingleton<IFilesService, FilesService>();
+            containerRegistry.RegisterSingleton<IBuinessAuditService, BuinessAuditService>();
+             
             ConfigurationMapper.Configure();
         }
        

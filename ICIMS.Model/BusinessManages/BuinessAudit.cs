@@ -9,40 +9,32 @@ namespace ICIMS.Model.BusinessManages
 {
     public class BuinessAudit : BindableBase
     {
+        private int _id;
+        public int Id { get => _id; set => SetProperty(ref _id, value); }
+        private string _name;
+        public string Name { get => _name; set => SetProperty(ref _name, value); }
 
-        /// <summary>
-       /// Name
-       /// </summary>
-        public string Name { get; set; }
-         
 
         /// <summary>
         /// DisplayOrder
         /// </summary>
-        public int DisplayOrder { get; set; }
-         
-
-        /// <summary>
-        /// TenantId
-        /// </summary>
-        public int? TenantId { get; set; }
-         
-         
-        public long RoleId { get; set; }
-        public string RoleName { get; set; }
+        private int _displayOrder;
+        public int DisplayOrder { get => _displayOrder; set => SetProperty(ref _displayOrder, value); }
 
 
-     
-        public int? BuinessTypeId { get; set; }
+        private long _roleId;
+        public long RoleId { get => _roleId; set => SetProperty(ref _roleId, value); }
+        private string _roleName;
+        public string RoleName { get => _roleName; set => SetProperty(ref _roleName, value); }
 
-        public string BuinessTypeName { get; set; }
+
+        public int? _buinesstypeId;
+        public int? BuinessTypeId { get => _buinesstypeId; set => SetProperty(ref _buinesstypeId, value); }
+
+        private string _buinessTypeName;
+        public string BuinessTypeName { get => _buinessTypeName; set => SetProperty(ref _buinessTypeName, value); }
  
-         
-
-        /// <summary>
-        /// BuinessType
-        /// </summary>
-        public virtual BusinessType BuinessType { get; set; }
+       
  
     }
 }

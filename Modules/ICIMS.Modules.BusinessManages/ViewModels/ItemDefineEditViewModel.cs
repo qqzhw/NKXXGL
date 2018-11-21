@@ -33,6 +33,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IItemDefineService _itemDefineService;
         private readonly IFilesService _filesService;
         private readonly IWebApiClient _webApiClient;
+        private readonly IBuinessAuditService _buinessAuditService;
         public DelegateCommand SaveCommand { get; private set; } 
         public DelegateCommand SubmitCommand { get; private set; }
         public DelegateCommand CancelCommand { get; private set; }
@@ -47,13 +48,14 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public ItemDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient)
+        public ItemDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBuinessAuditService buinessAuditService)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
             _itemDefineService = itemDefineService;
             _filesService = filesService;
             _webApiClient = webApiClient;
+            _buinessAuditService = buinessAuditService;
             _title = "项目立项";
             SaveCommand = new DelegateCommand(OnSave);
             SubmitCommand = new DelegateCommand(OnSubmit);
@@ -97,7 +99,13 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             var items =await _filesService.GetAllFiles(itemDefine.Id, "ItemDefine");
             FilesManages = new ObservableCollection<FilesManage>(items.Items);
         }
-
+        private ObservableCollection<BuinessAudit> _buinessAudits;
+        public ObservableCollection<BuinessAudit> BuinessAudits
+        {
+            get { return _buinessAudits; }
+            set { SetProperty(ref _buinessAudits, value); }
+        }
+        
         internal void BindData()
         {
 
@@ -187,7 +195,16 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             _itemDefine = new ItemDefine();
             _filesManages = new ObservableCollection<FilesManage>();
+            _buinessAudits = new ObservableCollection<BuinessAudit>();
+            InitBuinessAudits();
         }
+
+        private async void InitBuinessAudits()
+        {
+            var items =await _buinessAuditService.GetAllBuinessAudits(2);
+            BuinessAudits.AddRange(items.Items);
+        }
+
         private void OnSelectedItemCategory()
         { 
             var view = _unityContainer.Resolve<SelectItemCategoryView>();
