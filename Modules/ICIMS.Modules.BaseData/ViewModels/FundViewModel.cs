@@ -48,6 +48,14 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
         private async void OnDeleteCommand(object obj)
         {
+            if (this.SelectedItem != null)
+            {
+                if (this.SelectedItem.Children?.Count > 0)
+                {
+                    MessageBox.Show("有子集的元素不能删除！", "警告");
+                    return;
+                }
+            }
             if (MessageBox.Show("请确认是否删除", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
             {
                 try
@@ -66,6 +74,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
         private void OnEditCommand(object obj)
         {
+         
             var newItem = new FundEditViewModel() { ShowReAddBtn = false };
             newItem.Item = CommonHelper.CopyItem(this.SelectedItem);
             FundEditView view = new FundEditView(newItem);
@@ -172,8 +181,13 @@ namespace ICIMS.Modules.BaseData.ViewModels
         public async void Init()
         {
             _title = "资金来源";
+            this.Items = new ObservableCollection<FundItem>();
             var rs = await _service.GetPageItems(this.No, this.Name, this.PageIndex, this.PageSize);
-            this.Items = new ObservableCollection<FundItem>(rs.datas);
+            this._datas = rs.datas;
+            foreach (var data in _datas)
+            {
+                InitOneData(_datas, data);
+            }
             this.ItemCount = rs.totalCount;
             this.SelectedItem = this.Items.FirstOrDefault();
         }
@@ -353,6 +367,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
         private DelegateCommand _pageChangedCommand;
         private FundItem _selectedItem;
+        private List<FundItem> _datas;
 
         public DelegateCommand PageChangedCommand
         {
