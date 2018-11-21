@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
               xmlns:control="clr-namespace:ICIMS.Controls;assembly=ICIMS.Controls"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="1800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -28,7 +28,6 @@
             <control:CustomButton Height="36"  IconBackground="#AD372D"  Command="{Binding DeleteCommand}" Kind="TimesSolid"  Width="80" Margin="10,0,0,0" Title="删除"/>
             <control:CustomButton Height="36"  IconBackground="#C1852D"  Command="{Binding RefreshCommand}"  Kind="SyncSolid"  Width="80" Margin="10,0,0,0" Title="刷新"/>
 
-
         </StackPanel>
         <telerik:RadGridView Grid.Row="3" FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
 						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
@@ -42,32 +41,37 @@
                         </telerik:EventToCommandBehavior.EventBindings>-->
             <telerik:RadGridView.Columns>
                 <telerik:GridViewDataColumn Header="状态" Width="60"    DataMemberBinding="{Binding DeviceName}" />
-                <telerik:GridViewDataColumn Header="评审" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="80" />
-
+                <telerik:GridViewDataColumn Header="部门编号" Width="120"/>
                 <telerik:GridViewDataColumn Header="部门名称" Width="120"/>
-
-
-
-
-                <telerik:GridViewDataColumn Header="项目分类"  DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="项目编号" DataMemberBinding="{Binding GDDY}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="项目名称" DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="*" />
-                <telerik:GridViewDataColumn Header="立项日期" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="立项金额" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="支付编号"  DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="支付名称" DataMemberBinding="{Binding GDDY}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="支付类型" DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="*" />
+                <telerik:GridViewDataColumn Header="支付金额" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="支付比例" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="支付次数" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="关联项目" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="项目总额" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="关联合同" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="合同总额" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
                 <!--<telerik:GridViewDataColumn Header="项目地址" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="*" />-->
-                <telerik:GridViewDataColumn Header="预算名称" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="*" />
                 <!--<telerik:GridViewDataColumn Header="预算编号" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="*" />-->
-                <telerik:GridViewDataColumn Header="录入日期" Width="100">
+                <!--<telerik:GridViewDataColumn Header="签订日期" Width="100">
                     <telerik:GridViewDataColumn.CellTemplate>
                         <DataTemplate >
                             <TextBlock Text="{Binding CreationTime,StringFormat=yyyy-MM-dd}" />
                         </DataTemplate>
                     </telerik:GridViewDataColumn.CellTemplate>
-                </telerik:GridViewDataColumn>
+                </telerik:GridViewDataColumn>-->
+                <telerik:GridViewDataColumn Header="承建单位" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="开户行" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="账户" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="付款方式及比例" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="备注" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="录入日期" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="录入操作员" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
                 <telerik:GridViewDataColumn Header="结审日期" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
-
-                <telerik:GridViewDataColumn Header="结审人" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="80" />
-                <telerik:GridViewDataColumn Header="是否决算" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="80" />
+                <telerik:GridViewDataColumn Header="结审人" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+              
 
             </telerik:RadGridView.Columns>
 
