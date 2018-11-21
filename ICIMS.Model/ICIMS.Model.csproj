@@ -68,7 +68,9 @@
     <Compile Include="BaseData\SubjectItem.cs" />
     <Compile Include="BaseData\VendorItem.cs" />
     <Compile Include="BaseData\YsCategoryItem.cs" />
+    <Compile Include="BusinessManages\AuditMapping.cs" />
     <Compile Include="BusinessManages\Budget.cs" />
+    <Compile Include="BusinessManages\BuinessAudit.cs" />
     <Compile Include="BusinessManages\BusinessType.cs" />
     <Compile Include="BusinessManages\Contract.cs" />
     <Compile Include="BusinessManages\FilesManage.cs" />
