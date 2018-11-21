@@ -17,7 +17,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using Telerik.Windows.Cloud.Controls;
 using Unity;
 using Unity.Attributes; 
 using AutoMapper;

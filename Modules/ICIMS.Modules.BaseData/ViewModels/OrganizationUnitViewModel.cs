@@ -48,13 +48,28 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
         private async void OnDeleteCommand(object obj)
         {
+            if (this.SelectedItem != null)
+            {
+                if (this.SelectedItem.Children?.Count > 0)
+                {
+                    MessageBox.Show("有子集的元素不能删除！", "警告");
+                    return;
+                }
+            }
             if (MessageBox.Show("请确认是否删除", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
             {
                 try
                 {
                     await _service.Delete(SelectedItem.Id);
                     this._datas.Remove(this.SelectedItem);
-                    this.Items.Remove(this.SelectedItem);
+                    if (this.SelectedItem.Parent != null)
+                    {
+                        this.SelectedItem.Parent.Children.Remove(this.SelectedItem);
+                    }
+                    else
+                    {
+                        this.Items.Remove(this.SelectedItem);
+                    }
                 }
                 catch (Exception ex)
                 {

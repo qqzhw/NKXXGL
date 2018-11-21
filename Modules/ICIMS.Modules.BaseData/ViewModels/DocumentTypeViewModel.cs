@@ -48,13 +48,21 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
         private async void OnDeleteCommand(object obj)
         {
+          
             if (MessageBox.Show("请确认是否删除", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
             {
                 try
                 {
                     await _service.Delete(SelectedItem.Id);
                     this._datas.Remove(this.SelectedItem);
-                    this.Items.Remove(this.SelectedItem);
+                    if (this.SelectedItem.Parent != null)
+                    {
+                        this.SelectedItem.Parent.Children.Remove(this.SelectedItem);
+                    }
+                    else
+                    {
+                        this.Items.Remove(this.SelectedItem);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -86,7 +94,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                             var data = await _service.CreateOrUpdate(newItem.Item);
                             if (data != null)
                             {
-                                var oriItem = this._datas.FirstOrDefault(a => a.Id == newItem.Item.Id);
+                                var oriItem = this.Items.FirstOrDefault(a => a.Id == newItem.Item.Id);
 
                                 CommonHelper.SetValue(oriItem, newItem.Item);
                             }
@@ -129,8 +137,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                             var data = await _service.CreateOrUpdate(newItem.Item);
                             if (data != null)
                             {
-                                this._datas.Add(data);
-                                this.InitOneData(_datas, data);
+                                this.Items.Add(data);
                             }
                         }
                         catch (Exception ex)
@@ -166,13 +173,10 @@ namespace ICIMS.Modules.BaseData.ViewModels
         public async void Init()
         {
             _title = "文档分类";
-            this.Items = new ObservableCollection<DocumentTypeItem>();
             var rs = await _service.GetPageItems(this.No, this.Name, this.PageIndex, this.PageSize);
             this._datas = rs.datas;
-            foreach (var data in _datas)
-            {
-                InitOneData(_datas, data);
-            }
+            this.Items = new ObservableCollection<DocumentTypeItem>(rs.datas);
+
             this.ItemCount = rs.totalCount;
             this.SelectedItem = this.Items.FirstOrDefault();
         }

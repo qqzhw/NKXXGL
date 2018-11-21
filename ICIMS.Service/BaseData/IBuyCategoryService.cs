@@ -9,16 +9,11 @@ namespace ICIMS.Service.BaseData
 {
     public interface IBuyCategoryService
     {
-        Task<ResultData<BuyCategory>>  GetAllCategorys(string No="",string Name="", int pageIndex = 0, int pageSize = int.MaxValue);
+       
 
-         
-        Task<BuyCategory> GetById(int input);
-
-         
-        Task CreateOrUpdate(BuyCategory input);
-
- 
-        Task Delete(int input);
+        Task<(int totalCount, List<BuyCategory> datas)> GetPageItems(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue);
+        Task Delete(int id);
+        Task<BuyCategory> CreateOrUpdate(BuyCategory fundFrom);
 
     }
 }

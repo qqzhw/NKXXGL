@@ -86,7 +86,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                             var data = await _service.CreateOrUpdate(newItem.Item);
                             if (data != null)
                             {
-                                var oriItem = this._datas.FirstOrDefault(a => a.Id == newItem.Item.Id);
+                                var oriItem = this.Items.FirstOrDefault(a => a.Id == newItem.Item.Id);
 
                                 CommonHelper.SetValue(oriItem, newItem.Item);
                             }
@@ -168,7 +168,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
             this.Items = new ObservableCollection<VendorItem>();
             var rs = await _service.GetPageItems(this.No, this.Name, this.PageIndex, this.PageSize);
             this._datas = rs.datas;
-            this.Items = new ObservableCollection<VendorItem>(_datas);
+            this.Items = new ObservableCollection<VendorItem>(rs.datas);
             this.ItemCount = rs.totalCount;
             this.SelectedItem = this.Items.FirstOrDefault();
         }
