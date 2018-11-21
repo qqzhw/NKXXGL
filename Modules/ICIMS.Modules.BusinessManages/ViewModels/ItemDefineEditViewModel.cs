@@ -79,10 +79,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     if(fileDialog.ShowDialog()==true)
                     {
                         var fileName = fileDialog.FileName;
-                        using (HttpClient webClient = new HttpClient())
-                        {
-                          
-                        }
+                        List<KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>();
+                        keyValuePairs.Add(new KeyValuePair<string, string>("Id", "5"));
+                        keyValuePairs.Add(new KeyValuePair<string, string>("FileName", "FileNames"));
+                        keyValuePairs.Add(new KeyValuePair<string, string>("documenttype", "wORDWWEN文档"));
                     }
                 }
                 int s = 0;

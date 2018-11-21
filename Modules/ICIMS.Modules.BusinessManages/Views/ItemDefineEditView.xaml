@@ -155,7 +155,7 @@
                             <TextBlock Text="{Binding}" FontSize="16" Foreground="#333333"  VerticalAlignment="Center"/>
                             <StackPanel Grid.Column="1" Orientation="Horizontal">
                                 <control:CustomButton Height="36"  IconBackground="#07AA7E" Command="{Binding ScanCommand}" Kind="CameraSolid"  Width="80" Margin="10,0,0,0" Title="扫描"/>
-                                <control:CustomButton Height="36"  IconBackground="#0382A6" Command="{Binding UploadCommand}" Kind="UploadSolid"  Width="80" Margin="10,0,0,0" Title="上传"/>
+                                <control:CustomButton Height="36"  IconBackground="#0382A6" Command="{Binding DataContext.UploadCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="UploadSolid"  Width="80" Margin="10,0,0,0" Title="上传"/>
                                 <control:CustomButton Height="36"  IconBackground="#C0350A" Command="{Binding DeleteCommand}" Kind="TrashSolid"  Width="80" Margin="10,0,0,0" Title="删除"/>
                                 <control:CustomButton Height="36"  IconBackground="#666666" Command="{Binding BrowseCommand}" Kind="EyeSolid"  Width="80" Margin="10,0,0,0" Title="浏览"/>
                                 <control:CustomButton Height="36"  IconBackground="#777777" Command="{Binding DownloadCommand}" Kind="DownloadSolid"  Width="80" Margin="10,0,0,0" Title="下载"/>
