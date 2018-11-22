@@ -13,69 +13,85 @@ namespace ICIMS.Model.BusinessManages
         /// <summary>
         /// Id
         /// </summary>
-        public int? Id { get; set; }
+        private int? _id;
+        public int? Id { get => _id; set => SetProperty(ref _id, value); }
 
 
 
         /// <summary>
         /// DisplayOrder
         /// </summary>
-        public int DisplayOrder { get; set; }
+        private int _displayOrder;
+        public int DisplayOrder { get => _displayOrder; set => SetProperty(ref _displayOrder, value); }
 
 
 
         /// <summary>
         /// TenantId
         /// </summary>
-        public int? TenantId { get; set; }
+        private int? _tenantId;
+        public int? TenantId { get => _tenantId; set => SetProperty(ref _tenantId, value); }
 
 
+        private int _businessauditid;
+        public int BusinessAuditId { get => _businessauditid; set => SetProperty(ref _businessauditid, value); }
 
-        public int BuinessAuditId { get; set; }
+        private int _businesstypeid;
+        public int BusinessTypeId { get => _businesstypeid; set => SetProperty(ref _businesstypeid, value); }
 
+        private string _businesstypeName;
+        public string BusinessTypeName { get => _businesstypeName; set => SetProperty(ref _businesstypeName, value); }
 
-        public int BuinessTypeId { get; set; }
-
-
-        public string BuinessTypeName { get; set; }
-
-        public int ItemId { get; set; }
+        private int _itemid;
+        public int ItemId { get => _itemid; set => SetProperty(ref _itemid, value); }
 
 
 
         /// <summary>
         /// Status
         /// </summary>
-        public int Status { get; set; }
+        private int _status;
+        public int Status { get => _status; set => SetProperty(ref _status, value); }
 
-
+        private string _statusname;
+        public string StatusName { get => _statusname; set => SetProperty(ref _statusname, value); }
 
         /// <summary>
-        /// AuditOpinion
+        /// AuditOpinion审核意见
         /// </summary>
-        public string AuditOpinion { get; set; }
+        private string _auditOpinion;
+        public string AuditOpinion { get => _auditOpinion; set => SetProperty(ref _auditOpinion, value); }
 
 
 
         /// <summary>
         /// CreatorUserId
         /// </summary>
-        public long? CreatorUserId { get; set; }
+        private long? _creatoruserId;
+        public long? CreatorUserId { get => _creatoruserId; set => SetProperty(ref _creatoruserId, value); }
 
-
-
+         
         /// <summary>
         /// CreationTime
         /// </summary>
-        public DateTime CreationTime { get; set; }
+        private DateTime _creationTime;
+        public DateTime CreationTime { get => _creationTime; set => SetProperty(ref _creationTime, value); }
 
 
 
         /// <summary>
         /// AuditTime
         /// </summary>
-        public DateTime? AuditTime { get; set; }
+        private DateTime? _auditTime;
+        public DateTime? AuditTime { get => _auditTime; set => SetProperty(ref _auditTime, value); }
 
+        private string _auditusername;
+        public string AuditUserName { get => _auditusername; set => SetProperty(ref _auditusername, value); }
 
+       
+        private int _roleId;
+        public int RoleId { get => _roleId; set => SetProperty(ref _roleId, value); }
+        private string _rolename;
+        public string RoleName { get => _rolename; set => SetProperty(ref _rolename, value); }
     }
 }

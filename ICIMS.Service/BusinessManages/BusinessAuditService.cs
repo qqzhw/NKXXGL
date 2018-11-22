@@ -8,15 +8,15 @@ using ICIMS.Model.BusinessManages;
 
 namespace ICIMS.Service.BusinessManages
 {
-    public class BuinessAuditService : IBuinessAuditService
+    public class BusinessAuditService : IBusinessAuditService
     {
-        private readonly string BaseUrl = "/api/services/app/BuinessAudit/";
+        private readonly string BaseUrl = "/api/services/app/BusinessAudit/";
         private readonly IWebApiClient _webApiClient;
-        public BuinessAuditService(IWebApiClient webApiClient)
+        public BusinessAuditService(IWebApiClient webApiClient)
         {
             _webApiClient = webApiClient;
         }
-        public Task CreateOrUpdate(BuinessAudit input)
+        public Task CreateOrUpdate(BusinessAudit input)
         {
             throw new NotImplementedException();
         }
@@ -26,7 +26,7 @@ namespace ICIMS.Service.BusinessManages
             throw new NotImplementedException();
         }
 
-        public async Task<ResultData<List<BuinessAudit>>> GetAllBuinessAudits(int? BuinessTypeId = null, string BuinessTypeName = "", int pageIndex = 0, int pageSize = int.MaxValue)
+        public async Task<ResultData<List<BusinessAudit>>> GetAllBusinessAudits(int? BuinessTypeId = null, string BuinessTypeName = "", int pageIndex = 0, int pageSize = int.MaxValue)
         {
             var filter = new
             {
@@ -35,11 +35,11 @@ namespace ICIMS.Service.BusinessManages
                 MaxResultCount = pageSize,
                 SkipCount = pageIndex * pageSize
             };
-            var items = await _webApiClient.GetAsync<ResultData<List<BuinessAudit>>>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "GetPaged"), filter);
+            var items = await _webApiClient.GetAsync<ResultData<List<BusinessAudit>>>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "GetPaged"), filter);
             return items;
         }
 
-        public Task<BuinessAudit> GetById(int input)
+        public Task<BusinessAudit> GetById(int input)
         {
             throw new NotImplementedException();
         }

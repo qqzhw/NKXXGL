@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ICIMS.Model.BusinessManages
 {
-    public class BuinessAudit : BindableBase
+    public class BusinessAudit : BindableBase
     {
         private int _id;
         public int Id { get => _id; set => SetProperty(ref _id, value); }
@@ -33,8 +33,12 @@ namespace ICIMS.Model.BusinessManages
 
         private string _buinessTypeName;
         public string BuinessTypeName { get => _buinessTypeName; set => SetProperty(ref _buinessTypeName, value); }
- 
-       
- 
+
+        private int _status;
+        public int Status { get => _status; set => SetProperty(ref _status, value); }
+
+        private string _statusName="等待审核";
+        public string StatusName { get => _statusName; set => SetProperty(ref _statusName, value); } 
+
     }
 }
