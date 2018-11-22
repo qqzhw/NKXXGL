@@ -1,20 +1,17 @@
-﻿
-using ICIMS.Model.BaseData;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ICIMS.Model.BusinessManages
 {
-    /// <summary>
-    /// 合同类
-    /// </summary>
-   public class Contract: BindableBase
+    public class ContractList:BindableBase
     {
         private int _id;
         public int Id { get => _status; set => SetProperty(ref _status, value); }
-        
+
         /// <summary>
         /// GUID
         /// </summary>
@@ -38,11 +35,11 @@ namespace ICIMS.Model.BusinessManages
         /// <summary>
         /// 合同类型
         /// </summary>
-        private int _contractcategoryId;
-        public int ContractCategoryId { get => _contractcategoryId; set => SetProperty(ref _contractcategoryId, value); }
+        private int _contractTypeId;
+        public int ContractTypeId { get => _contractTypeId; set => SetProperty(ref _contractTypeId, value); }
 
         private DateTime _begintime;
-        public  DateTime BeginTime { get => _begintime; set => SetProperty(ref _begintime, value); }
+        public DateTime BeginTime { get => _begintime; set => SetProperty(ref _begintime, value); }
         private DateTime _endtime;
         public DateTime EndTime { get => _endtime; set => SetProperty(ref _endtime, value); }
         private string _contractno;
@@ -98,13 +95,13 @@ namespace ICIMS.Model.BusinessManages
         /// 预警
         /// </summary>
         private string _warning;
-        public  string Warining { get => _warning; set => SetProperty(ref _warning, value); }
+        public string Warining { get => _warning; set => SetProperty(ref _warning, value); }
 
         /// <summary>
         /// 预警日期
         /// </summary>
         private DateTime _warnTime;
-        public  DateTime WariningDate { get => _warnTime; set => SetProperty(ref _warnTime, value); }
+        public DateTime WariningDate { get => _warnTime; set => SetProperty(ref _warnTime, value); }
 
         /// <summary>
         /// 付款方式及比例
@@ -115,7 +112,7 @@ namespace ICIMS.Model.BusinessManages
         private string _remark;
         public string Remark { get => _remark; set => SetProperty(ref _remark, value); }
 
-       
+
         /// <summary>
         /// 结审日期
         /// </summary>
@@ -128,19 +125,26 @@ namespace ICIMS.Model.BusinessManages
         private string _audituserName;
         public string AuditUserName { get => _audituserName; set => SetProperty(ref _audituserName, value); }
 
-        
 
         #region 导航属性
         //立项登记
-        private ItemDefine _itemdefine;
-        public ItemDefine ItemDefine { get => _itemdefine; set => SetProperty(ref _itemdefine, value); }
+        private string _itemdefinename;
+        public string ItemDefineName { get => _itemdefinename; set => SetProperty(ref _itemdefinename, value); }
 
         //合同分类
-        private ContractItem _contractCategory;
-        public  ContractItem ContractCategory { get => _contractCategory; set => SetProperty(ref _contractCategory, value); }
+        private string _contractTypeName;
+        public string ContractTypeName { get => _contractTypeName; set => SetProperty(ref _contractTypeName, value); }
         //供应商
-        private VendorItem _vendor;
-        public  VendorItem Vendor { get => _vendor; set => SetProperty(ref _vendor, value); }
+        private string _vendorName;
+        public string VendorName { get => _vendorName; set => SetProperty(ref _vendorName, value); }
+
+        private DateTime _creationTime;
+        public DateTime CreationTime { get => _creationTime; set => SetProperty(ref _creationTime, value); }
+        private long? _creatorUserId;
+        public long? CreatorUserId { get => _creatorUserId; set => SetProperty(ref _creatorUserId, value); }
+        private string _creatorUserName;
+        public string CreatorUserName { get => _creatorUserName; set => SetProperty(ref _creatorUserName, value); }
         #endregion
+
     }
 }

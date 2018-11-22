@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,12 @@ namespace ICIMS.Service.BusinessManages
 {
     public class ContractService : IContractService
     {
+        private readonly WebApiClient _webApiClient;
+        private readonly string BaseUrl = "api/services/app/Contract/";
+        public ContractService(WebApiClient webApiClient)
+        {
+            _webApiClient = webApiClient;
+        }
         public Task CreateOrUpdate(Contract input)
         {
             throw new NotImplementedException();
@@ -19,9 +26,11 @@ namespace ICIMS.Service.BusinessManages
             throw new NotImplementedException();
         }
 
-        public Task<ResultData<Contract>> GetAllContracts(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue)
+        public async Task<ResultData<List<ContractList>>> GetAllContracts(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            throw new NotImplementedException();
+            var filter = new { No, Name, MaxResultCount = pageSize, SkipCount = pageIndex * pageSize };
+            var items = await _webApiClient.GetAsync<ResultData<List<ContractList>>>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "GetPaged"), filter);
+            return items;
         }
 
         public Task<Contract> GetById(int input)
