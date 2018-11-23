@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ICIMS.Model.BusinessManages;
+using ICIMS.Modules.BusinessManages.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,10 +22,12 @@ namespace ICIMS.Modules.BusinessManages.Views
     /// </summary>
     public partial class PayAuditEditView : UserControl
     {
-        public PayAuditEditView()
+        public PayAuditEditView(PayAuditEditViewModel viewModel, PayAuditList data)
         {
             InitializeComponent();
+            this.DataContext = viewModel;
         }
+       
         private void CustomButton_Click(object sender, RoutedEventArgs e)
         {
 

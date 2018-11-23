@@ -38,10 +38,10 @@
 
         </StackPanel>
         <telerik:RadGridView Grid.Row="3" FontFamily="SimSun" x:Name="radInfo"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding ItemDefineLists}"  SelectedItem="{Binding SelectedItem}" 
+						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Vertical"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding ItemDefineLists}"  SelectedItem="{Binding SelectedItem}" 
 							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
-                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
+                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#F5F5F5"   AlternationCount="2"   >
 
             <!--<telerik:EventToCommandBehavior.EventBindings>
                             <telerik:EventBinding Command="{Binding ListRightMenue}" EventName="MouseRightButtonUp" 

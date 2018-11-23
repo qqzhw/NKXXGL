@@ -42,6 +42,11 @@ namespace ICIMS.Model.BusinessManages
         public DateTime BeginTime { get => _begintime; set => SetProperty(ref _begintime, value); }
         private DateTime _endtime;
         public DateTime EndTime { get => _endtime; set => SetProperty(ref _endtime, value); }
+
+        private DateTime _contractTime;
+        public DateTime ContractTime { get => _contractTime; set => SetProperty(ref _contractTime, value); }
+
+        
         private string _contractno;
         public string ContractNo { get => _contractno; set => SetProperty(ref _contractno, value); }
         private string _contractname;

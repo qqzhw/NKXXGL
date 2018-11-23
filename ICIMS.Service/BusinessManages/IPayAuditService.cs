@@ -9,7 +9,7 @@ namespace ICIMS.Service.BusinessManages
 {
     public interface IPayAuditService
     {
-        Task<ResultData<PayAudit>> GetAllPayAudits(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue);
+        Task<ResultData<List<PayAuditList>>> GetAllPayAudits(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue);
 
 
         Task<PayAudit> GetById(int input);

@@ -14,11 +14,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Telerik.Windows;
+using Telerik.Windows.Controls;
 using Unity;
 using Unity.Resolution;
+using DelegateCommand = Prism.Commands.DelegateCommand;
 
 namespace ICIMS.Modules.BusinessManages.ViewModels
 {
@@ -42,6 +45,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _regionManager = regionManager;
             _contractService = contractService;
             _title = "合同登记";
+            _contractList = new ObservableCollection<ContractList>();
             AddCommand = new DelegateCommand(OnAddItem); 
             DeleteCommand = new DelegateCommand<object>(OnDelete);
             RefreshCommand = new DelegateCommand(OnRefresh);
@@ -51,27 +55,35 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             DeleteCommand = new DelegateCommand(OnDelete);
             RefreshCommand = new DelegateCommand(OnRefresh);
             PageChanged = new DelegateCommand<Telerik.Windows.Controls.PageIndexChangedEventArgs>(OnPageChanged);
-            SearchCommand = new Prism.Commands.DelegateCommand(OnSearchData);
-            UploadCommand = new DelegateCommand(OnUploadedFiles);
+            SearchCommand = new DelegateCommand(OnSearchData);
+            
           
         }
 
         private void OnDelete(object obj)
         {
-             
+            string confirmText = "你确定要删除当前项吗?";
+            RadWindow.Confirm(new DialogParameters
+            {
+                Content = confirmText,
+                Closed = new EventHandler<WindowClosedEventArgs>(OnConfirmClosed),
+                Owner = Application.Current.MainWindow
+            });
+        }
+
+        private void OnConfirmClosed(object sender, WindowClosedEventArgs e)
+        {
+            if (e.DialogResult == true)
+            {
+                //删除
+            }
         }
 
         private void OnRefresh()
         {
             
         }
-        /// <summary>
-        /// 上传附件
-        /// </summary>
-        private void OnUploadedFiles()
-        {
-
-        }
+        
 
         //初始加载
         private void OnLoad()
@@ -83,7 +95,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             if (SelectedItem == null)
                 return;
-            var view = _container.Resolve<ItemDefineEditView>(new ParameterOverride("data", SelectedItem));
+            var view = _container.Resolve<ContractEditView>(new ParameterOverride("data", SelectedItem));
             var notification = new Notification()
             {
                 Title = "合同编辑",
@@ -168,7 +180,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             if (SelectedItem == null)
                 return;
-            var view = _container.Resolve<ItemDefineEditView>(new ParameterOverride("data", SelectedItem));
+            var view = _container.Resolve<ContractEditView>(new ParameterOverride("data", SelectedItem));
             var notification = new Notification()
             {
                 Title = "立项编辑",

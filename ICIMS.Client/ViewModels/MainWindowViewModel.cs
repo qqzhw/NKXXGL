@@ -117,7 +117,7 @@ namespace ICIMS.Client.ViewModels
         {
             // _title = Settings.Default.AppName;
             //var ss =await _userSerice.GetUserInfoAsync(1);
-            _webApiClient.TenancyName = "Default";
+           // _webApiClient.TenancyName = "Default";
             _webApiClient.UserName = "admin";
             _webApiClient.Password = "123qwe";
             _webApiClient.TokenBasedAuth();

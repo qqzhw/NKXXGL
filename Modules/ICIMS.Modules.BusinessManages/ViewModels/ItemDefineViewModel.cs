@@ -23,6 +23,9 @@ using Newtonsoft.Json;
 using ICIMS.Model.BusinessManages;
 using Unity.Attributes;
 using Telerik.Windows;
+using Telerik.Windows.Controls;
+using System.Windows;
+using DelegateCommand = Prism.Commands.DelegateCommand;
 
 namespace ICIMS.Modules.BusinessManages.ViewModels
 {
@@ -55,7 +58,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             DeleteCommand = new DelegateCommand(OnDelete);
             RefreshCommand= new DelegateCommand(OnRefresh);
             PageChanged = new DelegateCommand<Telerik.Windows.Controls.PageIndexChangedEventArgs>(OnPageChanged);
-            SearchCommand = new Prism.Commands.DelegateCommand(OnSearchData);
+            SearchCommand = new DelegateCommand(OnSearchData);
             UploadCommand=new DelegateCommand(OnUploadedFiles);
         }
         /// <summary>
@@ -153,6 +156,17 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
 
         private void OnDelete()
+        {
+            string confirmText = "你确定要删除当前项吗?";
+            RadWindow.Confirm(new DialogParameters
+            {
+                Content = confirmText,
+                Closed = new EventHandler<WindowClosedEventArgs>(OnConfirmClosed),
+                Owner = Application.Current.MainWindow
+            });
+        }
+
+        private void OnConfirmClosed(object sender, WindowClosedEventArgs e)
         {
              
         }
