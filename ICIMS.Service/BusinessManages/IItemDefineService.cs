@@ -15,7 +15,7 @@ namespace ICIMS.Service.BusinessManages
         Task<ItemDefine> GetById(int input);
 
 
-        Task CreateOrUpdate(ItemDefine input);
+        Task<ItemDefine> CreateOrUpdate(ItemDefine input);
 
 
         Task Delete(int input);

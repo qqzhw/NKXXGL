@@ -3,6 +3,7 @@ using ICIMS.Model.User;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -14,61 +15,32 @@ namespace ICIMS.Service
 {
     public class UserService:IUserService
     {
-        private const string baseService = "services/app/";
+        private const string BaseUrl = "/api/services/app/User/";
         private IWebApiClient _webApiClient;
         public UserService(IWebApiClient webApiClient)
         {
-            _webApiClient = webApiClient;
-            BaseUrl = baseService; 
+            _webApiClient = webApiClient; 
         }
-        public string BaseUrl { get; set; }
+         
         public string Token { get; set; }
          
        
-        public async Task<string> Authenticate(string userName, string pwd)
+        public   UserModel LoginAsync(string userName, string password,string tenantName="")
         {
-            var url = new Uri("http://120.78.240.7:8088/TokenAuth/Authenticate");
-            var handler = new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.None, UseCookies = true };
-
-            var param = new
+            _webApiClient.UserName = userName;
+            _webApiClient.Password = password;
+            _webApiClient.TenancyName = tenantName;
+            var resultDto = _webApiClient.TokenBasedAuth();
+            var user = new UserModel()
             {
-                UserNameOrEmailAddress = userName,
-                Password = pwd,
-                RememberClient = true, 
+                AccessToken = resultDto.AccessToken,
+                Id = resultDto.UserId,
+                Name = resultDto.Name,
+                UnitId = resultDto.UnitId,
+                UnitName = resultDto.UnitName,
+                RolesName=resultDto.RolesName
             };
-          var postStr = JsonConvert.SerializeObject(param);
-            using (var client = new HttpClient(handler))
-            {
-                client.Timeout = TimeSpan.FromSeconds(30);
-                client.DefaultRequestHeaders.Accept.Add(new  MediaTypeWithQualityHeaderValue("application/json"));
-                client.BaseAddress = url;
-                var content = new StringContent(postStr );
-                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                try
-                {
-                    HttpResponseMessage response = await client.PostAsync(url, content);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string loginResult = await response.Content.ReadAsStringAsync();
-
-                        var getCookies = handler.CookieContainer.GetCookies(url);
-
-                        foreach (Cookie cookie in getCookies)
-                        {
-
-                        }
-                        return loginResult;
-                    }
-                 
-                }
-                catch (Exception ex)
-                { 
-                    return string.Empty;
-                }
-                return string.Empty;
-            }
-             
-
+            return user;
         }
 
         public async Task<string> GetCurrentLoginInfo()
@@ -79,12 +51,12 @@ namespace ICIMS.Service
 
         public  async Task<string> GetUserInfoAsync(long userId)
         {
-            _webApiClient.TenancyName = "Default";
-            _webApiClient.UserName = "admin";
-            _webApiClient.Password = "123qwe";
-            _webApiClient.TokenBasedAuth();
-            var ss1 = await _webApiClient.GetAsync<UserModel>(_webApiClient.BaseUrl + "api/services/app/Session/GetCurrentLoginInformations", null);
-            var user =await _webApiClient.GetAsync<ResultData<List<UserModel>>>(_webApiClient.BaseUrl+ "api/services/app/Role/GetAll", null, null);
+            //_webApiClient.TenancyName = "Default";
+            //_webApiClient.UserName = "admin";
+            //_webApiClient.Password = "123qwe";
+            //_webApiClient.TokenBasedAuth();
+            //var ss1 = await _webApiClient.GetAsync<UserModel>(_webApiClient.BaseUrl + "api/services/app/Session/GetCurrentLoginInformations", null);
+            //var user =await _webApiClient.GetAsync<ResultData<List<UserModel>>>(_webApiClient.BaseUrl+ "api/services/app/Role/GetAll", null, null);
             return "";
         }
 
@@ -95,6 +67,10 @@ namespace ICIMS.Service
             Token = token;
         }
 
-       
+        public async Task<RoleModel> GetUserRoles()
+        { 
+            var items = await _webApiClient.GetAsync<RoleModel>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "GetRoles"),null);
+            return items;
+        }
     }
 }

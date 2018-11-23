@@ -26,7 +26,7 @@ using System.Windows;
 
 namespace ICIMS.Modules.BusinessManages.ViewModels
 {
-    public class ItemDefineEditViewModel : BindableBase, INavigationAware
+    public class ItemDefineEditViewModel : BindableBase
     {
         private IEventAggregator _eventAggregator;
         private readonly IUnityContainer _unityContainer;
@@ -35,7 +35,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IWebApiClient _webApiClient;
         private readonly IBusinessAuditService _businessAuditService;
         private readonly IAuditMappingService _auditMappingService;
-        public DelegateCommand SaveCommand { get; private set; } 
+        public DelegateCommand SaveCommand { get; private set; }
         public DelegateCommand SubmitCommand { get; private set; }
         public DelegateCommand CancelCommand { get; private set; }
         public DelegateCommand BackCommand { get; private set; }
@@ -49,7 +49,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public ItemDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService)
+        public ItemDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ItemDefineList data, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
@@ -66,10 +66,20 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             LogCommand = new DelegateCommand(OnShowLog);
             SearchItemCommand = new DelegateCommand(OnSelectedItemCategory);
             UploadCommand = new DelegateCommand(OnUploadedFiles);
+            _itemDefine = new ItemDefine();
+            _filesManages = new ObservableCollection<FilesManage>();
+            _buinessAudits = new ObservableCollection<BusinessAudit>();
+            _auditMappings = new ObservableCollection<AuditMapping>();
+            BindData(data);
         }
 
-        internal  void BindData(ItemDefineList info)
+        internal void BindData(ItemDefineList info)
         {
+            if (info.Id == 0)
+            {
+                ItemDefine.DefineDate = DateTime.Now;
+                return;
+            }
             //ItemDefine.AuditDate = info.AuditDate;
             //ItemDefine.AuditUserId = info.AuditUserId;
             //ItemDefine.AuditUserName = info.AuditUserName;
@@ -88,9 +98,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             //ItemDefine.ItemName = info.ItemName;
             ItemDefine = Mapper.Map<ItemDefine>(info);
             GetFiles(ItemDefine);
+            LoadAuditMappings();
         }
         private ObservableCollection<FilesManage> _filesManages;
-        public ObservableCollection<FilesManage>  FilesManages
+        public ObservableCollection<FilesManage> FilesManages
         {
             get { return _filesManages; }
             set { SetProperty(ref _filesManages, value); }
@@ -98,7 +109,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private async void GetFiles(ItemDefine itemDefine)
         {
             FilesManages.Clear();
-            var items =await _filesService.GetAllFiles(itemDefine.Id, "ItemDefine");
+            var items = await _filesService.GetAllFiles(itemDefine.Id, "ItemDefine");
             FilesManages = new ObservableCollection<FilesManage>(items.Items);
         }
         private ObservableCollection<BusinessAudit> _buinessAudits;
@@ -113,16 +124,13 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _auditMappings; }
             set { SetProperty(ref _auditMappings, value); }
         }
-        internal void BindData()
-        {
 
-        }
         /// <summary>
         /// 上传附件
         /// </summary>
-        private  void OnUploadedFiles()
+        private void OnUploadedFiles()
         {
-            if (ItemDefine.Id<1)
+            if (ItemDefine.Id < 1)
             {
                 MessageBox.Show("请先保存立项");
                 return;
@@ -130,10 +138,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             var view = _unityContainer.Resolve<SelectedDocumentType>();
             var notification = new Notification()
             {
-                Title="文档分类",
+                Title = "文档分类",
                 Content = view,// (new ParameterOverride("name", "")), 
             };
-            PopupWindows.NotificationRequest.Raise(notification, async(callback) => {
+            PopupWindows.NotificationRequest.Raise(notification, async (callback) =>
+            {
                 if (callback.DialogResult == true)
                 {
                     //选择文档类型
@@ -142,7 +151,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     if (viewModel.SelectedItem == null)
                         return;
                     OpenFileDialog fileDialog = new OpenFileDialog();
-                    if(fileDialog.ShowDialog()==true)
+                    if (fileDialog.ShowDialog() == true)
                     {
                         var filePath = fileDialog.FileName;
                         var fileName = fileDialog.SafeFileName;
@@ -152,7 +161,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         keyValuePairs.Add(new KeyValuePair<string, string>("UploadType", viewModel.SelectedItem.Name));
                         keyValuePairs.Add(new KeyValuePair<string, string>("EntityKey", "ItemDefine"));
                         keyValuePairs.Add(new KeyValuePair<string, string>("EntityName", "立项登记"));
-                        var filemanage =await _filesService.UploadFileAsync(keyValuePairs, filePath, fileName);
+                        var filemanage = await _filesService.UploadFileAsync(keyValuePairs, filePath, fileName);
                         FilesManages.Add(filemanage);
                     }
                 }
@@ -160,20 +169,28 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             });
             view.BindAction(notification.Finish);
         }
-        
+
         private async void OnSave()
         {
-            ItemDefine.DefineAmount = 5000;
-            ItemDefine.DefineDate = DateTime.Now;
-            ItemDefine.ItemAddress = "成都";
-            ItemDefine.ItemCategoryId = 1;
-            ItemDefine.ItemDescription = "挥洒的阿萨德";
-            ItemDefine.ItemDocNo = "文号110";
-            ItemDefine.ItemName = "立项研究项目";
-            ItemDefine.Remark = "beizhu";
-            ItemDefine.UnitId = 1;
-           await _itemDefineService.CreateOrUpdate(ItemDefine);
-            
+            //ItemDefine.DefineAmount = 5000;
+            //ItemDefine.DefineDate = DateTime.Now;
+            //ItemDefine.ItemAddress = "成都";
+            //ItemDefine.ItemCategoryId = 1;
+            //ItemDefine.ItemDescription = "挥洒的阿萨德";
+            //ItemDefine.ItemDocNo = "文号110";
+            //ItemDefine.ItemName = "立项研究项目";
+            //ItemDefine.Remark = "beizhu";
+             ItemDefine.UnitId = 1;
+            if (ItemDefine.Id==0)
+            {
+               var item= await _itemDefineService.CreateOrUpdate(ItemDefine);
+                if (item.Id>0)
+                {
+                    ItemDefine.Id = item.Id;
+                }
+            }
+        
+
         }
         private void OnSubmit()
         {
@@ -195,43 +212,41 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             throw new NotImplementedException();
         }
 
-      
+
 
         [InjectionMethod]
         public async void Init()
         {
-            _itemDefine = new ItemDefine();
-            _filesManages = new ObservableCollection<FilesManage>();
-            _buinessAudits = new ObservableCollection<BusinessAudit>();
-            _auditMappings = new ObservableCollection<AuditMapping>();
+
             InitBusinessAudits();
-            LoadAuditMappings();
+            
         }
 
         private async void InitBusinessAudits()
         {
-            var items =await _businessAuditService.GetAllBusinessAudits(2);
+            var items = await _businessAuditService.GetAllBusinessAudits(2);
             BuinessAudits.AddRange(items.Items);
         }
         private async void LoadAuditMappings()
         {
-            var items = await _auditMappingService.GetAllAuditMappings(3,2);
+            var items = await _auditMappingService.GetAllAuditMappings(3, 2);
             _auditMappings.AddRange(items.Items);
         }
         private void OnSelectedItemCategory()
-        { 
+        {
             var view = _unityContainer.Resolve<SelectItemCategoryView>();
             var notification = new Notification()
             {
                 Content = view,// (new ParameterOverride("name", "")), 
             };
-            PopupWindows.NotificationRequest.Raise(notification, (callback) => {
-                if (callback.DialogResult==true)
+            PopupWindows.NotificationRequest.Raise(notification, (callback) =>
+            {
+                if (callback.DialogResult == true)
                 {
                     var selectView = callback.Content as SelectItemCategoryView;
                     var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
                     this.ItemDefine.ItemCategoryId = viewModel.SelectedItem.Id;
-                    this.ItemDefine.ItemCategoryName=viewModel.SelectedItem.Name;
+                    this.ItemDefine.ItemCategoryName = viewModel.SelectedItem.Name;
                 }
                 int s = 0;
             });
@@ -244,50 +259,6 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _itemDefine; }
             set { SetProperty(ref _itemDefine, value); }
         }
-        public bool IsNavigationTarget(NavigationContext navigationContext)
-        {
-            return true;
-        }
-
-        public void OnNavigatedFrom(NavigationContext navigationContext)
-        {
-
-        }
-
-        public void OnNavigatedTo(NavigationContext navigationContext)
-        {
-
-        }
-
-
-        //whether the tab is selected;
-        private bool isSelected;
-        public bool IsSelected
-        {
-            get { return isSelected; }
-            set { SetProperty(ref isSelected, value); }
-        }
-
-        //To do:define the UI for tabcontrol's content;
-        public virtual UserControl View { get; set; }
-
-
-        //The command when clicking Close Button;
-        private DelegateCommand _closeCommand;
-        public DelegateCommand CloseCommand =>
-            _closeCommand ?? (_closeCommand = new DelegateCommand(() => {
-                if (ConfirmToClose())
-                {
-                    _eventAggregator.GetEvent<TabCloseEvent>().Publish(View);
-                }
-            }));
-
-        //It can be overwrite in inherited class to ask for confirming to closing the tab;
-        protected virtual bool ConfirmToClose()
-        {
-            return true;
-        }
     }
-   
     
 }

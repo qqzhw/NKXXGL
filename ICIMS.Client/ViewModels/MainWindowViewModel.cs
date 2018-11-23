@@ -1,5 +1,6 @@
 ﻿using CommonServiceLocator;
 using ICIMS.Core.Events;
+using ICIMS.Model.User;
 using ICIMS.Service;
 using Prism.Commands;
 using Prism.Events;
@@ -17,6 +18,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Unity;
 using Unity.Attributes;
+using Unity.Lifetime;
 
 namespace ICIMS.Client.ViewModels
 {
@@ -33,9 +35,8 @@ namespace ICIMS.Client.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IModuleManager _moduleManager;
         private readonly IServiceLocator _serviceLocator;
-        private readonly IUserService _userSerice;
-        private readonly IWebApiClient _webApiClient;
-        public MainWindowViewModel(IUnityContainer container, IEventAggregator eventAggregator, IRegionManager regionManager, IModuleManager moduleManager, IServiceLocator serviceLocator, IUserService userSerice, IWebApiClient webApiClient)
+        private readonly IUserService _userSerice; 
+        public MainWindowViewModel(IUnityContainer container, IEventAggregator eventAggregator, IRegionManager regionManager, IModuleManager moduleManager, IServiceLocator serviceLocator, IUserService userSerice)
         {
             _container = container;
             _eventAggregator = eventAggregator;
@@ -43,7 +44,7 @@ namespace ICIMS.Client.ViewModels
             _moduleManager = moduleManager;
             _serviceLocator = serviceLocator;
             _userSerice = userSerice;
-            _webApiClient = webApiClient;
+          
             //  CustomPopupRequest = new InteractionRequest<INotification>();
             CustomPopupCommand = new DelegateCommand(RaiseCustomPopup);
             _systemInfos = new ObservableCollection<SystemInfoViewModel>();
@@ -122,11 +123,13 @@ namespace ICIMS.Client.ViewModels
         {
             // _title = Settings.Default.AppName;
             //var ss =await _userSerice.GetUserInfoAsync(1);
-           // _webApiClient.TenancyName = "Default";
-            _webApiClient.UserName = "admin";
-            _webApiClient.Password = "123qwe";
-            _webApiClient.TokenBasedAuth();
-            List<KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>();
+            string TenancyName = "Default";
+            string UserName = "admin";
+            string Password = "123qwe";
+            var user=_userSerice.LoginAsync(UserName,Password,TenancyName);
+            _container.RegisterInstance(user, new ContainerControlledLifetimeManager());
+            var roles = await _userSerice.GetUserRoles();
+            List <KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>();
             keyValuePairs.Add(new KeyValuePair<string, string>("Id", "5"));
             keyValuePairs.Add(new KeyValuePair<string, string>("FileName", "FileNames"));
             keyValuePairs.Add(new KeyValuePair<string, string>("documenttype", "wORDWWEN文档"));

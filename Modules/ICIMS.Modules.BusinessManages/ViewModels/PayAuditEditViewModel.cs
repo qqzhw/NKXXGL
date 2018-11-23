@@ -45,7 +45,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public PayAuditEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, PayAuditList data,IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService)
+        public PayAuditEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, PayAuditList data, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
@@ -61,29 +61,17 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             LogCommand = new DelegateCommand(OnShowLog);
             SearchItemCommand = new DelegateCommand(OnSelectedItemCategory);
             UploadCommand = new DelegateCommand(OnUploadedFiles);
+            _payAudit = new PayAudit();
+            _filesManages = new ObservableCollection<FilesManage>();
+            _buinessAudits = new ObservableCollection<BusinessAudit>();
+            _auditMappings = new ObservableCollection<AuditMapping>();
             BindData(data);
         }
 
         internal void BindData(PayAuditList info)
         {
-            if (info == null)
-                return;
-            //ItemDefine.AuditDate = info.AuditDate;
-            //ItemDefine.AuditUserId = info.AuditUserId;
-            //ItemDefine.AuditUserName = info.AuditUserName;
-            //ItemDefine.BudgetId = info.BudgetId;
-            //ItemDefine.BudgetName = info.BudgetName;
-            //ItemDefine.DefineAmount = info.DefineAmount;
-            //ItemDefine.DefineDate = info.DefineDate;
-            //ItemDefine.Id = info.Id;
-            //ItemDefine.IsAudit = info.IsAudit;
-            //ItemDefine.IsFinal = info.IsFinal;
-            //ItemDefine.ItemAddress = info.ItemAddress;
-            //ItemDefine.ItemCategoryId = info.ItemCategoryId;
-            //ItemDefine.ItemCategoryName = info.ItemCategoryName;
-            //ItemDefine.ItemDescription = info.ItemDescription;
-            //ItemDefine.ItemDocNo = info.ItemDocNo;
-            //ItemDefine.ItemName = info.ItemName;
+            if (info.PayAudit == null)
+                return; 
             PayAudit = info.PayAudit;
             GetFiles(PayAudit);
         }
@@ -111,10 +99,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _auditMappings; }
             set { SetProperty(ref _auditMappings, value); }
         }
-        internal void BindData()
-        {
-
-        }
+        
         /// <summary>
         /// 上传附件
         /// </summary>
@@ -199,10 +184,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         [InjectionMethod]
         public async void Init()
         {
-            _payAudit = new PayAudit();
-            _filesManages = new ObservableCollection<FilesManage>();
-            _buinessAudits = new ObservableCollection<BusinessAudit>();
-            _auditMappings = new ObservableCollection<AuditMapping>();
+            
             InitBusinessAudits();
             LoadAuditMappings();
         }

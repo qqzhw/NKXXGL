@@ -7,19 +7,19 @@
              mc:Ignorable="d" FontSize="12" FontFamily="SimSun"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:control="clr-namespace:ICIMS.Controls;assembly=ICIMS.Controls"
-            xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+            xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"  TextOptions.TextFormattingMode="Display"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="#DEDEDE">
         <Grid.RowDefinitions>
-            <RowDefinition Height="42"/>
+            <RowDefinition Height="34"/>
             <RowDefinition Height="*"/> 
         </Grid.RowDefinitions>  
             <StackPanel Orientation="Horizontal" Background="#FEFEFE">
-            <control:CustomButton Height="36"  IconBackground="#682357" Command="{Binding SaveCommand}" Kind="SaveSolid"  Width="80" Margin="10,0,0,0" Title="保存"/>
-            <control:CustomButton Height="36"  IconBackground="#91CE2D" Command="{Binding SubmitCommand}" Kind="CheckSolid"  Width="80" Margin="10,0,0,0" Title="提交"/>
-            <control:CustomButton Height="36"  IconBackground="#AD372D" Command="{Binding CancelCommand}" Kind="TimesSolid"  Width="80" Margin="10,0,0,0" Title="取消"/>
-            <control:CustomButton Height="36"  IconBackground="#C1852D" Command="{Binding BackCommand}" Kind="ReplySolid"  Width="80" Margin="10,0,0,0" Title="驳回"/>
-            <control:CustomButton Height="36"  IconBackground="#7DB12D" Command="{Binding LogCommand}" Kind="FileWordSolid"  Width="80" Margin="10,0,0,0" Title="日志"/>
+            <control:CustomButton Height="28"  IconBackground="#682357" Command="{Binding SaveCommand}" Kind="SaveSolid"  Width="75" Margin="0,0,0,0" Title="保存"/>
+            <control:CustomButton Height="28"  IconBackground="#91CE2D" Command="{Binding SubmitCommand}" Kind="CheckSolid"  Width="75" Margin="10,0,0,0" Title="提交"/>
+            <control:CustomButton Height="28"  IconBackground="#AD372D" Command="{Binding CancelCommand}" Kind="TimesSolid"  Width="75" Margin="10,0,0,0" Title="取消"/>
+            <control:CustomButton Height="28"  IconBackground="#C1852D" Command="{Binding BackCommand}" Kind="ReplySolid"  Width="75" Margin="10,0,0,0" Title="驳回"/>
+            <control:CustomButton Height="28"  IconBackground="#7DB12D" Command="{Binding LogCommand}" Kind="FileWordSolid"  Width="75" Margin="10,0,0,0" Title="日志"/>
             </StackPanel>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -31,7 +31,7 @@
                 <ColumnDefinition Width="0.6*"/>
                 <ColumnDefinition Width="0.4*"/>
             </Grid.ColumnDefinitions>
-            <GroupBox Header="关联预算" FontFamily="SimSun" FontSize="12">
+            <GroupBox Header="关联预算" FontFamily="SimSun" FontSize="12"  BorderThickness="0,0,0,1">
                 <Grid VerticalAlignment="Top" >
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -57,7 +57,7 @@
                 </Grid>
 
             </GroupBox>
-            <GroupBox Header="立项登记" FontFamily="SimSun" FontSize="12" Grid.Row="1">
+            <GroupBox Header="立项登记" FontFamily="SimSun" FontSize="12" Grid.Row="1" BorderThickness="0,0,0,1">
                 <Grid VerticalAlignment="Top" Margin="0">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -79,7 +79,7 @@
                     </StackPanel>
                     <StackPanel Grid.Row="1" Orientation="Horizontal"  HorizontalAlignment="Stretch" Height="32">
                         <TextBlock Text="立项日期"  VerticalAlignment="Center"/>
-                        <telerik:RadDatePicker DateTimeWatermarkTemplate="{StaticResource dateTemplate}" Margin="5,0,0,0" Width="140"  SelectedValue="{Binding ItemDefine.DefineDate}" Foreground="#222328"  TextBlock.FontStyle="Normal" DateTimeWatermarkContent="请选择开始时间" DisplayFormat="Long"/>
+                        <telerik:RadDatePicker DateTimeWatermarkTemplate="{StaticResource dateTemplate}" Margin="5,0,0,0" Width="140" Height="26" FontFamily="SimSun" FontSize="14" telerik:StyleManager.Theme="Windows8" SelectedValue="{Binding ItemDefine.DefineDate}" Foreground="#222328"  TextBlock.FontStyle="Normal" DateTimeWatermarkContent="请选择时间" DisplayFormat="Long"/>
                     
                         <TextBlock Text="项目编号"  Margin="5,0,0,0" VerticalAlignment="Center" />
                         <TextBox Width="140" Height="18" IsReadOnly="True" Text="{Binding ItemDefine.ItemNo}"  Margin="5,0,0,0" VerticalAlignment="Center"/>
@@ -95,14 +95,14 @@
                     </StackPanel>
                     <StackPanel Grid.Row="3" Orientation="Horizontal"  HorizontalAlignment="Stretch" Height="32">
                         <TextBlock Text="项目概况"  VerticalAlignment="Center"/>
-                        <TextBox Width="500" Height="18"   Margin="5,0,0,0" Text="{Binding ItemDefine.ItemName}" VerticalAlignment="Center"/>
+                        <TextBox Width="500" Height="18"   Margin="5,0,0,0" Text="{Binding ItemDefine.ItemDescription}" VerticalAlignment="Center"/>
 
 
                     </StackPanel>
 
                     <StackPanel Grid.Row="4"  Height="70" Orientation="Horizontal"  VerticalAlignment="Top"  >
                         <TextBlock Text="备注"  Margin="24,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox Width="500" AcceptsReturn="True" Margin="5,0,0,0" Text="{Binding ItemDefine.ItemDescription}" TextWrapping="Wrap"  Height="64" />
+                        <TextBox Width="500" AcceptsReturn="True" Margin="5,0,0,0" Text="{Binding ItemDefine.Remark}" TextWrapping="Wrap"  Height="64" />
                     
                     </StackPanel>
 
@@ -111,7 +111,7 @@
 
             </GroupBox>
             <Grid Grid.Column="1" Grid.RowSpan="2">
-                <GroupBox Header="相关审核流程" >
+                <GroupBox Header="相关审核流程" BorderThickness="1,0,0,1">
                     <telerik:RadGridView FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
 						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding BuinessAudits}"  
 							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
@@ -144,7 +144,7 @@
                     </telerik:RadGridView>
                 </GroupBox>
             </Grid>
-            <GroupBox Header="上传附件" Background="#DEDEDE" Grid.Row="2" >
+            <GroupBox Header="上传附件" Background="#DEDEDE" Grid.Row="2"  BorderThickness="0">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <Grid Background="#DEDEDE" Height="32">
@@ -192,7 +192,7 @@
 
                 </telerik:RadGridView>
             </GroupBox>
-            <GroupBox Header="审核日志" Background="#DEDEDE" Grid.Row="2" Grid.Column="1" >
+            <GroupBox Header="审核日志" Background="#DEDEDE" BorderThickness="0" Grid.Row="2" Grid.Column="1" >
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <Grid Background="#DEDEDE" Height="32">

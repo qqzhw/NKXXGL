@@ -142,7 +142,7 @@ namespace ICIMS.Service
         }
 
         
-        private void TokenBasedAuth(string url)
+        private AuthenticateResultDto TokenBasedAuth(string url)
         {
             var result = AsyncHelper.RunSync(() =>
                 PostAsync<AuthenticateResultDto>(
@@ -155,12 +155,54 @@ namespace ICIMS.Service
                     }));
 
             RequestHeaders.Add(new NameValue("Authorization", "Bearer " + result.AccessToken));
-
+            return result;
              
         }
-        public void TokenBasedAuth()
+        public AuthenticateResultDto TokenBasedAuth()
         {
-            TokenBasedAuth(BaseUrl + "api/TokenAuth/Authenticate");
+            var resultDto=TokenBasedAuth(BaseUrl + "api/TokenAuth/Authenticate");
+            return resultDto;
+        }
+        public async Task<TResult> GetAsync<TResult>(string url, int? timeout = null)
+           where TResult : class
+        {
+            var cookieContainer = new CookieContainer();
+            using (var handler = new HttpClientHandler { CookieContainer = cookieContainer })
+            {
+                using (var client = new HttpClient(handler))
+                {
+                    client.Timeout = timeout.HasValue ? TimeSpan.FromMilliseconds(timeout.Value) : TimeSpan.FromSeconds(90);
+
+                    if (!BaseUrl.IsNullOrEmpty())
+                    {
+                        client.BaseAddress = new Uri(BaseUrl);
+                    }
+
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    foreach (var header in RequestHeaders)
+                    {
+                        client.DefaultRequestHeaders.Add(header.Name, header.Value);
+                    }
+                     
+                        using (var response = await client.GetAsync(url))
+                        {
+                            if (!response.IsSuccessStatusCode)
+                            {
+                                throw new ICIMSException("Could not made request to " + url + "! StatusCode: " + response.StatusCode + ", ReasonPhrase: " + response.ReasonPhrase);
+                            }
+
+                            var rsStr = await response.Content.ReadAsStringAsync();
+                            var ajaxResponse = JsonStringToObject<AjaxResponse<TResult>>(rsStr);
+                            if (!ajaxResponse.Success)
+                            {
+                                throw new RemoteCallException(ajaxResponse.Error);
+                            }
+
+                            return ajaxResponse.Result;
+                        }
+                    
+                }
+            }
         }
         public async Task<TResult> GetAsync<TResult>(string url, object input, int? timeout = null)
             where TResult : class

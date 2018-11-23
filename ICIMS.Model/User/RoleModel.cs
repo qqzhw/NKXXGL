@@ -16,7 +16,14 @@ namespace ICIMS.Model.User
         private string _displayname;
         public string DisplayName { get => _displayname; set => SetProperty(ref _displayname, value); }
 
+        private string _name;
+        public string Name { get => _name; set => SetProperty(ref _name, value); }
 
+        private bool _isStatic;
+        public bool IsStatic { get => _isStatic; set => SetProperty(ref _isStatic, value); }
+
+        public object _permissions;
+        public object Permissions { get => _permissions; set => SetProperty(ref _permissions, value); }
         //private long _unitId;
         //public long UnitId { get => _unitId; set => SetProperty(ref _unitId, value); }
 
@@ -28,6 +35,13 @@ namespace ICIMS.Model.User
 
         //private long[] _roleName;
         //public long[] RoleName { get => _roleName; set => SetProperty(ref _roleName, value); } 
+        // "name": "Admin",
+        //"displayName": "管理员",
+        //"normalizedName": "ADMIN",
+        //"description": null,
+        //"isStatic": true,
+        //"permissions": [],
+        //"id": 1
     }
     
 }

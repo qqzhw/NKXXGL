@@ -13,7 +13,7 @@
         xmlns:framework="clr-namespace:ICIMS.Core.Interactivity;assembly=ICIMS.Core"
         xmlns:Interaction="clr-namespace:ICIMS.Core.Interactivity.InteractionRequest;assembly=ICIMS.Core"
         xmlns:Primitives="clr-namespace:Telerik.Windows.Controls.Primitives;assembly=Telerik.Windows.Controls.Navigation" xmlns:TabControl="clr-namespace:Telerik.Windows.Controls.TabControl;assembly=Telerik.Windows.Controls.Navigation" x:Class="ICIMS.Client.Views.MainWindow"
-        TitleBarHeight="36"
+        TitleBarHeight="36" WindowState="Maximized"
         x:Name="window"
         prism:ViewModelLocator.AutoWireViewModel="True"
                       mc:Ignorable="d" Closing="MetroWindow_Closing"

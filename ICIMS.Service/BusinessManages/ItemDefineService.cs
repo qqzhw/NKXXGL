@@ -16,10 +16,11 @@ namespace ICIMS.Service.BusinessManages
         {
             _webApiClient = webApiClient;
         }
-        public async Task CreateOrUpdate(ItemDefine input)
+        public async Task<ItemDefine> CreateOrUpdate(ItemDefine input)
         {
             var param = new { ItemDefine=input };
-           await _webApiClient.PostAsync(Path.Combine(_webApiClient.BaseUrl,BaseUrl,"CreateOrUpdate"), param);
+            var item= await _webApiClient.PostAsync<ItemDefine>(Path.Combine(_webApiClient.BaseUrl,BaseUrl,"CreateOrUpdate"), param);
+            return item;
         }
 
         public Task Delete(int input)

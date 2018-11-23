@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ICIMS.Model.User;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,10 @@ namespace ICIMS.Service
     {
         string Token { get; set; }
         void SetToken(string token);
-        Task<string> Authenticate(string userName, string password);
+        UserModel LoginAsync(string userName, string password,string tenantName="");
         Task<string> GetCurrentLoginInfo();
         Task<string> GetUserInfoAsync(long userId);
-        
+        Task<RoleModel> GetUserRoles();
         
     }
 }

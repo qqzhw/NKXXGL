@@ -19,7 +19,7 @@ namespace ICIMS.Service
         string BaseUrl { get; set; }
 
         //void CookieBasedAuth();
-        void TokenBasedAuth();
+        AuthenticateResultDto TokenBasedAuth();
 
         /// <summary> 
         /// Default: 90 seconds.
@@ -66,6 +66,7 @@ namespace ICIMS.Service
         /// <param name="input">Input</param>
         /// <param name="timeout">Timeout as milliseconds</param>
         Task<TResult> PostAsync<TResult>(string url, object input, int? timeout = null) where TResult : class;
+        Task<TResult> GetAsync<TResult>(string url, int? timeout = null) where TResult : class;
         Task<TResult> GetAsync<TResult>(string url, object input, int? timeout = null) where TResult : class;
         Task<TResult> DeleteAsync<TResult>(string url, object input, int? timeout = null)
         where TResult : class;

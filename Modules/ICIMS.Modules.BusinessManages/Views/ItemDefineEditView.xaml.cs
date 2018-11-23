@@ -25,17 +25,8 @@ namespace ICIMS.Modules.BusinessManages.Views
         public ItemDefineEditView(ItemDefineEditViewModel viewModel,ItemDefineList data)
         {
             InitializeComponent();
-            this.DataContext = viewModel;
-            viewModel.View = this;
-            if (data!=null)
-            {
-                viewModel.BindData(data);
-            }
-        }
-
-        private void CustomButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+            this.DataContext = viewModel;         
+        } 
+        
     }
 }

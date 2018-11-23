@@ -10,5 +10,12 @@ namespace ICIMS.Service
     {
         public string AccessToken { get; set; }
         public int UserId { get; set; }
+        public string EncryptedAccessToken { get; set; }
+        public int ExpireInSeconds { get; set; }
+
+        public long? UnitId { get; set; }
+        public string UnitName { get; set; }
+        public string Name { get; set; }
+        public List<string> RolesName{get;set;}
     }
 }

@@ -25,9 +25,9 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal"  Background="#FEFEFE">
-            <TextBlock Text="项目名称" VerticalAlignment="Center"/>
-            <TextBox Width="200" Height="22" VerticalAlignment="Center"/>
-            <control:CustomButton Height="36"  IconBackground="#91CE2D"   Kind="SearchSolid"  Width="80" Margin="10,0,0,0" Title="查询"/>
+            <TextBlock Text="项目名称" Margin="10,0,0,0" VerticalAlignment="Center"/>
+            <TextBox Width="200" Height="20" VerticalAlignment="Center"/>
+            <control:CustomButton Height="30"  IconBackground="#91CE2D"   Kind="SearchSolid"  Width="80" Margin="10,0,0,0" Title="查询"/>
 
         </StackPanel>
         <Rectangle Height="2" Grid.Row="1" Fill="#DEDEDE"/>

@@ -17,12 +17,13 @@ namespace ICIMS.Model.User
 
         private string _username;
         public string UserName { get => _username; set => SetProperty(ref _username, value); }
+
         private string _name;
         public string Name { get => _name; set => SetProperty(ref _name, value); }
 
 
-        private long _unitId; 
-        public long UnitId { get => _unitId; set => SetProperty(ref _unitId, value); }
+        private long? _unitId; 
+        public long? UnitId { get => _unitId; set => SetProperty(ref _unitId, value); }
 
         private string _unitName;
         public string UnitName { get => _unitName; set => SetProperty(ref _unitName, value); }
@@ -30,8 +31,8 @@ namespace ICIMS.Model.User
         private long[] _roleIds;
         public long[] RoleIds { get => _roleIds; set => SetProperty(ref _roleIds, value); }
 
-        private string[] _roleName;
-        public string[] RoleName { get => _roleName; set => SetProperty(ref _roleName, value); }
+        private List<string> _rolesName;
+        public List<string> RolesName { get => _rolesName; set => SetProperty(ref _rolesName, value); }
 
 
     }
