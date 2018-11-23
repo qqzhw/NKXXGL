@@ -44,7 +44,7 @@ namespace ICIMS.Client.ViewModels
             _serviceLocator = serviceLocator;
             _userSerice = userSerice;
             _webApiClient = webApiClient;
-          //  CustomPopupRequest = new InteractionRequest<INotification>();
+            //  CustomPopupRequest = new InteractionRequest<INotification>();
             CustomPopupCommand = new DelegateCommand(RaiseCustomPopup);
             _systemInfos = new ObservableCollection<SystemInfoViewModel>();
             LoadedCommand = new DelegateCommand<object>(OnLoad);
@@ -53,7 +53,10 @@ namespace ICIMS.Client.ViewModels
             eventAggregator.GetEvent<TabCloseEvent>().Subscribe(OnTabActive);
             Telerik.Windows.Controls.StyleManager.ApplicationTheme = new Telerik.Windows.Controls.Office2016TouchTheme();
             InitLoadSetting();
+
         }
+
+       
 
         private void OnLoad(object obj)
         {
@@ -110,6 +113,8 @@ namespace ICIMS.Client.ViewModels
             get { return _selectItem; }
             set { SetProperty(ref _selectItem, value); }
         }
+   
+
         /// <summary>
         /// 加载设置选项
         /// </summary>

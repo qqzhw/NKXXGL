@@ -709,16 +709,17 @@
                         <Setter.Value>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding Title}" FontFamily="SimSun" FontWeight="Medium" FontSize="14" Foreground="#333333">
-                                        <TextBlock.InputBindings>
-                                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeView}}, Path=DataContext.TreeViewClickCommand}"  />
-                                        </TextBlock.InputBindings>
-                                    </TextBlock>
+                                    <TextBlock Text="{Binding Title}" FontFamily="SimSun" FontWeight="Medium" FontSize="14" Foreground="#333333" />
+
+
                                     <telerik:RadButton Command="{Binding CloseCommand}"
                         Style="{StaticResource CloseButton}"   Margin="10,-5,0,0" ToolTipService.ToolTip="关闭" />
                                     <!--<telerik:RadButton Command="{Binding AddItemCommand}"
                         ToolTipService.ToolTip="Add new item"
                         Style="{StaticResource AddButton}" />-->
+                                    <StackPanel.InputBindings>
+                                        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding CloseCommand}" />
+                                    </StackPanel.InputBindings>
                                 </StackPanel>
                                
                             </DataTemplate>
