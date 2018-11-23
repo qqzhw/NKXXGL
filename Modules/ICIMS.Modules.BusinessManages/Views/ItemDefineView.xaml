@@ -53,22 +53,22 @@
                 <telerik:GridViewDataColumn Header="状态" Width="60"    DataMemberBinding="{Binding Status}" />
                 <telerik:GridViewDataColumn Header="评审" DataMemberBinding="{Binding IsAudit}" TextWrapping="Wrap" Width="80" />
 
-                <telerik:GridViewDataColumn Header="部门名称" Width="120" DataMemberBinding="{Binding UnitName}"/>
+                <telerik:GridViewDataColumn Header="部门名称" Width="90" DataMemberBinding="{Binding UnitName}"/>
 
 
 
 
-                <telerik:GridViewDataColumn Header="项目分类"  DataMemberBinding="{Binding ItemCategoryName}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="项目编号" DataMemberBinding="{Binding ItemNo}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="项目分类"  DataMemberBinding="{Binding ItemCategoryName}" TextWrapping="Wrap" Width="80" />
+                <telerik:GridViewDataColumn Header="项目编号" DataMemberBinding="{Binding ItemNo}" TextWrapping="Wrap" Width="80" />
                 <telerik:GridViewDataColumn Header="项目名称" DataMemberBinding="{Binding ItemName}" TextWrapping="Wrap" Width="*" />
                 <telerik:GridViewDataColumn Header="立项日期" DataMemberBinding="{Binding DefineDate,StringFormat=yyyy-MM-dd}" TextWrapping="Wrap" Width="90" />
                 <telerik:GridViewDataColumn Header="立项金额" DataMemberBinding="{Binding DefineAmount}" TextWrapping="Wrap" Width="90" />
                 <telerik:GridViewDataColumn Header="项目地址" DataMemberBinding="{Binding ItemAddress}" TextWrapping="Wrap" Width="*" />
                 <telerik:GridViewDataColumn Header="预算名称" DataMemberBinding="{Binding BudgetName}" TextWrapping="Wrap" Width="*" />
                 <!--<telerik:GridViewDataColumn Header="预算编号" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="*" />-->
-                <telerik:GridViewDataColumn Header="录入日期" Width="100" DataMemberBinding="{Binding CreationTime,StringFormat=yyyy-MM-dd}"/> 
+                <telerik:GridViewDataColumn Header="录入日期" Width="90" DataMemberBinding="{Binding CreationTime,StringFormat=yyyy-MM-dd}"/> 
 
-                <telerik:GridViewDataColumn Header="结审日期" DataMemberBinding="{Binding AuditDate,StringFormat=yyyy-MM-dd}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="结审日期" DataMemberBinding="{Binding AuditDate,StringFormat=yyyy-MM-dd}" TextWrapping="Wrap" Width="90" />
 
                 <telerik:GridViewDataColumn Header="结审人" DataMemberBinding="{Binding AuditUserName}" TextWrapping="Wrap" Width="80" />
                 <telerik:GridViewDataColumn Header="是否决算" DataMemberBinding="{Binding IsFinal}" TextWrapping="Wrap" Width="80" />

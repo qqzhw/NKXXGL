@@ -466,7 +466,7 @@ VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixe
                             <Setter TargetName="border" Property="Background" Value="#6495ed"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="False">
-                            <Setter TargetName="border" Property="Background" Value="#F8F8F8"/>
+                            <Setter TargetName="border" Property="Background" Value="#DEDEDE"/>
                         </Trigger>
                     </ControlTemplate.Triggers> 
                 </ControlTemplate>

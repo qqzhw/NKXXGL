@@ -701,25 +701,21 @@
 
         </Grid>
         <Rectangle Width="8" Fill="#B0C4DE" Grid.Column="1"/>
-        <telerik:RadTabControl HorizontalAlignment="Stretch" 
-			
+        <telerik:RadTabControl HorizontalAlignment="Stretch"  
 			  telerik:StyleManager.Theme="Office2016Touch" BorderThickness="0" VerticalContentAlignment="Stretch"  prism:RegionManager.RegionName="MainRegion" x:Name="MainTabControl" Grid.Row="0"  Grid.Column="2" Style="{DynamicResource RadTabControlStyle1}">
-
             <telerik:RadTabControl.ItemContainerStyle>
                 <Style TargetType="{x:Type telerik:RadTabItem}">
                     <Setter Property="HeaderTemplate">
                         <Setter.Value>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding Title}"  FontSize="14" Foreground="#333333">
+                                    <TextBlock Text="{Binding Title}" FontFamily="SimSun" FontWeight="Medium" FontSize="14" Foreground="#333333">
                                         <TextBlock.InputBindings>
                                             <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeView}}, Path=DataContext.TreeViewClickCommand}"  />
                                         </TextBlock.InputBindings>
                                     </TextBlock>
                                     <telerik:RadButton Command="{Binding CloseCommand}"
-                        Style="{StaticResource CloseButton}"
-                        Margin="10,0,0,0"
-                        ToolTipService.ToolTip="关闭" />
+                        Style="{StaticResource CloseButton}"   Margin="10,-5,0,0" ToolTipService.ToolTip="关闭" />
                                     <!--<telerik:RadButton Command="{Binding AddItemCommand}"
                         ToolTipService.ToolTip="Add new item"
                         Style="{StaticResource AddButton}" />-->

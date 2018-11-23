@@ -39,7 +39,7 @@
         </StackPanel>
         <Rectangle Height="1" Grid.Row="3" Fill="#DEDEDE"/>
         <telerik:RadGridView Grid.Row="4" FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display" SelectedItem="{Binding SelectedItem}"    ItemsSource="{Binding PayAuditLists}"  
+						    RowHeight="30" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display" SelectedItem="{Binding SelectedItem}"    ItemsSource="{Binding PayAuditLists}"  
 							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#F5F5F5"   AlternationCount="2"   >
@@ -50,11 +50,11 @@
                         </telerik:EventToCommandBehavior.EventBindings>-->
             <telerik:RadGridView.Columns>
                 <telerik:GridViewDataColumn Header="状态" Width="60"    DataMemberBinding="{Binding DeviceName}" />
-                <telerik:GridViewDataColumn Header="部门编号" Width="120"/>
-                <telerik:GridViewDataColumn Header="部门名称" Width="120"/>
+                
+                <telerik:GridViewDataColumn Header="部门名称" Width="100"/>
                 <telerik:GridViewDataColumn Header="支付编号"  DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="90" />
                 <telerik:GridViewDataColumn Header="支付名称" DataMemberBinding="{Binding GDDY}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="支付类型" DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="*" />
+                <telerik:GridViewDataColumn Header="支付类型" DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="90" />
                 <telerik:GridViewDataColumn Header="支付金额" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
                 <telerik:GridViewDataColumn Header="支付比例" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
                 <telerik:GridViewDataColumn Header="支付次数" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
