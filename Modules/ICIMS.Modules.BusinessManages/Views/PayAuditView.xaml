@@ -16,26 +16,29 @@
             </i:EventTrigger>
         </i:Interaction.Triggers>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="36"/>
             <RowDefinition Height="2"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition/>
+            <RowDefinition Height="34"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal"  Background="#FEFEFE">
             <TextBlock Text="项目名称" VerticalAlignment="Center"/>
-            <TextBox Width="200" Height="22" VerticalAlignment="Center"/>
-            <control:CustomButton Height="36"  IconBackground="#91CE2D"   Kind="SearchSolid"  Width="80" Margin="10,0,0,0" Title="查询"/>
+            <TextBox Width="200" Height="20" VerticalAlignment="Center"/>
+            <control:CustomButton Height="32"  IconBackground="#91CE2D"   Kind="SearchSolid"  Width="80" Margin="10,0,0,0" Title="查询"/>
 
         </StackPanel>
         <Rectangle Height="2" Grid.Row="1" Fill="#DEDEDE"/>
-        <StackPanel Grid.Row="2"  Orientation="Horizontal" Background="#FEFEFE">
-            <control:CustomButton Height="36"  IconBackground="#682357"  Command="{Binding AddCommand}"  Kind="PlusSolid"  Width="80" Margin="10,0,0,0" Title="新增"/>
-            <control:CustomButton Height="36"  IconBackground="#91CE2D"  Command="{Binding EditCommand}"  Kind="EditSolid"  Width="80" Margin="10,0,0,0" Title="编辑"/>
-            <control:CustomButton Height="36"  IconBackground="#AD372D"  Command="{Binding DeleteCommand}" Kind="TimesSolid"  Width="80" Margin="10,0,0,0" Title="删除"/>
-            <control:CustomButton Height="36"  IconBackground="#C1852D"  Command="{Binding RefreshCommand}"  Kind="SyncSolid"  Width="80" Margin="10,0,0,0" Title="刷新"/>
+        <StackPanel Grid.Row="2"  Orientation="Horizontal" Background="#DEDEDE">
+            <control:CustomButton Height="30"  IconBackground="#682357"  Command="{Binding AddCommand}"  Kind="PlusSolid"  Width="80" Margin="10,0,0,0" Title="新增"/>
+            <control:CustomButton Height="30"  IconBackground="#91CE2D"  Command="{Binding EditCommand}"  Kind="EditSolid"  Width="80" Margin="10,0,0,0" Title="编辑"/>
+            <control:CustomButton Height="30"  IconBackground="#AD372D"  Command="{Binding DeleteCommand}" Kind="TimesSolid"  Width="80" Margin="10,0,0,0" Title="删除"/>
+            <control:CustomButton Height="30"  IconBackground="#C1852D"  Command="{Binding RefreshCommand}"  Kind="SyncSolid"  Width="80" Margin="10,0,0,0" Title="刷新"/>
 
         </StackPanel>
-        <telerik:RadGridView Grid.Row="3" FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+        <Rectangle Height="1" Grid.Row="3" Fill="#DEDEDE"/>
+        <telerik:RadGridView Grid.Row="4" FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
 						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display" SelectedItem="{Binding SelectedItem}"    ItemsSource="{Binding PayAuditLists}"  
 							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
@@ -82,6 +85,11 @@
             </telerik:RadGridView.Columns>
 
         </telerik:RadGridView>
-
+          <telerik:RadDataPager  Grid.Row="5" ItemCount="{Binding TotalCount,Mode=TwoWay}"     x:Name="radDataPager" telerik:StyleManager.Theme="Windows8"  DisplayMode="FirstLastPreviousNextNumeric"  HorizontalContentAlignment="Right" Height="30" PageIndex="{Binding PageIndex}"   PageSize="20"  >
+            <telerik:EventToCommandBehavior.EventBindings>
+                <telerik:EventBinding Command="{Binding PageChanged}" EventName="PageIndexChanged" 
+                        PassEventArgsToCommand="True" />
+            </telerik:EventToCommandBehavior.EventBindings>
+        </telerik:RadDataPager>
     </Grid>
 </UserControl>

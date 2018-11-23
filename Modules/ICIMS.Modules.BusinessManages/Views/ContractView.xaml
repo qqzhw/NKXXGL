@@ -22,6 +22,7 @@
             <RowDefinition Height="34"/>
             <RowDefinition Height="1"/>
             <RowDefinition/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal"  Background="#FEFEFE">
             <TextBlock Text="项目名称" VerticalAlignment="Center"/>
@@ -94,6 +95,11 @@
             </telerik:RadGridView.Columns>
 
         </telerik:RadGridView>
-        
+        <telerik:RadDataPager  Grid.Row="5" ItemCount="{Binding TotalCount,Mode=TwoWay}"     x:Name="radDataPager" telerik:StyleManager.Theme="Windows8"  DisplayMode="FirstLastPreviousNextNumeric"  HorizontalContentAlignment="Right" Height="30" PageIndex="{Binding PageIndex}"   PageSize="20"  >
+            <telerik:EventToCommandBehavior.EventBindings>
+                <telerik:EventBinding Command="{Binding PageChanged}" EventName="PageIndexChanged" 
+                        PassEventArgsToCommand="True" />
+            </telerik:EventToCommandBehavior.EventBindings>
+        </telerik:RadDataPager>
     </Grid>
 </UserControl>
