@@ -15,6 +15,8 @@ namespace ICIMS.Modules.BusinessManages
         {
             CreateMap<ItemDefineList, ItemDefine>();
             CreateMap<ItemDefine, ItemDefineList>();
+
+            CreateMap<ContractList, Contract>();
         }
     }
 }

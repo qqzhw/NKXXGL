@@ -9,12 +9,12 @@
         <ResourceDictionary>
             
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary x:Name="d" Source="pack://application:,,,/ICIMS.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ICIMS.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ICIMS.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ICIMS.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ICIMS.Metro;component/Styles/Themes/Dark.Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ICIMS.Metro;component/Styles/Themes/Light.Blue.xaml" />
-               
+                <ResourceDictionary Source="pack://application:,,,/ICIMS.Client;component/Styles/DataTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate x:Key="PvirtechWindowTitle">
                 <TextBlock  FontSize="20"  Foreground="#2C324F" FontFamily="SimHei" TextOptions.TextFormattingMode="Display" FontWeight="ExtraBold" Margin="8,0,0,0" VerticalAlignment="Center" Text="{Binding}" />

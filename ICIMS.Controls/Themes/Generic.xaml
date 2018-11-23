@@ -457,13 +457,13 @@ VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixe
                                 <Ellipse Width="24" Height="24" Fill="{TemplateBinding IconBackground}"/>
                                 <iconPack:PackIconFontAwesome Kind="{TemplateBinding Kind}" Foreground="{TemplateBinding KindForeground}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Grid>
-                            <TextBlock Margin="6,0,0,0" VerticalAlignment="Center" Text="{TemplateBinding Title}" />
+                            <TextBlock Margin="10,0,0,0" FontFamily="SimSun" FontSize="13" VerticalAlignment="Center" Text="{TemplateBinding Title}" />
                         </StackPanel> 
                     </Border>
                     <ControlTemplate.Triggers> 
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="sp" Property="Background" Value="#DEDEDE"/>
-                            <Setter TargetName="border" Property="Background" Value="#DEDEDE"/>
+                            <Setter TargetName="sp" Property="Background" Value="#6495ed"/>
+                            <Setter TargetName="border" Property="Background" Value="#6495ed"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="False">
                             <Setter TargetName="border" Property="Background" Value="Transparent"/>

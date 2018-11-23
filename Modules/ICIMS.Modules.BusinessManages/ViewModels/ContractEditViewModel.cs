@@ -67,6 +67,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             LogCommand = new DelegateCommand(OnShowLog);
             SearchItemCommand = new DelegateCommand(OnSelectedItemCategory);
             UploadCommand = new DelegateCommand(OnUploadedFiles);
+            _contract = null ?? new Contract();
+            _filesManages = new ObservableCollection<FilesManage>();
+            _buinessAudits = new ObservableCollection<BusinessAudit>();
+            _auditMappings = new ObservableCollection<AuditMapping>();
             BindData(data);
         }
 
@@ -205,11 +209,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         [InjectionMethod]
         public async void Init()
-        {
-            _contract =null??new Contract();
-            _filesManages = new ObservableCollection<FilesManage>();
-            _buinessAudits = new ObservableCollection<BusinessAudit>();
-            _auditMappings = new ObservableCollection<AuditMapping>();
+        { 
             InitBusinessAudits();
             LoadAuditMappings();
         }
