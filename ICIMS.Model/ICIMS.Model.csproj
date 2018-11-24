@@ -81,6 +81,7 @@
     <Compile Include="BusinessManages\PayAudit.cs" />
     <Compile Include="BusinessManages\PayAuditList.cs" />
     <Compile Include="BusinessManages\ReViewDefine.cs" />
+    <Compile Include="BusinessManages\ReViewDefineList.cs" />
     <Compile Include="CollectionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User\RoleModel.cs" />

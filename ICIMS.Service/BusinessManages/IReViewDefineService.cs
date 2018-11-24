@@ -9,13 +9,13 @@ namespace ICIMS.Service.BusinessManages
 {
     public interface IReViewDefineService
     {
-        Task<ResultData<ReViewDefine>> GetAllReViewDefines(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue);
+        Task<ResultData<List<ReViewDefineList>>> GetAllReViewDefines(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue);
 
 
         Task<ReViewDefine> GetById(int input);
 
 
-        Task CreateOrUpdate(ReViewDefine input);
+        Task<ReViewDefine> CreateOrUpdate(ReViewDefine input);
 
 
         Task Delete(int input);

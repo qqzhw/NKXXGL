@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,19 +10,31 @@ namespace ICIMS.Service.BusinessManages
 {
     public class ReViewDefineService : IReViewDefineService
     {
-        public Task CreateOrUpdate(ReViewDefine input)
+        private readonly WebApiClient _webApiClient;
+        private readonly string BaseUrl = "api/services/app/ReViewDefine/";
+        public ReViewDefineService(WebApiClient webApiClient)
         {
-            throw new NotImplementedException();
+            _webApiClient = webApiClient;
+        }
+        public async Task<ReViewDefine>   CreateOrUpdate(ReViewDefine input)
+        {
+            var param = new { ReViewDefine = input };
+            var item = await _webApiClient.PostAsync<ReViewDefine>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "CreateOrUpdate"), param);
+            return item;
         }
 
-        public Task Delete(int input)
+        public async Task Delete(int input)
         {
-            throw new NotImplementedException();
+            var filter = new { Id=input};
+            var items = await _webApiClient.DeleteAsync<object>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "Delete"), filter);
+            
         }
 
-        public Task<ResultData<ReViewDefine>> GetAllReViewDefines(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue)
+        public async Task<ResultData<List<ReViewDefineList>>> GetAllReViewDefines(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            throw new NotImplementedException();
+            var filter = new { No, Name, MaxResultCount = pageSize, SkipCount = pageIndex * pageSize };
+            var items = await _webApiClient.GetAsync<ResultData<List<ReViewDefineList>>>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "GetPaged"), filter);
+            return items;
         }
 
         public Task<ReViewDefine> GetById(int input)
