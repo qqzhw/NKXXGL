@@ -151,6 +151,7 @@
     <Compile Include="ViewModels\SelectedDocumentTypeModel.cs" />
     <Compile Include="ViewModels\SelectedItemDefineViewModel.cs" />
     <Compile Include="ViewModels\SelectItemCategoryViewModel.cs" />
+    <Compile Include="ViewModels\SubmitAuditViewModel.cs" />
     <Compile Include="Views\BudgetAdjustEditView.xaml.cs">
       <DependentUpon>BudgetAdjustEditView.xaml</DependentUpon>
     </Compile>
@@ -213,6 +214,9 @@
     </Compile>
     <Compile Include="Views\SelectItemCategoryView.xaml.cs">
       <DependentUpon>SelectItemCategoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SubmitAuditView.xaml.cs">
+      <DependentUpon>SubmitAuditView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -309,6 +313,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SelectItemCategoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SubmitAuditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

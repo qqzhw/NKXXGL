@@ -15,7 +15,7 @@ namespace ICIMS.Service.BusinessManages
         Task<AuditMapping> GetById(int input);
 
 
-        Task CreateOrUpdate(AuditMapping input);
+        Task<AuditMapping> CreateOrUpdate(AuditMapping input);
 
 
         Task Delete(int input);

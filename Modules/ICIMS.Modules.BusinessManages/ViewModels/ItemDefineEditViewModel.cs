@@ -23,6 +23,7 @@ using AutoMapper;
 using System.Collections.ObjectModel;
 using ICIMS.Service;
 using System.Windows;
+using Unity.Resolution;
 
 namespace ICIMS.Modules.BusinessManages.ViewModels
 {
@@ -181,7 +182,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             //ItemDefine.ItemName = "立项研究项目";
             //ItemDefine.Remark = "beizhu";
              ItemDefine.UnitId = 1;
-            if (ItemDefine.Id==0)
+           // if (ItemDefine.Id==0)
             {
                var item= await _itemDefineService.CreateOrUpdate(ItemDefine);
                 if (item.Id>0)
@@ -192,14 +193,57 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         
 
         }
-        private void OnSubmit()
+        private async void OnSubmit()
         {
-            throw new NotImplementedException();
+            var busaudits = await _businessAuditService.GetAllBusinessAudits(2);
+            var auditItem = busaudits.Items.OrderBy(o => o.DisplayOrder).FirstOrDefault();
+            if (auditItem == null)
+                return;
+            var auditmapping = new AuditMapping()
+            {
+                BusinessTypeId=2,
+                BusinessTypeName="立项登记",
+                ItemId=ItemDefine.Id,
+                BusinessAuditId=auditItem.Id,
+                DisplayOrder=auditItem.DisplayOrder
+            };
+            
+            var view = _unityContainer.Resolve<SubmitAuditView>(new ParameterOverride("data", auditmapping));
+            var notification = new Notification()
+            {
+                Title = "审核", 
+                Content = view,
+            };
+            PopupWindows.NotificationRequest.Raise(notification, async(callback) => {
+                if (callback.DialogResult == true)
+                {
+                    var selectView = callback.Content as SubmitAuditView;
+                    var viewModel = selectView.DataContext as SubmitAuditViewModel;
+                    await _auditMappingService.CreateOrUpdate(viewModel.AuditMapping);
+                    UpdateAuditStatus();
+                    LoadAuditMappings();
+                }
+                
+            });
+            view.BindAction(notification.Finish);
+        }
+
+        private void UpdateAuditStatus()
+        {
+            foreach (var item in BuinessAudits)
+            {
+                var findItem = AuditMappings.FirstOrDefault(o => o.BusinessAuditId == item.Id);
+                if (findItem!=null)
+                {
+                    item.Status = 1;
+                    item.StatusName = "已审核";
+                }
+            }
         }
 
         private void OnCancel()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnBack()
@@ -209,7 +253,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private void OnShowLog()
         {
-            throw new NotImplementedException();
+            
         }
 
 

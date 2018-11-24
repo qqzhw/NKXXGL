@@ -9,6 +9,11 @@ namespace ICIMS.Model.User
 {
     public class UserModel: BindableBase
     {
+        public UserModel()
+        {
+            _roleIds = new List<int>();
+            _rolesName = new List<string>();
+        }
         public int? TenantId { get; set; }
         public string TenantName { get; set; }
         public string AccessToken { get; set; }
@@ -28,8 +33,8 @@ namespace ICIMS.Model.User
         private string _unitName;
         public string UnitName { get => _unitName; set => SetProperty(ref _unitName, value); }
 
-        private long[] _roleIds;
-        public long[] RoleIds { get => _roleIds; set => SetProperty(ref _roleIds, value); }
+        private List<int> _roleIds;
+        public List<int> RoleIds { get => _roleIds; set => SetProperty(ref _roleIds, value); }
 
         private List<string> _rolesName;
         public List<string> RolesName { get => _rolesName; set => SetProperty(ref _rolesName, value); }

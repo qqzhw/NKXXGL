@@ -67,9 +67,9 @@ namespace ICIMS.Service
             Token = token;
         }
 
-        public async Task<RoleModel> GetUserRoles()
+        public async Task<ResultData<List<RoleModel>>> GetUserRoles()
         { 
-            var items = await _webApiClient.GetAsync<RoleModel>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "GetRoles"),null);
+            var items = await _webApiClient.GetAsync<ResultData<List<RoleModel>>>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "GetRoles"),null);
             return items;
         }
     }

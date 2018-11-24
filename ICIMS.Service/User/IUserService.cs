@@ -14,7 +14,7 @@ namespace ICIMS.Service
         UserModel LoginAsync(string userName, string password,string tenantName="");
         Task<string> GetCurrentLoginInfo();
         Task<string> GetUserInfoAsync(long userId);
-        Task<RoleModel> GetUserRoles();
+        Task<ResultData<List<RoleModel>>> GetUserRoles();
         
     }
 }

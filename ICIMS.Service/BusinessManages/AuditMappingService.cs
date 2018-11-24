@@ -16,9 +16,11 @@ namespace ICIMS.Service.BusinessManages
         {
             _webApiClient = webApiClient;
         }
-        public async Task CreateOrUpdate(AuditMapping input)
+        public async Task<AuditMapping> CreateOrUpdate(AuditMapping input)
         {
-            await Task.CompletedTask;
+            var param = new { AuditMapping = input };
+            var item = await _webApiClient.PostAsync<AuditMapping>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "CreateOrUpdate"), param);
+            return item;
         }
 
         public async Task Delete(int input)
