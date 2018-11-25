@@ -16,7 +16,9 @@ namespace ICIMS.Service
         Task<string> GetUserInfoAsync(long userId);
         Task<ResultData<List<RoleModel>>> GetUserRoles();
         Task<List<UserModel>> GetAll(int SkipCount=0,int MaxResultCount = int.MaxValue);
-
+        Task<UserModel> Create(UserModel user);
+        Task<UserModel> Update(UserModel user);
+        Task Delete(int Id);
 
     }
 }

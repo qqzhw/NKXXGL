@@ -80,5 +80,24 @@ namespace ICIMS.Service
 
             return data.Items;
         }
+
+        public async Task<UserModel> Create(UserModel user)
+        {
+            var data = await _webApiClient.PostAsync<UserModel>($"{_webApiClient.BaseUrl}{BaseUrl}Create", user);
+
+            return data;
+        }
+
+        public async Task<UserModel> Update(UserModel user)
+        {
+            var data = await _webApiClient.PutAsync<UserModel>($"{_webApiClient.BaseUrl}{BaseUrl}Update", user);
+
+            return data;
+        }
+
+        public async Task Delete(int Id)
+        {
+            await _webApiClient.DeleteAsync<UserModel>($"{_webApiClient.BaseUrl}{BaseUrl}Update",new { Id });
+        }
     }
 }
