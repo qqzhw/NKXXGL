@@ -19,6 +19,7 @@ namespace ICIMS.Modules.SystemAdmin
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<UsersView>();
+            containerRegistry.RegisterForNavigation<RolesView>();
         }
     }
 

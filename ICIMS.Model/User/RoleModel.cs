@@ -22,8 +22,8 @@ namespace ICIMS.Model.User
         private bool _isStatic;
         public bool IsStatic { get => _isStatic; set => SetProperty(ref _isStatic, value); }
 
-        public object _permissions;
-        public object Permissions { get => _permissions; set => SetProperty(ref _permissions, value); }
+        public List<string> _permissions = new List<string>();
+        public List<string> Permissions { get => _permissions; set => SetProperty(ref _permissions, value); }
         //private long _unitId;
         //public long UnitId { get => _unitId; set => SetProperty(ref _unitId, value); }
 
@@ -42,6 +42,8 @@ namespace ICIMS.Model.User
         //"isStatic": true,
         //"permissions": [],
         //"id": 1
+
+        public int No { get; set; }
     }
     
 }

@@ -9,6 +9,7 @@ using ICIMS.Modules.SystemAdmin;
 using ICIMS.Service;
 using ICIMS.Service.BaseData;
 using ICIMS.Service.BusinessManages;
+using ICIMS.Service.User;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
@@ -89,13 +90,14 @@ namespace ICIMS.Client
         {
             containerRegistry.RegisterForNavigation<BaseDataView>();
            containerRegistry.RegisterSingleton<IWebApiClient, WebApiClient>();
-           // var webApiClient = new WebApiClient();
+            // var webApiClient = new WebApiClient();
             //webApiClient.TenancyName = "Default";
             //webApiClient.UserName = "admin";
             //webApiClient.Password = "123qwe";
             //webApiClient.TokenBasedAuth();
-           // containerRegistry.RegisterSingleton<IWebApiClient>();
+            // containerRegistry.RegisterSingleton<IWebApiClient>();
 
+            containerRegistry.RegisterSingleton<IRoleService, RoleService>();
             containerRegistry.RegisterSingleton<IUserService, UserService>();
             containerRegistry.RegisterSingleton<IFundFromService, FundFromService>();
             containerRegistry.RegisterSingleton<IBuyCategoryService, BuyCategoryService>();

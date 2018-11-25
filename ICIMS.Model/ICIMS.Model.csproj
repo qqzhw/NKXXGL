@@ -84,6 +84,7 @@
     <Compile Include="BusinessManages\ReViewDefineList.cs" />
     <Compile Include="CollectionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User\PermissionModel.cs" />
     <Compile Include="User\RoleModel.cs" />
     <Compile Include="User\UserModel.cs" />
   </ItemGroup>

@@ -15,6 +15,8 @@ namespace ICIMS.Service
         Task<string> GetCurrentLoginInfo();
         Task<string> GetUserInfoAsync(long userId);
         Task<ResultData<List<RoleModel>>> GetUserRoles();
-        
+        Task<List<UserModel>> GetAll(int SkipCount=0,int MaxResultCount = int.MaxValue);
+
+
     }
 }

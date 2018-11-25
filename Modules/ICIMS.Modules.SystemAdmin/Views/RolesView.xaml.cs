@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ICIMS.Modules.SystemAdmin.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Unity.Attributes;
 
 namespace ICIMS.Modules.SystemAdmin.Views
 {
@@ -20,9 +23,20 @@ namespace ICIMS.Modules.SystemAdmin.Views
     /// </summary>
     public partial class RolesView : UserControl
     {
+        [Unity.Attributes.Dependency]
+        public RolesViewModel ViewModel { get; set; }
         public RolesView()
         {
             InitializeComponent();
         }
+
+        [InjectionMethod]
+        public void Init()
+        {
+            this.DataContext = ViewModel;
+            ViewModel.View = this;
+        }
+
+       
     }
 }
