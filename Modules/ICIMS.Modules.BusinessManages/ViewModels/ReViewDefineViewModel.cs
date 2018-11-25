@@ -46,7 +46,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _container = unityContainer;
             _regionManager = regionManager;
             _itemDefineService = itemDefineService;
-            _title = "项目立项";
+            _reviewDefineService = reviewDefineService;
+            _title = "评审登记";
             _reviewDefineLists = new ObservableCollection<ReViewDefineList>();
             LoadedCommand = new DelegateCommand(OnLoad);
             AddCommand = new DelegateCommand(OnAddItem);
@@ -55,15 +56,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             RefreshCommand = new DelegateCommand(OnRefresh);
             PageChanged = new DelegateCommand<Telerik.Windows.Controls.PageIndexChangedEventArgs>(OnPageChanged);
             SearchCommand = new DelegateCommand(OnSearchData);
-            UploadCommand = new DelegateCommand(OnUploadedFiles);
+            
         }
-        /// <summary>
-        /// 上传附件
-        /// </summary>
-        private void OnUploadedFiles()
-        {
-
-        }
+       
 
         //初始加载
         private void OnLoad()
@@ -129,7 +124,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             var result = await _reviewDefineService.GetAllReViewDefines("", "", pageIndex: PageIndex, pageSize: PageSize);
 
             TotalCount = result.TotalCount;
-            _reviewDefineLists.AddRange(result.Items);
+            ReViewDefineLists.AddRange(result.Items);
             IsBusy = false;
 
         }
@@ -179,7 +174,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             if (SelectedItem == null)
                 return;
-            var view = _container.Resolve<ItemDefineEditView>(new ParameterOverride("data", SelectedItem));
+            var view = _container.Resolve<ReViewDefineEditView>(new ParameterOverride("data", SelectedItem));
             var notification = new Notification()
             {
                 Title = "评审编辑",

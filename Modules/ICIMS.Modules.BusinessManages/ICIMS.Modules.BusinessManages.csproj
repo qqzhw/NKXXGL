@@ -148,6 +148,7 @@
     <Compile Include="ViewModels\PayAuditViewModel.cs" />
     <Compile Include="ViewModels\ReViewDefineEditViewModel.cs" />
     <Compile Include="ViewModels\ReViewDefineViewModel.cs" />
+    <Compile Include="ViewModels\SelectedContractTypeModel.cs" />
     <Compile Include="ViewModels\SelectedDocumentTypeModel.cs" />
     <Compile Include="ViewModels\SelectedItemDefineViewModel.cs" />
     <Compile Include="ViewModels\SelectItemCategoryViewModel.cs" />
@@ -205,6 +206,9 @@
     </Compile>
     <Compile Include="Views\ReViewDefineView.xaml.cs">
       <DependentUpon>ReViewDefineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectedContractType.xaml.cs">
+      <DependentUpon>SelectedContractType.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SelectedDocumentType.xaml.cs">
       <DependentUpon>SelectedDocumentType.xaml</DependentUpon>
@@ -301,6 +305,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ReViewDefineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectedContractType.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

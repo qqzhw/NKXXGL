@@ -5,10 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ICIMS.Modules.BusinessManages.Views"
              mc:Ignorable="d" 
+              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
               xmlns:control="clr-namespace:ICIMS.Controls;assembly=ICIMS.Controls"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <i:Interaction.Triggers>
+            <i:EventTrigger  EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
         <Grid.RowDefinitions>
             <RowDefinition Height="36"/>
             <RowDefinition Height="2"/>
@@ -32,8 +38,8 @@
 
         </StackPanel>
         <Rectangle Height="1" Grid.Row="3" Fill="#DEDEDE"/>
-        <telerik:RadGridView Grid.Row="4" FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
+        <telerik:RadGridView Grid.Row="4" FontFamily="SimSun" IsBusy="{Binding IsBusy}"  TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"  SelectedItem="{Binding SelectedItem}"  ItemsSource="{Binding ReViewDefineLists}"  
 							   BorderBrush="#E4E7F0" x:Name="radInfo"    SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
@@ -43,35 +49,27 @@
                         PassEventArgsToCommand="True" /> 
                         </telerik:EventToCommandBehavior.EventBindings>-->
             <telerik:RadGridView.Columns>
-                <telerik:GridViewDataColumn Header="状态" Width="60"    DataMemberBinding="{Binding DeviceName}" />
+                <telerik:GridViewDataColumn Header="状态" Width="60"    DataMemberBinding="{Binding ReViewDefine.Status}" />
 
-                <telerik:GridViewDataColumn Header="部门名称" Width="120"/>
+                <telerik:GridViewDataColumn Header="部门名称" Width="120"  TextWrapping="Wrap"   DataMemberBinding="{Binding UnitName}" />
 
-                <telerik:GridViewDataColumn Header="评审编号" DataMemberBinding="{Binding GDDY}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="评审名称" DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="项目编号" DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="项目名称" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="立项金额" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="评审文号" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="评审金额" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="备    注" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="录入日期" Width="100">
-                    <telerik:GridViewDataColumn.CellTemplate>
-                        <DataTemplate >
-                            <TextBlock Text="{Binding CreationTime,StringFormat=yyyy-MM-dd}" />
-                        </DataTemplate>
-                    </telerik:GridViewDataColumn.CellTemplate>
+                <telerik:GridViewDataColumn Header="评审编号" DataMemberBinding="{Binding ReViewDefine.ReViewNo}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="评审名称" DataMemberBinding="{Binding ReViewDefine.ReViewName}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="项目编号" DataMemberBinding="{Binding ItemNo}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="项目名称" DataMemberBinding="{Binding ItemDefineName}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="立项金额" DataMemberBinding="{Binding ItemDefineAmount}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="评审文号" DataMemberBinding="{Binding ReViewDefine.ReViewDocNo}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="评审金额" DataMemberBinding="{Binding ReViewDefine.ReViewAmount}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="备    注" DataMemberBinding="{Binding ReViewDefine.Remark}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="录入日期" Width="100" DataMemberBinding="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}">
+                   
                 </telerik:GridViewDataColumn>
-                <telerik:GridViewDataColumn Header="录入操作员" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="结审日期" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" >
-                    <telerik:GridViewDataColumn.CellTemplate>
-                        <DataTemplate >
-                            <TextBlock Text="{Binding CreationTime,StringFormat=yyyy-MM-dd}" />
-                        </DataTemplate>
-                    </telerik:GridViewDataColumn.CellTemplate>
+                <telerik:GridViewDataColumn Header="录入操作员" DataMemberBinding="{Binding CreatorUserName}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="结审日期" DataMemberBinding="{Binding ReViewDefine.AuditDate}" TextWrapping="Wrap" Width="90" >
+                    
                 </telerik:GridViewDataColumn>
 
-                <telerik:GridViewDataColumn Header="结审人" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="结审人" DataMemberBinding="{Binding AuditUserName}" TextWrapping="Wrap" Width="100" />
 
 
                 

@@ -41,6 +41,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand BackCommand { get; private set; }
         public DelegateCommand LogCommand { get; private set; }
         public DelegateCommand SearchItemCommand { get; private set; }
+        public DelegateCommand CaractTypeCommand { get; private set; }
         public DelegateCommand UploadCommand { get; private set; }
 
         private string _title;
@@ -66,12 +67,37 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             BackCommand = new DelegateCommand(OnBack);
             LogCommand = new DelegateCommand(OnShowLog);
             SearchItemCommand = new DelegateCommand(OnSelectedItemCategory);
+            CaractTypeCommand= new DelegateCommand(OnSelectedCaractType);
             UploadCommand = new DelegateCommand(OnUploadedFiles);
             _contract = null ?? new Contract();
             _filesManages = new ObservableCollection<FilesManage>();
             _buinessAudits = new ObservableCollection<BusinessAudit>();
             _auditMappings = new ObservableCollection<AuditMapping>();
             BindData(data);
+        }
+
+        /// <summary>
+        /// 选择合同分类
+        /// </summary>
+        private void OnSelectedCaractType()
+        {
+            var view = _unityContainer.Resolve<SelectedItemDefineView>();
+            var notification = new Notification()
+            {
+                Title = "项目立项列表",
+                Content = view,// (new ParameterOverride("name", "")), 
+            };
+            PopupWindows.NotificationRequest.Raise(notification, (callback) =>
+            {
+                if (callback.DialogResult == true)
+                {
+                    var selectView = callback.Content as SelectedItemDefineView;
+                    var viewModel = selectView.DataContext as SelectedItemDefineViewModel;
+                    ItemDefine = Mapper.Map<ItemDefine>(viewModel.SelectedItem);
+                }
+                int s = 0;
+            });
+            view.BindAction(notification.Finish);
         }
 
         internal void BindData(ContractList info)
@@ -122,10 +148,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _auditMappings; }
             set { SetProperty(ref _auditMappings, value); }
         }
-        internal void BindData()
-        {
-
-        }
+       
         /// <summary>
         /// 上传附件
         /// </summary>
@@ -225,19 +248,20 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _auditMappings.AddRange(items.Items);
         }
         private void OnSelectedItemCategory()
-        {
-            var view = _unityContainer.Resolve<SelectItemCategoryView>();
+        {            
+            var view = _unityContainer.Resolve<SelectedItemDefineView>();
             var notification = new Notification()
             {
+                Title = "项目立项列表",
                 Content = view,// (new ParameterOverride("name", "")), 
             };
             PopupWindows.NotificationRequest.Raise(notification, (callback) =>
             {
                 if (callback.DialogResult == true)
                 {
-                    var selectView = callback.Content as SelectItemCategoryView;
-                    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
-                    
+                    var selectView = callback.Content as SelectedItemDefineView;
+                    var viewModel = selectView.DataContext as SelectedItemDefineViewModel;
+                    ItemDefine = Mapper.Map<ItemDefine>(viewModel.SelectedItem);
                 }
                 int s = 0;
             });
@@ -250,7 +274,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _contract; }
             set { SetProperty(ref _contract, value); }
         }
-
+        private ItemDefine _itemDefine;
+        public ItemDefine ItemDefine
+        {
+            get { return _itemDefine; }
+            set { SetProperty(ref _itemDefine, value); }
+        }
 
     }
 

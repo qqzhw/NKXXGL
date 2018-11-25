@@ -20,20 +20,21 @@ using Unity.Attributes;
 
 namespace ICIMS.Modules.BusinessManages.ViewModels
 {
-   public class SelectedItemDefineViewModel : BindableBase
+    
+    public class SelectedContractTypeModel : BindableBase
     {
         private IEventAggregator _eventAggregator;
         private readonly IUnityContainer _container;
         private readonly IRegionManager _regionManager;
-        private readonly IItemCategoryService _itemCategoryService;
-        private readonly IItemDefineService  _itemDefineService;
+        private readonly IContractCategoryService _itemCategoryService;
+        private readonly IItemDefineService _itemDefineService;
         private string _title;
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public SelectedItemDefineViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IRegionManager regionManager, IItemCategoryService itemCategoryService, IItemDefineService itemDefineService)
+        public SelectedContractTypeModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IRegionManager regionManager, IContractCategoryService itemCategoryService, IItemDefineService itemDefineService)
         {
             _eventAggregator = eventAggregator;
             _container = unityContainer;
@@ -60,8 +61,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         [InjectionMethod]
         public async Task Init()
         {
-            _title = "立项项目";
-            _items = new ObservableCollection<ItemDefineList>();
+            _title = "合同分类项目";
+            _items = new ObservableCollection<ContractItem>();
             int count = 0;
             // var items = await _itemDefineService.GetAllItemDefines("","",PageIndex,PageSize);
             //   count = items.TotalCount;
@@ -69,10 +70,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             Initializer();
             await Task.CompletedTask;
         }
-        private ObservableCollection<ItemDefineList> _items;
-        public ObservableCollection<ItemDefineList> Items { get => _items; set => SetProperty(ref _items, value); }
-        private ItemDefineList _selectedItem;
-        public ItemDefineList SelectedItem { get => _selectedItem; set => SetProperty(ref _selectedItem, value); }
+        private ObservableCollection<ContractItem> _items;
+        public ObservableCollection<ContractItem> Items { get => _items; set => SetProperty(ref _items, value); }
+        private ContractItem _selectedItem;
+        public ContractItem SelectedItem { get => _selectedItem; set => SetProperty(ref _selectedItem, value); }
 
 
         private async void Initializer(int pageIndex = 0, int pageSize = 20)
@@ -89,12 +90,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             //}
             //var result = await _dataService.GetWaterListAsync(DeviceId, BeginTime, EndTime, pageIndex: PageIndex, pageSize: PageSize);
             long dataCount = 0;
-            var items =await _itemDefineService.GetAllItemDefines("", "", PageIndex, PageSize);
-            if (items != null)
-            {                
-                TotalCount = items.TotalCount;
-                Items.AddRange(items.Items);
-            }
+            var items = await _itemCategoryService.GetPageItems("", "", PageIndex, PageSize);
+
+
+            TotalCount = items.totalCount;
+            Items.AddRange(items.datas);
+
             IsBusy = false;
         }
         /// <summary>
@@ -184,5 +185,5 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
 
     }
-  
+
 }

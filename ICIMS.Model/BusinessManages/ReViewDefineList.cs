@@ -16,7 +16,8 @@ namespace ICIMS.Model.BusinessManages
         public string ItemNo { get => _itemNo; set => SetProperty(ref _itemNo, value); }
         private string _itemdefinename;
         public string ItemDefineName { get => _itemdefinename; set => SetProperty(ref _itemdefinename, value); }
-
+        private decimal _itemdefineamount;
+        public decimal ItemDefineAmount { get => _itemdefineamount; set => SetProperty(ref _itemdefineamount, value); }
         private string _unitName;
         public string UnitName { get => _unitName; set => SetProperty(ref _unitName, value); }
 

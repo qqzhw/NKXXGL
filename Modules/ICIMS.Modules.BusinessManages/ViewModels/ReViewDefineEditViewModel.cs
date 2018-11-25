@@ -16,9 +16,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Telerik.Windows.Controls;
 using Unity;
 using Unity.Attributes;
 using Unity.Resolution;
+using DelegateCommand = Prism.Commands.DelegateCommand;
 
 namespace ICIMS.Modules.BusinessManages.ViewModels
 {
@@ -55,7 +57,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _filesService = filesService;
             _webApiClient = webApiClient;
             _businessAuditService = businessAuditService;
-            _auditMappingService = auditMappingService;
+            _auditMappingService = auditMappingService; 
+            _reViewDefineService = reViewDefineService;
             _title = "评审审核";
             SaveCommand = new DelegateCommand(OnSave);
             SubmitCommand = new DelegateCommand(OnSubmit);
@@ -72,8 +75,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         internal void BindData(ReViewDefineList info)
         {
-            if (info.ReViewDefine.Id == 0)
-            { 
+            if (info.ReViewDefine==null)
+            {
+                _itemDefine = new ItemDefine();
+                _reviewDefine = new ReViewDefine();
                 return;
             }
             //ItemDefine.AuditDate = info.AuditDate;
@@ -92,10 +97,20 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             //ItemDefine.ItemDescription = info.ItemDescription;
             //ItemDefine.ItemDocNo = info.ItemDocNo;
             //ItemDefine.ItemName = info.ItemName;
-            ReViewDefine = Mapper.Map<ReViewDefine>(info);
+            ReViewDefine = info.ReViewDefine;
             GetFiles(ReViewDefine);
             LoadAuditMappings();
+            LoadItemDefine(ReViewDefine.ItemDefineId);//加载立项项目
         }
+
+        private async void LoadItemDefine(int Id)
+        {
+            if (Id>0)
+            {
+                var item =await _itemDefineService.GetById(Id);
+            }
+        }
+
         private ObservableCollection<FilesManage> _filesManages;
         public ObservableCollection<FilesManage> FilesManages
         {
@@ -126,7 +141,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         /// </summary>
         private void OnUploadedFiles()
         {
-            if (ReViewDefine.Id < 1)
+            if (ReViewDefine==null||ReViewDefine.Id<1)
             {
                 MessageBox.Show("请先保存评审");
                 return;
@@ -155,8 +170,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         keyValuePairs.Add(new KeyValuePair<string, string>("EntityId", ReViewDefine.Id.ToString()));
                         keyValuePairs.Add(new KeyValuePair<string, string>("FileName", fileName));
                         keyValuePairs.Add(new KeyValuePair<string, string>("UploadType", viewModel.SelectedItem.Name));
-                        keyValuePairs.Add(new KeyValuePair<string, string>("EntityKey", "ItemDefine"));
-                        keyValuePairs.Add(new KeyValuePair<string, string>("EntityName", "立项登记"));
+                        keyValuePairs.Add(new KeyValuePair<string, string>("EntityKey", "ReViewDefine"));
+                        keyValuePairs.Add(new KeyValuePair<string, string>("EntityName", "评审登记"));
                         var filemanage = await _filesService.UploadFileAsync(keyValuePairs, filePath, fileName);
                         FilesManages.Add(filemanage);
                     }
@@ -176,13 +191,23 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             //ItemDefine.ItemDocNo = "文号110";
             //ItemDefine.ItemName = "立项研究项目";
             //ItemDefine.Remark = "beizhu";
-             
+            if (ItemDefine.Id<1)
+            {
+                RadWindow.Confirm(new DialogParameters
+                {
+                    Content = "请选择评审项目", 
+                    Owner = Application.Current.MainWindow
+                });
+                return;
+            }
             // if (ItemDefine.Id==0)
             {
+                ReViewDefine.ItemDefineId = ItemDefine.Id;
                 var item = await _reViewDefineService.CreateOrUpdate(ReViewDefine);
                 if (item.Id > 0)
                 {
                     ReViewDefine.Id = item.Id;
+                    ReViewDefine.ReViewNo = item.ReViewNo;
                 }
             }
 
@@ -197,7 +222,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             var auditmapping = new AuditMapping()
             {
                 BusinessTypeId = 2,
-                BusinessTypeName = "立项登记",
+                BusinessTypeName = "评审登记",
                 ItemId = ReViewDefine.Id,
                 BusinessAuditId = auditItem.Id,
                 DisplayOrder = auditItem.DisplayOrder
@@ -273,18 +298,19 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         private void OnSelectedItemCategory()
         {
-            var view = _unityContainer.Resolve<SelectItemCategoryView>();
+            var view = _unityContainer.Resolve<SelectedItemDefineView>();
             var notification = new Notification()
             {
+                Title="项目立项列表",
                 Content = view,// (new ParameterOverride("name", "")), 
             };
             PopupWindows.NotificationRequest.Raise(notification, (callback) =>
             {
                 if (callback.DialogResult == true)
                 {
-                    var selectView = callback.Content as SelectItemCategoryView;
-                    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
-                   
+                    var selectView = callback.Content as SelectedItemDefineView;
+                    var viewModel = selectView.DataContext as SelectedItemDefineViewModel;
+                    ItemDefine = Mapper.Map<ItemDefine>(viewModel.SelectedItem);
                 }
                 int s = 0;
             });
@@ -296,6 +322,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             get { return _reviewDefine; }
             set { SetProperty(ref _reviewDefine, value); }
+        } 
+        private ItemDefine _itemDefine;
+        public ItemDefine ItemDefine
+        {
+            get { return _itemDefine; }
+            set { SetProperty(ref _itemDefine, value); }
         }
     }
 

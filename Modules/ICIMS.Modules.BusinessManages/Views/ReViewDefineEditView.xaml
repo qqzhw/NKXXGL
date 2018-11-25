@@ -7,12 +7,12 @@
              mc:Ignorable="d" 
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:control="clr-namespace:ICIMS.Controls;assembly=ICIMS.Controls"
-            xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+            xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" FontFamily="SimSun" TextOptions.TextFormattingMode="Display"
              MinHeight="800" d:DesignWidth="1000">
     <Grid Background="#DEDEDE">
         <Grid.Resources>
             <Style TargetType="TextBlock">
-                <Setter Property="Width" Value="50"/>
+                <Setter Property="MinWidth" Value="50"/>
             </Style>
             <Style TargetType="TextBox">
                 <Setter Property="MinWidth" Value="100"/>
@@ -48,26 +48,26 @@
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Height="30">
                         <TextBlock Text="部  门" VerticalAlignment="Center"/>
-                        <TextBox Height="20" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox Height="20" Margin="5,0,0,0" Text="{Binding ItemDefine.UnitName}" VerticalAlignment="Center"/>
                         <TextBlock Text="项目分类"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <TextBox  Height="20" Width="240" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="20" Width="240" Text="{Binding ItemDefine.ItemCategoryName}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                        
                         <TextBlock Text="立项文号"  Margin="23,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox  Margin="5,0,0,0" Width="140" Height="20" VerticalAlignment="Center"/>
+                        <TextBox  Margin="5,0,0,0" Width="140" Height="20" Text="{Binding ItemDefine.ItemDocNo }" VerticalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Orientation="Horizontal"  HorizontalAlignment="Stretch" Height="30">
                         <TextBlock Text="关联项目" VerticalAlignment="Center"/>
-                        <TextBox  Height="20"  Margin="5,0,0,0" Width="400" VerticalAlignment="Center"/>
+                        <TextBox  Height="20"  Margin="5,0,0,0" Text="{Binding ItemDefine.ItemName }" Width="400" VerticalAlignment="Center"/>
                         <Button Command="{Binding SearchItemCommand}" Style="{x:Null}" VerticalAlignment="Center" BorderThickness="0" Height="18">
-                            <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
+                            <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="20" Foreground="#999999" />
                         </Button>
                         <TextBlock Text="立项金额"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <TextBox  Height="20"  Margin="5,0,0,0" Width="140" VerticalAlignment="Center"/>
+                        <TextBox  Height="20" Text="{Binding ItemDefine.DefineAmount}"  Margin="5,0,0,0" Width="140" VerticalAlignment="Center"/>
                         <TextBlock Text="元"  Margin="2,0,0,0" VerticalAlignment="Center" />
                     </StackPanel>
                     <DockPanel  Grid.Row="2" HorizontalAlignment="Stretch">
                         <TextBlock DockPanel.Dock="Left" HorizontalAlignment="Left" Text="项目概况"  TextAlignment="Left"/>
-                        <TextBox  Margin="2,0,0,10" DockPanel.Dock="Right" Height="120" AcceptsReturn="True" ></TextBox>
+                        <TextBox  Margin="2,0,0,10" Text="{Binding ItemDefine.ItemDescription}" DockPanel.Dock="Right" Height="120" AcceptsReturn="True" ></TextBox>
                     </DockPanel>
                 </Grid>
             </GroupBox>
@@ -79,13 +79,14 @@
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                         <TextBlock Text="评审编号"   VerticalAlignment="Center"/>
-                        <TextBox  Height="20" Text="{Binding ReViewDefine.ReViewNo}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="20" Text="{Binding ReViewDefine.ReViewNo}" IsReadOnly="True" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="评审名称"  Margin="5,0,0,0" VerticalAlignment="Center" />
                         <TextBox  Height="20"  Text="{Binding ReViewDefine.ReViewName}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="评审文号"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBox  Height="20"   Text="{Binding ReViewDefine.ReViewDocNo}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="评审金额"  Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox Width="80" Height="20"   Text="{Binding ReViewDefine.ReViewAmount}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <!--<TextBox Width="80" Height="20"   Text="{Binding ReViewDefine.ReViewAmount}" Margin="5,0,0,0" VerticalAlignment="Center"/>-->
+                        <telerik:RadNumericUpDown Width="120" Height="22"   Value="{Binding ReViewDefine.ReViewAmount}"  Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
                         <TextBlock Text="元"  Margin="1,0,0,0" VerticalAlignment="Center"/>
                     </StackPanel>
 
@@ -100,8 +101,8 @@
 
 
             </GroupBox>
-            <Grid Grid.Column="1" Grid.RowSpan="3">
-                <GroupBox Header="相关审核人" >
+            <Grid Grid.Column="1" Grid.RowSpan="2"> 
+                <GroupBox Header="相关审核人" BorderThickness="0,1,1,1" >
                     <telerik:RadGridView FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
 						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
 							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
@@ -118,85 +119,92 @@
 
                             <telerik:GridViewDataColumn Header="审核角色" Width="120"    DataMemberBinding="{Binding DeviceName}" />
 
-                            <telerik:GridViewDataColumn Header="审核时间" Width="120">
+                          
+                            <telerik:GridViewDataColumn Header="状态" DataMemberBinding="{Binding GDDY}" TextWrapping="Wrap" Width="*" />
+                             <telerik:GridViewDataColumn Header="审核时间" Width="120">
                                 <telerik:GridViewDataColumn.CellTemplate>
                                     <DataTemplate >
                                         <TextBlock Text="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}" />
                                     </DataTemplate>
                                 </telerik:GridViewDataColumn.CellTemplate>
                             </telerik:GridViewDataColumn>
-                            <telerik:GridViewDataColumn Header="状态" DataMemberBinding="{Binding GDDY}" TextWrapping="Wrap" Width="90" />
-                            <telerik:GridViewDataColumn Header="审核人" DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="90" />
-                            <telerik:GridViewDataColumn Header="审核意见" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="*" />
-
                         </telerik:RadGridView.Columns>
 
                     </telerik:RadGridView>
-                </GroupBox>
-                <GroupBox Header="审核日志" Background="#DEDEDE" BorderThickness="0"  >
-                    <GroupBox.HeaderTemplate>
-                        <DataTemplate>
-                            <Grid Background="#DEDEDE" Height="32">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="200"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding}" FontSize="16" Foreground="#333333"  VerticalAlignment="Center"/>
-                                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <control:CustomButton Height="36"  IconBackground="#07AA7E" Command="{Binding DataContext.ScanCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="CameraSolid"  Width="80" Margin="10,0,0,0" Title="日志"/>
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </GroupBox.HeaderTemplate>
-                    <telerik:RadGridView x:Name="auditInfo" FontFamily="SimSun" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+                </GroupBox> 
+            </Grid>
+            <GroupBox Header="上传附件" Background="#DEDEDE" Grid.Row="2"  BorderThickness="0">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid Background="#DEDEDE" Height="32">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding}" FontSize="16" Foreground="#333333"  VerticalAlignment="Center"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <control:CustomButton Height="30"  IconBackground="#07AA7E" Command="{Binding DataContext.ScanCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="CameraSolid"  Width="80" Margin="10,0,0,0" Title="扫描"/>
+                                <control:CustomButton Height="30"  IconBackground="#0382A6" Command="{Binding DataContext.UploadCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="UploadSolid"  Width="80" Margin="10,0,0,0" Title="上传"/>
+                                <control:CustomButton Height="30"  IconBackground="#C0350A" Command="{Binding DataContext.DeleteCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="TrashSolid"  Width="80" Margin="10,0,0,0" Title="删除"/>
+                                <control:CustomButton Height="30"  IconBackground="#666666" Command="{Binding DataContext.BrowseCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="EyeSolid"  Width="80" Margin="10,0,0,0" Title="浏览"/>
+                                <control:CustomButton Height="30"  IconBackground="#777777" Command="{Binding DataContext.DownloadCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="DownloadSolid"  Width="80" Margin="10,0,0,0" Title="下载"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <telerik:RadGridView x:Name="dgInfo" FontFamily="SimSun" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding FilesManages}"  
+							   BorderBrush="#E4E7F0"  FontWeight="Medium"  SelectionUnit="FullRow"  SelectionMode="Single"    
+                                 IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
+                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
+
+
+                    <telerik:RadGridView.Columns>
+
+                        <telerik:GridViewDataColumn Header="上传业务" Width="100" TextBlock.FontFamily="SimSun"   DataMemberBinding="{Binding EntityName}" />
+
+
+                        <telerik:GridViewDataColumn Header="文件名称"  DataMemberBinding="{Binding FileName}" TextWrapping="Wrap" Width="*" />
+                        <telerik:GridViewDataColumn Header="文件类型" DataMemberBinding="{Binding UploadType}" TextWrapping="Wrap" Width="80" />
+                        <telerik:GridViewDataColumn Header="文件大小" DataMemberBinding="{Binding FileSize}" TextWrapping="Wrap" Width="80" />
+                        <telerik:GridViewDataColumn Header="上传时间" Width="110"  DataMemberBinding="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}"/>
+                      <telerik:GridViewDataColumn Header="扩展名" DataMemberBinding="{Binding Extension}" TextWrapping="Wrap" Width="80" />
+ 
+                    </telerik:RadGridView.Columns>
+
+                </telerik:RadGridView>
+            </GroupBox>
+            <GroupBox Header="审核日志" Background="#DEDEDE" BorderThickness="0" Grid.Row="2" Grid.Column="1" >
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid Background="#DEDEDE" Height="32">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding}" FontSize="16" Foreground="#333333"  VerticalAlignment="Center"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <control:CustomButton Height="36"  IconBackground="#07AA7E" Command="{Binding DataContext.ScanCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="CameraSolid"  Width="80" Margin="10,0,0,0" Title="日志"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <telerik:RadGridView x:Name="auditInfo" FontFamily="SimSun" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
 						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding AuditMappings}"  
 							   BorderBrush="#E4E7F0"  FontWeight="Medium"  SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
 
 
-                        <telerik:RadGridView.Columns>
-
-                            <telerik:GridViewDataColumn Header="审核业务" Width="100" TextBlock.FontFamily="SimSun"   DataMemberBinding="{Binding BusinessTypeName}" />
-
-                            <telerik:GridViewDataColumn Header="审核角色"  DataMemberBinding="{Binding RoleName}" TextWrapping="Wrap" Width="80" />
-                            <telerik:GridViewDataColumn Header="审核意见" DataMemberBinding="{Binding AuditOpinion}" TextWrapping="Wrap" Width="*" />
-                            <telerik:GridViewDataColumn Header="审核人" DataMemberBinding="{Binding AuditUserName}" TextWrapping="Wrap" Width="80" />
-
-                            <telerik:GridViewDataColumn Header="审核时间" Width="120"  DataMemberBinding="{Binding AuditTime,StringFormat=yyyy-MM-dd HH:mm}"/>
-
-
-                        </telerik:RadGridView.Columns>
-
-                    </telerik:RadGridView>
-                </GroupBox>
-
-            </Grid>
-            <GroupBox Header="上传附件" Grid.Row="2">
-                <telerik:RadGridView x:Name="dgInfo" FontFamily="SimSun" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
-							   BorderBrush="#E4E7F0"  FontWeight="Medium"  SelectionUnit="FullRow"  SelectionMode="Single"    
-                                 IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
-                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"  MinHeight="200" >
-
-
                     <telerik:RadGridView.Columns>
 
-                        <telerik:GridViewDataColumn Header="序号"  Width="50"    HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  DeviceId,Mode =TwoWay}"/>
+                        <telerik:GridViewDataColumn Header="审核业务" Width="90" TextBlock.FontFamily="SimSun"   DataMemberBinding="{Binding BusinessTypeName}" />
 
-                        <telerik:GridViewDataColumn Header="上传业务" Width="120"    DataMemberBinding="{Binding DeviceName}" />
-                        <telerik:GridViewDataColumn Header="上传时间" Width="120"    DataMemberBinding="{Binding DeviceName}" />
+                        <telerik:GridViewDataColumn Header="审核角色"  DataMemberBinding="{Binding RoleName}" TextWrapping="Wrap" Width="80" />
+                        <telerik:GridViewDataColumn Header="审核意见" DataMemberBinding="{Binding AuditOpinion}" TextWrapping="Wrap" Width="*" />
+                        <telerik:GridViewDataColumn Header="审核人" DataMemberBinding="{Binding AuditUserName}" TextWrapping="Wrap" Width="80" />
 
-
-                        <telerik:GridViewDataColumn Header="文件类型" DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="80" />
-
-                        <telerik:GridViewDataColumn Header="文件名称" DataMemberBinding="{Binding GDDY}" TextWrapping="Wrap" Width="*" />
-                      
-                        <telerik:GridViewDataColumn Header="扩展名" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="80" />
-
-                        <telerik:GridViewDataColumn Header="上传操作员" DataMemberBinding="{Binding RJBB}" TextWrapping="Wrap" Width="80" />
-
-
+                        <telerik:GridViewDataColumn Header="审核时间" Width="110"  DataMemberBinding="{Binding AuditTime,StringFormat=yyyy-MM-dd HH:mm}"/>
 
 
                     </telerik:RadGridView.Columns>

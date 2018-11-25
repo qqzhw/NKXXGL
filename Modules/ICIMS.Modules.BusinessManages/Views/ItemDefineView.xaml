@@ -39,7 +39,7 @@
 
         </StackPanel>
         <Rectangle Height="1" Grid.Row="3" Fill="#DEDEDE"/>
-        <telerik:RadGridView Grid.Row="4" FontFamily="SimSun" x:Name="radInfo"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+        <telerik:RadGridView Grid.Row="4" FontFamily="SimSun" IsBusy="{Binding IsBusy}" x:Name="radInfo"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
 						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Vertical"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding ItemDefineLists}"  SelectedItem="{Binding SelectedItem}" 
 							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
