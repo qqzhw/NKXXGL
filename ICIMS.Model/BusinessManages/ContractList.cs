@@ -35,8 +35,8 @@ namespace ICIMS.Model.BusinessManages
         /// <summary>
         /// 合同类型
         /// </summary>
-        private int _contractTypeId;
-        public int ContractTypeId { get => _contractTypeId; set => SetProperty(ref _contractTypeId, value); }
+        private int _contractCategoryId;
+        public int ContractCategoryId { get => _contractCategoryId; set => SetProperty(ref _contractCategoryId, value); }
 
         private DateTime _begintime;
         public DateTime BeginTime { get => _begintime; set => SetProperty(ref _begintime, value); }
@@ -137,8 +137,8 @@ namespace ICIMS.Model.BusinessManages
         public string ItemDefineName { get => _itemdefinename; set => SetProperty(ref _itemdefinename, value); }
 
         //合同分类
-        private string _contractTypeName;
-        public string ContractTypeName { get => _contractTypeName; set => SetProperty(ref _contractTypeName, value); }
+        private string _contractCategoryname;
+        public string ContractCategoryName { get => _contractCategoryname; set => SetProperty(ref _contractCategoryname, value); }
         //供应商
         private string _vendorName;
         public string VendorName { get => _vendorName; set => SetProperty(ref _vendorName, value); }

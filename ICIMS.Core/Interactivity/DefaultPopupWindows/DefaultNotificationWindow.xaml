@@ -3,7 +3,7 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             MinWidth="300" MinHeight="150" 
         xmlns:controls="http://metro.wenge.com/winfx/xaml/controls"
-            Title="{Binding Title}"  ShowMaxRestoreButton="False" WindowState="Normal" SizeToContent="WidthAndHeight">
+            Title="{Binding Title}"  ShowMaxRestoreButton="False" WindowStartupLocation="CenterScreen" WindowState="Normal" SizeToContent="WidthAndHeight">
     <controls:MetroWindow.Style>
         <Style TargetType="{x:Type Window}">
             <Style.Triggers>

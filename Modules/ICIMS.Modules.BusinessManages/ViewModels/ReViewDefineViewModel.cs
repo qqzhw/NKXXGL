@@ -119,14 +119,15 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 {
                     EndTime = BeginTime.Value.AddDays(1);
                 }
-
             }
+            
+
             var result = await _reviewDefineService.GetAllReViewDefines("", "", pageIndex: PageIndex, pageSize: PageSize);
 
             TotalCount = result.TotalCount;
             ReViewDefineLists.AddRange(result.Items);
             IsBusy = false;
-
+            
         }
         private ObservableCollection<ReViewDefineList> _reviewDefineLists;
         public ObservableCollection<ReViewDefineList> ReViewDefineLists

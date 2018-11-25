@@ -44,7 +44,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand SearchItemCommand { get; private set; }
         public DelegateCommand CaractTypeCommand { get; private set; }
         public DelegateCommand UploadCommand { get; private set; }
-
+        public DelegateCommand SearchVendorCommand { get; private set; }
         private string _title;
         public string Title
         {
@@ -69,6 +69,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             LogCommand = new DelegateCommand(OnShowLog);
             SearchItemCommand = new DelegateCommand(OnSelectedItemCategory);
             CaractTypeCommand= new DelegateCommand(OnSelectedCaractType);
+            SearchVendorCommand = new DelegateCommand(OnSelectedVendor);
             UploadCommand = new DelegateCommand(OnUploadedFiles);
             _contract = null ?? new Contract();
             _filesManages = new ObservableCollection<FilesManage>();
@@ -76,6 +77,31 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _auditMappings = new ObservableCollection<AuditMapping>();
             BindData(data);
         }
+
+        /// <summary>
+        /// 选择合同分类
+        /// </summary>
+        private void OnSelectedVendor()
+        {
+            var view = _unityContainer.Resolve<SelectedVendorView>();
+            var notification = new Notification()
+            {
+                Title = "供应商列表",
+                Content = view,
+            };
+            PopupWindows.NotificationRequest.Raise(notification, (callback) =>
+            {
+                if (callback.DialogResult == true)
+                {
+                    var selectView = callback.Content as SelectedVendorView;
+                    var viewModel = selectView.DataContext as SelectedVendorViewModel;
+                    VendorItem = viewModel.SelectedItem;
+                }
+
+            });
+            view.BindAction(notification.Finish);
+        }
+
 
         /// <summary>
         /// 选择合同分类
@@ -209,11 +235,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             //ItemDefine.ItemName = "立项研究项目";
             //ItemDefine.Remark = "beizhu";
             //ItemDefine.UnitId = 1;
-            if (ContractCategory.Id<1||ItemDefine.Id<1)
+            if (ContractCategory.Id<1||ItemDefine.Id<1||VendorItem.Id<1)
             {
                 return;
             }
-            Contract.VendorId = 2;
+            Contract.VendorId = VendorItem.Id;
             Contract.UnitId = 1;
             Contract.ContractCategoryId = ContractCategory.Id;
             Contract.ItemDefineId = ItemDefine.Id;
@@ -296,6 +322,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             get { return _contractCategory; }
             set { SetProperty(ref _contractCategory, value); }
+        }
+        private VendorItem  _vendorItem;
+        public VendorItem VendorItem
+        {
+            get { return _vendorItem; }
+            set { SetProperty(ref _vendorItem, value); }
         }
     }
 
