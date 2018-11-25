@@ -16,6 +16,7 @@
             </Style>
             <Style TargetType="TextBox">
                 <Setter Property="MinWidth" Value="100"/>
+                <Setter Property="Height" Value="20"/>
             </Style>
         </Grid.Resources>
         <Grid.RowDefinitions>
@@ -94,9 +95,9 @@
                             <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                         </Button>
                         <TextBlock Text="合同起止日期" Width="80" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <telerik:RadDatePicker DateTimeWatermarkTemplate="{StaticResource dateTemplate}" FontStyle="Normal"  Width="120" telerik:StyleManager.Theme="Windows8"  FontFamily="SimSun"   Foreground="#222328"      SelectedValue="{Binding BeginTime}"   DisplayFormat="Long"  DateTimeWatermarkContent="开始时间" />
+                        <telerik:RadDatePicker DateTimeWatermarkTemplate="{StaticResource dateTemplate}" FontStyle="Normal"  Width="120" telerik:StyleManager.Theme="Office2016"  FontFamily="SimSun"   Foreground="#222328"      SelectedValue="{Binding BeginTime}"   DisplayFormat="Long"  DateTimeWatermarkContent="开始时间" />
                         <TextBlock Width="10" VerticalAlignment="Center">-</TextBlock>
-                        <telerik:RadDatePicker DateTimeWatermarkTemplate="{StaticResource dateTemplate}" telerik:StyleManager.Theme="Windows8"  FontFamily="SimSun" FontStyle="Normal"  Width="120"   Foreground="#222328"      SelectedValue="{Binding EndTime}"   DisplayFormat="Long"  DateTimeWatermarkContent="截止时间" />
+                        <telerik:RadDatePicker DateTimeWatermarkTemplate="{StaticResource dateTemplate}" telerik:StyleManager.Theme="Office2016"  FontFamily="SimSun" FontStyle="Normal"  Width="120"   Foreground="#222328"      SelectedValue="{Binding EndTime}"   DisplayFormat="Long"  DateTimeWatermarkContent="截止时间" />
                         
                     </StackPanel>
                     <DockPanel Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Top"  >
@@ -121,10 +122,13 @@
                     </DockPanel>
                     <DockPanel Grid.Row="3" HorizontalAlignment="Stretch"  VerticalAlignment="Top"  >
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="签订日期" VerticalAlignment="Center"/>
-                        <telerik:RadDatePicker DateTimeWatermarkTemplate="{StaticResource dateTemplate}" telerik:StyleManager.Theme="Windows8"  FontFamily="SimSun" FontStyle="Normal"  Width="120"   Foreground="#222328"      SelectedValue="{Binding Contract.ContractTime}"   DisplayFormat="Long"  DateTimeWatermarkContent="签订日期" />
+                        <telerik:RadDatePicker DateTimeWatermarkTemplate="{StaticResource dateTemplate}" telerik:StyleManager.Theme="Office2016"  FontFamily="SimSun" FontStyle="Normal"  Width="120"   Foreground="#222328"      SelectedValue="{Binding Contract.IdentifyDate}"   DisplayFormat="Long"  DateTimeWatermarkContent="签订日期" />
 
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="承建单位" VerticalAlignment="Center"/>
-                        <TextBox   Text="{Binding Contract.ContractName}"  AcceptsReturn="True" Margin="5,0,0,0" TextWrapping="Wrap"   />
+                        <TextBox   Text="{Binding VendorItem.Name}" Width="500" AcceptsReturn="True" Margin="5,0,0,0" TextWrapping="Wrap"   />
+                        <Button Command="{Binding SearchVendorCommand}" IsEnabled="True" Style="{x:Null}" BorderThickness="0" HorizontalAlignment="Left" Height="18">
+                            <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
+                        </Button>
                     </DockPanel>
                     <DockPanel Grid.Row="4" HorizontalAlignment="Stretch"  VerticalAlignment="Top"  >
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="是否结算" VerticalAlignment="Center"/>
@@ -138,7 +142,7 @@
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="预警" VerticalAlignment="Center"/>
                         <TextBox  AcceptsReturn="True"  Text="{Binding Contract.Warining}"  Margin="5,0,0,0" TextWrapping="Wrap"   />
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="预警日期" VerticalAlignment="Center"/>
-                        <telerik:RadDatePicker DateTimeWatermarkTemplate="{StaticResource dateTemplate}" telerik:StyleManager.Theme="Windows8"  FontFamily="SimSun" FontStyle="Normal"  Width="120"   Foreground="#222328"      SelectedValue="{Binding Contract.WariningDate}"   DisplayFormat="Long"  DateTimeWatermarkContent="签订日期" />
+                        <telerik:RadDatePicker DateTimeWatermarkTemplate="{StaticResource dateTemplate}" telerik:StyleManager.Theme="Office2016"  FontFamily="SimSun" FontStyle="Normal"  Width="120"   Foreground="#222328"      SelectedValue="{Binding Contract.WariningDate}"   DisplayFormat="Long"  DateTimeWatermarkContent="签订日期" />
 
                     </DockPanel>
                     <DockPanel Grid.Row="5" HorizontalAlignment="Stretch"  VerticalAlignment="Top"  >
