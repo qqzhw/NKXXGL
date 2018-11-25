@@ -18,7 +18,7 @@ namespace ICIMS.Service.BusinessManages
         Task<Contract> GetById(int input);
 
 
-        Task CreateOrUpdate(Contract input);
+        Task<Contract> CreateOrUpdate(Contract input);
 
 
         Task Delete(int input);

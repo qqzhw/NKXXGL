@@ -16,9 +16,11 @@ namespace ICIMS.Service.BusinessManages
         {
             _webApiClient = webApiClient;
         }
-        public Task CreateOrUpdate(Contract input)
+        public async Task<Contract> CreateOrUpdate(Contract input)
         {
-            throw new NotImplementedException();
+            var param = new { Contract = input };
+            var item = await _webApiClient.PostAsync<Contract>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "CreateOrUpdate"), param);
+            return item;
         }
 
         public Task Delete(int input)

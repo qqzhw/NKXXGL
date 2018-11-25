@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ICIMS.Core.Interactivity;
 using ICIMS.Core.Interactivity.InteractionRequest;
+using ICIMS.Model.BaseData;
 using ICIMS.Model.BusinessManages;
 using ICIMS.Modules.BusinessManages.Views;
 using ICIMS.Service;
@@ -81,7 +82,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         /// </summary>
         private void OnSelectedCaractType()
         {
-            var view = _unityContainer.Resolve<SelectedItemDefineView>();
+            var view = _unityContainer.Resolve<SelectedContractType>();
             var notification = new Notification()
             {
                 Title = "项目立项列表",
@@ -91,11 +92,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             {
                 if (callback.DialogResult == true)
                 {
-                    var selectView = callback.Content as SelectedItemDefineView;
-                    var viewModel = selectView.DataContext as SelectedItemDefineViewModel;
-                    ItemDefine = Mapper.Map<ItemDefine>(viewModel.SelectedItem);
+                    var selectView = callback.Content as SelectedContractType;
+                    var viewModel = selectView.DataContext as SelectedContractTypeModel;
+                    ContractCategory = viewModel.SelectedItem;
                 }
-                int s = 0;
+
             });
             view.BindAction(notification.Finish);
         }
@@ -103,7 +104,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         internal void BindData(ContractList info)
         {
             if (info == null)
+            {
+                _contractCategory = new ContractItem();
                 return;
+            }
             //ItemDefine.AuditDate = info.AuditDate;
             //ItemDefine.AuditUserId = info.AuditUserId;
             //ItemDefine.AuditUserName = info.AuditUserName;
@@ -205,6 +209,14 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             //ItemDefine.ItemName = "立项研究项目";
             //ItemDefine.Remark = "beizhu";
             //ItemDefine.UnitId = 1;
+            if (ContractCategory.Id<1||ItemDefine.Id<1)
+            {
+                return;
+            }
+            Contract.VendorId = 2;
+            Contract.UnitId = 1;
+            Contract.ContractCategoryId = ContractCategory.Id;
+            Contract.ItemDefineId = ItemDefine.Id;
             await _contractService.CreateOrUpdate(Contract);
 
         }
@@ -262,8 +274,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     var selectView = callback.Content as SelectedItemDefineView;
                     var viewModel = selectView.DataContext as SelectedItemDefineViewModel;
                     ItemDefine = Mapper.Map<ItemDefine>(viewModel.SelectedItem);
-                }
-                int s = 0;
+                }               
             });
             view.BindAction(notification.Finish);
 
@@ -280,7 +291,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _itemDefine; }
             set { SetProperty(ref _itemDefine, value); }
         }
-
+        private ContractItem  _contractCategory;
+        public ContractItem ContractCategory
+        {
+            get { return _contractCategory; }
+            set { SetProperty(ref _contractCategory, value); }
+        }
     }
 
 
