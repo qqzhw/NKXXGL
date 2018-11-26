@@ -5,8 +5,71 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ICIMS.Modules.BusinessManages.Views"
              mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border  BorderBrush="#E4E7F0" BorderThickness="0,0,0,2">
+            <Grid>
+                <StackPanel Orientation="Horizontal"  VerticalAlignment="Center">
+
+                    <TextBlock Text="编号"  Foreground="#7E87AD" FontSize="14"  Margin="8,0,0,0" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding ItemNo}"   Foreground="#222328"  VerticalAlignment="Center" Width="120" Height="24"/>
+                    <TextBlock Text="合同名称"  Foreground="#7E87AD" FontSize="14"  Margin="10,0,0,0" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding ItemName}"   Foreground="#222328"  VerticalAlignment="Center" Width="120" Height="24"/>
+                    <TextBlock Text="开始时间：" FontSize="12"  Margin="10,0,0,0"  Foreground="#7E87AD"    VerticalAlignment="Center" />
+                    <telerik:RadDatePicker DateTimeWatermarkTemplate="{StaticResource dateTemplate}" FontStyle="Normal" TextBlock.FontStyle="Normal" Width="160"  Foreground="#222328"    SelectedValue="{Binding BeginTime}"  DisplayFormat="Long" DateTimeWatermarkContent="请选择开始时间"/>
+                    <TextBlock Text="截止时间："   Foreground="#7E87AD" FontSize="12"  Margin="10,0,0,0" VerticalAlignment="Center"/>
+                    <telerik:RadDatePicker DateTimeWatermarkTemplate="{StaticResource dateTemplate}" FontStyle="Normal"  Width="160"   Foreground="#222328"      SelectedValue="{Binding EndTime}"   DisplayFormat="Long"  DateTimeWatermarkContent="请选择截止时间" />
+
+
+                    <Button HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Center" Width="80"  Content="查 询" Style="{DynamicResource MetroFlatButton}"  Command="{Binding SearchCommand}"  CommandParameter="0" />
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Border Grid.Row="1" BorderThickness="0" Margin="5" BorderBrush="#D9EDF7"  >
+            <telerik:RadBusyIndicator  IsBusy="{Binding IsBusy}"  telerik:StyleManager.Theme="Windows8Touch"  BusyContent="">
+                <telerik:RadGridView x:Name="dgInfo"  telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+						    RowHeight="33" CanUserInsertRows="True"    GridLinesVisibility="Both" TextOptions.TextFormattingMode="Display"  IsFilteringAllowed="False" ItemsSource="{Binding Items}"  
+							 RowIndicatorVisibility="Collapsed" BorderBrush="#E4E7F0"  FontWeight="Medium"  SelectionUnit="FullRow"  SelectionMode="Single"    
+                                 IsReadOnly="True"   SelectedItem="{Binding Path=SelectedItem,Mode=TwoWay}"    GroupRenderMode="Flat"    AutoGenerateColumns="False"  
+                                         CanUserSortColumns="False"   CanUserFreezeColumns="False" AlternateRowBackground="#E6F4FF"   AlternationCount="2"   >
+
+                    <telerik:RadGridView.Columns>
+
+                        <telerik:GridViewDataColumn Header="合同编号"  Width="100"     HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  ItemNo}"/>
+
+                        <telerik:GridViewDataColumn Header="合同名称" Width="*"    DataMemberBinding="{Binding ItemName}" />
+                        <!--<telerik:GridViewDataColumn Header="路径" Width="100"    DataMemberBinding="{Binding DirectoryName}" />-->
+                        <telerik:GridViewDataColumn Header="部门名称" DataMemberBinding="{Binding UnitName}" TextWrapping="Wrap" Width="100" />
+                        <telerik:GridViewDataColumn Header="立项金额" DataMemberBinding="{Binding DefineAmount}" TextWrapping="Wrap" Width="90" />
+                        <telerik:GridViewDataColumn Header="立项时间" DataMemberBinding="{Binding DefineDate,StringFormat=yyyy-MM-dd}" TextWrapping="Wrap" Width="120" />
+                        <telerik:GridViewDataColumn Header="项目地址" DataMemberBinding="{Binding ItemAddress}" TextWrapping="Wrap" Width="150" />
+
+                        <telerik:GridViewDataColumn Header="录入时间" Width="100" HeaderTextAlignment="Center">
+                            <telerik:GridViewDataColumn.CellTemplate>
+                                <DataTemplate >
+                                    <TextBlock Text="{Binding CreationTime,StringFormat=yyyy-MM-dd}" />
+                                </DataTemplate>
+                            </telerik:GridViewDataColumn.CellTemplate>
+                        </telerik:GridViewDataColumn>
+
+                    </telerik:RadGridView.Columns>
+
+                </telerik:RadGridView>
+            </telerik:RadBusyIndicator>
+        </Border>
+        <telerik:RadDataPager Margin="5,0,5,0" Grid.Row="2" ItemCount="{Binding TotalCount,Mode=TwoWay}" DisplayMode="FirstLastPreviousNextNumeric"  HorizontalContentAlignment="Right"  x:Name="radDataPager" telerik:StyleManager.Theme="Windows8"  Height="30" PageIndex="{Binding PageIndex}"  PageSize="20" >
+            <telerik:EventToCommandBehavior.EventBindings>
+                <telerik:EventBinding Command="{Binding PageChanged}" EventName="PageIndexChanged" 
+                        PassEventArgsToCommand="True" />
+            </telerik:EventToCommandBehavior.EventBindings>
+        </telerik:RadDataPager>
+
     </Grid>
 </UserControl>

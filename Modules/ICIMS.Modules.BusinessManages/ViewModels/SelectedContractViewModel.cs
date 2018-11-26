@@ -1,14 +1,21 @@
-﻿using ICIMS.Service.BaseData;
+﻿using ICIMS.Model.BusinessManages;
+using ICIMS.Service.BaseData;
 using ICIMS.Service.BusinessManages;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using Telerik.Windows;
 using Unity;
+using Unity.Attributes;
 
 namespace ICIMS.Modules.BusinessManages.ViewModels
 {
@@ -20,24 +27,20 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IItemCategoryService _itemCategoryService;
         private readonly IItemDefineService _itemDefineService;
-        private string _title;
-        public string Title
-        {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
-        }
-        public SelectedContractViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IRegionManager regionManager, IItemCategoryService itemCategoryService, IItemDefineService itemDefineService)
+        private readonly IContractService _contractService;
+        
+        public SelectedContractViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IRegionManager regionManager, IItemCategoryService itemCategoryService, IItemDefineService itemDefineService, IContractService contractService)
         {
             _eventAggregator = eventAggregator;
             _container = unityContainer;
             _regionManager = regionManager;
             _itemCategoryService = itemCategoryService;
-            _itemDefineService = itemDefineService;
-            _title = "立项项目";
+            _itemDefineService = itemDefineService; 
             SaveCommand = new DelegateCommand(OnAddItem);
             CancelCommand = new DelegateCommand(OnCancel);
             DoubleClick = new DelegateCommand<object>(OnDoubleClick);
             SearchCommand = new Prism.Commands.DelegateCommand(OnSearchData);
+            _contractService = contractService;
         }
 
         internal void OnDoubleClick(object sender, RadRoutedEventArgs e)
@@ -52,9 +55,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         [InjectionMethod]
         public async Task Init()
-        {
-            _title = "立项项目";
-            _items = new ObservableCollection<ItemDefineList>();
+        { 
+            _items = new ObservableCollection<ContractList>();
             int count = 0;
             // var items = await _itemDefineService.GetAllItemDefines("","",PageIndex,PageSize);
             //   count = items.TotalCount;
@@ -62,10 +64,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             Initializer();
             await Task.CompletedTask;
         }
-        private ObservableCollection<ItemDefineList> _items;
-        public ObservableCollection<ItemDefineList> Items { get => _items; set => SetProperty(ref _items, value); }
-        private ItemDefineList _selectedItem;
-        public ItemDefineList SelectedItem { get => _selectedItem; set => SetProperty(ref _selectedItem, value); }
+        private ObservableCollection<ContractList> _items;
+        public ObservableCollection<ContractList> Items { get => _items; set => SetProperty(ref _items, value); }
+        private ContractList _selectedItem;
+        public ContractList SelectedItem { get => _selectedItem; set => SetProperty(ref _selectedItem, value); }
 
 
         private async void Initializer(int pageIndex = 0, int pageSize = 20)
@@ -82,7 +84,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             //}
             //var result = await _dataService.GetWaterListAsync(DeviceId, BeginTime, EndTime, pageIndex: PageIndex, pageSize: PageSize);
             long dataCount = 0;
-            var items = await _itemDefineService.GetAllItemDefines("", "", PageIndex, PageSize);
+            var items = await _contractService.GetAllContracts("", "", PageIndex, PageSize);
             if (items != null)
             {
                 TotalCount = items.TotalCount;

@@ -84,7 +84,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private void OnSelectedContract()
         {
 
-            var view = _unityContainer.Resolve<SelectedContract>();
+            var view = _unityContainer.Resolve<SelectedContractView>();
             var notification = new Notification()
             {
                 Title = "项目立项列表",
@@ -94,9 +94,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             {
                 if (callback.DialogResult == true)
                 {
-                    var selectView = callback.Content as SelectedContractType;
-                    var viewModel = selectView.DataContext as SelectedContractTypeModel;
-                    ContractCategory = viewModel.SelectedItem;
+                    var selectView = callback.Content as SelectedContractView;
+                    var viewModel = selectView.DataContext as SelectedContractViewModel;
+                    Contract = viewModel.SelectedItem;
                 }
 
             });
@@ -267,8 +267,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _payAuditList; }
             set { SetProperty(ref _payAuditList, value); }
         }
-        private Contract _contract;
-        public Contract Contract
+        private ContractList _contract;
+        public ContractList Contract
         {
             get { return _contract; }
             set { SetProperty(ref _contract, value); }
