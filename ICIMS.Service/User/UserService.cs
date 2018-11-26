@@ -72,5 +72,32 @@ namespace ICIMS.Service
             var items = await _webApiClient.GetAsync<ResultData<List<RoleModel>>>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "GetRoles"),null);
             return items;
         }
+
+        public async Task<List<UserModel>> GetAll(int SkipCount = 0, int MaxResultCount = int.MaxValue)
+        {
+            var para = new { MaxResultCount, SkipCount };
+            var data = await _webApiClient.GetAsync<ResultData<List<UserModel>>>($"{_webApiClient.BaseUrl}{BaseUrl}GetAll", para);
+
+            return data.Items;
+        }
+
+        public async Task<UserModel> Create(UserModel user)
+        {
+            var data = await _webApiClient.PostAsync<UserModel>($"{_webApiClient.BaseUrl}{BaseUrl}Create", user);
+
+            return data;
+        }
+
+        public async Task<UserModel> Update(UserModel user)
+        {
+            var data = await _webApiClient.PutAsync<UserModel>($"{_webApiClient.BaseUrl}{BaseUrl}Update", user);
+
+            return data;
+        }
+
+        public async Task Delete(int Id)
+        {
+            await _webApiClient.DeleteAsync<UserModel>($"{_webApiClient.BaseUrl}{BaseUrl}Update",new { Id });
+        }
     }
 }

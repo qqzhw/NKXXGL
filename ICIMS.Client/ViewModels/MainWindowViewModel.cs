@@ -123,16 +123,16 @@ namespace ICIMS.Client.ViewModels
         {
             // _title = Settings.Default.AppName;
             //var ss =await _userSerice.GetUserInfoAsync(1);
-            string TenancyName = "Default";
+            string TenancyName = "";//"Default";
             string UserName = "admin";
             string Password = "123qwe";
             var user=_userSerice.LoginAsync(UserName,Password,TenancyName);
             _container.RegisterInstance(user, new ContainerControlledLifetimeManager());
-            var roles = await _userSerice.GetUserRoles();
-            foreach (var item in roles.Items)
-            {
-                //user.RolesName.Add(item.DisplayName);
-            }
+            //var roles = await _userSerice.GetUserRoles();
+            //foreach (var item in roles.Items)
+            //{
+            //    //user.RolesName.Add(item.DisplayName);
+            //}
             List <KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>();
             keyValuePairs.Add(new KeyValuePair<string, string>("Id", "5"));
             keyValuePairs.Add(new KeyValuePair<string, string>("FileName", "FileNames"));
@@ -203,7 +203,7 @@ namespace ICIMS.Client.ViewModels
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "ViewA",
+                Id = "SystemAdminView",
                 Title = "系统管理",
                 InitMode = InitializationMode.OnDemand,
                 IsDefaultShow = false,

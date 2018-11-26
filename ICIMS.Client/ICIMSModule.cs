@@ -44,6 +44,7 @@ namespace ICIMS.Client
             containerRegistry.RegisterForNavigation<ViewA>();
             containerRegistry.RegisterForNavigation<ViewB>();
             containerRegistry.RegisterForNavigation<BusinessManagesView>();
+            containerRegistry.RegisterForNavigation<SystemAdminView>();
         }
     }
 }

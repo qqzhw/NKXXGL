@@ -42,6 +42,12 @@
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CommonServiceLocator.2.0.4\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>
+    <Reference Include="MahApps.Metro.IconPacks.Core">
+      <HintPath>..\..\packages\MahApps.Metro.IconPacks.FontAwesome.3.0.0-alpha0088\lib\net47\MahApps.Metro.IconPacks.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro.IconPacks.FontAwesome">
+      <HintPath>..\..\packages\MahApps.Metro.IconPacks.FontAwesome.3.0.0-alpha0088\lib\net47\MahApps.Metro.IconPacks.FontAwesome.dll</HintPath>
+    </Reference>
     <Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
     </Reference>
@@ -65,6 +71,27 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls, Version=2018.2.515.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DLLs\Telerik.Windows.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Data">
+      <HintPath>..\..\DLLs\Telerik.Windows.Controls.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.GridView">
+      <HintPath>..\..\DLLs\Telerik.Windows.Controls.GridView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Input">
+      <HintPath>..\..\DLLs\Telerik.Windows.Controls.Input.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Navigation, Version=2018.2.515.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DLLs\Telerik.Windows.Controls.Navigation.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Data, Version=2018.2.515.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DLLs\Telerik.Windows.Data.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Abstractions, Version=3.3.1.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Unity.Abstractions.3.3.1\lib\net47\Unity.Abstractions.dll</HintPath>
@@ -121,9 +148,29 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ICIMS.Controls\ICIMS.Controls.csproj">
+      <Project>{dd105b6c-76a1-4bab-93e6-1c51374bf8c8}</Project>
+      <Name>ICIMS.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ICIMS.Core\ICIMS.Core.csproj">
       <Project>{E642B971-FC28-48E8-9015-A863AA148D6C}</Project>
       <Name>ICIMS.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ICIMS.Metro\ICIMS.Metro.csproj">
+      <Project>{a352bf5f-8655-499a-b0ec-195aab99e83a}</Project>
+      <Name>ICIMS.Metro</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ICIMS.Model\ICIMS.Model.csproj">
+      <Project>{EC6B9D27-D03E-48AB-A6DF-060A8AB7F25F}</Project>
+      <Name>ICIMS.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ICIMS.Service\ICIMS.Service.csproj">
+      <Project>{D0DB70EE-E7AB-479A-8AB0-3214359825B5}</Project>
+      <Name>ICIMS.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICIMS.Modules.BaseData\ICIMS.Modules.BaseData.csproj">
+      <Project>{d1c89aa2-20e5-40d1-b9ec-85d1790de85b}</Project>
+      <Name>ICIMS.Modules.BaseData</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

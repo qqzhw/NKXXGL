@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ICIMS.Model.User
 {
-    public class UserModel: BindableBase
+    public class UserModel : BindableBase
     {
         public UserModel()
         {
@@ -27,7 +27,7 @@ namespace ICIMS.Model.User
         public string Name { get => _name; set => SetProperty(ref _name, value); }
 
 
-        private long? _unitId; 
+        private long? _unitId;
         public long? UnitId { get => _unitId; set => SetProperty(ref _unitId, value); }
 
         private string _unitName;
@@ -38,7 +38,9 @@ namespace ICIMS.Model.User
 
         private List<string> _rolesName;
         public List<string> RolesName { get => _rolesName; set => SetProperty(ref _rolesName, value); }
+        public List<UnitModel> Units { get => _units; set => SetProperty(ref _units, value); }
 
+        private List<UnitModel> _units;
 
     }
 }
