@@ -70,8 +70,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             SearchItemCommand = new DelegateCommand(OnSelectedItemCategory);
             CaractTypeCommand= new DelegateCommand(OnSelectedCaractType);
             SearchVendorCommand = new DelegateCommand(OnSelectedVendor);
-            UploadCommand = new DelegateCommand(OnUploadedFiles);
-            _contract = null ?? new Contract();
+            UploadCommand = new DelegateCommand(OnUploadedFiles); 
             _filesManages = new ObservableCollection<FilesManage>();
             _buinessAudits = new ObservableCollection<BusinessAudit>();
             _auditMappings = new ObservableCollection<AuditMapping>();
@@ -129,9 +128,16 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         internal void BindData(ContractList info)
         {
-            if (info == null)
+            if (info.Id == 0)
             {
-                _contractCategory = new ContractItem();
+                //_contractCategory = new ContractItem();
+                //_vendorItem = new VendorItem();
+                //_itemDefine = new ItemDefine();
+                _contract = null ?? new Contract();
+                _contract.BeginTime = DateTime.Now;
+                _contract.EndTime = DateTime.Now;
+                _contract.IdentifyDate = DateTime.Now;
+                _contract.ContractTime = DateTime.Now;
                 return;
             }
             //ItemDefine.AuditDate = info.AuditDate;
@@ -153,6 +159,17 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
             Contract = Mapper.Map<Contract>(info);
             GetFiles(Contract);
+            LoadAuditMappings();
+            LoadItemDefine(Contract.ItemDefineId);//加载立项项目
+        }
+        
+        private async void LoadItemDefine(int Id)
+        {
+            if (Id > 0)
+            {
+                var item = await _itemDefineService.GetById(Id);
+                ItemDefine = item;
+            }
         }
         private ObservableCollection<FilesManage> _filesManages;
         public ObservableCollection<FilesManage> FilesManages
@@ -213,8 +230,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         keyValuePairs.Add(new KeyValuePair<string, string>("EntityId", Contract.Id.ToString()));
                         keyValuePairs.Add(new KeyValuePair<string, string>("FileName", fileName));
                         keyValuePairs.Add(new KeyValuePair<string, string>("UploadType", viewModel.SelectedItem.Name));
-                        keyValuePairs.Add(new KeyValuePair<string, string>("EntityKey", "ItemDefine"));
-                        keyValuePairs.Add(new KeyValuePair<string, string>("EntityName", "立项登记"));
+                        keyValuePairs.Add(new KeyValuePair<string, string>("EntityKey", "Contract"));
+                        keyValuePairs.Add(new KeyValuePair<string, string>("EntityName", "合同登记"));
                         var filemanage = await _filesService.UploadFileAsync(keyValuePairs, filePath, fileName);
                         FilesManages.Add(filemanage);
                     }
@@ -226,7 +243,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private async void OnSave()
         {
-            _contract.BeginTime = DateTime.Now;
+            
             //ItemDefine.DefineDate = DateTime.Now;
             //ItemDefine.ItemAddress = "成都";
             //ItemDefine.ItemCategoryId = 1;
@@ -235,12 +252,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             //ItemDefine.ItemName = "立项研究项目";
             //ItemDefine.Remark = "beizhu";
             //ItemDefine.UnitId = 1;
-            if (ContractCategory.Id<1||ItemDefine.Id<1||VendorItem.Id<1)
+            if (ContractCategory==null||ItemDefine==null||VendorItem==null)
             {
                 return;
             }
             Contract.VendorId = VendorItem.Id;
-            Contract.UnitId = 1;
+            Contract.UnitId = ItemDefine.UnitId;
             Contract.ContractCategoryId = ContractCategory.Id;
             Contract.ItemDefineId = ItemDefine.Id;
             await _contractService.CreateOrUpdate(Contract);

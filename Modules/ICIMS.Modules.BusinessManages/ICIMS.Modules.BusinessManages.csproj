@@ -149,8 +149,10 @@
     <Compile Include="ViewModels\ReViewDefineEditViewModel.cs" />
     <Compile Include="ViewModels\ReViewDefineViewModel.cs" />
     <Compile Include="ViewModels\SelectedContractTypeModel.cs" />
+    <Compile Include="ViewModels\SelectedContractViewModel.cs" />
     <Compile Include="ViewModels\SelectedDocumentTypeModel.cs" />
     <Compile Include="ViewModels\SelectedItemDefineViewModel.cs" />
+    <Compile Include="ViewModels\SelectedPaymentTypeModel.cs" />
     <Compile Include="ViewModels\SelectedVendorViewModel.cs" />
     <Compile Include="ViewModels\SelectItemCategoryViewModel.cs" />
     <Compile Include="ViewModels\SubmitAuditViewModel.cs" />
@@ -211,11 +213,17 @@
     <Compile Include="Views\SelectedContractType.xaml.cs">
       <DependentUpon>SelectedContractType.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SelectedContractView.xaml.cs">
+      <DependentUpon>SelectedContractView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SelectedDocumentType.xaml.cs">
       <DependentUpon>SelectedDocumentType.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SelectedItemDefineView.xaml.cs">
       <DependentUpon>SelectedItemDefineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectedPaymentType.xaml.cs">
+      <DependentUpon>SelectedPaymentType.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SelectedVendorView.xaml.cs">
       <DependentUpon>SelectedVendorView.xaml</DependentUpon>
@@ -316,6 +324,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SelectedContractView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SelectedDocumentType.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -323,6 +335,10 @@
     <Page Include="Views\SelectedItemDefineView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SelectedPaymentType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SelectedVendorView.xaml">
       <SubType>Designer</SubType>

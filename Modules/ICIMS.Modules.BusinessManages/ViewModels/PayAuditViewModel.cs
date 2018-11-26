@@ -167,7 +167,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             var view = _container.Resolve<PayAuditEditView>(new ParameterOverride("data", SelectedItem));
             var notification = new Notification()
             {
-                Title = "立项编辑",
+                Title = "支付审核编辑",
                 WindowState = System.Windows.WindowState.Maximized,
                 Content = view,// (new ParameterOverride("name", "")), 
             };

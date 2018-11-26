@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ICIMS.Core.Interactivity;
 using ICIMS.Core.Interactivity.InteractionRequest;
+using ICIMS.Model.BaseData;
 using ICIMS.Model.BusinessManages;
 using ICIMS.Modules.BusinessManages.Views;
 using ICIMS.Service;
@@ -37,6 +38,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand BackCommand { get; private set; }
         public DelegateCommand LogCommand { get; private set; }
         public DelegateCommand SearchItemCommand { get; private set; }
+        public DelegateCommand SearchContractCommand { get; private set; }
+        public DelegateCommand SearchPaymentCommand { get; private set; }
         public DelegateCommand UploadCommand { get; private set; }
 
         private string _title;
@@ -59,13 +62,45 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             CancelCommand = new DelegateCommand(OnCancel);
             BackCommand = new DelegateCommand(OnBack);
             LogCommand = new DelegateCommand(OnShowLog);
-            SearchItemCommand = new DelegateCommand(OnSelectedItemCategory);
+            SearchItemCommand = new DelegateCommand(OnSelectedItem);
+            SearchContractCommand = new DelegateCommand(OnSelectedContract);
+            SearchPaymentCommand= new DelegateCommand(OnSelectedPaymentType);
             UploadCommand = new DelegateCommand(OnUploadedFiles);
             _payAudit = new PayAudit();
             _filesManages = new ObservableCollection<FilesManage>();
             _buinessAudits = new ObservableCollection<BusinessAudit>();
             _auditMappings = new ObservableCollection<AuditMapping>();
             BindData(data);
+        }
+
+        private void OnSelectedPaymentType()
+        {
+            
+        }
+
+        /// <summary>
+        /// 选择合同
+        /// </summary>
+        private void OnSelectedContract()
+        {
+
+            var view = _unityContainer.Resolve<SelectedContract>();
+            var notification = new Notification()
+            {
+                Title = "项目立项列表",
+                Content = view,// (new ParameterOverride("name", "")), 
+            };
+            PopupWindows.NotificationRequest.Raise(notification, (callback) =>
+            {
+                if (callback.DialogResult == true)
+                {
+                    var selectView = callback.Content as SelectedContractType;
+                    var viewModel = selectView.DataContext as SelectedContractTypeModel;
+                    ContractCategory = viewModel.SelectedItem;
+                }
+
+            });
+            view.BindAction(notification.Finish);
         }
 
         internal void BindData(PayAuditList info)
@@ -199,7 +234,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             var items = await _auditMappingService.GetAllAuditMappings(3, 2);
             _auditMappings.AddRange(items.Items);
         }
-        private void OnSelectedItemCategory()
+        private void OnSelectedItem()
         {
             var view = _unityContainer.Resolve<SelectItemCategoryView>();
             var notification = new Notification()
@@ -232,6 +267,25 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _payAuditList; }
             set { SetProperty(ref _payAuditList, value); }
         }
+        private Contract _contract;
+        public Contract Contract
+        {
+            get { return _contract; }
+            set { SetProperty(ref _contract, value); }
+        }
+        private ItemDefine _itemDefine;
+        public ItemDefine ItemDefine
+        {
+            get { return _itemDefine; }
+            set { SetProperty(ref _itemDefine, value); }
+        }
+        private PaymentTypeItem _paymentTypeItem;
+        public PaymentTypeItem PaymentTypeItem
+        {
+            get { return _paymentTypeItem; }
+            set { SetProperty(ref _paymentTypeItem, value); }
+        }
+         
     }
 
 }
