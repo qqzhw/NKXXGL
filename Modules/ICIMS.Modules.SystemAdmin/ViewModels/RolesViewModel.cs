@@ -107,7 +107,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                         var data = await _service.Update(newItem.Item);
                         if (data != null)
                         {
-                            this.Items.Add(data);
+                            CommonHelper.SetValue(this.SelectedItem, data);
                             MessageBox.Show("保存成功！");
                         }
                     }

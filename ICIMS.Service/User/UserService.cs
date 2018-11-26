@@ -15,7 +15,7 @@ namespace ICIMS.Service
 {
     public class UserService:IUserService
     {
-        private const string BaseUrl = "/api/services/app/User/";
+        private const string BaseUrl = "api/services/app/User/";
         private IWebApiClient _webApiClient;
         public UserService(IWebApiClient webApiClient)
         {
@@ -38,7 +38,7 @@ namespace ICIMS.Service
                 Name = resultDto.Name,
                 UnitId = resultDto.UnitId,
                 UnitName = resultDto.UnitName,
-                RolesName=resultDto.RolesName
+                RolesNames=resultDto.RolesName
             };
             return user;
         }
@@ -68,8 +68,9 @@ namespace ICIMS.Service
         }
 
         public async Task<ResultData<List<RoleModel>>> GetUserRoles()
-        { 
-            var items = await _webApiClient.GetAsync<ResultData<List<RoleModel>>>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "GetRoles"),null);
+        {
+            
+              var items = await _webApiClient.GetAsync<ResultData<List<RoleModel>>>($"{_webApiClient.BaseUrl}{BaseUrl}GetRoles", null);
             return items;
         }
 
@@ -97,7 +98,7 @@ namespace ICIMS.Service
 
         public async Task Delete(int Id)
         {
-            await _webApiClient.DeleteAsync<UserModel>($"{_webApiClient.BaseUrl}{BaseUrl}Update",new { Id });
+            await _webApiClient.DeleteAsync<UserModel>($"{_webApiClient.BaseUrl}{BaseUrl}Delete",new { Id });
         }
     }
 }

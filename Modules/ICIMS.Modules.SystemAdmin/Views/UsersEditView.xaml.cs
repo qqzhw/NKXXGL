@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ICIMS.Modules.SystemAdmin.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,18 @@ namespace ICIMS.Modules.SystemAdmin.Views
     /// </summary>
     public partial class UsersEditView : UserControl
     {
-        public UsersEditView()
+        public UsersEditViewModel ViewModel { get; }
+
+        public void BindAction(Action<bool?> action)
+        {
+            ViewModel.Close = action;
+        }
+        public UsersEditView(UsersEditViewModel viewModel)
         {
             InitializeComponent();
+            this.DataContext = viewModel;
+            viewModel.View = this;
+            this.ViewModel = viewModel;
         }
     }
 }

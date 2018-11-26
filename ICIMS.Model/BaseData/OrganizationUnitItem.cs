@@ -20,6 +20,7 @@ namespace ICIMS.Model.BaseData
         private DateTime _creationTime;
         private DateTime? _lastModificationTime;
         private OrganizationUnitItem _parent;
+        private bool _isChecked;
 
         public OrganizationUnitItem()
         {
@@ -78,7 +79,7 @@ namespace ICIMS.Model.BaseData
             {
                 var cnt = this.GroupNo.Split('-').Length;
 
-                return 1;
+                return cnt;
             }
         }
 
@@ -97,5 +98,7 @@ namespace ICIMS.Model.BaseData
                 return Published ? "是" : "否";
             }
         }
+
+        public bool IsChecked { get => _isChecked; set => SetProperty(ref _isChecked,value); }
     }
 }

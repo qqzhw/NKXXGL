@@ -17,7 +17,7 @@
             <control:CustomButton Height="36" Command="{Binding AddCommand}"  IconBackground="#682357"   Kind="PlusSolid"  Width="100" Margin="10,0,0,0" Title="新增"/>
             <control:CustomButton Height="36" Command="{Binding EditCommand}" IconBackground="#91CE2D"   Kind="EditSolid"  Width="100" Margin="10,0,0,0" Title="修改"/>
             <control:CustomButton Height="36" Command="{Binding DeleteCommand}" IconBackground="#AD372D"   Kind="TimesSolid"  Width="100" Margin="10,0,0,0" Title="删除"/>
-            <control:CustomButton Height="36" Command="{Binding RefreshCommand}" IconBackground="#C1852D"  Kind="RedoSolid"  Width="100" Margin="10,0,0,0" Title="密码重设"/>
+            <!--<control:CustomButton Height="36" Command="{Binding RefreshCommand}" IconBackground="#C1852D"  Kind="RedoSolid"  Width="100" Margin="10,0,0,0" Title="密码重设"/>-->
             <control:CustomButton Height="36" Command="{Binding RefreshCommand}" IconBackground="#C1852D"  Kind="SyncSolid"  Width="100" Margin="10,0,0,0" Title="刷新"/>
         </StackPanel>
         <Grid Grid.Row="1" Background="#F5F5F5">
@@ -43,38 +43,44 @@
                 </StackPanel>
             </DockPanel>
             <telerik:RadGridView ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.Row="1" FontFamily="SimSun"  x:Name="radInfo" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display" SelectedItem="{Binding SelectedItem}"   ItemsSource="{Binding ContractLists}"  
+						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display" SelectedItem="{Binding SelectedItem}"   ItemsSource="{Binding Items}"  
 							   BorderBrush="#E4E7F0" BorderThickness="1,0,0,0"   SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#F5F5F5"   AlternationCount="2"   >
 
                 <telerik:RadGridView.Columns>
-                    <telerik:GridViewDataColumn Header="序号" Width="60"    DataMemberBinding="{Binding Status}" />
-                    <telerik:GridViewDataColumn Header="登录名" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" MinWidth="100"/>
-                    <telerik:GridViewDataColumn Header="操作员" Width="60"    DataMemberBinding="{Binding Status}" />
-                    <telerik:GridViewDataColumn Header="角色名称" Width="80"    DataMemberBinding="{Binding Status}" />
-                    <telerik:GridViewDataColumn Header="部门编号" Width="80"    DataMemberBinding="{Binding Status}" />
-                    <telerik:GridViewDataColumn Header="部门名称" Width="80"    DataMemberBinding="{Binding Status}" />
+                    <!--<telerik:GridViewDataColumn Header="序号" Width="60"    DataMemberBinding="{Binding Status}" />-->
+                    <telerik:GridViewDataColumn Header="登录名" DataMemberBinding="{Binding UserName}" TextWrapping="Wrap" MinWidth="100"/>
+                    <telerik:GridViewDataColumn Header="操作员" Width="60"    DataMemberBinding="{Binding Name}" />
+                    <telerik:GridViewDataColumn Header="角色名称" Width="80"    DataMemberBinding="{Binding RolesNameStr}" />
+                    <telerik:GridViewDataColumn Header="部门编号" Width="80"    DataMemberBinding="{Binding UnitId}" />
+                    <telerik:GridViewDataColumn Header="部门名称" Width="80"    DataMemberBinding="{Binding UnitName}" />
                 </telerik:RadGridView.Columns>
             </telerik:RadGridView>
             <Grid Grid.Column="1">
                 <DockPanel>
-                    <control:CustomButton Height="36" Command="{Binding AddCommand}"  IconBackground="#682357"   Kind="CheckSolid"  Width="100" Margin="10,0,0,0" Title="全选"/>
-                    <control:CustomButton Height="36" Command="{Binding AddCommand}"  IconBackground="#682357"   Kind="RedoSolid"  Width="100" Margin="10,0,0,0" Title="取消"/>
-                    <control:CustomButton Height="36" Command="{Binding AddCommand}" DockPanel.Dock="Right"  IconBackground="#682357"   Kind="SaveSolid"  Width="100" Margin="10,0,0,0" Title="保存"/>
+                    <control:CustomButton Height="36" Command="{Binding CheckAllCommand}"  IconBackground="#682357"   Kind="CheckSolid"  Width="100" Margin="10,0,0,0" Title="全选"/>
+                    <control:CustomButton Height="36" Command="{Binding UnCheckAllCommand}"  IconBackground="#682357"   Kind="RedoSolid"  Width="100" Margin="10,0,0,0" Title="取消"/>
+                    <control:CustomButton Height="36" Command="{Binding SaveCommand}" DockPanel.Dock="Right"  IconBackground="#682357"   Kind="SaveSolid"  Width="100" Margin="10,0,0,0" Title="保存"/>
                 </DockPanel>
             </Grid>
             <telerik:RadGridView ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="1" FontFamily="SimSun"  x:Name="radInfo1" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display" SelectedItem="{Binding SelectedItem}"   ItemsSource="{Binding ContractLists}"  
+						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display" SelectedItem="{Binding SelectedItem}"   ItemsSource="{Binding Departments}"  
 							   BorderBrush="#E4E7F0" BorderThickness="1,0,0,0"   SelectionUnit="FullRow"  SelectionMode="Single"    
-                                 IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
+                                 IsReadOnly="False"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#F5F5F5"   AlternationCount="2"   >
 
                 <telerik:RadGridView.Columns>
-                    <telerik:GridViewDataColumn Header="选择" Width="60"    DataMemberBinding="{Binding Status}" />
-                    <telerik:GridViewDataColumn Header="编号" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" MinWidth="100"/>
-                    <telerik:GridViewDataColumn Header="名称" Width="60"    DataMemberBinding="{Binding Status}" />
-                    <telerik:GridViewDataColumn Header="序号" Width="80"    DataMemberBinding="{Binding Status}" />
+                    <telerik:GridViewDataColumn IsReadOnly="False" Header="选择" Width="60" >
+                        <telerik:GridViewDataColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsChecked}"/>
+                            </DataTemplate>
+                        </telerik:GridViewDataColumn.CellTemplate>
+                    </telerik:GridViewDataColumn>
+                    <telerik:GridViewDataColumn IsReadOnly="True"  Header="编号" DataMemberBinding="{Binding Code}" TextWrapping="Wrap" MinWidth="100"/>
+                    <telerik:GridViewDataColumn  IsReadOnly="True" Header="名称" Width="60"    DataMemberBinding="{Binding DisplayName}" />
+                    <!--<telerik:GridViewDataColumn Header="序号" Width="80"    DataMemberBinding="{Binding Status}" />-->
                 </telerik:RadGridView.Columns>
             </telerik:RadGridView>
         </Grid>

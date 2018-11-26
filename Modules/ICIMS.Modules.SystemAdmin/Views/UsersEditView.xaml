@@ -20,27 +20,45 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Background="#F5F5F5">
-            <control:CustomButton Height="36" Command="{Binding AddCommand}"  IconBackground="#682357"   Kind="SaveSolid"  Width="100" Margin="10,0,0,0" Title="确定"/>
-            <control:CustomButton Height="36" Command="{Binding RefreshCommand}" IconBackground="#C1852D"  Kind="SyncSolid"  Width="100" Margin="10,0,0,0" Title="重置"/>
+            <control:CustomButton Height="36" Command="{Binding SaveCommand}"  IconBackground="#682357"   Kind="SaveSolid"  Width="100" Margin="10,0,0,0" Title="确定"/>
+            <control:CustomButton Height="36" Command="{Binding ResetCommand}" IconBackground="#C1852D"  Kind="SyncSolid"  Width="100" Margin="10,0,0,0" Title="重置"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Background="#DCDCDC">
             <DockPanel Margin="10">
                 <TextBlock>登录名</TextBlock>
-                <TextBox/>
+                <TextBox Text="{Binding Item.UserName}"/>
             </DockPanel>
             <DockPanel Margin="10">
                 <TextBlock xml:space="preserve" >姓  名</TextBlock>
-                <TextBox/>
+                <TextBox Text="{Binding Name}"/>
             </DockPanel>
             <DockPanel  xml:space="preserve" Margin="10">
                 <TextBlock>角  色</TextBlock>
-                <!--<TextBox/>-->
-                <telerik:RadAutoCompleteBox/>
+                <!--<TextBox Text="{Binding RoleName}"/>-->
+                <telerik:RadAutoCompleteBox 
+                    WatermarkContent="请选择角色" 
+                    TextSearchPath="DisplayName"
+					TextSearchMode="Contains"
+                    DisplayMemberPath="DisplayName"
+					AutoCompleteMode="Suggest"
+					SelectionMode="Single"
+					ItemsSource="{Binding Roles}"
+                    SelectedItem="{Binding SelectedRole}"
+                    />
             </DockPanel>
             <DockPanel Margin="10">
                 <TextBlock>所属部门</TextBlock>
-                <!--<TextBox/>-->
-                <telerik:RadAutoCompleteBox/>
+                <!--<TextBox Text="{Binding Department}"/>-->
+                <telerik:RadAutoCompleteBox
+                     WatermarkContent="请选择部门" 
+                    TextSearchPath="DisplayName"
+					TextSearchMode="Contains"
+					AutoCompleteMode="Suggest"
+					SelectionMode="Single"
+                    DisplayMemberPath="DisplayName"
+					ItemsSource="{Binding Departments}"
+                    SelectedItem="{Binding SelectedDepartment}"
+                    />
             </DockPanel>
         </StackPanel>
     </Grid>

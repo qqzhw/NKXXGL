@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Unity.Attributes;
 
 namespace ICIMS.Modules.SystemAdmin.Views
 {
@@ -21,12 +22,19 @@ namespace ICIMS.Modules.SystemAdmin.Views
     /// </summary>
     public partial class UsersView : UserControl
     {
-       
+
+        [Unity.Attributes.Dependency]
+        public UsersViewModel ViewModel { get; set; }
         public UsersView(UsersViewModel viewModel)
         {
             InitializeComponent();
-            this.DataContext = viewModel;
-            viewModel.View = this;
+        }
+
+        [InjectionMethod]
+        public void Init()
+        {
+            this.DataContext = ViewModel;
+            ViewModel.View = this;
         }
 
     }
