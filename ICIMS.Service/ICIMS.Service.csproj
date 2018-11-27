@@ -106,9 +106,11 @@
     <Compile Include="BusinessManages\IContractService.cs" />
     <Compile Include="BusinessManages\IFilesService.cs" />
     <Compile Include="BusinessManages\IItemDefineService.cs" />
+    <Compile Include="BusinessManages\IPayAuditDetailService.cs" />
     <Compile Include="BusinessManages\IPayAuditService.cs" />
     <Compile Include="BusinessManages\IReViewDefineService.cs" />
     <Compile Include="BusinessManages\ItemDefineService.cs" />
+    <Compile Include="BusinessManages\PayAuditDetailService.cs" />
     <Compile Include="BusinessManages\PayAuditService.cs" />
     <Compile Include="BusinessManages\ReViewDefineService.cs" />
     <Compile Include="CommonHelper.cs" />
