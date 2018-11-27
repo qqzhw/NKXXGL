@@ -79,6 +79,7 @@
     <Compile Include="BusinessManages\ItemDefineList.cs" />
     <Compile Include="BusinessManages\OrganizationUnit.cs" />
     <Compile Include="BusinessManages\PayAudit.cs" />
+    <Compile Include="BusinessManages\PayAuditDetail.cs" />
     <Compile Include="BusinessManages\PayAuditList.cs" />
     <Compile Include="BusinessManages\ReViewDefine.cs" />
     <Compile Include="BusinessManages\ReViewDefineList.cs" />
