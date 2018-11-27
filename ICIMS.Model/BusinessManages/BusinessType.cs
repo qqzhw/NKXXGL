@@ -2,6 +2,7 @@
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace ICIMS.Model.BusinessManages
@@ -15,5 +16,9 @@ namespace ICIMS.Model.BusinessManages
         public int DisplayOrder { get; set; }
         public int? TenantId { get; set ; }
         public bool IsDeleted { get ; set ; }
+        public int No { get; set; }
+        public ObservableCollection<BusinessAudit> Audits { get => _audits; set =>SetProperty(ref _audits,value); }
+
+        private ObservableCollection<BusinessAudit> _audits;
     }
 }
