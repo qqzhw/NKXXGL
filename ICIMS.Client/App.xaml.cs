@@ -95,10 +95,6 @@ namespace ICIMS.Client
             //webApiClient.UserName = "admin";
             //webApiClient.Password = "123qwe";
             //webApiClient.TokenBasedAuth();
-            // containerRegistry.RegisterSingleton<IWebApiClient>();
-
-            containerRegistry.RegisterSingleton<IRoleService, RoleService>();
-            containerRegistry.RegisterSingleton<IUserService, UserService>();
             containerRegistry.RegisterSingleton<IFundFromService, FundFromService>();
             containerRegistry.RegisterSingleton<IBuyCategoryService, BuyCategoryService>();
             containerRegistry.RegisterSingleton<IPaymentTypeService, PaymentTypeService>();
@@ -108,6 +104,10 @@ namespace ICIMS.Client
             containerRegistry.RegisterSingleton<IVendorService, VendorService>();
             containerRegistry.RegisterSingleton<IYsCategoryService, YsCategoryService>();
             containerRegistry.RegisterSingleton<ISubjectService, SubjectService>();
+            // containerRegistry.RegisterSingleton<IWebApiClient>();
+
+            containerRegistry.RegisterSingleton<IRoleService, RoleService>();
+            containerRegistry.RegisterSingleton<IUserService, UserService>();
             containerRegistry.RegisterSingleton<IOrganizationUnitService, OrganizationUnitService>(); 
             containerRegistry.RegisterSingleton<IContractService, ContractService>();
             containerRegistry.RegisterSingleton<IItemDefineService, ItemDefineService>();

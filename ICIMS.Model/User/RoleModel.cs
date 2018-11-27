@@ -23,7 +23,7 @@ namespace ICIMS.Model.User
         public bool IsStatic { get => _isStatic; set => SetProperty(ref _isStatic, value); }
 
         public List<string> _permissions = new List<string>();
-        public List<string> Permissions { get => _permissions; set => SetProperty(ref _permissions, value); }
+        public List<string> Permissions { get => _permissions; set => SetProperty(ref _permissions, value.Where(a=>!string.IsNullOrEmpty(a)).ToList()); }
         //private long _unitId;
         //public long UnitId { get => _unitId; set => SetProperty(ref _unitId, value); }
 
