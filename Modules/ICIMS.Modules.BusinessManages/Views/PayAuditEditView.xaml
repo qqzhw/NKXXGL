@@ -10,10 +10,7 @@
              mc:Ignorable="d" 
               d:DesignHeight="900" d:DesignWidth="1800">
     <Grid Background="#DEDEDE">
-        <Grid.Resources>
-            <Style TargetType="TextBlock">
-                <Setter Property="Width" Value="50"/>
-            </Style>
+        <Grid.Resources> 
             <Style TargetType="TextBox">
                 <Setter Property="MinWidth" Value="100"/>
             </Style>
@@ -45,91 +42,130 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="25"/>
                         <RowDefinition Height="25"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition />
+                        <RowDefinition/>
+                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    <DockPanel HorizontalAlignment="Stretch" Height="30">
-                        <TextBlock Text="关联项目"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <TextBox  Height="20"  Width="320"  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                    <DockPanel HorizontalAlignment="Stretch" >
+                        <TextBlock Text="关联项目"   VerticalAlignment="Center" />
+                        <TextBox  Height="20" Text="{Binding ItemDefine.ItemName}"   Width="320"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <Button Command="{Binding SearchItemCommand}" Style="{x:Null}" BorderThickness="0" Height="18">
                             <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                         </Button>
                         <TextBlock Text="关联合同" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox  Margin="5,0,0,0" Width="320"  Height="20" VerticalAlignment="Center"/>
-                        <Button Command="{Binding SearchItemCommand}" Style="{x:Null}" HorizontalAlignment="Left" BorderThickness="0" Height="18">
+                        <TextBox Text="{Binding Contract.ContractName}" Margin="5,0,0,0" Width="320"  Height="20" VerticalAlignment="Center"/>
+                        <Button Command="{Binding SearchContractCommand}" Style="{x:Null}" HorizontalAlignment="Left" BorderThickness="0" Height="18">
                             <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                         </Button>
                     </DockPanel>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal"  HorizontalAlignment="Stretch" Height="30">
-                        <TextBlock Text="承建单位" Margin="5,0,0,0"  VerticalAlignment="Center"/>
-                        <TextBox  Height="20" Width="250" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal"  HorizontalAlignment="Stretch" >
+                        <TextBlock Text="承建单位"    VerticalAlignment="Center"/>
+                        <TextBox  Height="20" Width="250" Text="{Binding VendorItem.Name}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="开户行"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <TextBox  Height="20" HorizontalAlignment="Left" Width="200" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="20" HorizontalAlignment="Left" Text="{Binding VendorItem.OpenBack}" Width="200" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="银行账户"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <TextBox  Height="20" Width="150" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                    </StackPanel>
-                    <Grid Grid.Row="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="160"/>
-                        </Grid.ColumnDefinitions>
-                        <DockPanel>
-                            <TextBlock Text="部  门"/>
+                        <TextBox  Height="20" Width="150"  Text="{Binding VendorItem.AccountName}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel> 
+                        <DockPanel Grid.Row="2" >
+                            <TextBlock Text="部 门" VerticalAlignment="Center" Margin="18,0,0,0"/>
+                            <TextBox  Height="20"  Margin="5,0,0,0" Text="{Binding UnitName}" VerticalAlignment="Center"/>
+                            <TextBlock Text="支付类型" Margin="5,0,0,0" VerticalAlignment="Center"/>
                             <TextBox  Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="支付类型"/>
-                            <TextBox  Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
-                           
-                        </DockPanel>
-                        <DockPanel Grid.Row="1">
-                            <TextBlock Text="支付编号"/>
-                            <TextBox  Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="支付名称"/>
-                            <TextBox  Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        </DockPanel>
-                        <DockPanel Grid.Row="2">
-                            <TextBlock Width="80" Text="项目预算总额"/>
-                            <TextBox  Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <TextBlock VerticalAlignment="Center" Width="12">元</TextBlock>
-                            <TextBlock Text="项目总额"/>
-                            <TextBox  Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <TextBlock VerticalAlignment="Center" Width="12">元</TextBlock>
-                            <TextBlock Text="合同总额"/>
-                            <TextBox  Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <TextBlock VerticalAlignment="Center" Width="12">元</TextBlock>
-                        </DockPanel>
+                            <Button Command="{Binding SearchPaymentCommand}" Style="{x:Null}" HorizontalAlignment="Left" BorderThickness="0" Height="18">
+                                <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
+                            </Button>
+                        <TextBlock Text="资金来源" VerticalAlignment="Center" Margin="18,0,0,0"/>
+                        <telerik:RadComboBox telerik:StyleManager.Theme="Windows8"  Height="24" Width="120"/>
+                        <TextBlock Text="来源金额" VerticalAlignment="Center" Margin="18,0,0,0"/>
+                        <telerik:RadNumericUpDown Width="120" HorizontalAlignment="Left"  Value="{Binding Year}"  Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
+                        <Button Command="{Binding AddMoneyCommand}" Style="{x:Null}" Background="Transparent" HorizontalAlignment="Left" BorderThickness="0" Height="18">
+                            <iconPacks:PackIconFontAwesome Kind="PlusSolid" Height="16" Foreground="#999999" />
+                        </Button>
+                    </DockPanel>
                         <DockPanel Grid.Row="3">
-                            <TextBlock Width="80" Text="本次支付金额"/>
-                            <TextBox  Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <TextBlock VerticalAlignment="Center" Width="12">元</TextBlock>
-                            <TextBlock Text="第"/>
-                            <TextBox  Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <TextBlock VerticalAlignment="Center">次支付</TextBlock>
-                            <TextBlock Width="80" Text="本次支付比例"/>
-                            <TextBox  Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <TextBlock VerticalAlignment="Center" Width="12">%</TextBlock>
+                            <TextBlock Text="支付编号" VerticalAlignment="Center"/>
+                            <TextBox  Height="20"  Margin="5,0,0,0" IsReadOnly="True" Text="{Binding VendorItem.PaymentNo}"  VerticalAlignment="Center"/>
+                            <TextBlock Text="支付名称" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                            <TextBox  Height="20" Text="{Binding VendorItem.PaymentName}"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         </DockPanel>
-                        <DockPanel Grid.Row="4">
-                            <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" Text="付款方式及比例"></TextBlock>
-                            <TextBox Height="160"/>
-                        </DockPanel>
+                        <DockPanel Grid.Row="4" >
+                            <TextBlock Text="预算总额" VerticalAlignment="Center"/>
+                            <TextBox  Height="20" HorizontalAlignment="Left" Text="{Binding PayAudit.ItemYsTotalAmount}" Margin="5,0,0,0"  VerticalAlignment="Center"/>
+                            
+                            <TextBlock Text="项目总额" Margin="5,0,0,0" VerticalAlignment="Center"/> 
+                         <telerik:RadNumericUpDown Width="120" Value="{Binding PayAudit.ItemTotalAmount}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
+
+                        <TextBlock VerticalAlignment="Center" Width="12">元</TextBlock>
+                            <TextBlock Text="合同总额" Margin="30,0,0,0" VerticalAlignment="Center"/> 
+                        <telerik:RadNumericUpDown Width="140" HorizontalAlignment="Left" Value="{Binding PayAudit.ContractTotalAmount}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
+
+                    </DockPanel>
                         <DockPanel Grid.Row="5">
-                            <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" Text="备   注"></TextBlock>
-                            <TextBox Height="140"/>
+                        <TextBlock  VerticalAlignment="Center" Text="本次支付"/> 
+                        <telerik:RadNumericUpDown Width="140" Value="{Binding PayAudit.PayAmount}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
+
+                        <TextBlock Text="第" VerticalAlignment="Center" Margin="5,0,0,0"/> 
+                        <telerik:RadNumericUpDown   Value="{Binding PayAudit.PaymentCount}" Minimum="0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" NumberDecimalDigits="0" Maximum="100" />
+
+                        <TextBlock VerticalAlignment="Center">次支付</TextBlock>
+                          <TextBlock Text="本次支付比例" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center"/> 
+                        <telerik:RadNumericUpDown  Value="{Binding PayAudit.PaymentPer}" NumberDecimalDigits="0" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8"  Maximum="100" />
+
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="SimSun" FontSize="14" Width="20">%</TextBlock>
+                        </DockPanel>
+                        <DockPanel Grid.Row="6">
+                            <TextBlock VerticalAlignment="Center" Width="48" TextWrapping="Wrap" Text="付款方式及比例"></TextBlock>
+                            <TextBox Height="48" Margin="5,0,0,0"  Text="{Binding PayAudit.PaymentMethod}" />
+                        </DockPanel>
+                        <DockPanel Grid.Row="7">
+                            <TextBlock VerticalAlignment="Center" Margin="0,2,0,0" TextWrapping="Wrap" Text="备   注"></TextBlock>
+                            <TextBox Height="48" Margin="11,0,0,0" Text="{Binding PayAudit.Remark}" />
                         </DockPanel>
                         
-                    </Grid>
+                    
                 </Grid>
 
             </GroupBox>
             <Grid Grid.Column="1">
-                <GroupBox Header="相关审核人" >
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions> 
+                <GroupBox Header="支付明细">
+                    <telerik:RadGridView FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
+							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
+                                 IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
+                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
+
+                        <!--<telerik:EventToCommandBehavior.EventBindings>
+                            <telerik:EventBinding Command="{Binding ListRightMenue}" EventName="MouseRightButtonUp" 
+                        PassEventArgsToCommand="True" /> 
+                        </telerik:EventToCommandBehavior.EventBindings>-->
+                        <telerik:RadGridView.Columns>
+
+                            <telerik:GridViewDataColumn Header="序号"  Width="60"    HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  DeviceId,Mode =TwoWay}"/>
+
+                            <telerik:GridViewDataColumn Header="支付次数" Width="120"    DataMemberBinding="{Binding DeviceName}" />
+
+                            <telerik:GridViewDataColumn Header="支付金额" Width="120">
+                                <telerik:GridViewDataColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <TextBlock Text="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}" />
+                                    </DataTemplate>
+                                </telerik:GridViewDataColumn.CellTemplate>
+                            </telerik:GridViewDataColumn>
+                            <telerik:GridViewDataColumn Header="支付比例%" DataMemberBinding="{Binding GDDY}" TextWrapping="Wrap" Width="90" />
+
+                        </telerik:RadGridView.Columns>
+
+                    </telerik:RadGridView>
+                </GroupBox>
+                <GroupBox  Grid.Row="1" Header="相关审核人" >
                     <telerik:RadGridView FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
 						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
 							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
@@ -161,129 +197,47 @@
 
                     </telerik:RadGridView>
                 </GroupBox>
-                <telerik:RadTabControl  Grid.Row="1">
-                    <telerik:RadTabItem Header="相关审核人">
-                        <GroupBox Header="相关审核人" Grid.Row="1">
-                            <telerik:RadGridView FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
-							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
-                                 IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
-                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
-
-                                <!--<telerik:EventToCommandBehavior.EventBindings>
-                            <telerik:EventBinding Command="{Binding ListRightMenue}" EventName="MouseRightButtonUp" 
-                        PassEventArgsToCommand="True" /> 
-                        </telerik:EventToCommandBehavior.EventBindings>-->
-                                <telerik:RadGridView.Columns>
-
-                                    <telerik:GridViewDataColumn Header="序号"  Width="60"    HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  DeviceId,Mode =TwoWay}"/>
-
-                                    <telerik:GridViewDataColumn Header="审核角色" Width="120"    DataMemberBinding="{Binding DeviceName}" />
-
-                                    <telerik:GridViewDataColumn Header="审核时间" Width="120">
-                                        <telerik:GridViewDataColumn.CellTemplate>
-                                            <DataTemplate >
-                                                <TextBlock Text="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}" />
-                                            </DataTemplate>
-                                        </telerik:GridViewDataColumn.CellTemplate>
-                                    </telerik:GridViewDataColumn>
-                                    <telerik:GridViewDataColumn Header="状态" DataMemberBinding="{Binding GDDY}" TextWrapping="Wrap" Width="90" />
-                                    <telerik:GridViewDataColumn Header="审核人" DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="90" />
-                                    <telerik:GridViewDataColumn Header="审核意见" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" MinWidth="120" />
-
-                                </telerik:RadGridView.Columns>
-
-                            </telerik:RadGridView>
-                        </GroupBox>
-                    </telerik:RadTabItem>
-                    <telerik:RadTabItem Header="资金来源">
-                        <GroupBox Header="资金来源" Grid.Row="1">
-                            <telerik:RadGridView FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
-							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
-                                 IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
-                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
-
-                                <!--<telerik:EventToCommandBehavior.EventBindings>
-                            <telerik:EventBinding Command="{Binding ListRightMenue}" EventName="MouseRightButtonUp" 
-                        PassEventArgsToCommand="True" /> 
-                        </telerik:EventToCommandBehavior.EventBindings>-->
-                                <telerik:RadGridView.Columns>
-
-                                    <telerik:GridViewDataColumn Header="序号"  Width="60"    HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  DeviceId,Mode =TwoWay}"/>
-
-                                    <telerik:GridViewDataColumn Header="资金来源" Width="120"    DataMemberBinding="{Binding DeviceName}" />
-
-                                    <telerik:GridViewDataColumn Header="支付金额" Width="120">
-                                        <telerik:GridViewDataColumn.CellTemplate>
-                                            <DataTemplate >
-                                                <TextBlock Text="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}" />
-                                            </DataTemplate>
-                                        </telerik:GridViewDataColumn.CellTemplate>
-                                    </telerik:GridViewDataColumn>
-                                    <telerik:GridViewDataColumn Header="备注" DataMemberBinding="{Binding GDDY}" TextWrapping="Wrap" Width="90" />
-                                   
-                                </telerik:RadGridView.Columns>
-
-                            </telerik:RadGridView>
-                        </GroupBox>
-                    </telerik:RadTabItem>
-                </telerik:RadTabControl>
-                <GroupBox Header="支付明细" Grid.Row="0" Grid.Column="1" Grid.RowSpan="6">
-                    <telerik:RadGridView FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
-							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
-                                 IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
-                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
-
-                        <!--<telerik:EventToCommandBehavior.EventBindings>
-                            <telerik:EventBinding Command="{Binding ListRightMenue}" EventName="MouseRightButtonUp" 
-                        PassEventArgsToCommand="True" /> 
-                        </telerik:EventToCommandBehavior.EventBindings>-->
-                        <telerik:RadGridView.Columns>
-
-                            <telerik:GridViewDataColumn Header="序号"  Width="60"    HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  DeviceId,Mode =TwoWay}"/>
-
-                            <telerik:GridViewDataColumn Header="支付次数" Width="120"    DataMemberBinding="{Binding DeviceName}" />
-
-                            <telerik:GridViewDataColumn Header="支付金额" Width="120">
-                                <telerik:GridViewDataColumn.CellTemplate>
-                                    <DataTemplate >
-                                        <TextBlock Text="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}" />
-                                    </DataTemplate>
-                                </telerik:GridViewDataColumn.CellTemplate>
-                            </telerik:GridViewDataColumn>
-                            <telerik:GridViewDataColumn Header="支付比例%" DataMemberBinding="{Binding GDDY}" TextWrapping="Wrap" Width="90" />
-
-                        </telerik:RadGridView.Columns>
-
-                    </telerik:RadGridView>
-                </GroupBox>
-
-            </Grid>
-            <GroupBox Header="上传附件" Grid.Row="2">
+            </Grid> 
+            <GroupBox Header="上传附件" Background="#DEDEDE" Grid.Row="2"  BorderThickness="0">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid Background="#DEDEDE" Height="32">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding}" FontSize="16" Foreground="#333333"  VerticalAlignment="Center"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <control:CustomButton Height="36"  IconBackground="#07AA7E" Command="{Binding DataContext.ScanCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="CameraSolid"  Width="80" Margin="10,0,0,0" Title="扫描"/>
+                                <control:CustomButton Height="36"  IconBackground="#0382A6" Command="{Binding DataContext.UploadCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="UploadSolid"  Width="80" Margin="10,0,0,0" Title="上传"/>
+                                <control:CustomButton Height="36"  IconBackground="#C0350A" Command="{Binding DataContext.DeleteCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="TrashSolid"  Width="80" Margin="10,0,0,0" Title="删除"/>
+                                <control:CustomButton Height="36"  IconBackground="#666666" Command="{Binding DataContext.BrowseCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="EyeSolid"  Width="80" Margin="10,0,0,0" Title="浏览"/>
+                                <control:CustomButton Height="36"  IconBackground="#777777" Command="{Binding DataContext.DownloadCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="DownloadSolid"  Width="80" Margin="10,0,0,0" Title="下载"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
                 <telerik:RadGridView x:Name="dgInfo" FontFamily="SimSun" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
+						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding FilesManages}"  
 							   BorderBrush="#E4E7F0"  FontWeight="Medium"  SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
-                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"  MinHeight="200" >
+                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
 
 
                     <telerik:RadGridView.Columns>
 
-                        <telerik:GridViewDataColumn Header="序号"  Width="50"    HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  DeviceId,Mode =TwoWay}"/>
-
-                        <telerik:GridViewDataColumn Header="上传业务" Width="120"    DataMemberBinding="{Binding DeviceName}" />
-                        <telerik:GridViewDataColumn Header="上传时间" Width="120"    DataMemberBinding="{Binding DeviceName}" />
+                        <telerik:GridViewDataColumn Header="上传业务" Width="120" TextBlock.FontFamily="SimSun"   DataMemberBinding="{Binding EntityName}" />
 
 
-                        <telerik:GridViewDataColumn Header="文件类型" DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="80" />
+                        <telerik:GridViewDataColumn Header="文件名称"  DataMemberBinding="{Binding FileName}" TextWrapping="Wrap" Width="*" />
+                        <telerik:GridViewDataColumn Header="文件类型" DataMemberBinding="{Binding UploadType}" TextWrapping="Wrap" Width="80" />
+                        <telerik:GridViewDataColumn Header="文件大小" DataMemberBinding="{Binding FileSize}" TextWrapping="Wrap" Width="80" />
+                        <telerik:GridViewDataColumn Header="上传时间" Width="120"  DataMemberBinding="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}"/>
 
-                        <telerik:GridViewDataColumn Header="文件名称" DataMemberBinding="{Binding GDDY}" TextWrapping="Wrap" Width="*" />
 
-                        <telerik:GridViewDataColumn Header="扩展名" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="80" />
+                        <telerik:GridViewDataColumn Header="扩展名" DataMemberBinding="{Binding Extension}" TextWrapping="Wrap" Width="80" />
 
-                        <telerik:GridViewDataColumn Header="上传操作员" DataMemberBinding="{Binding RJBB}" TextWrapping="Wrap" Width="80" />
+                        <!--<telerik:GridViewDataColumn Header="上传人" DataMemberBinding="{Binding CreatorName}" TextWrapping="Wrap" Width="80" />-->
 
 
 
@@ -293,6 +247,37 @@
                 </telerik:RadGridView>
             </GroupBox>
 
+            <GroupBox Header="相关审核人" Grid.Column="1" Grid.Row="2">
+                <telerik:RadGridView FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
+							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
+                                 IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
+                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
+
+                    <!--<telerik:EventToCommandBehavior.EventBindings>
+                            <telerik:EventBinding Command="{Binding ListRightMenue}" EventName="MouseRightButtonUp" 
+                        PassEventArgsToCommand="True" /> 
+                        </telerik:EventToCommandBehavior.EventBindings>-->
+                    <telerik:RadGridView.Columns> 
+                        <telerik:GridViewDataColumn Header="序号"  Width="60"    HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  DeviceId,Mode =TwoWay}"/>
+
+                        <telerik:GridViewDataColumn Header="审核角色" Width="120"    DataMemberBinding="{Binding DeviceName}" />
+
+                        <telerik:GridViewDataColumn Header="审核时间" Width="120">
+                            <telerik:GridViewDataColumn.CellTemplate>
+                                <DataTemplate >
+                                    <TextBlock Text="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}" />
+                                </DataTemplate>
+                            </telerik:GridViewDataColumn.CellTemplate>
+                        </telerik:GridViewDataColumn>
+                        <telerik:GridViewDataColumn Header="状态" DataMemberBinding="{Binding GDDY}" TextWrapping="Wrap" Width="90" />
+                        <telerik:GridViewDataColumn Header="审核人" DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="90" />
+                        <telerik:GridViewDataColumn Header="审核意见" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" MinWidth="120" />
+
+                    </telerik:RadGridView.Columns>
+
+                </telerik:RadGridView>
+            </GroupBox>
         </Grid>
 
     </Grid>

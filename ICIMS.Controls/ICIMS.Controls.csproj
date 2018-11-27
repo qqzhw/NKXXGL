@@ -63,6 +63,15 @@
   <ItemGroup>
     <Compile Include="AnimatedTabControl.cs" />
     <Compile Include="ContainerItemAttribute.cs" />
+    <Compile Include="Converters\StatusColorConverter.cs" />
+    <Compile Include="Converters\BoolToVisibleConverter.cs" />
+    <Compile Include="Converters\CountToHeightConverter.cs" />
+    <Compile Include="Converters\DateToStringConverter.cs" />
+    <Compile Include="Converters\FalseToVisibleConverter.cs" />
+    <Compile Include="Converters\IntToVisibleConverter.cs" />
+    <Compile Include="Converters\NullToCollapsedConverter.cs" />
+    <Compile Include="Converters\NullToVisibleConverter.cs" />
+    <Compile Include="Converters\SelectedColorConverter.cs" />
     <Compile Include="CustomButton.cs" />
     <Compile Include="CustomWrapPanel.cs" />
     <Compile Include="Direction.cs" />

@@ -49,19 +49,19 @@
                         PassEventArgsToCommand="True" /> 
                         </telerik:EventToCommandBehavior.EventBindings>-->
             <telerik:RadGridView.Columns>
-                <telerik:GridViewDataColumn Header="状态" Width="60"    DataMemberBinding="{Binding DeviceName}" />
+                <telerik:GridViewDataColumn Header="状态" Width="60"    DataMemberBinding="{Binding PayAudit.Status}" />
                 
-                <telerik:GridViewDataColumn Header="部门名称" Width="100"/>
-                <telerik:GridViewDataColumn Header="支付编号"  DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="支付名称" DataMemberBinding="{Binding GDDY}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="支付类型" DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="支付金额" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="支付比例" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="支付次数" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="关联项目" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="项目总额" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="关联合同" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
-                <telerik:GridViewDataColumn Header="合同总额" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="部门名称" Width="100" DataMemberBinding="{Binding UnitName}"/>
+                <telerik:GridViewDataColumn Header="支付编号"  DataMemberBinding="{Binding PayAudit.PaymentNo}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="支付名称" DataMemberBinding="{Binding PayAudit.PaymentName}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="支付类型" DataMemberBinding="{Binding PaymentTypeName}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="支付金额" DataMemberBinding="{Binding PayAudit.PayAmount}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="支付比例" DataMemberBinding="{Binding PayAudit.PaymentPer}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="支付次数" DataMemberBinding="{Binding PayAudit.PaymentCount}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="关联项目" DataMemberBinding="{Binding ItemDefineName}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="项目总额" DataMemberBinding="{Binding DefineAmount}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="关联合同" DataMemberBinding="{Binding ContractName}" TextWrapping="Wrap" Width="90" />
+                <telerik:GridViewDataColumn Header="合同总额" DataMemberBinding="{Binding ContractAmount}" TextWrapping="Wrap" Width="90" />
                 <!--<telerik:GridViewDataColumn Header="项目地址" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="*" />-->
                 <!--<telerik:GridViewDataColumn Header="预算编号" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="*" />-->
                 <!--<telerik:GridViewDataColumn Header="签订日期" Width="100">
@@ -71,15 +71,15 @@
                         </DataTemplate>
                     </telerik:GridViewDataColumn.CellTemplate>
                 </telerik:GridViewDataColumn>-->
-                <telerik:GridViewDataColumn Header="承建单位" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
-                <telerik:GridViewDataColumn Header="开户行" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
-                <telerik:GridViewDataColumn Header="账户" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
-                <telerik:GridViewDataColumn Header="付款方式及比例" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
-                <telerik:GridViewDataColumn Header="备注" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
-                <telerik:GridViewDataColumn Header="录入日期" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
-                <telerik:GridViewDataColumn Header="录入操作员" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
-                <telerik:GridViewDataColumn Header="结审日期" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
-                <telerik:GridViewDataColumn Header="结审人" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="承建单位" DataMemberBinding="{Binding VendorName}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="开户行" DataMemberBinding="{Binding OpenBank}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="账户" DataMemberBinding="{Binding AccountName}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="付款方式及比例" DataMemberBinding="{Binding PayAudit.PaymentMethod}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="备注" DataMemberBinding="{Binding PayAudit.Remark}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="录入日期" DataMemberBinding="{Binding CreationTime}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="录入操作员" DataMemberBinding="{Binding CreatorUserName}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="结审日期" DataMemberBinding="{Binding PayAudit.AuditDate}" TextWrapping="Wrap" Width="100" />
+                <telerik:GridViewDataColumn Header="结审人" DataMemberBinding="{Binding AuditUserName}" TextWrapping="Wrap" Width="100" />
               
 
             </telerik:RadGridView.Columns>

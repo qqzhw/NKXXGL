@@ -12,5 +12,7 @@ namespace ICIMS.Service.BaseData
         Task<(int totalCount, List<VendorItem> datas)> GetPageItems(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue);
         Task Delete(int id);
         Task<VendorItem> CreateOrUpdate(VendorItem fundFrom);
+         
+        Task<VendorItem> GetById(int input);
     }
 }

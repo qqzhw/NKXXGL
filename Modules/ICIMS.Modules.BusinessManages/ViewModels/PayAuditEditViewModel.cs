@@ -5,6 +5,7 @@ using ICIMS.Model.BaseData;
 using ICIMS.Model.BusinessManages;
 using ICIMS.Modules.BusinessManages.Views;
 using ICIMS.Service;
+using ICIMS.Service.BaseData;
 using ICIMS.Service.BusinessManages;
 using Microsoft.Win32;
 using Prism.Commands;
@@ -30,6 +31,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IItemDefineService _itemDefineService;
         private readonly IFilesService _filesService;
         private readonly IPayAuditService _payAuditService;
+        private readonly IVendorService _vendorService;
         private readonly IBusinessAuditService _businessAuditService;
         private readonly IAuditMappingService _auditMappingService;
         public DelegateCommand SaveCommand { get; private set; }
@@ -48,7 +50,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public PayAuditEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, PayAuditList data, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService)
+        public PayAuditEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, PayAuditList data, IItemDefineService itemDefineService, IFilesService filesService, IPayAuditService payAuditService, IVendorService vendorService, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
@@ -56,7 +58,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _filesService = filesService;
             _businessAuditService = businessAuditService;
             _auditMappingService = auditMappingService;
-            _title = "项目立项";
+            _payAuditService = payAuditService;
+            _vendorService = vendorService;
+            _title = "支付审核";
             SaveCommand = new DelegateCommand(OnSave);
             SubmitCommand = new DelegateCommand(OnSubmit);
             CancelCommand = new DelegateCommand(OnCancel);
@@ -75,7 +79,23 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private void OnSelectedPaymentType()
         {
-            
+            var view = _unityContainer.Resolve<SelectedPaymentType>();
+            var notification = new Notification()
+            {
+                Title = "支付类型",
+                Content = view,
+            };
+            PopupWindows.NotificationRequest.Raise(notification, (callback) =>
+            {
+                if (callback.DialogResult == true)
+                {
+                    var selectView = callback.Content as SelectedPaymentType;
+                    var viewModel = selectView.DataContext as SelectedPaymentTypeModel;
+                     PaymentTypeItem = viewModel.SelectedItem;
+                }
+
+            });
+            view.BindAction(notification.Finish);
         }
 
         /// <summary>
@@ -87,7 +107,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             var view = _unityContainer.Resolve<SelectedContractView>();
             var notification = new Notification()
             {
-                Title = "项目立项列表",
+                Title = "合同列表",
                 Content = view,// (new ParameterOverride("name", "")), 
             };
             PopupWindows.NotificationRequest.Raise(notification, (callback) =>
@@ -106,7 +126,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         internal void BindData(PayAuditList info)
         {
             if (info.PayAudit == null)
-                return; 
+                return;
+            PayAuditList = info;
             PayAudit = info.PayAudit;
             GetFiles(PayAudit);
         }
@@ -169,8 +190,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         keyValuePairs.Add(new KeyValuePair<string, string>("EntityId", PayAudit.Id.ToString()));
                         keyValuePairs.Add(new KeyValuePair<string, string>("FileName", fileName));
                         keyValuePairs.Add(new KeyValuePair<string, string>("UploadType", viewModel.SelectedItem.Name));
-                        keyValuePairs.Add(new KeyValuePair<string, string>("EntityKey", "ItemDefine"));
-                        keyValuePairs.Add(new KeyValuePair<string, string>("EntityName", "立项登记"));
+                        keyValuePairs.Add(new KeyValuePair<string, string>("EntityKey", "PayAudit"));
+                        keyValuePairs.Add(new KeyValuePair<string, string>("EntityName", "支付审核"));
                         var filemanage = await _filesService.UploadFileAsync(keyValuePairs, filePath, fileName);
                         FilesManages.Add(filemanage);
                     }
@@ -224,6 +245,14 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             LoadAuditMappings();
         }
 
+        private async void GetVendorById(int Id)
+        {
+            if (Contract != null)
+            { 
+                var item = await _vendorService.GetById(Contract.VendorId);
+                VendorItem = item;
+            }
+        }
         private async void InitBusinessAudits()
         {
             var items = await _businessAuditService.GetAllBusinessAudits(2);
@@ -236,7 +265,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         private void OnSelectedItem()
         {
-            var view = _unityContainer.Resolve<SelectItemCategoryView>();
+            var view = _unityContainer.Resolve<SelectedItemDefineView>();
             var notification = new Notification()
             {
                 Content = view,// (new ParameterOverride("name", "")), 
@@ -245,10 +274,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             {
                 if (callback.DialogResult == true)
                 {
-                    var selectView = callback.Content as SelectItemCategoryView;
-                    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
-                   // this.ItemDefine.ItemCategoryId = viewModel.SelectedItem.Id;
-                  //  this.ItemDefine.ItemCategoryName = viewModel.SelectedItem.Name;
+                    var selectView = callback.Content as SelectedItemDefineView;
+                    var viewModel = selectView.DataContext as SelectedItemDefineViewModel;
+                     this.ItemDefine.Id = viewModel.SelectedItem.Id;
+                  this.ItemDefine.ItemName = viewModel.SelectedItem.ItemName;
                 }
                 int s = 0;
             });
@@ -285,7 +314,14 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _paymentTypeItem; }
             set { SetProperty(ref _paymentTypeItem, value); }
         }
-         
+
+        private VendorItem _vendorItem;
+        public VendorItem VendorItem
+        {
+            get { return _vendorItem; }
+            set { SetProperty(ref _vendorItem, value); }
+        }
+
     }
 
 }

@@ -123,7 +123,7 @@ namespace ICIMS.Client.ViewModels
         {
             // _title = Settings.Default.AppName;
             //var ss =await _userSerice.GetUserInfoAsync(1);
-            string TenancyName = "";//"Default";
+            string TenancyName ="Default";
             string UserName = "admin";
             string Password = "123qwe";
             var user=_userSerice.LoginAsync(UserName,Password,TenancyName);
