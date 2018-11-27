@@ -34,5 +34,33 @@ namespace ICIMS.Model.BusinessManages
         public long? CreatorUserId { get => _creatoruserId; set => SetProperty(ref _creatoruserId, value); }
         private DateTime _creationtime;
         public DateTime CreationTime { get => _creationtime; set => SetProperty(ref _creationtime, value); }
+
+        private string _statusText;
+        public string StatusText
+        {
+            get
+            {
+                _statusText = "制单";
+                if (_reviewDefine!=null)
+                {
+                    switch (_reviewDefine.Status)
+                    {
+                        case 1:
+                            _statusText = "提交审核";
+                            break;
+                        case 2:
+                            _statusText = "审核中";
+                            break;
+                        case 3:
+                            _statusText = "已审核";
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                
+                return _statusText;
+            }
+        }
     }
 }

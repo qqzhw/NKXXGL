@@ -49,10 +49,9 @@
                             <telerik:EventBinding Command="{Binding ListRightMenue}" EventName="MouseRightButtonUp" 
                         PassEventArgsToCommand="True" /> 
                         </telerik:EventToCommandBehavior.EventBindings>-->
-            <telerik:RadGridView.Columns> 
-                <telerik:GridViewDataColumn Header="状态" Width="60"    DataMemberBinding="{Binding Status}" />
-                <telerik:GridViewDataColumn Header="评审" DataMemberBinding="{Binding IsAudit}" TextWrapping="Wrap" Width="80" />
-
+            <telerik:RadGridView.Columns>
+                <telerik:GridViewDataColumn Header="状态" Width="60"    DataMemberBinding="{Binding StatusText}"  Background="{Binding Status,Converter={StaticResource statusColorConverter}}" />
+               
                 <telerik:GridViewDataColumn Header="部门名称" Width="90" DataMemberBinding="{Binding UnitName}"/>
 
 

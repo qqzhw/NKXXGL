@@ -9,16 +9,16 @@ namespace ICIMS.Controls.Converters
         {
             if (value != null)
             {
-                string colorStr = "OrangeRed";
+                string colorStr = "#FFFF00";
                 int result = 0;
                 int.TryParse(value.ToString(), out result);
                 switch (result)
                 {
                     case 0:
-                        colorStr = "OrangeRed";
+                        colorStr = "#FFFF00";
                         break;
                     case 1:
-                        colorStr = "Orange";
+                        colorStr = "#90EE90";
                         break;
                     case 2:
                         colorStr = "Green";
@@ -27,7 +27,7 @@ namespace ICIMS.Controls.Converters
                         colorStr= "#0099FF";
                         break;                    
                     default:
-                        colorStr= "OrangeRed";
+                        colorStr= "#b22222";
                         break;
                 }
                 return colorStr;

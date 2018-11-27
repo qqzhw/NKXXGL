@@ -49,7 +49,7 @@
                         PassEventArgsToCommand="True" /> 
                         </telerik:EventToCommandBehavior.EventBindings>-->
             <telerik:RadGridView.Columns>
-                <telerik:GridViewDataColumn Header="状态" Width="60"    DataMemberBinding="{Binding PayAudit.Status}" />
+                <telerik:GridViewDataColumn Header="状态" Width="60"  DataMemberBinding="{Binding PayAudit.StatusText}"  Background="{Binding PayAduit.Status,Converter={StaticResource statusColorConverter}}"  />
                 
                 <telerik:GridViewDataColumn Header="部门名称" Width="100" DataMemberBinding="{Binding UnitName}"/>
                 <telerik:GridViewDataColumn Header="支付编号"  DataMemberBinding="{Binding PayAudit.PaymentNo}" TextWrapping="Wrap" Width="90" />
