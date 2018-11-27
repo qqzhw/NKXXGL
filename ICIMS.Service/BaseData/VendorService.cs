@@ -1,6 +1,7 @@
 ﻿using ICIMS.Model.BaseData;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,6 +50,13 @@ namespace ICIMS.Service.BaseData
             //    vendor.Remark,
             //    vendor.Published
             //}
+        }
+
+        public async Task<VendorItem> GetById(int input)
+        {
+            var param = new { Id = input };
+            var item= await _webApiClient.GetAsync<VendorItem>($"{_webApiClient.BaseUrl}{_baseUrl}/GetById", param);
+            return item;
         }
     }
 }
