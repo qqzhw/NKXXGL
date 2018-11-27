@@ -118,10 +118,17 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="SystemAdminModule.cs" />
+    <Compile Include="ViewModels\BusinessTypeViewModel.cs" />
     <Compile Include="ViewModels\RolesEditViewModel.cs" />
     <Compile Include="ViewModels\RolesViewModel.cs" />
     <Compile Include="ViewModels\UsersEditViewModel.cs" />
     <Compile Include="ViewModels\UsersViewModel.cs" />
+    <Compile Include="Views\BusinessTypeEditView.xaml.cs">
+      <DependentUpon>BusinessTypeEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BusinessTypeView.xaml.cs">
+      <DependentUpon>BusinessTypeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RolesEditView.xaml.cs">
       <DependentUpon>RolesEditView.xaml</DependentUpon>
     </Compile>
@@ -174,6 +181,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\BusinessTypeEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BusinessTypeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\RolesEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
