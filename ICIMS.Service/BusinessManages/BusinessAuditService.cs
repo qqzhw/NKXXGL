@@ -10,20 +10,22 @@ namespace ICIMS.Service.BusinessManages
 {
     public class BusinessAuditService : IBusinessAuditService
     {
-        private readonly string BaseUrl = "/api/services/app/BusinessAudit/";
+        private readonly string BaseUrl = "api/services/app/BusinessAudit/";
         private readonly IWebApiClient _webApiClient;
         public BusinessAuditService(IWebApiClient webApiClient)
         {
             _webApiClient = webApiClient;
         }
-        public Task CreateOrUpdate(BusinessAudit input)
+        public async Task<BusinessAudit> CreateOrUpdate(BusinessAudit businessAudit)
         {
-            throw new NotImplementedException();
+            var data = await _webApiClient.PostAsync<BusinessAudit>($"{_webApiClient.BaseUrl}{BaseUrl}CreateOrUpdate", new { businessAudit });
+
+            return data;
         }
 
-        public Task Delete(int input)
+        public async Task Delete(int Id)
         {
-            throw new NotImplementedException();
+            await _webApiClient.DeleteAsync<BusinessAudit>($"{_webApiClient.BaseUrl}{BaseUrl}CreateOrUpdate", new { Id });
         }
 
         public async Task<ResultData<List<BusinessAudit>>> GetAllBusinessAudits(int? BuinessTypeId = null, string BuinessTypeName = "", int pageIndex = 0, int pageSize = int.MaxValue)
@@ -35,7 +37,8 @@ namespace ICIMS.Service.BusinessManages
                 MaxResultCount = pageSize,
                 SkipCount = pageIndex * pageSize
             };
-            var items = await _webApiClient.GetAsync<ResultData<List<BusinessAudit>>>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "GetPaged"), filter);
+            var url = $"{_webApiClient.BaseUrl}{BaseUrl}GetPaged";
+            var items = await _webApiClient.GetAsync<ResultData<List<BusinessAudit>>>(url, filter);
             return items;
         }
 

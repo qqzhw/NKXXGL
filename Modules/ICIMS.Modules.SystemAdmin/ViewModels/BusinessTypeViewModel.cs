@@ -1,7 +1,11 @@
-﻿using ICIMS.Model.BusinessManages;
+﻿using ICIMS.Core.Interactivity;
+using ICIMS.Core.Interactivity.InteractionRequest;
+using ICIMS.Model.BusinessManages;
 using ICIMS.Model.User;
+using ICIMS.Modules.SystemAdmin.Views;
 using ICIMS.Service.BusinessManages;
 using ICIMS.Service.User;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -11,6 +15,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Unity;
@@ -31,6 +36,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
         private ObservableCollection<BusinessType> _items;
         private List<BusinessAudit> _businessAudits;
         private ObservableCollection<RoleModel> _roles;
+        private BusinessAudit _selectedAudit;
         private string _name;
 
         public BusinessTypeViewModel(IEventAggregator eventAggregator,
@@ -46,6 +52,122 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             this._unityContainer = unityContainer;
             this._businessTypeService = businessTypeService;
             this._businessAuditService = businessAuditService;
+            this._roleService = roleService;
+
+            AddCommand = new DelegateCommand<object>(OnAddCommand);
+            DeleteCommand = new DelegateCommand<object>(OnDeleteCommand);
+            MoveCommand = new DelegateCommand<object>(OnMoveCommand);
+        }
+
+        private async void OnMoveCommand(object obj)
+        {
+            try
+            {
+                var isUp = ((int)obj) == 1;
+                var idx = this.SelectedItem.Audits.IndexOf(this.SelectedAudit);
+
+                if (isUp)
+                {
+                    if (idx > 0)
+                    {
+                        var a = SelectedItem.Audits[idx - 1];
+                        var b = SelectedItem.Audits[idx];
+                        var temp = a.DisplayOrder;
+                        a.DisplayOrder = b.DisplayOrder;
+                        b.DisplayOrder = temp;
+                        await _businessAuditService.CreateOrUpdate(a);
+                        await _businessAuditService.CreateOrUpdate(b);
+                        this.SelectedItem.Audits = new ObservableCollection<BusinessAudit>(this.SelectedItem.Audits.OrderBy(item => item.DisplayOrder));
+                    }
+                }
+                else
+                {
+                    if (idx < this.SelectedItem.Audits.Count - 1)
+                    {
+                        var a = SelectedItem.Audits[idx + 1];
+                        var b = SelectedItem.Audits[idx];
+                        var temp = a.DisplayOrder;
+                        a.DisplayOrder = b.DisplayOrder;
+                        b.DisplayOrder = temp;
+                        await _businessAuditService.CreateOrUpdate(a);
+                        await _businessAuditService.CreateOrUpdate(b);
+                        this.SelectedItem.Audits = new ObservableCollection<BusinessAudit>(this.SelectedItem.Audits.OrderBy(item => item.DisplayOrder));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+          
+        }
+
+        private async void OnDeleteCommand(object obj)
+        {
+            if(MessageBox.Show("请确认是否删除","提示", MessageBoxButton.YesNo) == MessageBoxResult.OK)
+            {
+                try
+                {
+                    await _businessAuditService.Delete(this.SelectedAudit.Id);
+                    this.BusinessAudits.Remove(this.SelectedAudit);
+                    this.SelectedAudit = this.SelectedItem.Audits.FirstOrDefault();
+                    MessageBox.Show("删除成功！");
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
+             
+            }
+        }
+
+       
+
+        private void OnAddCommand(object obj)
+        {
+            var newItem = new BusinessTypeEditViewModel(this.Roles);
+            BusinessTypeEditView view = new BusinessTypeEditView(newItem);
+            var notification = new Notification()
+            {
+                Title = "角色",
+                Content = view,// (new ParameterOverride("name", "")),
+            };
+            PopupWindows.NotificationRequest.Raise(notification, async (callback) =>
+            {
+                if (newItem.IsOkClicked)
+                {
+                    try
+                    {
+                        var selectedRole = newItem.SelectedItem;
+                        if(!this.SelectedItem.Audits.Any(a=>a.RoleId == selectedRole.Id))
+                        {
+                            var order = this.SelectedItem.Audits.Count == 0 ? 1 : this.SelectedItem.Audits.Max(a => a.DisplayOrder) + 1;
+                            BusinessAudit one = new BusinessAudit
+                            {
+                                RoleId = selectedRole.Id,
+                                RoleName =selectedRole.Name,
+                                Name = selectedRole.Name,
+                                BuinessTypeId =SelectedItem.Id,
+                                BuinessTypeName=SelectedItem.Name,
+                                DisplayOrder = order
+                            };
+                            var returnOne= await _businessAuditService.CreateOrUpdate(one);
+                            returnOne.No = order;
+                            this.BusinessAudits.Add(returnOne);
+                            this.SelectedItem.Audits.Add(returnOne);
+                        }
+                     
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+
+                }
+
+            });
+            view.BindAction(notification.Finish);
         }
 
         private string _title;
@@ -56,7 +178,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
         }
 
         public ICommand AddCommand { get; private set; }
-        public ICommand EditCommand { get; private set; }
+        public ICommand MoveCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
 
         public UserControl View { get; internal set; }
@@ -67,7 +189,10 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             {
                 if(value.Audits == null)
                 {
-                    value.Audits = new ObservableCollection<BusinessAudit>(this.BusinessAudits.Where(a => a.BuinessTypeId == value.Id));
+                    var audits = this.BusinessAudits.Where(a => a.BuinessTypeId == value.Id).ToList();
+                    var idx = 1;
+                    audits.ForEach(a=>a.No = idx++);
+                    value.Audits = new ObservableCollection<BusinessAudit>(audits);
                 }
                 SetProperty(ref _selectedItem, value);
             }
@@ -75,6 +200,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
         public ObservableCollection<BusinessType> Items { get => _items; set => SetProperty(ref _items, value); }
         public List<BusinessAudit> BusinessAudits { get => _businessAudits; set => SetProperty(ref _businessAudits, value); }
         public ObservableCollection<RoleModel> Roles { get => _roles; set => SetProperty(ref _roles, value); }
+        public BusinessAudit SelectedAudit { get => _selectedAudit; set => SetProperty(ref _selectedAudit,value); }
 
         [InjectionMethod]
         public async void Init()
@@ -84,12 +210,25 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             this.Roles = new ObservableCollection<RoleModel>(roles);
 
             var businessTypes = (await _businessTypeService.GetAllBusinessTypes()).Items;
+            int idx = 1;
+            businessTypes.ForEach(a => a.No = idx++);
             this.Items = new ObservableCollection<BusinessType>(businessTypes);
 
-            var auditTypes = await _businessAuditService.GetAllBusinessAudits();
-            this.BusinessAudits = auditTypes.Items;
+            try
+            {
+               
+                var auditTypes = await _businessAuditService.GetAllBusinessAudits();
+                this.BusinessAudits = auditTypes.Items;
+
+            }
+            catch (Exception)
+            {
+                this.BusinessAudits = new List<BusinessAudit>();
+            }
 
             this.SelectedItem = this.Items.FirstOrDefault();
+
+
         }
 
 
