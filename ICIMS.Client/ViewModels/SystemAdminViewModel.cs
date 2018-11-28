@@ -65,6 +65,13 @@ namespace ICIMS.Client.ViewModels
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_角色权限.ico",
                 IsDefaultShow = false,
             });
+            _systemInfos.Add(new SystemInfoViewModel()
+            {
+                Id = "BusinessTypeView",
+                Title = "审核流设置",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_审核流设置.ico",
+                IsDefaultShow = false,
+            });
         }
 
         private void OnItemSelected(SystemInfoViewModel selectedItem)

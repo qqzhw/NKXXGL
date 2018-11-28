@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ICIMS.Modules.SystemAdmin.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,25 @@ namespace ICIMS.Modules.SystemAdmin.Views
     /// </summary>
     public partial class BusinessTypeEditView : UserControl
     {
-        public BusinessTypeEditView()
+        public BusinessTypeEditView(BusinessTypeEditViewModel viewModel)
         {
             InitializeComponent();
+            this.DataContext = viewModel;
+            viewModel.View = this;
+            this.ViewModel = viewModel;
+        }
+
+        public BusinessTypeEditViewModel ViewModel { get; set; }
+
+        private void RadGridView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ViewModel.IsOkClicked = true;
+            ViewModel.Close?.Invoke(true);
+        }
+
+        public void BindAction(Action<bool?> action)
+        {
+            ViewModel.Close = action;
         }
     }
 }

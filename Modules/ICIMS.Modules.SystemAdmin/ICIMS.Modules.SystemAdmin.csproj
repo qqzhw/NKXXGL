@@ -118,6 +118,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="SystemAdminModule.cs" />
+    <Compile Include="ViewModels\BusinessTypeEditViewModel.cs" />
     <Compile Include="ViewModels\BusinessTypeViewModel.cs" />
     <Compile Include="ViewModels\RolesEditViewModel.cs" />
     <Compile Include="ViewModels\RolesViewModel.cs" />

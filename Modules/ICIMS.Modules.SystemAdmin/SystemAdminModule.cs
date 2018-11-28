@@ -20,6 +20,8 @@ namespace ICIMS.Modules.SystemAdmin
         {
             containerRegistry.RegisterForNavigation<UsersView>();
             containerRegistry.RegisterForNavigation<RolesView>();
+            containerRegistry.RegisterForNavigation<BusinessTypeView>();
+            
         }
     }
 
