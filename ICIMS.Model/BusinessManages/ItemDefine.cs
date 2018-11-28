@@ -25,7 +25,7 @@ namespace ICIMS.Model.BusinessManages
         /// 立项状态
         /// </summary>
         private int _status;
-        public int Status { get => _status; set => SetProperty(ref _status, value); }
+        public int Status { get => _status; set { SetProperty(ref _status, value); OnPropertyChanged(() => StatusText); } }
 
         /// <summary>
         /// 部门ID
@@ -79,7 +79,32 @@ namespace ICIMS.Model.BusinessManages
         public string ItemDescription { get => _itemdescription; set => SetProperty(ref _itemdescription, value); }//项目描述  
 
         private string _remark;
-        public string Remark { get => _remark; set => SetProperty(ref _remark, value); }//备注  
+        public string Remark { get => _remark; set => SetProperty(ref _remark, value); }//备注 
+
+
+        private string _statusText;
+        public string StatusText
+        {
+            get
+            {
+                _statusText = "制单";
+                switch (_status)
+                {
+                    case 1:
+                        _statusText = "提交审核";
+                        break;
+                    case 2:
+                        _statusText = "审核中";
+                        break;
+                    case 3:
+                        _statusText = "已审核";
+                        break;
+                    default:
+                        break;
+                }
+                return _statusText;
+            }
+        }
 
         /// <summary>
         /// 是否决算

@@ -129,7 +129,29 @@ namespace ICIMS.Model.BusinessManages
 
         private string _audituserName;
         public string AuditUserName { get => _audituserName; set => SetProperty(ref _audituserName, value); }
-
+        private string _statusText;
+        public string StatusText
+        {
+            get
+            {
+                _statusText = "制单";
+                switch (_status)
+                {
+                    case 1:
+                        _statusText = "提交审核";
+                        break;
+                    case 2:
+                        _statusText = "审核中";
+                        break;
+                    case 3:
+                        _statusText = "已审核";
+                        break;
+                    default:
+                        break;
+                }
+                return _statusText;
+            }
+        }
 
         #region 导航属性
         //立项登记

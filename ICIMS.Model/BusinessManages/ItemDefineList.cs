@@ -106,5 +106,7 @@ namespace ICIMS.Model.BusinessManages
         /// </summary>
         public string AuditUserName { get; set; }
 
+        
+
     }
 }
