@@ -154,11 +154,11 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="{Binding}" FontSize="16" Foreground="#333333"  VerticalAlignment="Center"/>
                             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                                <control:CustomButton Height="36"  IconBackground="#07AA7E" Command="{Binding DataContext.ScanCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="CameraSolid"  Width="80" Margin="10,0,0,0" Title="扫描"/>
-                                <control:CustomButton Height="36"  IconBackground="#0382A6" Command="{Binding DataContext.UploadCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="UploadSolid"  Width="80" Margin="10,0,0,0" Title="上传"/>
-                                <control:CustomButton Height="36"  IconBackground="#C0350A" Command="{Binding DataContext.DeleteCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="TrashSolid"  Width="80" Margin="10,0,0,0" Title="删除"/>
-                                <control:CustomButton Height="36"  IconBackground="#666666" Command="{Binding DataContext.BrowseCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="EyeSolid"  Width="80" Margin="10,0,0,0" Title="浏览"/>
-                                <control:CustomButton Height="36"  IconBackground="#777777" Command="{Binding DataContext.DownloadCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="DownloadSolid"  Width="80" Margin="10,0,0,0" Title="下载"/>
+                                <control:CustomButton Height="28"  IconBackground="#07AA7E" Command="{Binding DataContext.ScanCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="CameraSolid"  Width="80" Margin="10,0,0,0" Title="扫描"/>
+                                <control:CustomButton Height="28"  IconBackground="#0382A6" Command="{Binding DataContext.UploadCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="UploadSolid"  Width="80" Margin="10,0,0,0" Title="上传"/>
+                                <control:CustomButton Height="28"  IconBackground="#C0350A" Command="{Binding DataContext.DeleteCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="TrashSolid"  Width="80" Margin="10,0,0,0" Title="删除"/>
+                                <control:CustomButton Height="28"  IconBackground="#666666" Command="{Binding DataContext.BrowseCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="EyeSolid"  Width="80" Margin="10,0,0,0" Title="浏览"/>
+                                <control:CustomButton Height="28"  IconBackground="#777777" Command="{Binding DataContext.DownloadCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="DownloadSolid"  Width="80" Margin="10,0,0,0" Title="下载"/>
                             </StackPanel>
                         </Grid>
                     </DataTemplate>

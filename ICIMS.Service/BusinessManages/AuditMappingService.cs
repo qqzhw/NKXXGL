@@ -28,12 +28,12 @@ namespace ICIMS.Service.BusinessManages
             await Task.CompletedTask;
         }
 
-        public async Task<ResultData<List<AuditMapping>>> GetAllAuditMappings(int ItemId=0, int BuinessTypeId =0, int pageIndex = 0, int pageSize = int.MaxValue)
+        public async Task<ResultData<List<AuditMapping>>> GetAllAuditMappings(int ItemId=0, int BusinessTypeId =0, int pageIndex = 0, int pageSize = int.MaxValue)
         {
             var filter = new
             {
                 ItemId,
-                BuinessTypeId,
+                BusinessTypeId,
                 MaxResultCount = pageSize,
                 SkipCount = pageIndex * pageSize
             };

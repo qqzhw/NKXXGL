@@ -104,6 +104,7 @@ namespace ICIMS.Model.BusinessManages
                 }
                 return _statusText;
             }
+            set { SetProperty(ref _statusText, value); }
         }
 
         /// <summary>

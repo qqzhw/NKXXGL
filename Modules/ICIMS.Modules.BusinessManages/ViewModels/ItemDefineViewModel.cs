@@ -59,15 +59,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             RefreshCommand= new DelegateCommand(OnRefresh);
             PageChanged = new DelegateCommand<Telerik.Windows.Controls.PageIndexChangedEventArgs>(OnPageChanged);
             SearchCommand = new DelegateCommand(OnSearchData);
-            UploadCommand=new DelegateCommand(OnUploadedFiles);
+           
         }
-        /// <summary>
-        /// 上传附件
-        /// </summary>
-        private void OnUploadedFiles()
-        {
-             
-        }
+        
 
         //初始加载
         private void OnLoad()
@@ -121,7 +115,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private async void Initializer()
         {
             IsBusy = true;
-            _itemDefineLists.Clear();
+            
             if (BeginTime != null)
             {
                 if (BeginTime == EndTime)
@@ -131,9 +125,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
             }
             var result = await _itemDefineService.GetAllItemDefines("", "", pageIndex: PageIndex, pageSize: PageSize);
-        
+            _itemDefineLists.Clear();
             TotalCount = result.TotalCount;
-            _itemDefineLists.AddRange(result.Items);
+            ItemDefineLists.AddRange(result.Items);
             IsBusy = false;
 
         }
@@ -173,7 +167,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private void OnRefresh()
         {
-            
+            Initializer();
         }
 
         private void OnEditItem()
@@ -192,7 +186,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 //{
                 //    var selectView = callback.Content as SelectItemCategoryView;
                 //    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
-
+                Initializer();
                 //}
                 int s = 0;
             });

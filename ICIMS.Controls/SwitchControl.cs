@@ -47,7 +47,7 @@ namespace ICIMS.Controls
 	 
 	public class SwitchControl : Button
 	{
-		public static DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(string), typeof(SwitchControl));
+		public static new DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(string), typeof(SwitchControl));
 		public static DependencyProperty IsSelectedProperty = DependencyProperty.Register("IsSelected", typeof(bool), typeof(SwitchControl), new UIPropertyMetadata(false, new PropertyChangedCallback(OnValueChanged)));
 		public static DependencyProperty SelectedBackgroundProperty = DependencyProperty.Register("SelectedBackground", typeof(Brush), typeof(SwitchControl));
         public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(SwitchControl), new PropertyMetadata(default(string)));
@@ -114,7 +114,7 @@ namespace ICIMS.Controls
 			get { return (bool)GetValue(IsSelectedProperty); }
 			set { SetValue(IsSelectedProperty, value); }
 		}
-		public string Content
+		public new string Content
 		{
 			get
 			{

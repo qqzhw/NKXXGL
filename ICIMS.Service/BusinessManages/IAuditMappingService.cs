@@ -9,7 +9,7 @@ namespace ICIMS.Service.BusinessManages
 {
     public interface IAuditMappingService
     {
-        Task<ResultData<List<AuditMapping>>> GetAllAuditMappings(int itemId =0, int BuinessTypeId=0, int pageIndex = 0, int pageSize = int.MaxValue);
+        Task<ResultData<List<AuditMapping>>> GetAllAuditMappings(int itemId =0, int BusinessTypeId=0, int pageIndex = 0, int pageSize = int.MaxValue);
 
 
         Task<AuditMapping> GetById(int input);

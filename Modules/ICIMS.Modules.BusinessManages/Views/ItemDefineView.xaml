@@ -50,7 +50,8 @@
                         PassEventArgsToCommand="True" /> 
                         </telerik:EventToCommandBehavior.EventBindings>-->
             <telerik:RadGridView.Columns>
-                <telerik:GridViewDataColumn Header="状态" Width="60"    DataMemberBinding="{Binding StatusText}"  Background="{Binding Status,Converter={StaticResource statusColorConverter}}" />
+                <control:RowNumberColumn Header="序号" Width="40" TextBlock.TextAlignment="Center"/>
+                <telerik:GridViewDataColumn Header="状态" Width="60"    DataMemberBinding="{Binding StatusText}"  />
                
                 <telerik:GridViewDataColumn Header="部门名称" Width="90" DataMemberBinding="{Binding UnitName}"/>
 

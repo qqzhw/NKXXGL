@@ -76,6 +76,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         internal void BindData(ItemDefineList info)
         {
+            InitBusinessAudits();
             if (info.Id == 0)
             {
                 ItemDefine.DefineDate = DateTime.Now;
@@ -99,7 +100,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             //ItemDefine.ItemName = info.ItemName;
             ItemDefine = Mapper.Map<ItemDefine>(info);
             GetFiles(ItemDefine);
-            LoadAuditMappings();
+           
         }
         private ObservableCollection<FilesManage> _filesManages;
         public ObservableCollection<FilesManage> FilesManages
@@ -221,7 +222,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     var viewModel = selectView.DataContext as SubmitAuditViewModel;
                     await _auditMappingService.CreateOrUpdate(viewModel.AuditMapping);
                     UpdateAuditStatus();
-                    LoadAuditMappings();
+                    //LoadAuditMappings();
+                    InitBusinessAudits();
                 }
                 
             });
@@ -248,7 +250,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private void OnBack()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnShowLog()
@@ -262,19 +264,32 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public async void Init()
         {
 
-            InitBusinessAudits();
-            
+                        
         }
 
         private async void InitBusinessAudits()
         {
+            BuinessAudits.Clear();
             var items = await _businessAuditService.GetAllBusinessAudits(2);
             BuinessAudits.AddRange(items.Items);
+            LoadAuditMappings();
         }
         private async void LoadAuditMappings()
         {
-            var items = await _auditMappingService.GetAllAuditMappings(3, 2);
+            AuditMappings.Clear();
+            var items = await _auditMappingService.GetAllAuditMappings(ItemDefine.Id, 2);
             _auditMappings.AddRange(items.Items);
+            if (AuditMappings.Count>0)
+            {
+                foreach (var item in BuinessAudits)
+                {
+                    var findItem = AuditMappings.FirstOrDefault(o => o.RoleId == item.RoleId & o.BusinessAuditId == item.Id);
+                    if (findItem!=null)
+                    {
+                        item.StatusName = "已审核";
+                    }
+                }
+            }
         }
         private void OnSelectedItemCategory()
         {
@@ -297,6 +312,13 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             view.BindAction(notification.Finish);
 
         }
+        private bool _iscansave;
+        public bool IsCanSave
+        {
+            get { return _iscansave; }
+            set { SetProperty(ref _iscansave, value); }
+        }
+
         private ItemDefine _itemDefine;
         public ItemDefine ItemDefine
         {
