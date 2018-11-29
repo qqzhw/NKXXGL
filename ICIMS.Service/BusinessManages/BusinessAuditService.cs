@@ -28,12 +28,12 @@ namespace ICIMS.Service.BusinessManages
             await _webApiClient.DeleteAsync<BusinessAudit>($"{_webApiClient.BaseUrl}{BaseUrl}CreateOrUpdate", new { Id });
         }
 
-        public async Task<ResultData<List<BusinessAudit>>> GetAllBusinessAudits(int? BuinessTypeId = null, string BuinessTypeName = "", int pageIndex = 0, int pageSize = int.MaxValue)
+        public async Task<ResultData<List<BusinessAudit>>> GetAllBusinessAudits(int? BusinessTypeId = null, string BusinessTypeName = "", int pageIndex = 0, int pageSize = int.MaxValue)
         {
             var filter = new
             {
-                BuinessTypeId,
-                BuinessTypeName, 
+                BusinessTypeId,
+                BusinessTypeName, 
                 MaxResultCount = pageSize,
                 SkipCount = pageIndex * pageSize
             };
