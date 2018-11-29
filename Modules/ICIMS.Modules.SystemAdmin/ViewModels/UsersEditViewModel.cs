@@ -40,7 +40,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                 this.Item.UserName = "";
                 this.Item.UnitId = null;
                 this.Item.UnitName = "";
-                this.Item.RolesNames = new List<string>();
+                this.Item.RoleNames = new List<string>();
             }
         }
 
@@ -60,7 +60,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             get => _selectedRole;
             set
             {
-                this.Item.RolesNames = new List<string> { value.DisplayName };
+                this.Item.RoleNames = new List<string> { value.DisplayName };
                 this.Item.RoleIds = new List<int> { value.Id};
                 SetProperty(ref _selectedRole, value);
             }

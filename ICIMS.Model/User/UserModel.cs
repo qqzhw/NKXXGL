@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Collections.ObjectModel;
 namespace ICIMS.Model.User
 {
     public class UserModel : BindableBase
@@ -13,7 +13,8 @@ namespace ICIMS.Model.User
         public UserModel()
         {
             _roleIds = new List<int>();
-            _rolesNames = new List<string>();
+            _roleNames = new List<string>();
+            _roleDisplayNames = new List<string>();
         }
         public int? TenantId { get; set; }
         public string TenantName { get; set; }
@@ -34,11 +35,15 @@ namespace ICIMS.Model.User
         private string _unitName;
         public string UnitName { get => _unitName; set => SetProperty(ref _unitName, value); }
 
+        private List<string> _roleDisplayNames;
+        public List<string> RoleDisplayNames { get => _roleDisplayNames; set => SetProperty(ref _roleDisplayNames, value); }
         private List<int> _roleIds;
         public List<int> RoleIds { get => _roleIds; set => SetProperty(ref _roleIds, value); }
 
-        private List<string> _rolesNames = new List<string>();
-        public List<string> RolesNames { get => _rolesNames; set => SetProperty(ref _rolesNames, value); }
+        private List<string> _roleNames = new List<string>();
+        public List<string> RoleNames { get => _roleNames; set => SetProperty(ref _roleNames, value); }
+
+        
         public List<OrganizationUnitItem> Units { get => _units; set => SetProperty(ref _units, value); }
 
         private List<OrganizationUnitItem> _units;
@@ -47,7 +52,7 @@ namespace ICIMS.Model.User
         {
             get
             {
-                return string.Join(",", RolesNames);
+                return string.Join(",", RoleNames);
             }
         }
 

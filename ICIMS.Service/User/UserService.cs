@@ -38,7 +38,7 @@ namespace ICIMS.Service
                 Name = resultDto.Name,
                 UnitId = resultDto.UnitId,
                 UnitName = resultDto.UnitName,
-                RolesNames=resultDto.RolesName
+                RoleNames=resultDto.RolesName
             };
             return user;
         }
