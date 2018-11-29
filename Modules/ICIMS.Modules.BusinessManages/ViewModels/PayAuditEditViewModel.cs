@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using Aspose.Words;
+using Aspose.Words.Replacing;
+using AutoMapper;
 using ICIMS.Core.Interactivity;
 using ICIMS.Core.Interactivity.InteractionRequest;
 using ICIMS.Model.BaseData;
@@ -14,6 +16,8 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -217,7 +221,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         private void OnSubmit()
         {
-            throw new NotImplementedException();
+            OnExportFlowDocumentCmd(null);
         }
 
         private void OnCancel()
@@ -284,6 +288,63 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             view.BindAction(notification.Finish);
 
         }
+        private  void OnExportFlowDocumentCmd(object o)
+        {
+            try
+            {
+                var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Xxlz-template.docx");
+
+                var file1 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Xxlz-template2.docx");
+
+                var content = "evento";
+                // Open the document.
+                Document doc = new Document(file);
+
+
+                // Replace the text in the document.
+                doc.Range.Replace("$Title$", DateTime.Now.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
+                string cmdNo = string.Format("成联指【{0}】号", 511);
+                doc.Range.Replace("$CmdNo$", cmdNo, new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$HostTypeName$","", new FindReplaceOptions(FindReplaceDirection.Forward));
+
+                doc.Range.Replace("$EventSourceFiredTime$", DateTime.Now.ToString("yyyy年MM月dd日 HH点mm分"), new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$InfoContent$", "currentEventInfo.EventInfoContent", new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$EventSourcePerson$", "currentEventInfo.Clrxm", new FindReplaceOptions(FindReplaceDirection.Forward));
+
+                doc.Range.Replace("$EventSourceDepartment$"," currentEventInfo.EventSourceDepartment", new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$Content$", content, new FindReplaceOptions(FindReplaceDirection.Forward));
+                
+
+                doc.Range.Replace("$EndDescription$", "", new FindReplaceOptions(FindReplaceDirection.Forward));
+
+
+
+                // Save the modified document.
+                doc.Save(file1);
+
+
+
+                OpenDoc(file1);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private void OpenDoc(string fileName)
+        {
+            using (var proc = new Process())
+            {
+                proc.EnableRaisingEvents = false;
+                proc.StartInfo.FileName = fileName;
+                proc.StartInfo.Arguments = fileName;
+                proc.Start();
+            }
+        }
+
+        #region 属性
+
+        #endregion
         private PayAudit _payAudit;
         public PayAudit PayAudit
         {

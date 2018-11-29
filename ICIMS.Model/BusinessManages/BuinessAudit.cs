@@ -37,7 +37,7 @@ namespace ICIMS.Model.BusinessManages
         private int _status;
         public int Status { get => _status; set => SetProperty(ref _status, value); }
 
-        private string _statusName="等待审核";
+        private string _statusName="";
         public string StatusName { get => _statusName; set => SetProperty(ref _statusName, value); }
         public bool IsChecked { get => _isChecked; set => SetProperty(ref _isChecked,value); }
         public int No { get => _no; set => SetProperty(ref _no,value); }

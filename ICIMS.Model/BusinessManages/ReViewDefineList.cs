@@ -10,7 +10,24 @@ namespace ICIMS.Model.BusinessManages
     public class ReViewDefineList : BindableBase
     {
         private ReViewDefine _reviewDefine;
-        public ReViewDefine ReViewDefine { get => _reviewDefine; set => SetProperty(ref _reviewDefine, value); }
+        public ReViewDefine ReViewDefine { get => _reviewDefine; set { SetProperty(ref _reviewDefine, value);
+                switch (_reviewDefine?.Status)
+                {
+                    case 1:
+                        _statusText = "提交审核";
+                        break;
+                    case 2:
+                        _statusText = "审核中";
+                        break;
+                    case 3:
+                        _statusText = "已审核";
+                        break;
+                    default:
+                        break;
+                }
+                SetProperty(ref _statusText, _statusText);
+            }
+        }
 
         private string _itemNo;
         public string ItemNo { get => _itemNo; set => SetProperty(ref _itemNo, value); }
@@ -39,26 +56,7 @@ namespace ICIMS.Model.BusinessManages
         public string StatusText
         {
             get
-            {
-                _statusText = "制单";
-                if (_reviewDefine!=null)
-                {
-                    switch (_reviewDefine.Status)
-                    {
-                        case 1:
-                            _statusText = "提交审核";
-                            break;
-                        case 2:
-                            _statusText = "审核中";
-                            break;
-                        case 3:
-                            _statusText = "已审核";
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                
+            { 
                 return _statusText;
             }
             set { SetProperty(ref _statusText, value); }

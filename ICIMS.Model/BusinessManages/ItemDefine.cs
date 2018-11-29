@@ -25,7 +25,29 @@ namespace ICIMS.Model.BusinessManages
         /// 立项状态
         /// </summary>
         private int _status;
-        public int Status { get => _status; set { SetProperty(ref _status, value); OnPropertyChanged(() => StatusText); } }
+        public int Status
+        {
+            get => _status; set
+            {
+                SetProperty(ref _status, value);
+
+                switch (_status)
+                {
+                    case 1:
+                        _statusText = "提交审核";
+                        break;
+                    case 2:
+                        _statusText = "审核中";
+                        break;
+                    case 3:
+                        _statusText = "已审核";
+                        break;
+                    default:
+                        break;
+                }
+                SetProperty(ref _statusText, _statusText);
+            }
+        }
 
         /// <summary>
         /// 部门ID
@@ -86,22 +108,7 @@ namespace ICIMS.Model.BusinessManages
         public string StatusText
         {
             get
-            {
-                _statusText = "制单";
-                switch (_status)
-                {
-                    case 1:
-                        _statusText = "提交审核";
-                        break;
-                    case 2:
-                        _statusText = "审核中";
-                        break;
-                    case 3:
-                        _statusText = "已审核";
-                        break;
-                    default:
-                        break;
-                }
+            { 
                 return _statusText;
             }
             set { SetProperty(ref _statusText, value); }
