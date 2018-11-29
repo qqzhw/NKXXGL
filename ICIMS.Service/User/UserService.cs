@@ -35,10 +35,7 @@ namespace ICIMS.Service
             {
                 AccessToken = resultDto.AccessToken,
                 Id = resultDto.UserId,
-                Name = resultDto.Name,
-                UnitId = resultDto.UnitId,
-                UnitName = resultDto.UnitName,
-                RoleNames=resultDto.RolesName
+                Name = resultDto.Name,                 
             };
             return user;
         }

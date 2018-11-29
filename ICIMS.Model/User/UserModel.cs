@@ -40,7 +40,7 @@ namespace ICIMS.Model.User
         private List<int> _roleIds;
         public List<int> RoleIds { get => _roleIds; set => SetProperty(ref _roleIds, value); }
 
-        private List<string> _roleNames = new List<string>();
+        private List<string> _roleNames;
         public List<string> RoleNames { get => _roleNames; set => SetProperty(ref _roleNames, value); }
 
         
