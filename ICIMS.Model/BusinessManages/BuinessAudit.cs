@@ -28,11 +28,11 @@ namespace ICIMS.Model.BusinessManages
         public string RoleName { get => _roleName; set => SetProperty(ref _roleName, value); }
 
 
-        public int? _buinesstypeId;
-        public int? BuinessTypeId { get => _buinesstypeId; set => SetProperty(ref _buinesstypeId, value); }
+        public int? _businesstypeId;
+        public int? BusinessTypeId { get => _businesstypeId; set => SetProperty(ref _businesstypeId, value); }
 
-        private string _buinessTypeName;
-        public string BuinessTypeName { get => _buinessTypeName; set => SetProperty(ref _buinessTypeName, value); }
+        private string _businessTypeName;
+        public string BusinessTypeName { get => _businessTypeName; set => SetProperty(ref _businessTypeName, value); }
 
         private int _status;
         public int Status { get => _status; set => SetProperty(ref _status, value); }
