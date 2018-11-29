@@ -180,6 +180,8 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                         newItem.Item.EmailAddress = "test@qq.com";
                         newItem.Item.Surname = "test";
                         newItem.Item.Password = "111111";
+                        newItem.Item.UnitIds = new List<int> { newItem.SelectedDepartment.Id};
+                        newItem.Item.RoleNames = new List<string> { newItem.SelectedRole.Name};
                        var data = await _service.Create(newItem.Item);
                         if (data != null)
                         {

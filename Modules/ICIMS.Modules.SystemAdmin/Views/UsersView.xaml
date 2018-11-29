@@ -52,7 +52,7 @@
                     <!--<telerik:GridViewDataColumn Header="序号" Width="60"    DataMemberBinding="{Binding Status}" />-->
                     <telerik:GridViewDataColumn Header="登录名" DataMemberBinding="{Binding UserName}" TextWrapping="Wrap" MinWidth="100"/>
                     <telerik:GridViewDataColumn Header="操作员" Width="60"    DataMemberBinding="{Binding Name}" />
-                    <telerik:GridViewDataColumn Header="角色名称" Width="80"    DataMemberBinding="{Binding RolesNameStr}" />
+                    <telerik:GridViewDataColumn Header="角色名称" Width="80"    DataMemberBinding="{Binding RolesName}" />
                     <telerik:GridViewDataColumn Header="部门编号" Width="80"    DataMemberBinding="{Binding UnitId}" />
                     <telerik:GridViewDataColumn Header="部门名称" Width="80"    DataMemberBinding="{Binding UnitName}" />
                 </telerik:RadGridView.Columns>

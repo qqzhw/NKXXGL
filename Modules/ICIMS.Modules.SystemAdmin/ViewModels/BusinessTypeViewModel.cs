@@ -63,9 +63,9 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
         {
             try
             {
-                var isUp = ((int)obj) == 1;
+                var isUp = ((string)obj) == "1";
                 var idx = this.SelectedItem.Audits.IndexOf(this.SelectedAudit);
-
+               
                 if (isUp)
                 {
                     if (idx > 0)
@@ -78,6 +78,11 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                         await _businessAuditService.CreateOrUpdate(a);
                         await _businessAuditService.CreateOrUpdate(b);
                         this.SelectedItem.Audits = new ObservableCollection<BusinessAudit>(this.SelectedItem.Audits.OrderBy(item => item.DisplayOrder));
+                        int i = 1;
+                        foreach (var item in this.SelectedItem.Audits)
+                        {
+                            item.No = i++;
+                        }
                     }
                 }
                 else
@@ -92,6 +97,11 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                         await _businessAuditService.CreateOrUpdate(a);
                         await _businessAuditService.CreateOrUpdate(b);
                         this.SelectedItem.Audits = new ObservableCollection<BusinessAudit>(this.SelectedItem.Audits.OrderBy(item => item.DisplayOrder));
+                        int i = 1;
+                        foreach (var item in this.SelectedItem.Audits)
+                        {
+                            item.No = i++;
+                        }
                     }
                 }
             }
@@ -104,11 +114,12 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
 
         private async void OnDeleteCommand(object obj)
         {
-            if(MessageBox.Show("请确认是否删除","提示", MessageBoxButton.YesNo) == MessageBoxResult.OK)
+            if(MessageBox.Show("请确认是否删除","提示", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 try
                 {
                     await _businessAuditService.Delete(this.SelectedAudit.Id);
+                    this.SelectedItem.Audits.Remove(this.SelectedAudit);
                     this.BusinessAudits.Remove(this.SelectedAudit);
                     this.SelectedAudit = this.SelectedItem.Audits.FirstOrDefault();
                     MessageBox.Show("删除成功！");
@@ -146,8 +157,8 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                             BusinessAudit one = new BusinessAudit
                             {
                                 RoleId = selectedRole.Id,
-                                RoleName =selectedRole.Name,
-                                Name = selectedRole.Name,
+                                RoleName =selectedRole.DisplayName,
+                                Name = selectedRole.DisplayName,
                                 BusinessTypeId =SelectedItem.Id,
                                 BusinessTypeName=SelectedItem.Name,
                                 DisplayOrder = order

@@ -38,8 +38,6 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             {
                 this.Item.Name = "";
                 this.Item.UserName = "";
-                this.Item.UnitId = null;
-                this.Item.UnitName = "";
                 this.Item.RoleNames = new List<string>();
             }
         }
@@ -70,8 +68,6 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             get => _selectedDepartment;
             set
             {
-                this.Item.UnitId = value.Id;
-                this.Item.UnitName = value.DisplayName;
                 SetProperty(ref _selectedDepartment, value);
             }
         }

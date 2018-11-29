@@ -30,10 +30,32 @@ namespace ICIMS.Model.User
 
 
         private long? _unitId;
-        public long? UnitId { get => _unitId; set => SetProperty(ref _unitId, value); }
+        public long? UnitId
+        {
+            get
+            {
+                if(this.Units == null || this.Units.Count == 0)
+                {
+                    return null;
+                }
+                return this.Units.First().Id;
+            }
+        }
 
         private string _unitName;
-        public string UnitName { get => _unitName; set => SetProperty(ref _unitName, value); }
+        public string UnitName
+        {
+            get
+            {
+                if (this.Units == null || this.Units.Count == 0)
+                {
+                    return null;
+                }
+                return this.Units.First().DisplayName;
+            }
+        }
+
+        public bool IsActive { get; set; } = true;
 
         private List<string> _roleDisplayNames;
         public List<string> RoleDisplayNames { get => _roleDisplayNames; set => SetProperty(ref _roleDisplayNames, value); }
@@ -46,13 +68,15 @@ namespace ICIMS.Model.User
         
         public List<OrganizationUnitItem> Units { get => _units; set => SetProperty(ref _units, value); }
 
+        public List<int> UnitIds { get; set; }
+
         private List<OrganizationUnitItem> _units;
 
-        public string RolesNameStr
+        public string RolesName
         {
             get
             {
-                return string.Join(",", RoleNames);
+                return this.RoleNames.FirstOrDefault();
             }
         }
 
