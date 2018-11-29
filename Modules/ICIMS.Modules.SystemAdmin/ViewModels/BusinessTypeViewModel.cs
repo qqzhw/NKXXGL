@@ -148,8 +148,8 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                                 RoleId = selectedRole.Id,
                                 RoleName =selectedRole.Name,
                                 Name = selectedRole.Name,
-                                BuinessTypeId =SelectedItem.Id,
-                                BuinessTypeName=SelectedItem.Name,
+                                BusinessTypeId =SelectedItem.Id,
+                                BusinessTypeName=SelectedItem.Name,
                                 DisplayOrder = order
                             };
                             var returnOne= await _businessAuditService.CreateOrUpdate(one);
@@ -189,7 +189,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             {
                 if(value.Audits == null)
                 {
-                    var audits = this.BusinessAudits.Where(a => a.BuinessTypeId == value.Id).ToList();
+                    var audits = this.BusinessAudits.Where(a => a.BusinessTypeId == value.Id).ToList();
                     var idx = 1;
                     audits.ForEach(a=>a.No = idx++);
                     value.Audits = new ObservableCollection<BusinessAudit>(audits);
@@ -221,7 +221,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                 this.BusinessAudits = auditTypes.Items;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 this.BusinessAudits = new List<BusinessAudit>();
             }
