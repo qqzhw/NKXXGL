@@ -13,6 +13,7 @@ namespace ICIMS.Model.BaseData
     {
         private string _code;
         private string _displayName;
+        private string _name;
         private string _description;
         private int? _parentId;
         private bool _published;
@@ -100,5 +101,6 @@ namespace ICIMS.Model.BaseData
         }
 
         public bool IsChecked { get => _isChecked; set => SetProperty(ref _isChecked,value); }
+        public string Name { get => _name; set => SetProperty(ref _name,value); }
     }
 }
