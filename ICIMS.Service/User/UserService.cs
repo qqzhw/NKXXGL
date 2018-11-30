@@ -97,5 +97,13 @@ namespace ICIMS.Service
         {
             await _webApiClient.DeleteAsync<UserModel>($"{_webApiClient.BaseUrl}{BaseUrl}Delete",new { Id });
         }
+
+        public async Task<List<UnitModel>> GetUserUnits(long userId)
+        {
+            var para = new { userId };
+            var data = await _webApiClient.GetAsync<ResultData<List<UnitModel>>>($"{_webApiClient.BaseUrl}{BaseUrl}GetAll", para);
+
+            return data.Items;
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace ICIMS.Service
         Task<List<UserModel>> GetAll(int SkipCount=0,int MaxResultCount = int.MaxValue);
         Task<UserModel> Create(UserModel user);
         Task<UserModel> Update(UserModel user);
+        Task<List<UnitModel>> GetUserUnits(long userId);
         Task Delete(int Id);
 
     }

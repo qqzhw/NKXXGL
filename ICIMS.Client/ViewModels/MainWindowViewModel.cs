@@ -44,7 +44,7 @@ namespace ICIMS.Client.ViewModels
             _moduleManager = moduleManager;
             _serviceLocator = serviceLocator;
             _userSerice = userSerice;
-            _userModel = new UserModel();
+            //_userModel = new UserModel();
             //  CustomPopupRequest = new InteractionRequest<INotification>();
             CustomPopupCommand = new DelegateCommand(RaiseCustomPopup);
             _systemInfos = new ObservableCollection<SystemInfoViewModel>();
@@ -107,7 +107,11 @@ namespace ICIMS.Client.ViewModels
             get { return _userModel; }
             set { SetProperty(ref _userModel, value); }
         }
-
+        private string _displayNames;
+        public string DisplayNames {
+            get { return _displayNames; }
+            set { SetProperty(ref _displayNames, value); }
+        }
         /// <summary>
         /// 加载设置选项
         /// </summary>
@@ -119,6 +123,7 @@ namespace ICIMS.Client.ViewModels
             string UserName = "admin";
             string Password = "123qwe";
             var user=_userSerice.LoginAsync(UserName,Password,TenancyName);
+            var units =await _userSerice.GetUserUnits(user.Id);
             _container.RegisterInstance(user, new ContainerControlledLifetimeManager());
             var roles = await _userSerice.GetUserRoles();
             foreach (var item in roles.Items)
@@ -128,6 +133,7 @@ namespace ICIMS.Client.ViewModels
                 user.RoleNames.Add(item.Name);
             }
             UserModel = user;
+            DisplayNames = user.RoleDisplayNames[0].Normalize();
             List <KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>();
             keyValuePairs.Add(new KeyValuePair<string, string>("Id", "5"));
             keyValuePairs.Add(new KeyValuePair<string, string>("FileName", "FileNames"));
