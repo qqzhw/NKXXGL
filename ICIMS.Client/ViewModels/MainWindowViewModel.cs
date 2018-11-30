@@ -44,17 +44,17 @@ namespace ICIMS.Client.ViewModels
             _moduleManager = moduleManager;
             _serviceLocator = serviceLocator;
             _userSerice = userSerice;
-          
+            _userModel = new UserModel();
             //  CustomPopupRequest = new InteractionRequest<INotification>();
             CustomPopupCommand = new DelegateCommand(RaiseCustomPopup);
             _systemInfos = new ObservableCollection<SystemInfoViewModel>();
             LoadedCommand = new DelegateCommand<object>(OnLoad);
-            SelectedCommand = new DelegateCommand<SystemInfoViewModel>(OnItemSelected);
-            ConnectCmd = new DelegateCommand<string>(OnConnectedDevice);
+            SelectedCommand = new DelegateCommand<SystemInfoViewModel>(OnItemSelected);             
             eventAggregator.GetEvent<TabCloseEvent>().Subscribe(OnTabActive);
             Telerik.Windows.Controls.StyleManager.ApplicationTheme = new Telerik.Windows.Controls.Office2016TouchTheme();
-            InitLoadSetting();
 
+            InitLoadSetting();
+            
         }
 
        
@@ -80,23 +80,10 @@ namespace ICIMS.Client.ViewModels
           
         }
 
-        private void OnConnectedDevice(string deviceNo)
-        {
-            foreach (var item in _systemInfos)
-            {
-                item.IsSelected = false;
-            }
-            var model = _systemInfos.FirstOrDefault(o => o.Id == "WaterDataView");
-            model.IsSelected = true;
-            var navigationParameters = new NavigationParameters();
-            navigationParameters.Add("deviceNo", deviceNo);
-            var region = _regionManager.Regions["MainRegion"];
-            _regionManager.RequestNavigate("MainRegion", model.Id, navigationCallback, navigationParameters);
-            SelectedItem = model;
-        }
+       
 
         public ICommand SelectedCommand { get; private set; }
-        public ICommand ConnectCmd { get; private set; }
+         
         public ICommand LoadedCommand { get; private set; }
 
         private ObservableCollection<SystemInfoViewModel> _systemInfos;
@@ -114,7 +101,12 @@ namespace ICIMS.Client.ViewModels
             get { return _selectItem; }
             set { SetProperty(ref _selectItem, value); }
         }
-   
+        private UserModel _userModel;
+        public UserModel UserModel
+        {
+            get { return _userModel; }
+            set { SetProperty(ref _userModel, value); }
+        }
 
         /// <summary>
         /// 加载设置选项
@@ -135,6 +127,7 @@ namespace ICIMS.Client.ViewModels
                 user.RoleDisplayNames.Add(item.DisplayName); 
                 user.RoleNames.Add(item.Name);
             }
+            UserModel = user;
             List <KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>();
             keyValuePairs.Add(new KeyValuePair<string, string>("Id", "5"));
             keyValuePairs.Add(new KeyValuePair<string, string>("FileName", "FileNames"));
