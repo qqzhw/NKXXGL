@@ -82,7 +82,6 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
         private void OnEditCommand(object obj)
         {
-         
             var newItem = new FundEditViewModel() { ShowReAddBtn = false };
             newItem.Item = CommonHelper.CopyItem(this.SelectedItem);
             FundEditView view = new FundEditView(newItem);
@@ -91,40 +90,34 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 Title = "资金来源",
                 Content = view,// (new ParameterOverride("name", "")),
             };
-
-            newItem.CloseHandler = () => 
+            
+            PopupWindows.NotificationRequest.RaiseWithCallback(notification, async (callback) =>
             {
-                return true;
-            };
-
-            PopupWindows.NotificationRequest.Raise(notification, async (callback) =>
-            {
-                if (newItem.IsOkClicked != null)
+                if (newItem.IsOkClicked == 1)
                 {
-                    if (newItem.IsOkClicked.Value)
+                    try
                     {
-                        try
+                        var data = await _service.CreateOrUpdate(newItem.Item);
+                        if (data != null)
                         {
-                            var data = await _service.CreateOrUpdate(newItem.Item);
-                            if (data != null)
-                            {
-                                var oriItem = this.Items.FirstOrDefault(a => a.Id == newItem.Item.Id);
+                            var oriItem = this.Items.FirstOrDefault(a => a.Id == newItem.Item.Id);
 
-                                CommonHelper.SetValue(oriItem, newItem.Item);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
+                            CommonHelper.SetValue(oriItem, newItem.Item);
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+
+                        return false;
+                    }
+
                 }
-                else
-                {
-                    
-                }
+
+                return true;
+
             });
-            view.BindAction(notification.Finish);
+            newItem.TriggerClose = notification.TriggerClose;
         }
 
         private void OnRefreshCommand(object obj)
@@ -142,33 +135,43 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 Title = "资金来源",
                 Content = view,// (new ParameterOverride("name", "")),
             };
-            PopupWindows.NotificationRequest.Raise(notification, async (callback) =>
+            PopupWindows.NotificationRequest.RaiseWithCallback(notification, async (callback) =>
             {
-                if (newItem.IsOkClicked != null)
+                try
                 {
-                    if (newItem.IsOkClicked.Value)
+                    if (newItem.IsOkClicked == 0)
                     {
-                        try
-                        {
-                            var data = await _service.CreateOrUpdate(newItem.Item);
-                            if (data != null)
-                            {
-                                this.Items.Add(data);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-
+                        return false;
                     }
-                }
-                else
-                {
+
+                    var data = await _service.CreateOrUpdate(newItem.Item);
+                    if (data != null)
+                    {
+                        this.Items.Add(data);
+                    }
+
+                    if (newItem.IsOkClicked == 1)
+                    {
+                        return true;
+                    }
+                    else if (newItem.IsOkClicked == 2)
+                    {
+                        newItem.Item = new FundItem();
+                        return false;
+                    }
 
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+
+                    return false;
+                }
+               
+                return true;
             });
-            view.BindAction(notification.Finish);
+            newItem.TriggerClose = notification.TriggerClose;
+
 
         }
 

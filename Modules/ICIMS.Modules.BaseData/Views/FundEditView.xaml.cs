@@ -35,5 +35,10 @@ namespace ICIMS.Modules.BaseData.Views
             ViewModel.Close = action;
         }
 
+        public void BindAction(Action action)
+        {
+            ViewModel.TriggerClose = action;
+        }
+
     }
 }

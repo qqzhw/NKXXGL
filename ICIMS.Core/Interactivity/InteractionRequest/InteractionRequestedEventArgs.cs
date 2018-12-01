@@ -1,6 +1,7 @@
 
 
 using System;
+using System.Threading.Tasks;
 
 namespace ICIMS.Core.Interactivity.InteractionRequest
 {
@@ -25,6 +26,13 @@ namespace ICIMS.Core.Interactivity.InteractionRequest
             this.Callback = callback;
             this.Closed = close;
         }
+
+        public InteractionRequestedEventArgs(INotification context, Func<Task<bool>> callback)
+        {
+            this.Context = context;
+            this.CallbackFunc = callback;
+        }
+
         /// <summary>
         /// Gets the context for a requested interaction.
         /// </summary>
@@ -35,5 +43,10 @@ namespace ICIMS.Core.Interactivity.InteractionRequest
         /// </summary>
         public Action Callback { get; private set; }
         public Action Closed { get; internal set; }
+
+
+        public Func<Task<bool>> CallbackFunc { get; set; }
+
+        public Action TriggerClose { get; set; }
     }
 }

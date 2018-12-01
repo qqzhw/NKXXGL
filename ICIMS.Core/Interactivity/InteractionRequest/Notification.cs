@@ -34,5 +34,6 @@ namespace ICIMS.Core.Interactivity.InteractionRequest
             get;
             set;
         }
+        public Action TriggerClose { get; set; }
     }
 }

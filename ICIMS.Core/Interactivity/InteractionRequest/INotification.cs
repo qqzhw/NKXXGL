@@ -28,5 +28,7 @@ namespace ICIMS.Core.Interactivity.InteractionRequest
 
         WindowState WindowState { get; set; }
         bool Maximized { get; set; }
+
+        Action TriggerClose { get; set; }
     }
 }

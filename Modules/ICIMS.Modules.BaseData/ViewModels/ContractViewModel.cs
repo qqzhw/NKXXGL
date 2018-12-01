@@ -90,32 +90,33 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 Title = "合同分类",
                 Content = view,// (new ParameterOverride("name", "")),
             };
-            PopupWindows.NotificationRequest.Raise(notification, async (callback) =>
+            PopupWindows.NotificationRequest.RaiseWithCallback(notification, async (callback) =>
             {
-                if (newItem.IsOkClicked != null)
+
+                if (newItem.IsOkClicked == 1)
                 {
-                    if (newItem.IsOkClicked.Value)
+                    try
                     {
-                        try
+                        var data = await _service.CreateOrUpdate(newItem.Item);
+                        if (data != null)
                         {
-                            var data = await _service.CreateOrUpdate(newItem.Item);
-                            if (data != null)
-                            {
-                                var oriItem = this._datas.FirstOrDefault(a => a.Id == newItem.Item.Id);
+                            var oriItem = this._datas.FirstOrDefault(a => a.Id == newItem.Item.Id);
 
-                                CommonHelper.SetValue(oriItem, newItem.Item);
-                            }
+                            CommonHelper.SetValue(oriItem, newItem.Item);
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-
-
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        return false;
+                    }
+
+
                 }
+                return true;
+
             });
-            view.BindAction(notification.Finish);
+            newItem.TriggerClose = notification.TriggerClose;
         }
 
         private void OnRefreshCommand(object obj)
@@ -133,34 +134,42 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 Title = "合同分类",
                 Content = view,// (new ParameterOverride("name", "")),
             };
-            PopupWindows.NotificationRequest.Raise(notification, async (callback) =>
+            PopupWindows.NotificationRequest.RaiseWithCallback(notification, async (callback) =>
             {
-                if (newItem.IsOkClicked != null)
+                try
                 {
-                    if (newItem.IsOkClicked.Value)
+                    if (newItem.IsOkClicked == 0)
                     {
-                        try
-                        {
-                            var data = await _service.CreateOrUpdate(newItem.Item);
-                            if (data != null)
-                            {
-                                this._datas.Add(data);
-                                this.InitOneData(_datas, data);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-
+                        return false;
                     }
-                }
-                else
-                {
+
+                    var data = await _service.CreateOrUpdate(newItem.Item);
+                    if (data != null)
+                    {
+                        this.Items.Add(data);
+                    }
+
+                    if (newItem.IsOkClicked == 1)
+                    {
+                        return true;
+                    }
+                    else if (newItem.IsOkClicked == 2)
+                    {
+                        newItem.Item = new ContractItem();
+                        return false;
+                    }
 
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+
+                    return false;
+                }
+
+                return true;
             });
-            view.BindAction(notification.Finish);
+            newItem.TriggerClose = notification.TriggerClose;
 
         }
 
