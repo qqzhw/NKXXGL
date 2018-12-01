@@ -79,6 +79,14 @@ namespace ICIMS.Service
             return data.Items;
         }
 
+       public async Task<List<UserModel>> GetAllUsersAsync(int SkipCount = 0, int MaxResultCount = int.MaxValue)
+        {
+            var para = new { MaxResultCount, SkipCount };
+            var data = await _webApiClient.GetAsync<ResultData<List<UserModel>>>($"{_webApiClient.BaseUrl}{BaseUrl}GetAllUsersAsync", para);
+
+            return data.Items;
+        }
+
         public async Task<UserModel> Create(UserModel user)
         {
             var data = await _webApiClient.PostAsync<UserModel>($"{_webApiClient.BaseUrl}{BaseUrl}Create", user);

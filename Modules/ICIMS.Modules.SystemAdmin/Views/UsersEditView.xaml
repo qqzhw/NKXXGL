@@ -30,7 +30,11 @@
             </DockPanel>
             <DockPanel Margin="10">
                 <TextBlock xml:space="preserve" >姓  名</TextBlock>
-                <TextBox Text="{Binding Name}"/>
+                <TextBox Text="{Binding Item.Name}"/>
+            </DockPanel> 
+            <DockPanel Margin="10">
+                <TextBlock xml:space="preserve" >邮  箱</TextBlock>
+                <TextBox Text="{Binding Item.EmailAddress}"/>
             </DockPanel>
             <DockPanel  xml:space="preserve" Margin="10">
                 <TextBlock>角  色</TextBlock>

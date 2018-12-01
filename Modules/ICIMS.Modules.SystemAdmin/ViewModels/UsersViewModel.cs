@@ -177,8 +177,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                     try
                     {
                         newItem.Item.Name = newItem.Item.UserName;
-                        newItem.Item.EmailAddress = "test@qq.com";
-                        newItem.Item.Surname = "test";
+                        newItem.Item.Surname = newItem.Item.UserName;
                         newItem.Item.Password = "111111";
                         newItem.Item.UnitIds = new List<int> { newItem.SelectedDepartment.Id};
                         newItem.Item.RoleNames = new List<string> { newItem.SelectedRole.Name};
@@ -203,7 +202,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
         public async void Init()
         {
             ShowCommand = new DelegateCommand<object>(OnMenuCommand);
-            var users = await _service.GetAll();
+            var users = await _service.GetAllUsersAsync();
             this.Items = new ObservableCollection<UserModel>(users);
             var departments = (await _departmentService.GetPageItems()).datas;
             foreach (var data in departments)
