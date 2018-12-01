@@ -2,6 +2,7 @@
 using ICIMS.Core.Interactivity;
 using ICIMS.Core.Interactivity.InteractionRequest;
 using ICIMS.Model.BusinessManages;
+using ICIMS.Model.User;
 using ICIMS.Modules.BusinessManages.Views;
 using ICIMS.Service;
 using ICIMS.Service.BusinessManages;
@@ -42,14 +43,14 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand LogCommand { get; private set; }
         public DelegateCommand SearchItemCommand { get; private set; }
         public DelegateCommand UploadCommand { get; private set; }
-
+        private readonly UserModel _userModel;
         private string _title;
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public ReViewDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ReViewDefineList data, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, IReViewDefineService reViewDefineService)
+        public ReViewDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ReViewDefineList data, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, IReViewDefineService reViewDefineService, UserModel userModel)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
@@ -60,6 +61,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _auditMappingService = auditMappingService; 
             _reViewDefineService = reViewDefineService;
             _title = "评审审核";
+            _userModel = userModel;
             SaveCommand = new DelegateCommand(OnSave);
             SubmitCommand = new DelegateCommand(OnSubmit);
             CancelCommand = new DelegateCommand(OnCancel);

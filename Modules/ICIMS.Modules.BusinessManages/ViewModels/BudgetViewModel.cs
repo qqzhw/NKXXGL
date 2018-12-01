@@ -1,4 +1,5 @@
 ﻿using ICIMS.Core.Events;
+using ICIMS.Model.User;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -19,18 +20,20 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private IEventAggregator _eventAggregator;
         private readonly IUnityContainer _container;
         private readonly IRegionManager _regionManager;
+        private readonly UserModel _userModel;
         private string _title;
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public BudgetViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IRegionManager regionManager)
+        public BudgetViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IRegionManager regionManager, UserModel userModel)
         {
             _eventAggregator = eventAggregator;
             _container = unityContainer;
             _regionManager = regionManager;
             _title = "项目立项";
+            _userModel = userModel;
             AddCommand = new DelegateCommand(OnAddItem);
             EditCommand = new DelegateCommand<object>(OnEditItem);
             DeleteCommand = new DelegateCommand<object>(OnDelete);

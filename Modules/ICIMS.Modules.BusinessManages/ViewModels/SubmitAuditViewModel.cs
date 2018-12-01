@@ -1,4 +1,5 @@
 ﻿using ICIMS.Model.BusinessManages;
+using ICIMS.Model.User;
 using ICIMS.Service.BusinessManages;
 using Prism.Commands;
 using Prism.Events;
@@ -25,19 +26,21 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IAuditMappingService _auditMappingService;
         private readonly IItemDefineService _itemDefineService;
+        private readonly UserModel _userModel;
         private string _title;
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public SubmitAuditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IRegionManager regionManager, IAuditMappingService auditMappingService, IItemDefineService itemDefineService, AuditMapping data)
+        public SubmitAuditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IRegionManager regionManager, IAuditMappingService auditMappingService, IItemDefineService itemDefineService, AuditMapping data, UserModel userModel)
         {
             _eventAggregator = eventAggregator;
             _container = unityContainer;
             _regionManager = regionManager;
             _auditMappingService = auditMappingService;
             _title = "审核";
+            _userModel = userModel;
             SaveCommand = new DelegateCommand(OnAddItem);
             CancelCommand = new DelegateCommand(OnCancel);
             DoubleClick = new DelegateCommand<object>(OnDoubleClick);

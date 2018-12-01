@@ -16,6 +16,7 @@ namespace ICIMS.Service
         public long? UnitId { get; set; }
         public string UnitName { get; set; }
         public string Name { get; set; }
+        public string UserName { get; set; }
         public List<string> RolesName{get;set;}
     }
 }

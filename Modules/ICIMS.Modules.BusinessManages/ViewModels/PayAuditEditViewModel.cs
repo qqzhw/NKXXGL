@@ -5,6 +5,7 @@ using ICIMS.Core.Interactivity;
 using ICIMS.Core.Interactivity.InteractionRequest;
 using ICIMS.Model.BaseData;
 using ICIMS.Model.BusinessManages;
+using ICIMS.Model.User;
 using ICIMS.Modules.BusinessManages.Views;
 using ICIMS.Service;
 using ICIMS.Service.BaseData;
@@ -47,14 +48,14 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand SearchContractCommand { get; private set; }
         public DelegateCommand SearchPaymentCommand { get; private set; }
         public DelegateCommand UploadCommand { get; private set; }
-
+        private readonly UserModel _userModel;
         private string _title;
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public PayAuditEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, PayAuditList data, IItemDefineService itemDefineService, IFilesService filesService, IPayAuditService payAuditService, IVendorService vendorService, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService)
+        public PayAuditEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, PayAuditList data, IItemDefineService itemDefineService, IFilesService filesService, IPayAuditService payAuditService, IVendorService vendorService, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, UserModel userModel)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
@@ -65,6 +66,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _payAuditService = payAuditService;
             _vendorService = vendorService;
             _title = "支付审核";
+            _userModel = userModel;
             SaveCommand = new DelegateCommand(OnSave);
             SubmitCommand = new DelegateCommand(OnSubmit);
             CancelCommand = new DelegateCommand(OnCancel);

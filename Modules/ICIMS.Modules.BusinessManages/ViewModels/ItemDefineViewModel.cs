@@ -26,6 +26,7 @@ using Telerik.Windows;
 using Telerik.Windows.Controls;
 using System.Windows;
 using DelegateCommand = Prism.Commands.DelegateCommand;
+using ICIMS.Model.User;
 
 namespace ICIMS.Modules.BusinessManages.ViewModels
 {
@@ -35,8 +36,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IUnityContainer _container;
         private readonly IRegionManager _regionManager;
         private readonly IItemDefineService _itemDefineService;
+        private readonly UserModel _userModel;
 
-        
+
 
         private string _title;
         public string Title
@@ -44,12 +46,13 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public ItemDefineViewModel(IEventAggregator eventAggregator,IUnityContainer unityContainer, IRegionManager regionManager, IItemDefineService itemDefineService)
+        public ItemDefineViewModel(IEventAggregator eventAggregator,IUnityContainer unityContainer, IRegionManager regionManager, IItemDefineService itemDefineService,UserModel userModel)
         {
             _eventAggregator = eventAggregator;
             _container = unityContainer;
             _regionManager = regionManager;
             _itemDefineService = itemDefineService;
+            _userModel = userModel;
             _title = "项目立项";
             _itemDefineLists = new ObservableCollection<ItemDefineList>();
             LoadedCommand = new DelegateCommand(OnLoad);

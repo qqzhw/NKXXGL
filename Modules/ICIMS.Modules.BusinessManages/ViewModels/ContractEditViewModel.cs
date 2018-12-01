@@ -3,6 +3,7 @@ using ICIMS.Core.Interactivity;
 using ICIMS.Core.Interactivity.InteractionRequest;
 using ICIMS.Model.BaseData;
 using ICIMS.Model.BusinessManages;
+using ICIMS.Model.User;
 using ICIMS.Modules.BusinessManages.Views;
 using ICIMS.Service;
 using ICIMS.Service.BusinessManages;
@@ -45,13 +46,14 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand CaractTypeCommand { get; private set; }
         public DelegateCommand UploadCommand { get; private set; }
         public DelegateCommand SearchVendorCommand { get; private set; }
+        private readonly UserModel _userModel;
         private string _title;
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public ContractEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ContractList data,IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, IContractService contractService)
+        public ContractEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ContractList data,IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, IContractService contractService, UserModel userModel)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
@@ -61,6 +63,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _businessAuditService = businessAuditService;
             _auditMappingService = auditMappingService;
             _contractService = contractService;
+            _userModel = userModel;
             _title = "合同登记";
             SaveCommand = new DelegateCommand(OnSave);
             SubmitCommand = new DelegateCommand(OnSubmit);

@@ -2,6 +2,7 @@
 using ICIMS.Core.Interactivity;
 using ICIMS.Core.Interactivity.InteractionRequest;
 using ICIMS.Model.BusinessManages;
+using ICIMS.Model.User;
 using ICIMS.Modules.BusinessManages.Views;
 using ICIMS.Service.BusinessManages;
 using Prism.Commands;
@@ -33,14 +34,14 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IItemDefineService _itemDefineService; 
         private readonly IReViewDefineService _reviewDefineService;
-
+        private readonly UserModel _userModel;
         private string _title;
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public ReViewDefineViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IRegionManager regionManager, IItemDefineService itemDefineService, IReViewDefineService  reviewDefineService)
+        public ReViewDefineViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IRegionManager regionManager, IItemDefineService itemDefineService, IReViewDefineService  reviewDefineService, UserModel userModel)
         {
             _eventAggregator = eventAggregator;
             _container = unityContainer;
@@ -48,6 +49,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _itemDefineService = itemDefineService;
             _reviewDefineService = reviewDefineService;
             _title = "评审登记";
+            _userModel = userModel;
             _reviewDefineLists = new ObservableCollection<ReViewDefineList>();
             LoadedCommand = new DelegateCommand(OnLoad);
             AddCommand = new DelegateCommand(OnAddItem);

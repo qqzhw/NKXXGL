@@ -123,7 +123,12 @@ namespace ICIMS.Client.ViewModels
             string UserName = "admin";
             string Password = "123qwe";
             var user=_userSerice.LoginAsync(UserName,Password,TenancyName);
-            var units =await _userSerice.GetUserUnits(user.Id);
+            var unit =await _userSerice.GetUserUnit(user.Id);
+            if (unit!=null)
+            {
+                user.UnitId = unit.Id;
+                user.UnitName = unit.Name;
+            }
             _container.RegisterInstance(user, new ContainerControlledLifetimeManager());
             var roles = await _userSerice.GetUserRoles();
             foreach (var item in roles.Items)
