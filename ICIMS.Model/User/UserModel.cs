@@ -29,30 +29,16 @@ namespace ICIMS.Model.User
         public string Name { get => _name; set => SetProperty(ref _name, value); }
 
 
-        private long? _unitId;
-        public long? UnitId
+        private long _unitId;
+        public long UnitId
         {
-            get
-            {
-                if(this.Units == null || this.Units.Count == 0)
-                {
-                    return null;
-                }
-                return this.Units.First().Id;
-            }
+            get => _unitId; set => SetProperty(ref _unitId, value);
         }
 
         private string _unitName;
         public string UnitName
         {
-            get
-            {
-                if (this.Units == null || this.Units.Count == 0)
-                {
-                    return null;
-                }
-                return this.Units.First().DisplayName;
-            }
+            get => _unitName; set => SetProperty(ref _unitName, value);
         }
 
         public bool IsActive { get; set; } = true;

@@ -2,6 +2,7 @@
 using ICIMS.Core.Interactivity;
 using ICIMS.Core.Interactivity.InteractionRequest;
 using ICIMS.Model.BusinessManages;
+using ICIMS.Model.User;
 using ICIMS.Modules.BusinessManages.Views;
 using ICIMS.Service.BusinessManages;
 using Prism.Commands;
@@ -31,19 +32,20 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IUnityContainer _container;
         private readonly IRegionManager _regionManager; 
         private readonly IContractService _contractService;
-
+        private readonly UserModel _userModel;
         private string _title;
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public ContractViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IRegionManager regionManager, IContractService contractService)
+        public ContractViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IRegionManager regionManager, IContractService contractService, UserModel userModel)
         {
             _eventAggregator = eventAggregator;
             _container = unityContainer;
             _regionManager = regionManager;
             _contractService = contractService;
+            _userModel = userModel;
             _title = "合同登记";
             _contractList = new ObservableCollection<ContractList>();
             AddCommand = new DelegateCommand(OnAddItem); 

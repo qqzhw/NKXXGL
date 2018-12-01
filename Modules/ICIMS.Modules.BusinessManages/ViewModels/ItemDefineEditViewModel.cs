@@ -24,6 +24,7 @@ using System.Collections.ObjectModel;
 using ICIMS.Service;
 using System.Windows;
 using Unity.Resolution;
+using ICIMS.Model.User;
 
 namespace ICIMS.Modules.BusinessManages.ViewModels
 {
@@ -36,6 +37,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IWebApiClient _webApiClient;
         private readonly IBusinessAuditService _businessAuditService;
         private readonly IAuditMappingService _auditMappingService;
+        private readonly UserModel _userModel;
         public DelegateCommand SaveCommand { get; private set; }
         public DelegateCommand SubmitCommand { get; private set; }
         public DelegateCommand CancelCommand { get; private set; }
@@ -50,7 +52,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public ItemDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ItemDefineList data, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService)
+        public ItemDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ItemDefineList data, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, UserModel userModel)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
@@ -60,6 +62,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _businessAuditService = businessAuditService;
             _auditMappingService = auditMappingService;
             _title = "项目立项";
+            _userModel = userModel;
             SaveCommand = new DelegateCommand(OnSave);
             SubmitCommand = new DelegateCommand(OnSubmit);
             CancelCommand = new DelegateCommand(OnCancel);
@@ -80,24 +83,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             if (info.Id == 0)
             {
                 ItemDefine.DefineDate = DateTime.Now;
+                ItemDefine.UnitId = _userModel.UnitId;
+                ItemDefine.UnitName = _userModel.UnitName;
                 return;
             }
-            //ItemDefine.AuditDate = info.AuditDate;
-            //ItemDefine.AuditUserId = info.AuditUserId;
-            //ItemDefine.AuditUserName = info.AuditUserName;
-            //ItemDefine.BudgetId = info.BudgetId;
-            //ItemDefine.BudgetName = info.BudgetName;
-            //ItemDefine.DefineAmount = info.DefineAmount;
-            //ItemDefine.DefineDate = info.DefineDate;
-            //ItemDefine.Id = info.Id;
-            //ItemDefine.IsAudit = info.IsAudit;
-            //ItemDefine.IsFinal = info.IsFinal;
-            //ItemDefine.ItemAddress = info.ItemAddress;
-            //ItemDefine.ItemCategoryId = info.ItemCategoryId;
-            //ItemDefine.ItemCategoryName = info.ItemCategoryName;
-            //ItemDefine.ItemDescription = info.ItemDescription;
-            //ItemDefine.ItemDocNo = info.ItemDocNo;
-            //ItemDefine.ItemName = info.ItemName;
+            
             ItemDefine = Mapper.Map<ItemDefine>(info);
             GetFiles(ItemDefine);
            
@@ -109,9 +99,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             set { SetProperty(ref _filesManages, value); }
         }
         private async void GetFiles(ItemDefine itemDefine)
-        {
-            FilesManages.Clear();
-            var items = await _filesService.GetAllFiles(itemDefine.Id, "ItemDefine");
+        { 
+            var items = await _filesService.GetAllFiles(itemDefine.Id, "ItemDefine"); 
             FilesManages = new ObservableCollection<FilesManage>(items.Items);
         }
         private ObservableCollection<BusinessAudit> _buinessAudits;
@@ -182,7 +171,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             //ItemDefine.ItemDocNo = "文号110";
             //ItemDefine.ItemName = "立项研究项目";
             //ItemDefine.Remark = "beizhu";
-             ItemDefine.UnitId = 1;
+            
+            
            // if (ItemDefine.Id==0)
             {
                var item= await _itemDefineService.CreateOrUpdate(ItemDefine);
@@ -268,16 +258,18 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
 
         private async void InitBusinessAudits()
-        {
-            BuinessAudits.Clear();
+        { 
             var items = await _businessAuditService.GetAllBusinessAudits(2);
+            BuinessAudits.Clear();
             BuinessAudits.AddRange(items.Items);
             LoadAuditMappings();
         }
         private async void LoadAuditMappings()
         {
-            AuditMappings.Clear();
+            if (ItemDefine.Id == 0)
+                return;
             var items = await _auditMappingService.GetAllAuditMappings(ItemDefine.Id, 2);
+            AuditMappings.Clear();
             _auditMappings.AddRange(items.Items);
             if (AuditMappings.Count>0)
             {

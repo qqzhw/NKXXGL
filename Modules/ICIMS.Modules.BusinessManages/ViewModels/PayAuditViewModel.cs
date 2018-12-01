@@ -2,6 +2,7 @@
 using ICIMS.Core.Interactivity;
 using ICIMS.Core.Interactivity.InteractionRequest;
 using ICIMS.Model.BusinessManages;
+using ICIMS.Model.User;
 using ICIMS.Modules.BusinessManages.Views;
 using ICIMS.Service.BusinessManages;
 using Prism.Commands;
@@ -31,7 +32,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IUnityContainer _container;
         private readonly IRegionManager _regionManager;
         private readonly IItemDefineService _itemDefineService;
-
+        private readonly UserModel _userModel;
         private readonly IPayAuditService _payAuditService;
 
         private string _title;
@@ -40,7 +41,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public PayAuditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IRegionManager regionManager, IItemDefineService itemDefineService, IPayAuditService payAuditService)
+        public PayAuditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, IRegionManager regionManager, IItemDefineService itemDefineService, IPayAuditService payAuditService, UserModel userModel)
         {
             _eventAggregator = eventAggregator;
             _container = unityContainer;
@@ -48,6 +49,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _itemDefineService = itemDefineService;
             _payAuditService = payAuditService;
             _title = "支付审核";
+            _userModel = userModel;
             _payAuditLists = new ObservableCollection<PayAuditList>();
             LoadedCommand = new DelegateCommand(OnLoad);
             AddCommand = new DelegateCommand(OnAddItem);

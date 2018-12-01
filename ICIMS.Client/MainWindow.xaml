@@ -730,11 +730,20 @@
 
         </telerik:RadTabControl>
 
-        <StatusBar Grid.Row="1" Grid.ColumnSpan="3" Height="30" BorderBrush="#999999" Background="#DEDEDE" Foreground="Black" BorderThickness="0,1,0,0">
-            <StatusBarItem Content="操作员"/>
+        <StatusBar Grid.Row="1" Grid.ColumnSpan="3" Height="30" BorderBrush="#999999" FontFamily="SimSun" Background="#DEDEDE" Foreground="Black" BorderThickness="0,1,0,0">
+            <StatusBarItem Content="用户名："/>
+            <StatusBarItem Content="{Binding UserModel.UserName}"/>
+            <StatusBarItem Content="操作员：" Margin="10,0,0,0"/> 
+            <StatusBarItem Content="{Binding UserModel.Name}"/>
             <Separator  Foreground="#333333"/>
-            <StatusBarItem Content="管理员"/>
-            <StatusBarItem  Content="{Binding SelectedItem.Header.Title, ElementName=MainTabControl, Mode=OneWay}" />
+            <StatusBarItem Content="部门："/>
+            <StatusBarItem Content="{Binding UserModel.UnitName}"/>
+
+            <StatusBarItem Content="角色：" Margin="10,0,0,0"/>
+            <StatusBarItem  Content="{Binding DisplayNames}" />
+            <!--<StatusBarItem  Content="{da.RoleDisplayNames[0]?.DisplayName}" />-->
+            <StatusBarItem  HorizontalAlignment="Right" Content="成都昊耘科技有限公司" />
+            
         </StatusBar>
 
     </Grid>

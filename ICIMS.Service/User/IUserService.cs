@@ -20,6 +20,8 @@ namespace ICIMS.Service
         
         Task<UserModel> Create(UserModel user);
         Task<UserModel> Update(UserModel user);
+        Task<UnitModel> GetUserUnit(long userId); 
+        Task<List<UnitModel>> GetUserManagerUnits(long userId);
         Task Delete(int Id);
 
     }

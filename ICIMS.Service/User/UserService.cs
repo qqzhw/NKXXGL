@@ -35,7 +35,8 @@ namespace ICIMS.Service
             {
                 AccessToken = resultDto.AccessToken,
                 Id = resultDto.UserId,
-                Name = resultDto.Name,                 
+                Name = resultDto.Name, 
+                UserName=resultDto.UserName
             };
             return user;
         }
@@ -104,6 +105,22 @@ namespace ICIMS.Service
         public async Task Delete(int Id)
         {
             await _webApiClient.DeleteAsync<UserModel>($"{_webApiClient.BaseUrl}{BaseUrl}Delete",new { Id });
+        }
+
+        public async Task<UnitModel> GetUserUnit(long userId)
+        {
+            var para = new { userId };
+            var item = await _webApiClient.GetAsync<UnitModel>($"{_webApiClient.BaseUrl}{BaseUrl}GetUserUnitAsync", para);
+
+            return item;
+        }
+
+        public async Task<List<UnitModel>> GetUserManagerUnits(long userId)
+        {
+            var para = new { userId };
+            var data = await _webApiClient.GetAsync<ResultData<List<UnitModel>>>($"{_webApiClient.BaseUrl}{BaseUrl}GetAll", para);
+
+            return data.Items;
         }
     }
 }
