@@ -66,7 +66,7 @@
                         <TextBlock Text="承建单位"    VerticalAlignment="Center"/>
                         <TextBox  Height="20" Width="250" Text="{Binding VendorItem.Name}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="开户行"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <TextBox  Height="20" HorizontalAlignment="Left" Text="{Binding VendorItem.OpenBack}" Width="200" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="20" HorizontalAlignment="Left" Text="{Binding VendorItem.OpenBank}" Width="200" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="银行账户"  Margin="5,0,0,0" VerticalAlignment="Center" />
                         <TextBox  Height="20" Width="150"  Text="{Binding VendorItem.AccountName}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                     </StackPanel> 
@@ -74,23 +74,23 @@
                             <TextBlock Text="部 门" VerticalAlignment="Center" Margin="18,0,0,0"/>
                             <TextBox  Height="20"  Margin="5,0,0,0" Text="{Binding UnitName}" VerticalAlignment="Center"/>
                             <TextBlock Text="支付类型" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <TextBox  Height="20"  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="20"  Margin="5,0,0,0" Text="{Binding PaymentTypeItem.Name}" VerticalAlignment="Center"/>
                             <Button Command="{Binding SearchPaymentCommand}" Style="{x:Null}" HorizontalAlignment="Left" BorderThickness="0" Height="18">
                                 <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                             </Button>
-                        <TextBlock Text="资金来源" VerticalAlignment="Center" Margin="18,0,0,0"/>
-                        <telerik:RadComboBox telerik:StyleManager.Theme="Windows8"  Height="24" Width="120"/>
-                        <TextBlock Text="来源金额" VerticalAlignment="Center" Margin="18,0,0,0"/>
-                        <telerik:RadNumericUpDown Width="120" HorizontalAlignment="Left"  Value="{Binding Year}"  Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
+                        <!--<TextBlock Text="资金来源" VerticalAlignment="Center" Margin="18,0,0,0"/>
+                        <telerik:RadComboBox telerik:StyleManager.Theme="Windows8"  Height="24" Width="120"/>-->
+                        <TextBlock Text="初始已付金额" VerticalAlignment="Center" Margin="18,0,0,0"/>
+                        <telerik:RadNumericUpDown Width="120" HorizontalAlignment="Left"  Value="{Binding InitPayAmount}"  Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
                         <Button Command="{Binding AddMoneyCommand}" Style="{x:Null}" Background="Transparent" HorizontalAlignment="Left" BorderThickness="0" Height="18">
                             <iconPacks:PackIconFontAwesome Kind="PlusSolid" Height="16" Foreground="#999999" />
                         </Button>
                     </DockPanel>
                         <DockPanel Grid.Row="3">
                             <TextBlock Text="支付编号" VerticalAlignment="Center"/>
-                            <TextBox  Height="20"  Margin="5,0,0,0" IsReadOnly="True" Text="{Binding VendorItem.PaymentNo}"  VerticalAlignment="Center"/>
+                        <TextBox  Height="20"  Margin="5,0,0,0" IsReadOnly="True" Text="{Binding PayAudit.PaymentNo}"  VerticalAlignment="Center"/>
                             <TextBlock Text="支付名称" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                            <TextBox  Height="20" Text="{Binding VendorItem.PaymentName}"  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="20" Text="{Binding PayAudit.PaymentName}"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         </DockPanel>
                         <DockPanel Grid.Row="4" >
                             <TextBlock Text="预算总额" VerticalAlignment="Center"/>

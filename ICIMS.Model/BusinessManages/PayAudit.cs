@@ -3,12 +3,17 @@ using ICIMS.Model.BaseData;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace ICIMS.Model.BusinessManages
 {
     public class PayAudit : BindableBase
     {
+        public PayAudit()
+        {
+            _payAuditDetails = new ObservableCollection<PayAuditDetail>();
+        }
         public int Id { get; set; }
         public int? TenantId { get; set; }
 
@@ -22,6 +27,9 @@ namespace ICIMS.Model.BusinessManages
                 SetProperty(ref _status, value);
                 switch (_status)
                 {
+                    case 0:
+                        _statusText = "制单";
+                        break;
                     case 1:
                         _statusText = "提交审核";
                         break;
@@ -32,6 +40,7 @@ namespace ICIMS.Model.BusinessManages
                         _statusText = "已审核";
                         break;
                     default:
+                        _statusText = "制单";
                         break;
                 }
                 SetProperty(ref _statusText, _statusText);
@@ -116,6 +125,13 @@ namespace ICIMS.Model.BusinessManages
 
         private string _audituserName;
         public string AuditUserName { get => _audituserName; set => SetProperty(ref _audituserName, value); }
+
+        private ObservableCollection<PayAuditDetail> _payAuditDetails;
+        public ObservableCollection<PayAuditDetail> PayAuditDetails
+        {
+            get { return _payAuditDetails; }
+            set { SetProperty(ref _payAuditDetails, value); }
+        }
 
         private string _statusText;
         public string StatusText

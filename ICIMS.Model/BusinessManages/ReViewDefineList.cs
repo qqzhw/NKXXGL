@@ -13,6 +13,9 @@ namespace ICIMS.Model.BusinessManages
         public ReViewDefine ReViewDefine { get => _reviewDefine; set { SetProperty(ref _reviewDefine, value);
                 switch (_reviewDefine?.Status)
                 {
+                    case 0:
+                        _statusText = "制单";
+                        break;
                     case 1:
                         _statusText = "提交审核";
                         break;
@@ -23,6 +26,7 @@ namespace ICIMS.Model.BusinessManages
                         _statusText = "已审核";
                         break;
                     default:
+                        _statusText = "制单";
                         break;
                 }
                 SetProperty(ref _statusText, _statusText);

@@ -15,7 +15,7 @@ namespace ICIMS.Service.BusinessManages
         Task<PayAudit> GetById(int input);
 
 
-        Task CreateOrUpdate(PayAudit input);
+        Task<PayAudit> CreateOrUpdate(PayAudit input);
 
 
         Task Delete(int input);

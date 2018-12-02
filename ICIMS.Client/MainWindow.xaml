@@ -733,12 +733,13 @@
         <StatusBar Grid.Row="1" Grid.ColumnSpan="3" Height="30" BorderBrush="#999999" FontFamily="SimSun" Background="#DEDEDE" Foreground="Black" BorderThickness="0,1,0,0">
             <StatusBarItem Content="用户名："/>
             <StatusBarItem Content="{Binding UserModel.UserName}"/>
+            <Separator  Foreground="#F5F5F5" />
             <StatusBarItem Content="操作员：" Margin="10,0,0,0"/> 
             <StatusBarItem Content="{Binding UserModel.Name}"/>
-            <Separator  Foreground="#333333"/>
+            <Separator  Foreground="#F5F5F5"/>
             <StatusBarItem Content="部门："/>
             <StatusBarItem Content="{Binding UserModel.UnitName}"/>
-
+            <Separator  Foreground="#F5F5F5"/>
             <StatusBarItem Content="角色：" Margin="10,0,0,0"/>
             <StatusBarItem  Content="{Binding DisplayNames}" />
             <!--<StatusBarItem  Content="{da.RoleDisplayNames[0]?.DisplayName}" />-->

@@ -129,7 +129,7 @@ namespace ICIMS.Client.ViewModels
                 user.UnitId = unit.Id;
                 user.UnitName = unit.Name;
             }
-            _container.RegisterInstance(user, new ContainerControlledLifetimeManager());
+             _container.RegisterInstance(user, new ContainerControlledLifetimeManager());
             var roles = await _userSerice.GetUserRoles();
             foreach (var item in roles.Items)
             {

@@ -90,6 +90,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 //    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
 
                 //}
+                Initializer();
                 int s = 0;
             });
         }
@@ -226,7 +227,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 //{
                 //    var selectView = callback.Content as SelectItemCategoryView;
                 //    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
-                    
+                Initializer();
                 //}
                 int s = 0;
             }); 
