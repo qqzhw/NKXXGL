@@ -137,7 +137,7 @@
                 </Grid.RowDefinitions> 
                 <GroupBox Header="支付明细">
                     <telerik:RadGridView FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
+						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding PayAuditDetails}"  
 							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
@@ -150,16 +150,10 @@
 
                             <telerik:GridViewDataColumn Header="序号"  Width="60"    HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  DeviceId,Mode =TwoWay}"/>
 
-                            <telerik:GridViewDataColumn Header="支付次数" Width="120"    DataMemberBinding="{Binding DeviceName}" />
+                            <telerik:GridViewDataColumn Header="资金来源" Width="100"    DataMemberBinding="{Binding FundName}" />
+                            <telerik:GridViewDataColumn Header="金额" Width="100"    DataMemberBinding="{Binding Amount}" />
 
-                            <telerik:GridViewDataColumn Header="支付金额" Width="120">
-                                <telerik:GridViewDataColumn.CellTemplate>
-                                    <DataTemplate >
-                                        <TextBlock Text="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}" />
-                                    </DataTemplate>
-                                </telerik:GridViewDataColumn.CellTemplate>
-                            </telerik:GridViewDataColumn>
-                            <telerik:GridViewDataColumn Header="支付比例%" DataMemberBinding="{Binding GDDY}" TextWrapping="Wrap" Width="90" />
+                            <telerik:GridViewDataColumn Header="备注" Width="*"    DataMemberBinding="{Binding Remark}" />
 
                         </telerik:RadGridView.Columns>
 

@@ -24,24 +24,36 @@ namespace ICIMS.Model.BusinessManages
                 {
                     case 0:
                         _statusText = "制单";
+                        _statuscolor= "#FFFF00";
                         break;
                     case 1:
                         _statusText = "提交审核";
+                        _statuscolor  = "#90EE90";
                         break;
                     case 2:
                         _statusText = "审核中";
+                        _statuscolor = "Green";
                         break;
                     case 3:
                         _statusText = "已审核";
+                        _statuscolor = "0099FF";
                         break;
                     default:
                         _statusText = "制单";
+                        _statuscolor = "#FFFF00";
                         break;
-                }
+                } 
                 SetProperty(ref _statusText, _statusText);
+                SetProperty(ref _statuscolor, _statuscolor);
             } }
         private string _statusText;
         public string StatusText { get => _statusText; set => SetProperty(ref _statusText, value); }
+
+        private string _statuscolor;
+        public string StatusColor
+        {
+            get => _statuscolor; set => SetProperty(ref _statuscolor, value);           
+        }
 
         private long _unitId;
         public long UnitId { get => _unitId; set => SetProperty(ref _unitId, value); }

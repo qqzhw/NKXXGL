@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ICIMS.Modules.BusinessManages.Views"
              mc:Ignorable="d" 
+             
               xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
               xmlns:control="clr-namespace:ICIMS.Controls;assembly=ICIMS.Controls"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"

@@ -233,9 +233,13 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             }
         }
 
-        private void OnCancel()
+        private async void OnCancel()
         {
-            
+            var deleteItem = AuditMappings.LastOrDefault(o => o.Status == 1);
+            if (deleteItem!=null)
+            {
+                await _auditMappingService.Delete(deleteItem.Id);
+            } 
         }
 
         private void OnBack()
@@ -281,6 +285,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         item.StatusName = "已审核";
                     }
                 }
+                CanEdit = false;
             }
         }
         private void OnSelectedItemCategory()
@@ -316,6 +321,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             get { return _itemDefine; }
             set { SetProperty(ref _itemDefine, value); }
+        }
+        private  bool _canEdit=true;
+        public  bool CanEdit
+        {
+            get { return _canEdit; }
+            set { SetProperty(ref _canEdit, value); }
         }
     }
     

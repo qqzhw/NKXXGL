@@ -138,11 +138,18 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 UnitName = _userModel.UnitName;
                 _payAudit = null ?? new PayAudit();
                 _itemDefine = null ?? new ItemDefine();
-                _payAuditDetails = null ?? new ObservableCollection<PayAuditDetail>();
+                _payAuditDetails = null ?? new ObservableCollection<PayAuditDetail>(); 
                 return;
             }
             PayAuditList = info;
             PayAudit = info.PayAudit;
+            _payAuditDetails = null ?? new ObservableCollection<PayAuditDetail>();
+            PayAuditDetails.Add(new PayAuditDetail()
+            {
+                Amount = 1000,
+                FundName = "市局",
+                Remark = "市局款项",
+            });
             GetFiles(PayAudit);
         }
         private ObservableCollection<FilesManage> _filesManages;
@@ -225,12 +232,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             //_payAudit.p = "文号110";
             //_payAudit.ItemName = "立项研究项目";
             //_payAudit.Remark = "beizhu";
-            PayAuditDetails.Add(new PayAuditDetail()
-            {
-                Amount=1000,
-                FundName="市局",
-                Remark="市局款项", 
-            });
+           
             _payAudit.PayAuditDetails = PayAuditDetails;
             _payAudit.UnitId = _userModel.UnitId;
             var item=await _payAuditService.CreateOrUpdate(_payAudit);
