@@ -16,8 +16,8 @@ namespace ICIMS.Modules.BaseData.ViewModels
     {
         private bool _showReAddBtn;
 
-        public ContractItem Item { get; set; }
-
+        private ContractItem _item;
+        public ContractItem Item { get => _item; set => SetProperty(ref _item, value); }
         public ICommand OkCmd { get; private set; }
         public ICommand CancelCmd { get; private set; }
         public ICommand ReAddCmd { get; private set; }
@@ -31,21 +31,21 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
         private void OnReAddCmd(object obj)
         {
-            this.IsOkClicked = null;
+            this.IsOkClicked = 2;
         }
 
-        public bool? IsOkClicked { get; private set; }
+        public int IsOkClicked { get; private set; }
 
         private void OnCancelCmd(object obj)
         {
-            this.IsOkClicked = false;
-            this.Close?.Invoke(null);
+            this.IsOkClicked =0;
+            this.TriggerClose?.Invoke();
         }
 
         private void OnOkCmd(object obj)
         {
-            this.IsOkClicked = true;
-            this.Close?.Invoke(null);
+            this.IsOkClicked = 1;
+            this.TriggerClose?.Invoke();
         }
 
         public bool ShowReAddBtn
@@ -66,5 +66,6 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
 
         public Action<bool?> Close { get; internal set; }
+        public Action TriggerClose { get; internal set; }
     }
 }

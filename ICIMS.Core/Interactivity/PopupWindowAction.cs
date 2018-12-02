@@ -1,5 +1,5 @@
 using Prism.Common;
- 
+
 using System;
 using System.Windows;
 using System.Windows.Interactivity;
@@ -128,6 +128,10 @@ namespace ICIMS.Core.Interactivity
             set { SetValue(WindowStyleProperty, value); }
         }
 
+        public Action TriggerClose { get; set; }
+
+
+
         /// <summary>
         /// Displays the child window and collects results for <see cref="IInteractionRequest"/>.
         /// </summary>
@@ -139,6 +143,7 @@ namespace ICIMS.Core.Interactivity
             {
                 return;
             }
+
 
             // If the WindowContent shouldn't be part of another visual tree.
             if (this.WindowContent != null && this.WindowContent.Parent != null)
@@ -160,6 +165,21 @@ namespace ICIMS.Core.Interactivity
                 };
             wrapperWindow.Closed += handler;
 
+            args.Context.TriggerClose = async () =>
+            {
+                if (args.CallbackFunc != null)
+                {
+                    var rs = await args.CallbackFunc();
+                    if (rs)
+                    {
+                        await wrapperWindow.Dispatcher.BeginInvoke(new Action(() =>
+                         {
+                             wrapperWindow.Close();
+                         }));
+                    }
+                }
+            };
+            
             if (this.CenterOverAssociatedObject && this.AssociatedObject != null)
             {
                 // If we should center the popup over the parent window we subscribe to the SizeChanged event
@@ -204,7 +224,7 @@ namespace ICIMS.Core.Interactivity
                     };
                 wrapperWindow.SizeChanged += sizeHandler;
             }
-              
+
             if (this.IsModal)
             {
                 wrapperWindow.ShowDialog();
@@ -241,11 +261,12 @@ namespace ICIMS.Core.Interactivity
             {
                 wrapperWindow = this.CreateDefaultWindow(notification);
                 Action<INotification> setNotificationAndClose = (iira) =>
-                { 
-                    iira.Finish = (t) => {
+                {
+                    iira.Finish = (t) =>
+                    {
                         iira.DialogResult = t;
                         wrapperWindow.Close();
-                        };
+                    };
                 };
 
                 MvvmHelpers.ViewAndViewModelAction(wrapperWindow.Content, setNotificationAndClose);
@@ -261,7 +282,7 @@ namespace ICIMS.Core.Interactivity
             // If the user has provided a startup location for a Window we set it as the window's startup location.
             if (WindowStartupLocation.HasValue)
                 wrapperWindow.WindowStartupLocation = WindowStartupLocation.Value;
-            if (notification.WindowState==WindowState.Maximized)
+            if (notification.WindowState == WindowState.Maximized)
             {
                 wrapperWindow.WindowState = WindowState.Maximized;
             }

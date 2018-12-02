@@ -38,16 +38,36 @@ namespace ICIMS.Core.Interactivity.InteractionRequest
             var handler = this.Raised;
             if (handler != null)
             {
-                handler(this, new InteractionRequestedEventArgs(context, () => { if(callback != null) callback(context); } ));
+                handler(this, new InteractionRequestedEventArgs(context, () => { if (callback != null) callback(context); }));
             }
         }
 
-        public void Raise(T context, Action<T> callback,Action closed)
+        public void RaiseWithCallback(T context, Func<T, Task<bool>> callback)
         {
             var handler = this.Raised;
             if (handler != null)
             {
-                handler(this, new InteractionRequestedEventArgs(context, () => { if (callback != null) callback(context); },closed));
+                var arg = new InteractionRequestedEventArgs(context, async () =>
+                {
+
+                    if (callback != null)
+                    {
+                        return await callback(context);
+                    }
+
+                    return true;
+                });
+                
+                handler(this, arg);
+            }
+        }
+
+        public void Raise(T context, Action<T> callback, Action closed)
+        {
+            var handler = this.Raised;
+            if (handler != null)
+            {
+                handler(this, new InteractionRequestedEventArgs(context, () => { if (callback != null) callback(context); }, closed));
             }
         }
     }

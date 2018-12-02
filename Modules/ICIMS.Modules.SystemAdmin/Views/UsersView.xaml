@@ -55,6 +55,8 @@
                     <telerik:GridViewDataColumn Header="角色名称" Width="80"    DataMemberBinding="{Binding RolesName}" />
                     <telerik:GridViewDataColumn Header="部门编号" Width="80"    DataMemberBinding="{Binding UnitId}" />
                     <telerik:GridViewDataColumn Header="部门名称" Width="80"    DataMemberBinding="{Binding UnitName}" />
+                    <telerik:GridViewDataColumn  IsReadOnly="True" Header="邮箱" Width="60"    DataMemberBinding="{Binding EmailAddress}" />
+
                 </telerik:RadGridView.Columns>
             </telerik:RadGridView>
             <Grid Grid.Column="1">
