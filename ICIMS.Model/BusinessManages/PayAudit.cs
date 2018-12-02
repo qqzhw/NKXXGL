@@ -28,28 +28,27 @@ namespace ICIMS.Model.BusinessManages
                 switch (_status)
                 {
                     case 0:
-                        _statusText = "制单";
-                        _statuscolor = "#FFFF00";
+                        StatusText = "制单";
+                        StatusColor = "#FFFF00";
                         break;
                     case 1:
-                        _statusText = "提交审核";
-                        _statuscolor = "#90EE90";
+                        StatusText = "提交审核";
+                        StatusColor = "#90EE90";
                         break;
                     case 2:
-                        _statusText = "审核中";
-                        _statuscolor = "Green";
+                        StatusText = "审核中";
+                        StatusColor = "Green";
                         break;
                     case 3:
-                        _statusText = "已审核";
-                        _statuscolor = "0099FF";
+                        StatusText = "已审核";
+                        StatusColor = "0099FF";
                         break;
                     default:
-                        _statusText = "制单";
-                        _statuscolor = "#FFFF00";
+                        StatusText = "制单";
+                        StatusColor = "#FFFF00";
                         break;
                 }
-                SetProperty(ref _statusText, _statusText);
-                SetProperty(ref _statuscolor, _statuscolor);
+                
             }
         }
         private string _statuscolor;
@@ -86,6 +85,10 @@ namespace ICIMS.Model.BusinessManages
         public string PaymentNo { get => _paymentNo; set => SetProperty(ref _paymentNo, value); }
         private string _paymentName;
         public string PaymentName { get => _paymentName; set => SetProperty(ref _paymentName, value); }
+
+        private string _paymentmethod;
+        public string PaymentMethod { get => _paymentmethod; set => SetProperty(ref _paymentmethod, value); }
+
         private decimal _payamount;
         public decimal PayAmount { get => _payamount; set => SetProperty(ref _payamount, value); }
         /// <summary>

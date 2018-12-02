@@ -37,6 +37,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IFilesService _filesService;
         private readonly IPayAuditService _payAuditService;
         private readonly IVendorService _vendorService;
+        private readonly IFundFromService _fundFromService;
         private readonly IBusinessAuditService _businessAuditService;
         private readonly IAuditMappingService _auditMappingService;
         public DelegateCommand SaveCommand { get; private set; }
@@ -48,6 +49,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand SearchContractCommand { get; private set; }
         public DelegateCommand SearchPaymentCommand { get; private set; }
         public DelegateCommand UploadCommand { get; private set; }
+        public DelegateCommand AddMoneyCommand { get; private set; }
+
         private readonly UserModel _userModel;
         private string _title;
         public string Title
@@ -55,7 +58,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public PayAuditEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, PayAuditList data, IItemDefineService itemDefineService, IFilesService filesService, IPayAuditService payAuditService, IVendorService vendorService, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, UserModel userModel)
+        public PayAuditEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, PayAuditList data, IItemDefineService itemDefineService, IFilesService filesService, IPayAuditService payAuditService, IVendorService vendorService, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, UserModel userModel, IFundFromService fundFromService)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
@@ -65,6 +68,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _auditMappingService = auditMappingService;
             _payAuditService = payAuditService;
             _vendorService = vendorService;
+            _fundFromService = fundFromService;
             _title = "支付审核";
             _userModel = userModel;
             SaveCommand = new DelegateCommand(OnSave);
@@ -76,11 +80,18 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             SearchContractCommand = new DelegateCommand(OnSelectedContract);
             SearchPaymentCommand= new DelegateCommand(OnSelectedPaymentType);
             UploadCommand = new DelegateCommand(OnUploadedFiles);
-            
+            AddMoneyCommand = new DelegateCommand(OnAddFundFrom);
             _filesManages = new ObservableCollection<FilesManage>();
             _buinessAudits = new ObservableCollection<BusinessAudit>();
             _auditMappings = new ObservableCollection<AuditMapping>();
+            _fundItems = new ObservableCollection<FundItem>();
             BindData(data);
+        }
+
+        private void OnAddFundFrom()
+        {
+            var ss = SelectFundItem;
+            int s = 0;
         }
 
         private void OnSelectedPaymentType()
@@ -270,6 +281,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             
             InitBusinessAudits();
             LoadAuditMappings();
+            LoadFundFrom();//加载资金来源
         }
 
         private async void GetVendorById(int Id)
@@ -289,6 +301,14 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             var items = await _auditMappingService.GetAllAuditMappings(3, 2);
             _auditMappings.AddRange(items.Items);
+        }
+        private async void LoadFundFrom()
+        {
+            var result = await _fundFromService.GetPageItems();
+            if (result.datas.Count>0)
+            {
+                FundItems.AddRange(result.datas);
+            }            
         }
         private void OnSelectedItem()
         {
@@ -416,6 +436,18 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             get { return _payAuditDetails; }
             set { SetProperty(ref _payAuditDetails, value); }
+        }
+        private ObservableCollection<FundItem> _fundItems;
+        public ObservableCollection<FundItem> FundItems
+        {
+            get { return _fundItems; }
+            set { SetProperty(ref _fundItems, value); } 
+        }
+        private FundItem _selectFundItem;
+        public  FundItem SelectFundItem
+        {
+            get { return _selectFundItem; }
+            set { SetProperty(ref _selectFundItem, value); }
         }
     }
 

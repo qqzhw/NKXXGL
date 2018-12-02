@@ -74,17 +74,19 @@
                             <TextBlock Text="部 门" VerticalAlignment="Center" Margin="18,0,0,0"/>
                             <TextBox  Height="20"  Margin="5,0,0,0" Text="{Binding UnitName}" VerticalAlignment="Center"/>
                             <TextBlock Text="支付类型" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox  Height="20"  Margin="5,0,0,0" Text="{Binding PaymentTypeItem.Name}" VerticalAlignment="Center"/>
+                        <TextBox  Height="20"  Margin="5,0,0,0" Text="{Binding PaymentTypeItem.Name}"  VerticalAlignment="Center"/>
                             <Button Command="{Binding SearchPaymentCommand}" Style="{x:Null}" HorizontalAlignment="Left" BorderThickness="0" Height="18">
                                 <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                             </Button>
-                        <!--<TextBlock Text="资金来源" VerticalAlignment="Center" Margin="18,0,0,0"/>
-                        <telerik:RadComboBox telerik:StyleManager.Theme="Windows8"  Height="24" Width="120"/>-->
-                        <TextBlock Text="初始已付金额" VerticalAlignment="Center" Margin="18,0,0,0"/>
-                        <telerik:RadNumericUpDown Width="120" HorizontalAlignment="Left"  Value="{Binding InitPayAmount}"  Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
-                        <Button Command="{Binding AddMoneyCommand}" Style="{x:Null}" Background="Transparent" HorizontalAlignment="Left" BorderThickness="0" Height="18">
+                        <TextBlock Text="资金来源" VerticalAlignment="Center" Margin="18,0,0,0"/>
+                        <telerik:RadComboBox DisplayMemberPath="Name" SelectedItem="{Binding SelectFundItem}"   SelectedIndex="0" telerik:StyleManager.Theme="Windows8" ItemsSource="{Binding FundItems}"  Height="24" Width="120"/>
+
+                        <TextBlock Text="金额" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <telerik:RadNumericUpDown Width="120" Value="{Binding PayAudit.ItemTotalAmount}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
+                        <control:CustomButton Height="28"  IconBackground="#91CE2D" Command="{Binding AddMoneyCommand}" Kind="PlusSolid"   Margin="10,0,0,0" Title="增加"/>
+                        <!--<Button Command="{Binding AddMoneyCommand}" Style="{x:Null}" Background="Transparent" HorizontalAlignment="Left" BorderThickness="0" Height="18">
                             <iconPacks:PackIconFontAwesome Kind="PlusSolid" Height="16" Foreground="#999999" />
-                        </Button>
+                        </Button>-->
                     </DockPanel>
                         <DockPanel Grid.Row="3">
                             <TextBlock Text="支付编号" VerticalAlignment="Center"/>
@@ -102,7 +104,8 @@
                         <TextBlock VerticalAlignment="Center" Width="12">元</TextBlock>
                             <TextBlock Text="合同总额" Margin="30,0,0,0" VerticalAlignment="Center"/> 
                         <telerik:RadNumericUpDown Width="140" HorizontalAlignment="Left" Value="{Binding PayAudit.ContractTotalAmount}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
-
+                        <TextBlock Text="初始已付金额" VerticalAlignment="Center" Margin="18,0,0,0"/>
+                        <telerik:RadNumericUpDown Width="120" HorizontalAlignment="Left"  Value="{Binding PayAudit.InitPayAmount}"  Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
                     </DockPanel>
                         <DockPanel Grid.Row="5">
                         <TextBlock  VerticalAlignment="Center" Text="本次支付"/> 
