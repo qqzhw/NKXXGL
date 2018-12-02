@@ -32,6 +32,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
         private void OnReAddCmd(object obj)
         {
             this.IsOkClicked = 2;
+            this.TriggerClose?.Invoke();
         }
 
         public int IsOkClicked { get; private set; }
