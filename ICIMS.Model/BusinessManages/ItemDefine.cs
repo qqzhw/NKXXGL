@@ -33,6 +33,9 @@ namespace ICIMS.Model.BusinessManages
 
                 switch (_status)
                 {
+                    case 0:
+                        _statusText = "制单";
+                        break;
                     case 1:
                         _statusText = "提交审核";
                         break;
@@ -43,6 +46,7 @@ namespace ICIMS.Model.BusinessManages
                         _statusText = "已审核";
                         break;
                     default:
+                        _statusText = "制单";
                         break;
                 }
                 SetProperty(ref _statusText, _statusText);

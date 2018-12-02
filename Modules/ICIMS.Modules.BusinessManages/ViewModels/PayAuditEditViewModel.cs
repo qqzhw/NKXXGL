@@ -76,7 +76,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             SearchContractCommand = new DelegateCommand(OnSelectedContract);
             SearchPaymentCommand= new DelegateCommand(OnSelectedPaymentType);
             UploadCommand = new DelegateCommand(OnUploadedFiles);
-            _payAudit = new PayAudit();
+            
             _filesManages = new ObservableCollection<FilesManage>();
             _buinessAudits = new ObservableCollection<BusinessAudit>();
             _auditMappings = new ObservableCollection<AuditMapping>();
@@ -123,6 +123,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     var selectView = callback.Content as SelectedContractView;
                     var viewModel = selectView.DataContext as SelectedContractViewModel;
                     Contract = viewModel.SelectedItem;
+                    PayAudit.ContractTotalAmount = Contract.ContractAmount;
+                    GetVendorById(Contract.VendorId);
                 }
 
             });
@@ -132,7 +134,13 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         internal void BindData(PayAuditList info)
         {
             if (info.PayAudit == null)
+            {
+                UnitName = _userModel.UnitName;
+                _payAudit = null ?? new PayAudit();
+                _itemDefine = null ?? new ItemDefine();
+                _payAuditDetails = null ?? new ObservableCollection<PayAuditDetail>();
                 return;
+            }
             PayAuditList = info;
             PayAudit = info.PayAudit;
             GetFiles(PayAudit);
@@ -209,16 +217,27 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private async void OnSave()
         {
-        //    _payAudit.DefineAmount = 5000;
-        //    _payAudit.DefineDate = DateTime.Now;
-        //    _payAudit.ItemAddress = "成都";
-        //    _payAudit.ItemCategoryId = 1;
-        //    _payAudit.ItemDescription = "挥洒的阿萨德";
-        //    _payAudit.ItemDocNo = "文号110";
-        //    _payAudit.ItemName = "立项研究项目";
-        //    _payAudit.Remark = "beizhu";
-            _payAudit.UnitId = 1;
-            await _payAuditService.CreateOrUpdate(_payAudit);
+            _payAudit.ContractTotalAmount=Contract.ContractAmount;
+            _payAudit.ContrctId=Contract.Id;
+            _payAudit.ItemDefineId=ItemDefine.Id;
+            _payAudit.ItemTotalAmount=ItemDefine.DefineAmount;
+            _payAudit.PaymentTypeId=PaymentTypeItem.Id ;
+            //_payAudit.p = "文号110";
+            //_payAudit.ItemName = "立项研究项目";
+            //_payAudit.Remark = "beizhu";
+            PayAuditDetails.Add(new PayAuditDetail()
+            {
+                Amount=1000,
+                FundName="市局",
+                Remark="市局款项", 
+            });
+            _payAudit.PayAuditDetails = PayAuditDetails;
+            _payAudit.UnitId = _userModel.UnitId;
+            var item=await _payAuditService.CreateOrUpdate(_payAudit);
+            if (item.Id > 0)
+            {
+                PayAudit.Id = item.Id;
+            }
 
         }
         private void OnSubmit()
@@ -284,6 +303,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     var viewModel = selectView.DataContext as SelectedItemDefineViewModel;
                      this.ItemDefine.Id = viewModel.SelectedItem.Id;
                   this.ItemDefine.ItemName = viewModel.SelectedItem.ItemName;
+                    PayAudit.ItemTotalAmount = ItemDefine.DefineAmount;
                 }
                 int s = 0;
             });
@@ -343,7 +363,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 proc.Start();
             }
         }
-
+        private string _unitName;
+        public string UnitName
+        {
+            get { return _unitName; }
+            set { SetProperty(ref _unitName, value); }
+        }
         #region 属性
 
         #endregion
@@ -384,7 +409,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _vendorItem; }
             set { SetProperty(ref _vendorItem, value); }
         }
-
+        private ObservableCollection<PayAuditDetail> _payAuditDetails;
+        public ObservableCollection<PayAuditDetail> PayAuditDetails
+        {
+            get { return _payAuditDetails; }
+            set { SetProperty(ref _payAuditDetails, value); }
+        }
     }
 
 }

@@ -9,102 +9,156 @@ namespace ICIMS.Model.BusinessManages
 {
     public class ItemDefineList : BindableBase
     {
+        private int _id;
+        public int Id { get => _id; set => SetProperty(ref _id, value); }
 
-        public int Id { get; set; }
-        /// <summary>
-        /// TenantId
-        /// </summary>
-        public int? TenantId { get; set; }
-
-        public string SysGuid { get; set; }
+        private string _sysGuid;
+        public string SysGuid { get => _sysGuid; set => SetProperty(ref _sysGuid, value); }
 
         /// <summary>
         /// Status
         /// </summary> 
-        public int Status { get; set; }
+        private int _status;
+        public int Status { get => _status; set { SetProperty(ref _status, value);
+                switch (_status)
+                {
+                    case 0:
+                        _statusText = "制单";
+                        break;
+                    case 1:
+                        _statusText = "提交审核";
+                        break;
+                    case 2:
+                        _statusText = "审核中";
+                        break;
+                    case 3:
+                        _statusText = "已审核";
+                        break;
+                    default:
+                        _statusText = "制单";
+                        break;
+                }
+                SetProperty(ref _statusText, _statusText);
+            } }
+        private string _statusText;
+        public string StatusText { get => _statusText; set => SetProperty(ref _statusText, value); }
 
-        public long UnitId { get; set; }
-        public string UnitName { get; set; }
+        private long _unitId;
+        public long UnitId { get => _unitId; set => SetProperty(ref _unitId, value); }
+        private string _unitName;
+        public string UnitName { get => _unitName; set => SetProperty(ref _unitName, value); }
 
 
+        private int? _budgetId;
+        public int? BudgetId { get => _budgetId; set => SetProperty(ref _budgetId, value); }
 
-        public int? BudgetId { get; set; }
-        public string BudgetNo { get; set; }
-        public string BudgetName { get; set; }
+        private string _budgetNo;
+        public string BudgetNo { get => _budgetNo; set => SetProperty(ref _budgetNo, value); }
+        private string _budgetName;
+        public string BudgetName { get => _budgetName; set => SetProperty(ref _budgetName, value); }
         /// <summary>
         /// ItemDocNo
         /// </summary>
-        public string ItemDocNo { get; set; }
+        private string _itemdocNo;
+        public string ItemDocNo { get => _itemdocNo; set => SetProperty(ref _itemdocNo, value); }
 
         /// <summary>
         /// DefineDate
         /// </summary>
-        public DateTime DefineDate { get; set; }
+        private DateTime _defineDate;
+        public DateTime DefineDate { get => _defineDate; set => SetProperty(ref _defineDate, value); }
 
-        public string ItemNo { get; set; }
+        private string _itemNo;
+        public string ItemNo { get => _itemNo; set => SetProperty(ref _itemNo, value); }
 
-        public string ItemName { get; set; }
+        private string _itemName;
+        public string ItemName { get => _itemName; set => SetProperty(ref _itemName, value); }
 
 
 
         /// <summary>
         /// ItemType
         /// </summary>
-        public int ItemCategoryId { get; set; }
+        private int _itemcategoryId;
+        public int ItemCategoryId { get => _itemcategoryId; set => SetProperty(ref _itemcategoryId, value); }
 
-        public string ItemCategoryName { get; set; }
+        private string _itemcategoryName;
+        public string ItemCategoryName { get => _itemcategoryName; set => SetProperty(ref _itemcategoryName, value); }
 
-        public decimal DefineAmount { get; set; }
+        private decimal _defineAmount;
+        public decimal DefineAmount { get => _defineAmount; set => SetProperty(ref _defineAmount, value); }
 
         /// <summary>
         /// ItemAddress
         /// </summary>
-        public string ItemAddress { get; set; }
+        private string _itemaddress;
+        public string ItemAddress { get => _itemaddress; set => SetProperty(ref _itemaddress, value); }
 
 
 
         /// <summary>
         /// ItemDescription
         /// </summary>
-        public string ItemDescription { get; set; }
+        private string _itemdescription;
+        public string ItemDescription { get => _itemdescription; set => SetProperty(ref _itemdescription, value); }
 
 
 
         /// <summary>
         /// Remark
         /// </summary>
-        public string Remark { get; set; }
+        private string _remark;
+        public string Remark { get => _remark; set => SetProperty(ref _remark, value); }
 
 
 
         /// <summary>
         /// IsFinal
         /// </summary>
-        public bool IsFinal { get; set; }
+        private bool _isfinal;
+        public bool IsFinal { get => _isfinal; set { SetProperty(ref _isfinal, value);
+                if (_isfinal)
+                {
+                    IsFinalText = "是";
+                }
+                else
+                {
+                    IsFinalText = "否";
+                }
+            } }
 
-
+        private string _isfinalText;
+        public string IsFinalText { get => _isfinalText; set => SetProperty(ref _isfinalText, value); }
 
         /// <summary>
         /// IsAudit
         /// </summary>
-        public bool IsAudit { get; set; }
+        private bool _isAudit;
+        public bool IsAudit { get => _isAudit; set => SetProperty(ref _isAudit, value); }
 
-        public long? CreatorUserId { get; set; }
-        public string CreatorName { get; set; }
-        public DateTime CreationTime { get; set; }
+        private long? creatoruserid;
+        public long? CreatorUserId { get => creatoruserid; set => SetProperty(ref creatoruserid, value); }
+
+        private string _creatorname;
+        public string CreatorName { get => _creatorname; set => SetProperty(ref _creatorname, value); }
+        private DateTime _creationtime;
+        public DateTime CreationTime { get => _creationtime; set => SetProperty(ref _creationtime, value); }
         /// <summary>
         /// AuditDate
         /// </summary>
-        public DateTime? AuditDate { get; set; }
+        private DateTime? _auditdate;
+        public DateTime? AuditDate { get => _auditdate; set => SetProperty(ref _auditdate, value); }
 
         /// <summary>
         /// AuditUserId
         /// </summary>
-        public long? AuditUserId { get; set; }
+        private long? _audituserId;
+        public long? AuditUserId { get => _audituserId; set => SetProperty(ref _audituserId, value); }
         /// <summary>
         /// AuditUser
         /// </summary>
-        public string AuditUserName { get; set; }
+        private string _auditUsername;
+        public string AuditUserName { get => _auditUsername; set => SetProperty(ref _auditUsername, value); }
 
         
 
