@@ -4,13 +4,16 @@
                     xmlns:convert="clr-namespace:ICIMS.Controls.Converters;assembly=ICIMS.Controls"
                   >
     <convert:StatusColorConverter x:Key="statusColorConverter"/>
-    <Style TargetType="TextBox">
+    <Style TargetType="{x:Type TextBox}">
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="Background" Value="#EEEEEE"/>
             </Trigger>
         </Style.Triggers>
     </Style>
+    <DataTemplate x:Key="DesktopAlertIconTemplate">
+        <Image Source="{Binding}" Width="48" Height="48" Stretch="None" />
+    </DataTemplate>
     <DataTemplate x:Key="headerTemplate">
         <StackPanel Orientation="Horizontal">
             <Ellipse Width="16" Height="16" VerticalAlignment="Center" Fill="Green" Margin="10,0,0,0"/>

@@ -123,22 +123,23 @@ namespace ICIMS.Client.ViewModels
             string UserName = "admin";
             string Password = "123qwe";
             var user=_userSerice.LoginAsync(UserName,Password,TenancyName);
-            var unit =await _userSerice.GetUserUnit(user.Id);
-            if (unit!=null)
-            {
-                user.UnitId = unit.Id;
-                user.UnitName = unit.Name;
-            }
-             _container.RegisterInstance(user, new ContainerControlledLifetimeManager());
-            var roles = await _userSerice.GetUserRoles();
-            foreach (var item in roles.Items)
-            {
-                user.RoleIds.Add(item.Id);
-                user.RoleDisplayNames.Add(item.DisplayName); 
-                user.RoleNames.Add(item.Name);
-            }
-            UserModel = user;
-            DisplayNames = user.RoleDisplayNames[0].Normalize();
+            var userInfo =await _userSerice.GetUserInfoById(user.Id);
+            userInfo.AccessToken = user.AccessToken;
+            //if (unit!=null)
+            //{
+            //    user.UnitId = unit.Id;
+            //    user.UnitName = unit.Name;
+            //}
+             _container.RegisterInstance(userInfo, new ContainerControlledLifetimeManager());
+            //var roles = await _userSerice。.GetUserRoles();
+            //foreach (var item in roles.Items)
+            //{
+            //    user.RoleIds.Add(item.Id);
+            //    user.RoleDisplayNames.Add(item.DisplayName); 
+            //    user.RoleNames.Add(item.Name);
+            //}
+            UserModel = userInfo;
+            DisplayNames = userInfo.Roles.Select(o=>o.DisplayName).FirstOrDefault();
             List <KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>();
             keyValuePairs.Add(new KeyValuePair<string, string>("Id", "5"));
             keyValuePairs.Add(new KeyValuePair<string, string>("FileName", "FileNames"));

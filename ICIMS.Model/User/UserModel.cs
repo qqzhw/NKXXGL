@@ -12,9 +12,8 @@ namespace ICIMS.Model.User
     {
         public UserModel()
         {
-            _roleIds = new List<int>();
             _roleNames = new List<string>();
-            _roleDisplayNames = new List<string>();
+            _roles = new ObservableCollection<RoleModel>();
         }
         public int? TenantId { get; set; }
         public string TenantName { get; set; }
@@ -42,33 +41,25 @@ namespace ICIMS.Model.User
         }
 
         public bool IsActive { get; set; } = true;
-
-        private List<string> _roleDisplayNames;
-        public List<string> RoleDisplayNames { get => _roleDisplayNames; set => SetProperty(ref _roleDisplayNames, value); }
-        private List<int> _roleIds;
-        public List<int> RoleIds { get => _roleIds; set => SetProperty(ref _roleIds, value); }
+         
+        private ObservableCollection<RoleModel> _roles;
+        public ObservableCollection<RoleModel> Roles { get => _roles; set => SetProperty(ref _roles, value); }
 
         private List<string> _roleNames;
-        public List<string> RoleNames { get => _roleNames; set => SetProperty(ref _roleNames, value); }
-
-        
-        public List<OrganizationUnitItem> Units { get => _units; set => SetProperty(ref _units, value); }
-
-        public List<int> UnitIds { get; set; }
-
-        private List<OrganizationUnitItem> _units;
-
-        public string RolesName
+        public List<string> RoleNames
         {
-            get
-            {
-                return this.RoleNames.FirstOrDefault();
-            }
+            get => _roleNames; set => SetProperty(ref _roleNames, value);
         }
+        private  UnitModel _unit;
+        public UnitModel Unit { get => _unit; set => SetProperty(ref _unit, value); }
+ 
+        
 
+        private DateTime _lastLoginTime;
+        public DateTime LastLoginTime { get => _lastLoginTime; set => SetProperty(ref _lastLoginTime, value); }
         public string EmailAddress { get; set; }
         public string Surname { get; set; }
-        public string Password { get; set; }   
-
+        private string _password;
+        public string Password { get => _password; set => SetProperty(ref _password, value); }
     }
 }

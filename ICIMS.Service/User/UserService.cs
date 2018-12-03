@@ -122,5 +122,12 @@ namespace ICIMS.Service
 
             return data.Items;
         }
+
+        public async Task<UserModel> GetUserInfoById(long Id)
+        {
+            var para = new { Id };
+            var data = await _webApiClient.GetAsync<UserModel>($"{_webApiClient.BaseUrl}{BaseUrl}GetUserById", para);
+            return data;
+        }
     }
 }

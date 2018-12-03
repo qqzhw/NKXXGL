@@ -746,7 +746,13 @@
             <StatusBarItem  HorizontalAlignment="Right" Content="成都昊耘科技有限公司" />
             
         </StatusBar>
+        <telerik:RadDesktopAlert x:Name="tt" Header="MAIL NOTIFICATION" Margin="150"
+                                 Content="Hello, Here are two things that we noticed today on our weekly meeting."                                 
+                                 IconTemplate="{StaticResource DesktopAlertIconTemplate}"
+                                 IconColumnWidth="48"
+                                 IconMargin="10 0 20 0">
 
+        </telerik:RadDesktopAlert>
     </Grid>
 </Controls:MetroWindow>
  

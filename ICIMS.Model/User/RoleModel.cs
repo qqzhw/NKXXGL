@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Collections.ObjectModel;
 namespace ICIMS.Model.User
 {
     public class RoleModel : BindableBase
     {
+        public RoleModel()
+        {
+            _permissions = new ObservableCollection<string>();
+        }
         private int _id;
         public int Id { get => _id; set => SetProperty(ref _id, value); }
 
@@ -22,8 +26,8 @@ namespace ICIMS.Model.User
         private bool _isStatic;
         public bool IsStatic { get => _isStatic; set => SetProperty(ref _isStatic, value); }
 
-        public List<string> _permissions = new List<string>();
-        public List<string> Permissions { get => _permissions; set => SetProperty(ref _permissions, value.Where(a=>!string.IsNullOrEmpty(a)).ToList()); }
+        public ObservableCollection<string> _permissions;
+        public ObservableCollection<string> Permissions { get => _permissions; set =>SetProperty(ref _permissions, (ObservableCollection<string>)value.Where(a=>!string.IsNullOrEmpty(a))); }
         //private long _unitId;
         //public long UnitId { get => _unitId; set => SetProperty(ref _unitId, value); }
 

@@ -81,7 +81,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             {
                 var departments = this.Departments.Where(a => a.IsChecked).ToList();
                 var selectedItem = CommonHelper.CopyItem(this.SelectedItem);
-                selectedItem.Units = departments;
+               // selectedItem.Unit= departments..FirstOrDefault();
                 var rsData = await _service.Update(selectedItem);
                 CommonHelper.SetValue(this.SelectedItem, rsData);
                 MessageBox.Show("保存成功！");
@@ -179,7 +179,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                         newItem.Item.Name = newItem.Item.UserName;
                         newItem.Item.Surname = newItem.Item.UserName;
                         newItem.Item.Password = "111111";
-                        newItem.Item.UnitIds = new List<int> { newItem.SelectedDepartment.Id};
+                        newItem.Item.UnitId =  newItem.SelectedDepartment.Id;
                         newItem.Item.RoleNames = new List<string> { newItem.SelectedRole.Name};
                        var data = await _service.Create(newItem.Item);
                         if (data != null)
@@ -289,7 +289,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
         {
             foreach (var item in Departments)
             {
-                item.IsChecked = user.Units?.Any(a => a.Code == item.Code) ?? false;
+                item.IsChecked = user.Unit.Code == item.Code;
             }
         }
 
