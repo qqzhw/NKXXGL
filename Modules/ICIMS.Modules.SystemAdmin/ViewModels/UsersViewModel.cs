@@ -81,7 +81,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             {
                 var roles = this.Roles.Where(a => a.IsChecked).ToList();
                 var selectedItem = CommonHelper.CopyItem(this.SelectedItem);
-                selectedItem.RoleNames = roles;
+                selectedItem.Roles = new ObservableCollection<RoleModel>(roles);
                 var rsData = await _service.Update(selectedItem);
                 CommonHelper.SetValue(this.SelectedItem, rsData);
                 MessageBox.Show("保存成功！");
@@ -179,8 +179,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                         newItem.Item.Name = newItem.Item.UserName;
                         newItem.Item.Surname = newItem.Item.UserName;
                         newItem.Item.Password = "111111";
-                        newItem.Item.UnitIds = new List<int> { newItem.SelectedDepartment.Id};
-                        newItem.Item.RoleNames = new List<string> { newItem.SelectedRole.Name};
+                        newItem.Item.Roles = new ObservableCollection<RoleModel>();
                        var data = await _service.Create(newItem.Item);
                         if (data != null)
                         {
@@ -287,11 +286,14 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
 
         private ObservableCollection<RoleModel> _roles;
 
-        private void SetDepartmentStatusByUser(UserModel user)
+        private void SetRoleStatusByUser(UserModel user)
         {
-            foreach (var item in Departments)
+            if (this.Roles != null)
             {
-                item.IsChecked = user.Units?.Any(a => a.Code == item.Code) ?? false;
+                foreach (var item in this.Roles)
+                {
+                    item.IsChecked = user?.Roles?.Any(a => a.Id == item.Id) ?? false;
+                }
             }
         }
 

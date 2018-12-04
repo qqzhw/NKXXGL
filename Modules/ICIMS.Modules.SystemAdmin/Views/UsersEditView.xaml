@@ -54,7 +54,7 @@
 					TextSearchMode="Contains"
                     DisplayMemberPath="DisplayName"
 					ItemsSource="{Binding Departments}"
-                    SelectedItem="{Binding SelectedDepartment}"
+                    SelectedItem="{Binding Item.Unit}"
                    
                      IsFilteringEnabled="True"
                     />

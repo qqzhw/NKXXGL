@@ -50,13 +50,13 @@ namespace ICIMS.Model.User
         {
             get => _roleNames; set => SetProperty(ref _roleNames, value);
         }
-        private  UnitModel _unit;
-        public UnitModel Unit { get => _unit; set => SetProperty(ref _unit, value); }
+        private OrganizationUnitItem _unit;
+        public OrganizationUnitItem Unit { get => _unit; set => SetProperty(ref _unit, value); }
  
         
 
-        private DateTime _lastLoginTime;
-        public DateTime LastLoginTime { get => _lastLoginTime; set => SetProperty(ref _lastLoginTime, value); }
+        private DateTime? _lastLoginTime;
+        public DateTime? LastLoginTime { get => _lastLoginTime; set => SetProperty(ref _lastLoginTime, value); }
         public string EmailAddress { get; set; }
         public string Surname { get; set; }
         private string _password;

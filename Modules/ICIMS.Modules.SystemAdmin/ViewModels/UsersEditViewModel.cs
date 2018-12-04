@@ -38,7 +38,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             {
                 this.Item.Name = "";
                 this.Item.Unit = new OrganizationUnitItem();
-                this.Item.RoleNames = new List<RoleModel>();
+                this.Item.Roles = new ObservableCollection<RoleModel>();
             }
         }
 
