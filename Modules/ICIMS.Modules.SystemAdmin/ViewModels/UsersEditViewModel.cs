@@ -37,8 +37,8 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             if (this.Item != null)
             {
                 this.Item.Name = "";
-                this.Item.UserName = "";
-                this.Item.RoleNames = new List<string>();
+                this.Item.Unit = new OrganizationUnitItem();
+                this.Item.RoleNames = new List<RoleModel>();
             }
         }
 
@@ -58,7 +58,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             get => _selectedRole;
             set
             {
-                this.Item.RoleNames = new List<string> { value.DisplayName };
+                this.Item.RoleNames = new List<RoleModel>();
                 this.Item.RoleIds = new List<int> { value.Id};
                 SetProperty(ref _selectedRole, value);
             }

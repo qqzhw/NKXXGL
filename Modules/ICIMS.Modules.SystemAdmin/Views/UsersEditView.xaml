@@ -36,9 +36,8 @@
                 <TextBlock xml:space="preserve" >邮  箱</TextBlock>
                 <TextBox Text="{Binding Item.EmailAddress}"/>
             </DockPanel>
-            <DockPanel  xml:space="preserve" Margin="10">
+            <!--<DockPanel  xml:space="preserve" Margin="10">
                 <TextBlock>角  色</TextBlock>
-                <!--<TextBox Text="{Binding RoleName}"/>-->
                 <telerik:RadComboBox 
 					TextSearchMode="Contains"
                     DisplayMemberPath="DisplayName"
@@ -47,7 +46,7 @@
                     IsFilteringEnabled="True"
                     SelectedItem="{Binding SelectedRole}"
                     />
-            </DockPanel>
+            </DockPanel>-->
             <DockPanel Margin="10">
                 <TextBlock>所属部门</TextBlock>
                 <!--<TextBox Text="{Binding Department}"/>-->

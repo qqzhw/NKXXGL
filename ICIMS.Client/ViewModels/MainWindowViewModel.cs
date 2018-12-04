@@ -135,7 +135,7 @@ namespace ICIMS.Client.ViewModels
             {
                 user.RoleIds.Add(item.Id);
                 user.RoleDisplayNames.Add(item.DisplayName); 
-                user.RoleNames.Add(item.Name);
+                user.RoleNames.Add(item);
             }
             UserModel = user;
             DisplayNames = user.RoleDisplayNames[0].Normalize();

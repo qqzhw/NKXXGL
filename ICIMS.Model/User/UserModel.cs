@@ -12,9 +12,11 @@ namespace ICIMS.Model.User
     {
         public UserModel()
         {
-            _roleIds = new List<int>();
-            _roleNames = new List<string>();
+            RoleIds = new List<int>();
+            RoleNames = new List<RoleModel>();
             _roleDisplayNames = new List<string>();
+            this.Unit = new OrganizationUnitItem();
+            UnitIds = new List<int>();
         }
         public int? TenantId { get; set; }
         public string TenantName { get; set; }
@@ -48,27 +50,26 @@ namespace ICIMS.Model.User
         private List<int> _roleIds;
         public List<int> RoleIds { get => _roleIds; set => SetProperty(ref _roleIds, value); }
 
-        private List<string> _roleNames;
-        public List<string> RoleNames { get => _roleNames; set => SetProperty(ref _roleNames, value); }
+        //private List<string> _roleNames;
+        //public List<string> RoleNames { get => _roleNames; set => SetProperty(ref _roleNames, value); }
 
         
         public List<OrganizationUnitItem> Units { get => _units; set => SetProperty(ref _units, value); }
+
+        private List<RoleModel> _roleNames;
 
         public List<int> UnitIds { get; set; }
 
         private List<OrganizationUnitItem> _units;
 
-        public string RolesName
-        {
-            get
-            {
-                return this.RoleNames.FirstOrDefault();
-            }
-        }
+      
 
         public string EmailAddress { get; set; }
         public string Surname { get; set; }
-        public string Password { get; set; }   
+        public string Password { get; set; }
+        public List<RoleModel> RoleNames { get => _roleNames; set => SetProperty(ref _roleNames,value); }
+        public OrganizationUnitItem Unit { get => _unit; set => SetProperty(ref _unit,value); }
 
+        private OrganizationUnitItem _unit;
     }
 }

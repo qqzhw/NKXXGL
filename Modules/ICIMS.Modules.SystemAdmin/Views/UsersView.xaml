@@ -52,9 +52,9 @@
                     <!--<telerik:GridViewDataColumn Header="序号" Width="60"    DataMemberBinding="{Binding Status}" />-->
                     <telerik:GridViewDataColumn Header="登录名" DataMemberBinding="{Binding UserName}" TextWrapping="Wrap" MinWidth="100"/>
                     <telerik:GridViewDataColumn Header="操作员" Width="60"    DataMemberBinding="{Binding Name}" />
-                    <telerik:GridViewDataColumn Header="角色名称" Width="80"    DataMemberBinding="{Binding RolesName}" />
-                    <telerik:GridViewDataColumn Header="部门编号" Width="80"    DataMemberBinding="{Binding UnitId}" />
-                    <telerik:GridViewDataColumn Header="部门名称" Width="80"    DataMemberBinding="{Binding UnitName}" />
+                    <!--<telerik:GridViewDataColumn Header="角色名称" Width="80"    DataMemberBinding="{Binding RolesName}" />-->
+                    <telerik:GridViewDataColumn Header="部门编号" Width="80"    DataMemberBinding="{Binding Unit.Code}" />
+                    <telerik:GridViewDataColumn Header="部门名称" Width="80"    DataMemberBinding="{Binding Unit.Name}" />
                     <telerik:GridViewDataColumn  IsReadOnly="True" Header="邮箱" Width="60"    DataMemberBinding="{Binding EmailAddress}" />
 
                 </telerik:RadGridView.Columns>
@@ -66,26 +66,28 @@
                     <control:CustomButton Height="36" Command="{Binding SaveCommand}" DockPanel.Dock="Right"  IconBackground="#682357"   Kind="SaveSolid"  Width="100" Margin="10,0,0,0" Title="保存"/>
                 </DockPanel>
             </Grid>
-            <telerik:RadGridView ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="1" FontFamily="SimSun"  x:Name="radInfo1" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display" SelectedItem="{Binding SelectedItem}"   ItemsSource="{Binding Departments}"  
+            <StackPanel Grid.Row="1" Grid.Column="1" >
+                <TextBlock Padding="5" Background="#F5F5F5" FontSize="18"  FontFamily="SimSun">角色</TextBlock>
+                <telerik:RadGridView ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="1" FontFamily="SimSun"  x:Name="radInfo1" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display" SelectedItem="{Binding SelectedRole}"   ItemsSource="{Binding Roles}"  
 							   BorderBrush="#E4E7F0" BorderThickness="1,0,0,0"   SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="False"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#F5F5F5"   AlternationCount="2"   >
 
-                <telerik:RadGridView.Columns>
-                    <telerik:GridViewDataColumn IsReadOnly="False" Header="选择" Width="60" >
-                        <telerik:GridViewDataColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsChecked}"/>
-                            </DataTemplate>
-                        </telerik:GridViewDataColumn.CellTemplate>
-                    </telerik:GridViewDataColumn>
-                    <telerik:GridViewDataColumn IsReadOnly="True"  Header="编号" DataMemberBinding="{Binding Code}" TextWrapping="Wrap" MinWidth="100"/>
-                    <telerik:GridViewDataColumn  IsReadOnly="True" Header="名称" Width="60"    DataMemberBinding="{Binding DisplayName}" />
-                    <!--<telerik:GridViewDataColumn Header="序号" Width="80"    DataMemberBinding="{Binding Status}" />-->
-                </telerik:RadGridView.Columns>
-            </telerik:RadGridView>
+                    <telerik:RadGridView.Columns>
+                        <telerik:GridViewDataColumn IsReadOnly="False" Header="选择" Width="60" >
+                            <telerik:GridViewDataColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsChecked}"/>
+                                </DataTemplate>
+                            </telerik:GridViewDataColumn.CellTemplate>
+                        </telerik:GridViewDataColumn>
+                        <telerik:GridViewDataColumn IsReadOnly="True"  Header="编号" DataMemberBinding="{Binding Id}" TextWrapping="Wrap" MinWidth="100"/>
+                        <telerik:GridViewDataColumn  IsReadOnly="True" Header="名称" Width="60"    DataMemberBinding="{Binding DisplayName}" />
+                    </telerik:RadGridView.Columns>
+                </telerik:RadGridView>
+            </StackPanel>
         </Grid>
-       
+
     </Grid>
 </UserControl>
