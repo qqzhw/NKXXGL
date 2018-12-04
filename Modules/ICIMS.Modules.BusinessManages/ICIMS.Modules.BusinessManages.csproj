@@ -203,6 +203,9 @@
     <Compile Include="Views\ContractView.xaml.cs">
       <DependentUpon>ContractView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CustomSettingsContainer.xaml.cs">
+      <DependentUpon>CustomSettingsContainer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ItemDefineEditView.xaml.cs">
       <DependentUpon>ItemDefineEditView.xaml</DependentUpon>
     </Compile>
@@ -309,6 +312,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ContractView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomSettingsContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

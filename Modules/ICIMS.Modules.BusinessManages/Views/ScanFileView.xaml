@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ICIMS.Modules.BusinessManages.Views"
+              xmlns:tools="clr-namespace:Telerik.Windows.Media.Imaging.Tools;assembly=Telerik.Windows.Controls.ImageEditor"      
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:control="clr-namespace:ICIMS.Controls;assembly=ICIMS.Controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" FontFamily="SimSun" TextOptions.TextFormattingMode="Display"
@@ -36,7 +37,7 @@
             <control:CustomButton Height="30"  IconBackground="#C0350A" Command="{Binding DataContext.DeleteCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="TrashSolid"  Width="80" Margin="10,0,0,0" Title="删除"/>
             <control:CustomButton Height="30"  IconBackground="#666666" Command="{Binding DataContext.BrowseCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="EyeSolid"  Width="80" Margin="10,0,0,0" Title="浏览"/>
         </StackPanel>       
-         <GroupBox Header="关联立项"  Grid.Row="1" FontFamily="SimSun" FontSize="12">
+         <GroupBox Header="文件扫描"  Grid.Row="1" FontFamily="SimSun" FontSize="12">
                 <Grid VerticalAlignment="Top" >
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -48,18 +49,17 @@
                         <TextBlock Text="扫描仪" VerticalAlignment="Center"/>
                         <telerik:RadComboBox x:Name="cbxSmy" Width="200" telerik:StyleManager.Theme="Office2016" Margin="5,0,0,0" Text="{Binding ItemDefine.UnitName}" VerticalAlignment="Center"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Height="30">
                         <TextBlock Text="清晰度" VerticalAlignment="Center"/>
-                        <telerik:RadComboBox  Margin="5,0,0,0" Text="{Binding ItemDefine.UnitName}" VerticalAlignment="Center"/>
-
+                        <telerik:RadComboBox x:Name="cbxSmy1" Width="200" telerik:StyleManager.Theme="Office2016" Margin="5,0,0,0" Text="{Binding ItemDefine.UnitName}" VerticalAlignment="Center"/>
                     </StackPanel>
-                    <StackPanel  Orientation="Horizontal">
-                        <TextBlock Text="文件类型"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <TextBox  Height="20" Width="240" Text="{Binding ItemDefine.ItemCategoryName}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                    <StackPanel  Orientation="Horizontal" Height="30">
+                        <TextBlock Text="文件类型"  VerticalAlignment="Center" />
+                        <telerik:RadComboBox x:Name="cbxSmy2" Width="200" telerik:StyleManager.Theme="Office2016" Margin="5,0,0,0" Text="{Binding ItemDefine.UnitName}" VerticalAlignment="Center"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="颜色格式"  Margin="23,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox  Margin="5,0,0,0" Width="140" Height="20" Text="{Binding ItemDefine.ItemDocNo }" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" Height="30">
+                    <TextBlock Text="颜色格式"   VerticalAlignment="Center"/>
+                        <telerik:RadComboBox x:Name="cbxSmy3" Width="200" telerik:StyleManager.Theme="Office2016" Margin="5,0,0,0" Text="{Binding ItemDefine.UnitName}" VerticalAlignment="Center"/>
                     </StackPanel>
                 </StackPanel>
                      
@@ -72,7 +72,7 @@
                     <DataTemplate>
                         <Grid Background="#DEDEDE" Height="32">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="{Binding}" FontSize="16" Foreground="#333333"  VerticalAlignment="Center"/>
@@ -103,33 +103,38 @@
 
                 </telerik:RadGridView>
             </GroupBox>
-        <Grid Grid.RowSpan="3" Grid.Column="1" x:Name="LayoutRoot">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+        <Grid Grid.RowSpan="3" Grid.Column="1" x:Name="LayoutRoot" Opacity="0.3">
+               <!--<example:CustomSettingsContainer x:Name="settingsContainer" />-->
+                   <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 14" Background="#CCF0F4FA" CornerRadius="10" Padding="4">
+                            <Grid x:Name="tools" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
 
-            <telerik:RadImageEditorUI x:Name="radImageEditor" Margin="8"/>
+                                <telerik:RadImageEditorButton x:Name="OpenImageEditorButton" Grid.Column="0"
+                                                      Command="{Binding Path=Commands.Open, ElementName=imageEditor}"/>
+                                <telerik:RadImageEditorButton x:Name="SaveImageEditorButton" Grid.Column="1"
+                                                      Command="{Binding Path=Commands.Save, ElementName=imageEditor}"/>
 
-            <Border BorderBrush="#FFD6D4D4" BorderThickness="1" Margin="8" Grid.Column="1">
-                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10 0">
-                    <ScrollViewer HorizontalScrollBarVisibility="Hidden" BorderThickness="0">
-                        <StackPanel Margin="3">
-                            <StackPanel Orientation="Horizontal">
-                                <ItemsControl x:Name="Tools" Margin="5 8 5 5" Grid.Row="0">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" Content="{Binding Path=Item.Text}" Margin="2" />
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
-                            <telerik:RadButton x:Name="changeTools" VerticalAlignment="Center" Grid.Row="1" Click="changeTools_Click" 
-                                           Content="Reload Tools" Margin="5" HorizontalAlignment="Center" MinWidth="80"/>
-                        </StackPanel>
-                    </ScrollViewer>
-                </Grid>
-            </Border>
-        </Grid>
+                                <telerik:RadImageEditorButton Grid.Column="2" ImageKey="Crop"
+                                                  Command="{Binding Path=Commands.ExecuteTool, ElementName=imageEditor}">
+                                    <telerik:RadButton.CommandParameter>
+                                        <tools:CropTool />
+                                    </telerik:RadButton.CommandParameter>
+                                </telerik:RadImageEditorButton>
+
+                                <telerik:RadImageEditorButton Grid.Column="3" ImageKey="Rotate90CW"
+                                                  Command="{Binding Path=Commands.Rotate90Clockwise, ElementName=imageEditor}"/>
+
+                                <telerik:RadImageEditorButton Grid.Column="4" ImageKey="Rotate90CCW"
+                                                  Command="{Binding Path=Commands.Rotate90Counterclockwise, ElementName=imageEditor}"/>
+                            </Grid>
+                        </Border>
+         </Grid> 
+          
     </Grid>
 </UserControl>
