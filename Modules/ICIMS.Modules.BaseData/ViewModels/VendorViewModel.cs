@@ -123,7 +123,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 {
                     if (newItem.IsOkClicked == 0)
                     {
-                        return false;
+                        return true;
                     }
 
                     var data = await _service.CreateOrUpdate(newItem.Item);
