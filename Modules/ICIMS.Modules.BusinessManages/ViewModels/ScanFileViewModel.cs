@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private string mImagePath;
 
         public DelegateCommand<object> DeleteCcommand { get; private set; }
+        public DelegateCommand ScanCommand { get; private set; }
 
         private string PDFFileName = $"{Guid.NewGuid().ToString()}.PDF";
         private Twain32 mTwain;
@@ -48,6 +50,51 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             mRunPath = AppDomain.CurrentDomain.BaseDirectory;
             mImagePath = mRunPath + "ScanFile\\";
             DeleteCcommand = new DelegateCommand<object>(OnDeleteFile);
+            ScanCommand = new DelegateCommand(OnScanFile);
+           // XferEnvironment.MemXferBufferSize = 64 * 1024U; /*64K*/
+        }
+        /// <summary>
+        /// 扫描文件
+        /// </summary>
+        private void OnScanFile()
+        {
+            try
+            {
+                float dpi = 300f;
+                switch (SelectDpi)
+                {
+                    case "标清":
+                        dpi = 200f;
+                        break;
+                    case "高清":
+                        dpi = 400f;
+                        break;
+                    case "超清":
+                        dpi = 600f;
+                        break;
+                    case "超高清":
+                        dpi = 1200f;
+                        break; 
+                }
+                 
+                mTwain.Capabilities.XResolution.Set(dpi);
+                mTwain.Capabilities.YResolution.Set(dpi);
+                if (SelectDpi== "黑白")
+                {
+                    mTwain.Capabilities.PixelType.Set(TwPixelType.BW);
+                }
+                else
+                {
+                    mTwain.Capabilities.PixelType.Set(TwPixelType.RGB);
+                }
+                mTwain.ShowUI = true;
+                mTwain.Acquire();
+            }
+            catch (Exception ex)
+            {
+               // msgLbl1.AddMsg(ex.Message, Color.Red);
+            }
+            
         }
 
         private void OnDeleteFile(object obj)
@@ -82,7 +129,20 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private void twEndXfer(object sender, Twain32.EndXferEventArgs e)
         {
-             
+            PageCount++;
+            string empty = string.Empty;
+            empty = $"Scan{PageCount.ToString().PadLeft(3, '0')}";
+            string filename = mImagePath + empty + ".png";
+            e.Image.Save(filename, ImageFormat.Png);
+            NewScanPage = true;
+            GetPageCount();
+            //this._Dispose();
+            //if (this.XferEnvironment.PendingXfers > 0)
+            //{
+            //    this._Acquire();
+            //}
+
+          //  (sender as Twain32).OnEndXfer();
         }
 
         private void GetPageCount()
@@ -120,6 +180,13 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 ScanDevices.Add(mTwain.GetSourceProductName(i));
             }
         }
+        //选择清晰度
+        private string _selectDpi;
+        public string SelectDpi
+        {
+            get { return _selectDpi; }
+            set { SetProperty(ref _selectDpi, value); }
+        }
         private List<string> _scanDpi;
         public List<string> ScanDpi
         {
@@ -131,6 +198,13 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             get { return _scancolor; }
             set { SetProperty(ref _scancolor, value); }
+        }
+        //选择颜色
+        private string _selectcolor;
+        public string SelectColor
+        {
+            get { return _selectcolor; }
+            set { SetProperty(ref _selectcolor, value); }
         }
         private List<string> _scanfileTypes;
         public List<string> ScanFileTypes
