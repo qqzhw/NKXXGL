@@ -179,7 +179,9 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                         newItem.Item.Name = newItem.Item.UserName;
                         newItem.Item.Surname = newItem.Item.UserName;
                         newItem.Item.Password = "111111";
-                        var data = await _service.Create(newItem.Item);
+                        newItem.Item.UnitIds = new List<int> { newItem.SelectedDepartment.Id};
+                        newItem.Item.RoleNames = new List<string> { newItem.SelectedRole.Name};
+                       var data = await _service.Create(newItem.Item);
                         if (data != null)
                         {
                             this.Items.Add(data);
@@ -285,14 +287,11 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
 
         private ObservableCollection<RoleModel> _roles;
 
-        private void SetRoleStatusByUser(UserModel user)
+        private void SetDepartmentStatusByUser(UserModel user)
         {
-            if (this.Roles != null)
+            foreach (var item in Departments)
             {
-                foreach (var item in Roles)
-                {
-                    item.IsChecked = user.RoleNames.Exists(a => a.Id == item.Id);
-                }
+                item.IsChecked = user.Units?.Any(a => a.Code == item.Code) ?? false;
             }
         }
 

@@ -5,11 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ICIMS.Modules.BusinessManages.Views"
              mc:Ignorable="d" FontFamily="SimSun"
+             xmlns:convert="clr-namespace:ICIMS.Controls.Converters;assembly=ICIMS.Controls"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:control="clr-namespace:ICIMS.Controls;assembly=ICIMS.Controls"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              d:DesignHeight="450" d:DesignWidth="800">
-       
+    <UserControl.Resources>
+        <convert:StatusColorConverter x:Key="statusColorConverter"/>
+    </UserControl.Resources>
     <Grid>
         <i:Interaction.Triggers>
             <i:EventTrigger  EventName="Loaded">
@@ -51,7 +54,7 @@
                         </telerik:EventToCommandBehavior.EventBindings>-->
             <telerik:RadGridView.Columns>
                 <control:RowNumberColumn Header="序号" Width="40" TextBlock.TextAlignment="Center"/>
-                <telerik:GridViewDataColumn Header="状态" Width="60"    DataMemberBinding="{Binding StatusText}" Background="{Binding Status,Converter={StaticResource statusColorConverter}}" />
+                <telerik:GridViewDataColumn Header="状态" Width="60"    DataMemberBinding="{Binding StatusText}" Background="{Binding StatusColor}" />
                
                 <telerik:GridViewDataColumn Header="部门名称" Width="90" DataMemberBinding="{Binding UnitName}"/>
 

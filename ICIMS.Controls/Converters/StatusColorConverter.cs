@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace ICIMS.Controls.Converters
 {
-    public class StatusColorConverter: IValueConverter
+    public partial class StatusColorConverter: IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            Brush s = new SolidColorBrush(Colors.OrangeRed);
+            return s;
             if (value != null)
             {
                 string colorStr = "#FFFF00";

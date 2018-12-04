@@ -23,9 +23,9 @@ namespace ICIMS.Service.BusinessManages
             return item;
         }
 
-        public Task Delete(int input)
+        public async Task Delete(int input)
         {
-            throw new NotImplementedException();
+            await _webApiClient.DeleteAsync<object>($"{_webApiClient.BaseUrl}{BaseUrl}/Delete", new { Id = input });
         }
 
         public async Task<ResultData<List<ContractList>>> GetAllContracts(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue)

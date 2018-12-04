@@ -13,8 +13,8 @@ namespace ICIMS.Model.BusinessManages
         /// <summary>
         /// Id
         /// </summary>
-        private int? _id;
-        public int? Id { get => _id; set => SetProperty(ref _id, value); }
+        private int _id;
+        public int Id { get => _id; set => SetProperty(ref _id, value); }
 
 
 

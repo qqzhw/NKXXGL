@@ -25,7 +25,7 @@ namespace ICIMS.Service.BusinessManages
 
         public async Task Delete(int input)
         {
-            await Task.CompletedTask;
+            await _webApiClient.DeleteAsync<object>($"{_webApiClient.BaseUrl}{BaseUrl}/Delete", new { Id = input });
         }
 
         public async Task<ResultData<List<AuditMapping>>> GetAllAuditMappings(int ItemId=0, int BusinessTypeId =0, int pageIndex = 0, int pageSize = int.MaxValue)
