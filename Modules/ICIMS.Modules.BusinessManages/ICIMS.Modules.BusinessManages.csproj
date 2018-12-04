@@ -72,6 +72,12 @@
     <Reference Include="Prism.Wpf, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Prism.Wpf.7.1.0.431\lib\net45\Prism.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Saraff.Twain, Version=1.0.27.606, Culture=neutral, PublicKeyToken=467d7c56f22cafb6, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Saraff.Twain.1.0.27.606\lib\net40\Saraff.Twain.dll</HintPath>
+    </Reference>
+    <Reference Include="Saraff.Twain.Extensions, Version=1.0.2.597, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Saraff.Twain.Extensions.1.0.2.597\lib\net40\Saraff.Twain.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -103,6 +109,10 @@
     <Reference Include="Telerik.Windows.Controls.GridView, Version=2018.2.515.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\DLLs\Telerik.Windows.Controls.GridView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.ImageEditor, Version=2018.2.515.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DLLs\Telerik.Windows.Controls.ImageEditor.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Input, Version=2018.2.515.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -151,6 +161,7 @@
     <Compile Include="ViewModels\PayAuditViewModel.cs" />
     <Compile Include="ViewModels\ReViewDefineEditViewModel.cs" />
     <Compile Include="ViewModels\ReViewDefineViewModel.cs" />
+    <Compile Include="ViewModels\ScanFileViewModel.cs" />
     <Compile Include="ViewModels\SelectedContractTypeModel.cs" />
     <Compile Include="ViewModels\SelectedContractViewModel.cs" />
     <Compile Include="ViewModels\SelectedDocumentTypeModel.cs" />
@@ -212,6 +223,9 @@
     </Compile>
     <Compile Include="Views\ReViewDefineView.xaml.cs">
       <DependentUpon>ReViewDefineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ScanFileView.xaml.cs">
+      <DependentUpon>ScanFileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SelectedContractType.xaml.cs">
       <DependentUpon>SelectedContractType.xaml</DependentUpon>
@@ -326,6 +340,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ScanFileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SelectedContractType.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -376,6 +394,12 @@
       <Project>{d0db70ee-e7ab-479a-8ab0-3214359825b5}</Project>
       <Name>ICIMS.Service</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="COPYING.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="COPYING.LESSER.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

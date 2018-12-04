@@ -202,7 +202,7 @@ namespace ICIMS.Client.ViewModels
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "ViewB",
+                Id = "ScanFileView",
                 Title = "数据采集",
                 InitMode = InitializationMode.OnDemand,
                 IsDefaultShow = false,

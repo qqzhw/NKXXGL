@@ -67,7 +67,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             SubmitCommand = new DelegateCommand(OnSubmit);
             CancelCommand = new DelegateCommand(OnCancel);
             BackCommand = new DelegateCommand(OnBack);
-            LogCommand = new DelegateCommand(OnShowLog);
+            //LogCommand = new DelegateCommand(OnShowLog);
             SearchItemCommand = new DelegateCommand(OnSelectedItemCategory);
             UploadCommand = new DelegateCommand(OnUploadedFiles);
             _itemDefine = new ItemDefine();
@@ -186,10 +186,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         private async void OnSubmit()
         {
-            var busaudits = await _businessAuditService.GetAllBusinessAudits(2);
+            var busaudits = await _businessAuditService.GetAllBusinessAudits(BusinessTypeName:"立项登记");
             var auditItem = busaudits.Items.OrderBy(o => o.DisplayOrder).FirstOrDefault();
             if (auditItem == null)
                 return;
+            
             var auditmapping = new AuditMapping()
             {
                 BusinessTypeId=2,
@@ -247,12 +248,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             
         }
 
-        private void OnShowLog()
-        {
-            
-        }
-
-
+        
 
         [InjectionMethod]
         public async void Init()
@@ -263,7 +259,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private async void InitBusinessAudits()
         { 
-            var items = await _businessAuditService.GetAllBusinessAudits(2);
+            var items = await _businessAuditService.GetAllBusinessAudits(BusinessTypeName:"立项登记");
             BuinessAudits.Clear();
             BuinessAudits.AddRange(items.Items);
             LoadAuditMappings();
@@ -282,18 +278,45 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     var findItem = AuditMappings.FirstOrDefault(o => o.RoleId == item.RoleId & o.BusinessAuditId == item.Id);
                     if (findItem!=null)
                     {
+                        item.IsChecked = true;
                         item.StatusName = "已审核";
                     }
                 }
                 CanEdit = false;
             }
+            CheckRole();
         }
+
+
+        /// <summary>
+        /// 获取用户是否是审核角色
+        /// </summary>
+        private void CheckRole()
+        {
+            //角色是否可审核
+            var findItem = BuinessAudits.Where(o => !o.IsChecked).OrderBy(o => o.DisplayOrder).FirstOrDefault();
+            if (findItem != null)
+            {
+                var canAudit = _userModel.Roles.FirstOrDefault(o => o.Id == findItem.RoleId);
+                if (canAudit != null)
+                {
+                    // MessageBox.Show("你不是审核角色");
+                    CanChecked = true;
+                    return;
+                }
+                else
+                {
+                    CanChecked = false;
+                }
+            }
+        }
+
         private void OnSelectedItemCategory()
         {
             var view = _unityContainer.Resolve<SelectItemCategoryView>();
             var notification = new Notification()
             {
-                Content = view,// (new ParameterOverride("name", "")), 
+                Content = view,
             };
             PopupWindows.NotificationRequest.Raise(notification, (callback) =>
             {
@@ -303,8 +326,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
                     this.ItemDefine.ItemCategoryId = viewModel.SelectedItem.Id;
                     this.ItemDefine.ItemCategoryName = viewModel.SelectedItem.Name;
-                }
-                int s = 0;
+                } 
             });
             view.BindAction(notification.Finish);
 
@@ -327,6 +349,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             get { return _canEdit; }
             set { SetProperty(ref _canEdit, value); }
+        }
+        private bool _canChecked = false;
+        public bool CanChecked
+        {
+            get { return _canChecked; }
+            set { SetProperty(ref _canChecked, value); }
         }
     }
     
