@@ -37,8 +37,8 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             if (this.Item != null)
             {
                 this.Item.Name = "";
-                this.Item.UserName = "";
-                this.Item.RoleNames = new List<string>();
+                this.Item.Unit = new OrganizationUnitItem();
+                this.Item.Roles = new ObservableCollection<RoleModel>();
             }
         }
 

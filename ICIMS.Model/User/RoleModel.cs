@@ -48,6 +48,9 @@ namespace ICIMS.Model.User
         //"id": 1
 
         public int No { get; set; }
+        public bool IsChecked { get => _isChecked; set => SetProperty(ref _isChecked,value); }
+
+        private bool _isChecked;
     }
     
 }
