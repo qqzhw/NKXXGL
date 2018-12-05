@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace ICIMS.Model.BusinessManages
 {
@@ -24,31 +25,31 @@ namespace ICIMS.Model.BusinessManages
                 {
                     case 0:
                         StatusText = "制单";
-                        StatusColor = "#FFFF00";
+                        StatusColor =new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF00"));
                         break;
                     case 1:
                         StatusText = "提交审核";
-                        StatusColor = "#90EE90";
+                        StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#90EE90"));
                         break;
                     case 2:
                         StatusText = "审核中";
-                        StatusColor = "Green";
+                        StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#Green")); 
                         break;
                     case 3:
                         StatusText = "已审核";
-                        StatusColor = "0099FF";
+                        StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0099FF")); 
                         break;
                     default:
                         StatusText = "制单";
-                        StatusColor = "#FFFF00";
+                        StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF00"));
                         break;
                 }
             } }
         private string _statusText;
         public string StatusText { get => _statusText; set => SetProperty(ref _statusText, value); }
 
-        private string _statuscolor;
-        public string StatusColor
+        private Brush _statuscolor;
+        public Brush StatusColor
         {
             get => _statuscolor; set => SetProperty(ref _statuscolor, value);           
         }

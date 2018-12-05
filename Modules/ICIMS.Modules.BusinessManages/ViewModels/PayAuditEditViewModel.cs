@@ -25,6 +25,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Unity;
 using Unity.Attributes;
+using Unity.Resolution;
 
 namespace ICIMS.Modules.BusinessManages.ViewModels
 {
@@ -90,7 +91,18 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private void OnAddFundFrom()
         {
-            var ss = SelectFundItem;
+            if (SelectFundItem == null)
+                return;
+            var detail = new PayAuditDetail()
+            {
+                Amount = TempAmount,
+                FundName = SelectFundItem.Name,
+                PayAuditId = PayAudit.Id
+            };
+            var findItem = PayAuditDetails.FirstOrDefault(o=>o.FundName==SelectFundItem.Name);
+            if (findItem != null)
+                return;
+            PayAuditDetails.Add(detail);
             int s = 0;
         }
 
@@ -172,7 +184,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private async void GetFiles(PayAudit payAudit)
         {
             FilesManages.Clear();
-            var items = await _filesService.GetAllFiles(payAudit.Id, "ItemDefine");
+            var items = await _filesService.GetAllFiles(payAudit.Id, "PayAudit");
             FilesManages = new ObservableCollection<FilesManage>(items.Items);
         }
         private ObservableCollection<BusinessAudit> _buinessAudits;
@@ -255,35 +267,85 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         private void OnSubmit()
         {
-            OnExportFlowDocumentCmd(null);
+
+            var auditItem = BuinessAudits.Where(o => !o.IsChecked).OrderBy(o => o.DisplayOrder).FirstOrDefault();
+            if (auditItem == null)
+                return;
+
+            var auditmapping = new AuditMapping()
+            {
+                BusinessTypeId = 5,
+                BusinessTypeName = "支付审核",
+                ItemId = ItemDefine.Id,
+                BusinessAuditId = auditItem.Id,
+                DisplayOrder = auditItem.DisplayOrder
+            };
+
+            var view = _unityContainer.Resolve<SubmitAuditView>(new ParameterOverride("data", auditmapping));
+            var notification = new Notification()
+            {
+                Title = "审核",
+                Content = view,
+            };
+            PopupWindows.NotificationRequest.Raise(notification, async (callback) => {
+                if (callback.DialogResult == true)
+                {
+                    var selectView = callback.Content as SubmitAuditView;
+                    var viewModel = selectView.DataContext as SubmitAuditViewModel;
+                    await _auditMappingService.CreateOrUpdate(viewModel.AuditMapping);
+                    UpdateAuditStatus();
+                    //LoadAuditMappings();
+                    InitBusinessAudits();
+                }
+
+            });
+            view.BindAction(notification.Finish);
         }
 
-        private void OnCancel()
+        private async void OnCancel()
         {
-            throw new NotImplementedException();
+            var deleteItem = AuditMappings.LastOrDefault(o => o.Status == 1);
+            if (deleteItem != null)
+            {
+                await _auditMappingService.Delete(deleteItem.Id);
+            }
         }
 
         private void OnBack()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnShowLog()
         {
-            throw new NotImplementedException();
+            OnExportFlowDocumentCmd(null);
         }
 
 
 
         [InjectionMethod]
-        public async void Init()
+        public  void Init()
         {
             
-            InitBusinessAudits();
-            LoadAuditMappings();
+            //InitBusinessAudits();
+            //LoadAuditMappings();
             LoadFundFrom();//加载资金来源
         }
-
+        /// <summary>
+        /// 更新审核状态
+        /// </summary>
+        private void UpdateAuditStatus()
+        {
+            foreach (var item in BuinessAudits)
+            {
+                var findItem = AuditMappings.FirstOrDefault(o => o.BusinessAuditId == item.Id);
+                if (findItem != null)
+                {
+                    item.Status = 1;
+                    item.StatusName = "已审核";
+                }
+            }
+        }
         private async void GetVendorById(int Id)
         {
             if (Contract != null)
@@ -294,13 +356,55 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         private async void InitBusinessAudits()
         {
-            var items = await _businessAuditService.GetAllBusinessAudits(2);
+            var items = await _businessAuditService.GetAllBusinessAudits(BusinessTypeName: "支付审核");
+            BuinessAudits.Clear();
             BuinessAudits.AddRange(items.Items);
+            LoadAuditMappings();
+             
         }
         private async void LoadAuditMappings()
         {
-            var items = await _auditMappingService.GetAllAuditMappings(3, 2);
+            if (ItemDefine.Id == 0)
+                return;
+            var items = await _auditMappingService.GetAllAuditMappings(ItemDefine.Id, BusinessTypeName: "支付审核");
+            AuditMappings.Clear();
             _auditMappings.AddRange(items.Items);
+            if (AuditMappings.Count > 0)
+            {
+                foreach (var item in BuinessAudits)
+                {
+                    var findItem = AuditMappings.FirstOrDefault(o => o.RoleId == item.RoleId & o.BusinessAuditId == item.Id);
+                    if (findItem != null)
+                    {
+                        item.IsChecked = true;
+                        item.StatusName = "已审核";
+                    }
+                }
+                CanEdit = false;
+            }
+            CheckRole();
+        }
+        /// <summary>
+        /// 获取用户是否是审核角色
+        /// </summary>
+        private void CheckRole()
+        {
+            //角色是否可审核
+            var findItem = BuinessAudits.Where(o => !o.IsChecked).OrderBy(o => o.DisplayOrder).FirstOrDefault();
+            if (findItem != null)
+            {
+                var canAudit = _userModel.Roles.FirstOrDefault(o => o.Id == findItem.RoleId);
+                if (canAudit != null)
+                {
+                    // MessageBox.Show("你不是审核角色");
+                    CanChecked = true;
+                    return;
+                }
+                else
+                {
+                    CanChecked = false;
+                }
+            }
         }
         private async void LoadFundFrom()
         {
@@ -310,6 +414,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 FundItems.AddRange(result.datas);
             }            
         }
+
+        /// <summary>
+        /// 立项支付
+        /// </summary>
         private void OnSelectedItem()
         {
             var view = _unityContainer.Resolve<SelectedItemDefineView>();
@@ -317,20 +425,36 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             {
                 Content = view,// (new ParameterOverride("name", "")), 
             };
-            PopupWindows.NotificationRequest.Raise(notification, (callback) =>
+            PopupWindows.NotificationRequest.Raise(notification, async(callback) =>
             {
                 if (callback.DialogResult == true)
                 {
                     var selectView = callback.Content as SelectedItemDefineView;
                     var viewModel = selectView.DataContext as SelectedItemDefineViewModel;
-                     this.ItemDefine.Id = viewModel.SelectedItem.Id;
-                  this.ItemDefine.ItemName = viewModel.SelectedItem.ItemName;
+                    
+                    this.ItemDefine.Id = viewModel.SelectedItem.Id;
+                    this.ItemDefine.ItemName = viewModel.SelectedItem.ItemName;
                     PayAudit.ItemTotalAmount = ItemDefine.DefineAmount;
+
+                  await  GetItemDefineFiles(ItemDefine.Id);
+
                 }
                 int s = 0;
             });
             view.BindAction(notification.Finish);
 
+        }
+        private async Task GetItemDefineFiles(int itemdefineId)
+        {
+            var items = await _filesService.GetAllFiles(itemdefineId, "ItemDefine");
+            foreach (var item in items.Items)
+            {
+                if (FilesManages.Contains(item))
+                    continue;
+                FilesManages.Add(item);
+            }
+
+            await Task.CompletedTask;
         }
         private  void OnExportFlowDocumentCmd(object o)
         {
@@ -384,6 +508,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 proc.StartInfo.Arguments = fileName;
                 proc.Start();
             }
+        }
+        private decimal _tempAmount;
+        public decimal TempAmount
+        {
+            get { return _tempAmount; }
+            set { SetProperty(ref _tempAmount, value); }
         }
         private string _unitName;
         public string UnitName
@@ -448,6 +578,19 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             get { return _selectFundItem; }
             set { SetProperty(ref _selectFundItem, value); }
+        }
+
+        private bool _canEdit = true;
+        public bool CanEdit
+        {
+            get { return _canEdit; }
+            set { SetProperty(ref _canEdit, value); }
+        }
+        private bool _canChecked = false;
+        public bool CanChecked
+        {
+            get { return _canChecked; }
+            set { SetProperty(ref _canChecked, value); }
         }
     }
 

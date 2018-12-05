@@ -82,7 +82,7 @@
                         <telerik:RadComboBox DisplayMemberPath="Name" SelectedItem="{Binding SelectFundItem}"   SelectedIndex="0" telerik:StyleManager.Theme="Windows8" ItemsSource="{Binding FundItems}"  Height="24" Width="120"/>
 
                         <TextBlock Text="金额" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <telerik:RadNumericUpDown Width="120" Value="{Binding PayAudit.ItemTotalAmount}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
+                        <telerik:RadNumericUpDown Width="120" Value="{Binding TempAmount}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
                         <control:CustomButton Height="28"  IconBackground="#91CE2D" Command="{Binding AddMoneyCommand}" Kind="PlusSolid"   Margin="10,0,0,0" Title="增加"/>
                         <!--<Button Command="{Binding AddMoneyCommand}" Style="{x:Null}" Background="Transparent" HorizontalAlignment="Left" BorderThickness="0" Height="18">
                             <iconPacks:PackIconFontAwesome Kind="PlusSolid" Height="16" Foreground="#999999" />
@@ -142,7 +142,7 @@
                     <telerik:RadGridView FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
 						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding PayAuditDetails}"  
 							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
-                                 IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
+                                       GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
 
                         <!--<telerik:EventToCommandBehavior.EventBindings>
@@ -151,9 +151,9 @@
                         </telerik:EventToCommandBehavior.EventBindings>-->
                         <telerik:RadGridView.Columns>
 
-                            <telerik:GridViewDataColumn Header="序号"  Width="60"    HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  DeviceId,Mode =TwoWay}"/>
+                            <telerik:GridViewDataColumn Header="序号"  Width="60" IsReadOnly="True"   HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  DeviceId,Mode =TwoWay}"/>
 
-                            <telerik:GridViewDataColumn Header="资金来源" Width="100"    DataMemberBinding="{Binding FundName}" />
+                            <telerik:GridViewDataColumn Header="资金来源" Width="100" IsReadOnly="True"   DataMemberBinding="{Binding FundName}" />
                             <telerik:GridViewDataColumn Header="金额" Width="100"    DataMemberBinding="{Binding Amount}" />
 
                             <telerik:GridViewDataColumn Header="备注" Width="*"    DataMemberBinding="{Binding Remark}" />

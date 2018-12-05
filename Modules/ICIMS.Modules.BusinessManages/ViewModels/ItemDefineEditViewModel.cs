@@ -184,10 +184,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         
 
         }
-        private async void OnSubmit()
+        private  void OnSubmit()
         {
-            var busaudits = await _businessAuditService.GetAllBusinessAudits(BusinessTypeName:"立项登记");
-            var auditItem = busaudits.Items.OrderBy(o => o.DisplayOrder).FirstOrDefault();
+           // var busaudits = await _businessAuditService.GetAllBusinessAudits(BusinessTypeName:"立项登记");
+            var auditItem = BuinessAudits.Where(o=>!o.IsChecked).OrderBy(o => o.DisplayOrder).FirstOrDefault();
             if (auditItem == null)
                 return;
             
@@ -268,7 +268,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             if (ItemDefine.Id == 0)
                 return;
-            var items = await _auditMappingService.GetAllAuditMappings(ItemDefine.Id, 2);
+            var items = await _auditMappingService.GetAllAuditMappings(ItemDefine.Id, BusinessTypeName:"立项登记");
             AuditMappings.Clear();
             _auditMappings.AddRange(items.Items);
             if (AuditMappings.Count>0)

@@ -1,5 +1,7 @@
 ﻿using ICIMS.Core.Events;
 using ICIMS.Model.BusinessManages;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -9,15 +11,17 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Unity.Attributes;
- 
+using static Saraff.Twain.Twain32;
 
 namespace ICIMS.Modules.BusinessManages.ViewModels
 {
@@ -27,7 +31,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IRegionManager _regionManager;
         private string mRunPath;
         private string mImagePath;
-
+        private ImageInfo CurrentImage;
         public DelegateCommand<object> DeleteCcommand { get; private set; }
         public DelegateCommand ScanCommand { get; private set; }
 
@@ -144,7 +148,151 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
           //  (sender as Twain32).OnEndXfer();
         }
+        private void OpenPDF(iTextSharp.text.Rectangle PageSize)
+        {
+            //CurrentImage.PDF.FileStream = new FileStream(CurrentImage.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
+            //CurrentImage.PDF.iTextDocument = new Document(PageSize, 0f, 0f, 0f, 0f);
+            //CurrentImage.PDF.iTextWriter = PdfWriter.GetInstance(CurrentImage.PDF.iTextDocument, CurrentImage.PDF.FileStream);
+            //CurrentImage.PDF.iTextDocument.Open();
+        }
 
+        private void AddPDFPage(ref Bitmap bmp)
+        {
+            //CurrentImage.PDF.iTextDocument.NewPage();
+            //MemoryStream memoryStream = new MemoryStream();
+            //bmp.Save(memoryStream, ImageFormat.Png);
+            //iTextSharp.text.Image instance = iTextSharp.text.Image.GetInstance(memoryStream.ToArray());
+            //instance.ScaleToFit(CurrentImage.PDF.iTextDocument.PageSize.Width, CurrentImage.PDF.iTextDocument.PageSize.Height);
+            //CurrentImage.PDF.iTextDocument.Add(instance);
+        }
+
+        private void ClosePDF()
+        {
+            //try
+            //{
+            //    if (CurrentImage.PDF.iTextDocument != null && CurrentImage.PDF.iTextDocument.IsOpen())
+            //    {
+            //        CurrentImage.PDF.iTextDocument.Close();
+            //    }
+            //}
+            //catch (Exception projectError)
+            //{
+            //    ProjectData.SetProjectError(projectError);
+            //    ProjectData.ClearProjectError();
+            //}
+            //try
+            //{
+            //    if (CurrentImage.PDF.iTextWriter != null)
+            //    {
+            //        CurrentImage.PDF.iTextWriter.Close();
+            //    }
+            //}
+            //catch (Exception projectError2)
+            //{
+            //    ProjectData.SetProjectError(projectError2);
+            //    ProjectData.ClearProjectError();
+            //}
+            //try
+            //{
+            //    if (CurrentImage.PDF.FileStream != null)
+            //    {
+            //        CurrentImage.PDF.FileStream.Close();
+            //    }
+            //}
+            //catch (Exception projectError3)
+            //{
+            //    ProjectData.SetProjectError(projectError3);
+            //    ProjectData.ClearProjectError();
+            //}
+            //CurrentImage.PDF.iTextDocument = null;
+            //CurrentImage.PDF.iTextWriter = null;
+            //CurrentImage.PDF.FileStream = null;
+            //CurrentImage.FileName = null;
+        }
+
+         
+
+        private Bitmap ConvertToBW(Bitmap Original)
+        {
+            Bitmap bitmap = null;
+            if (Original.PixelFormat != PixelFormat.Format32bppArgb)
+            {
+                bitmap = new Bitmap(Original.Width, Original.Height, PixelFormat.Format32bppArgb);
+                bitmap.SetResolution(Original.HorizontalResolution, Original.VerticalResolution);
+                using (Graphics graphics = Graphics.FromImage(bitmap))
+                {
+                    graphics.DrawImageUnscaled(Original, 0, 0);
+                }
+            }
+            else
+            {
+                bitmap = Original;
+            }
+            goto IL_0061;
+            IL_0061:
+            Bitmap bitmap2 = bitmap;
+            System.Drawing.Rectangle rect = new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height);
+            BitmapData bitmapData = bitmap2.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+            checked
+            {
+                int num = bitmapData.Stride * bitmapData.Height;
+                byte[] array = new byte[num - 1 + 1];
+                Marshal.Copy(bitmapData.Scan0, array, 0, num);
+                bitmap.UnlockBits(bitmapData);
+                Bitmap bitmap3 = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format1bppIndexed);
+                Bitmap bitmap4 = bitmap3;
+                rect = new System.Drawing.Rectangle(0, 0, bitmap3.Width, bitmap3.Height);
+                BitmapData bitmapData2 = bitmap4.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format1bppIndexed);
+                num = bitmapData2.Stride * bitmapData2.Height;
+                byte[] array2 = new byte[num - 1 + 1];
+                int num2 = 0;
+                int num3 = 0;
+                int num4 = 0;
+                byte b = 0;
+                int num5 = 128;
+                int height = bitmap.Height;
+                int width = bitmap.Width;
+                int num6 = 500;
+                int num7 = height - 1;
+                for (int i = 0; i <= num7; i++)
+                {
+                    num2 = i * bitmapData.Stride;
+                    num3 = i * bitmapData2.Stride;
+                    b = 0;
+                    num5 = 128;
+                    int num8 = width - 1;
+                    for (int j = 0; j <= num8; j++)
+                    {
+                        num4 = unchecked((int)array[checked(num2 + 1)]) + unchecked((int)array[checked(num2 + 2)]) + unchecked((int)array[checked(num2 + 3)]);
+                        if (num4 > num6)
+                        {
+                            b = (byte)unchecked((uint)(b + checked((byte)num5)));
+                        }
+                        if (num5 == 1)
+                        {
+                            array2[num3] = b;
+                            num3++;
+                            b = 0;
+                            num5 = 128;
+                        }
+                        else
+                        {
+                            num5 >>= 1;
+                        }
+                        num2 += 4;
+                    }
+                    if (num5 != 128)
+                    {
+                        array2[num3] = b;
+                    }
+                }
+                Marshal.Copy(array2, 0, bitmapData2.Scan0, num);
+                bitmap3.UnlockBits(bitmapData2);
+                return bitmap3;
+            }
+            IL_005c:
+            goto IL_0061;
+        }
         private void GetPageCount()
         {
             QryFile();
@@ -173,7 +321,14 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
 
         private void InitMenu()
-        { 
+        {
+            _scancolor.Add("彩色");
+            _scancolor.Add("黑白");
+            _scanfileTypes.Add("PNG");
+            _scanDpi.Add("标清");
+            _scanDpi.Add("高清");
+            _scanDpi.Add("超清");
+            _scanDpi.Add("超高清");
             //扫描设备绑定
             for (int i = 0; i < mTwain.SourcesCount; i++)
             {
