@@ -1,5 +1,6 @@
 ﻿using ICIMS.Core.Events;
 using ICIMS.Model.BusinessManages;
+using ICIMS.Service.BusinessManages;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Prism.Commands;
@@ -25,15 +26,18 @@ using static Saraff.Twain.Twain32;
 
 namespace ICIMS.Modules.BusinessManages.ViewModels
 {
-     public class ScanFileViewModel : BindableBase, INavigationAware
+     public class ScanFileViewModel : BindableBase,IDisposable
     {
         private IEventAggregator _eventAggregator;
         private readonly IRegionManager _regionManager;
+        private readonly IFilesService _filesService;
         private string mRunPath;
         private string mImagePath;
         private ImageInfo CurrentImage;
         public DelegateCommand<object> DeleteCcommand { get; private set; }
         public DelegateCommand ScanCommand { get; private set; }
+        public DelegateCommand<object> SelectScanCommand { get; private set; }
+        public DelegateCommand UploadCommand { get; private set; }
 
         private string PDFFileName = $"{Guid.NewGuid().ToString()}.PDF";
         private Twain32 mTwain;
@@ -43,20 +47,74 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public ScanFileViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
+        public ScanFileViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, FilesManage data, IFilesService filesService)
         {
             _regionManager = regionManager;
             _eventAggregator = eventAggregator;
+            _filesService = filesService;
             _title = "文件扫描";
             mTwain = new Twain32();
             _filesManages = new ObservableCollection<FilesManage>();
             _scancolor = new List<string>();
+            _scanfileTypes = new List<string>();
+            _scanDpi = new List<string>();
+            _scandevices = new List<string>();
             mRunPath = AppDomain.CurrentDomain.BaseDirectory;
             mImagePath = mRunPath + "ScanFile\\";
             DeleteCcommand = new DelegateCommand<object>(OnDeleteFile);
             ScanCommand = new DelegateCommand(OnScanFile);
-           // XferEnvironment.MemXferBufferSize = 64 * 1024U; /*64K*/
+            SelectScanCommand = new DelegateCommand<object>(OnSelectedScanDevice);
+            UploadCommand = new DelegateCommand(OnUploadFile);
+            // XferEnvironment.MemXferBufferSize = 64 * 1024U; /*64K*/
+            DeviceIndex = -1;
+            FileData = data;
         }
+
+        private async void OnUploadFile()
+        {
+            IsBusy = true;
+            //var filePath = fileDialog.FileName;
+            //var fileName = fileDialog.SafeFileName;
+            //List<KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>();
+            //keyValuePairs.Add(new KeyValuePair<string, string>("EntityId", ItemDefine.Id.ToString()));
+            //keyValuePairs.Add(new KeyValuePair<string, string>("FileName", fileName));
+            //keyValuePairs.Add(new KeyValuePair<string, string>("UploadType", viewModel.SelectedItem.Name));
+            //keyValuePairs.Add(new KeyValuePair<string, string>("EntityKey", "ItemDefine"));
+            //keyValuePairs.Add(new KeyValuePair<string, string>("EntityName", "立项登记"));
+            foreach (var item in FilesManages)
+            {
+               var keyValuePairs = new List<KeyValuePair<string, string>>();
+                keyValuePairs.Add(new KeyValuePair<string, string>("EntityId", item.EntityId?.ToString()));
+                keyValuePairs.Add(new KeyValuePair<string, string>("FileName", item.FileName));
+                keyValuePairs.Add(new KeyValuePair<string, string>("UploadType", item.UploadType));
+                keyValuePairs.Add(new KeyValuePair<string, string>("EntityKey", item.EntityKey));
+                keyValuePairs.Add(new KeyValuePair<string, string>("EntityName",item.EntityName));
+                var filemanage = await _filesService.UploadFileAsync(keyValuePairs, item.FullName, item.FileName);
+            }
+           
+            //FilesManages.Add(filemanage);
+            IsBusy = false;
+        }
+
+        private void OnSelectedScanDevice(object obj)
+        {
+            int s = 0;
+            try
+            {
+                mTwain.SourceIndex = DeviceIndex;
+                mTwain.OpenDataSource();
+                Twain32.Enumeration enumeration = mTwain.Capabilities.XResolution.Get();
+                List<string> list = new List<string>();
+                for (int i = 0; i < enumeration.Count; i++)
+                {
+                    list.Add(enumeration[i].ToString());
+                }
+            }
+            catch
+            {
+            }
+        }
+
         /// <summary>
         /// 扫描文件
         /// </summary>
@@ -83,7 +141,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                  
                 mTwain.Capabilities.XResolution.Set(dpi);
                 mTwain.Capabilities.YResolution.Set(dpi);
-                if (SelectDpi== "黑白")
+                if (SelectColor== "黑白")
                 {
                     mTwain.Capabilities.PixelType.Set(TwPixelType.BW);
                 }
@@ -116,19 +174,27 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 Directory.CreateDirectory(mImagePath);
             }
             //删除当前目录下文件
-            DirectoryInfo directoryInfo = new DirectoryInfo(mImagePath);
+            var directoryInfo = new DirectoryInfo(mImagePath);
             FileInfo[] files = directoryInfo.GetFiles();
             List<string> list = new List<string>();
             for (int i = 0; i < files.Length; i++)
             {
                 File.Delete(files[i].FullName);
             }
-            GetPageCount();
+            
             mTwain.Language = TwLanguage.CHINESE_SINGAPORE;
             mTwain.IsTwain2Enable = false;
             mTwain.OpenDSM();
             InitMenu();
             mTwain.EndXfer += twEndXfer;
+            mTwain.AcquireCompleted += MTwain_AcquireCompleted;
+        }
+
+        private void MTwain_AcquireCompleted(object sender, EventArgs e)
+        {
+           
+            int ss = 0;
+            LoadFiles();
         }
 
         private void twEndXfer(object sender, Twain32.EndXferEventArgs e)
@@ -139,7 +205,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             string filename = mImagePath + empty + ".png";
             e.Image.Save(filename, ImageFormat.Png);
             NewScanPage = true;
-            GetPageCount();
+           
             //this._Dispose();
             //if (this.XferEnvironment.PendingXfers > 0)
             //{
@@ -293,35 +359,50 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             IL_005c:
             goto IL_0061;
         }
-        private void GetPageCount()
-        {
-            QryFile();
-        }
+       
 
-        private void QryFile()
+        private void LoadFiles()
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(mImagePath);
-            FileInfo[] files = directoryInfo.GetFiles("*.png");
-            DataRow[] array = null;
-            DataRow dataRow = null;
+            FileInfo[] files = directoryInfo.GetFiles("*.png");        
+            int index = 0;
+            foreach (var item in files)
+            {
+                index++;
+                var file = new FilesManage()
+                {
+                    FileName = item.Name,
+                    ContentType = "image/png",
+                    Extension = ".png",
+                    DisplayOrder = index,
+                    FileSize = item.Length,
+                    UploadType = FileData.UploadType,
+                    EntityId = FileData.EntityId,
+                    EntityKey = FileData.EntityKey,
+                    EntityName = FileData.EntityName,   
+                    FullName=item.FullName
+                };
+                FilesManages.Add(file);
+            }
             for (int i = 0; i < files.Length; i++)
             {
-                array = dtFile.Select($"扫描文件名='{files[i].Name}'");
-                if (array.Length == 0)
-                {
-                    dataRow = dtFile.NewRow();
-                    dataRow["AutoID"] = i + 1;
-                    dataRow["扫描文件名"] = files[i].Name;
-                    dataRow["FullName"] = files[i].FullName;
-                    dtFile.Rows.Add(dataRow);
-                }
+ 
+                //array = dtFile.Select($"扫描文件名='{files[i].Name}'");
+                //if (array.Length == 0)
+                //{
+                //    dataRow = dtFile.NewRow();
+                //    dataRow["AutoID"] = i + 1;
+                //    dataRow["扫描文件名"] = files[i].Name;
+                //    dataRow["FullName"] = files[i].FullName;
+                //    dtFile.Rows.Add(dataRow);
+                //}
             }
             //已扫描页 = dtFile.Rows.Count;
             //uhm_v附件.DataSource = dtFile;
         }
 
         private void InitMenu()
-        {
+        { 
             _scancolor.Add("彩色");
             _scancolor.Add("黑白");
             _scanfileTypes.Add("PNG");
@@ -334,6 +415,34 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             {
                 ScanDevices.Add(mTwain.GetSourceProductName(i));
             }
+            
+        }
+        public void Dispose()
+        {
+            mTwain.CloseDSM();
+            mTwain.Dispose();
+        }
+
+
+        #region 属性
+        private FilesManage _fileData;
+        public FilesManage FileData
+        {
+            get { return _fileData; }
+            set { SetProperty(ref _fileData, value); }
+        }
+        private bool _isbusy;
+        public bool IsBusy
+        {
+            get { return _isbusy; }
+            set { SetProperty(ref _isbusy, value); }
+        }
+        //选择的设备
+        private int _deviceIndex;
+        public int DeviceIndex
+        {
+            get { return _deviceIndex; }
+            set { SetProperty(ref _deviceIndex, value); }
         }
         //选择清晰度
         private string _selectDpi;
@@ -342,12 +451,19 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _selectDpi; }
             set { SetProperty(ref _selectDpi, value); }
         }
+        private string _selectFileType;
+        public string SelectFileType
+        {
+            get { return _selectFileType; }
+            set { SetProperty(ref _selectFileType, value); }
+        }
         private List<string> _scanDpi;
         public List<string> ScanDpi
         {
             get { return _scanDpi; }
             set { SetProperty(ref _scanDpi, value); }
         }
+        
         private List<string> _scancolor;
         public List<string> ScanColors
         {
@@ -397,60 +513,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             set { SetProperty(ref _pageCount, value); }
         }
 
-
-        #region 通用属性
-        private void navigationCallback(NavigationResult result)
-        {
-
-        }
-         
-
-        public bool IsNavigationTarget(NavigationContext navigationContext)
-        {
-            return true;
-        }
-
-        public void OnNavigatedFrom(NavigationContext navigationContext)
-        {
-
-        }
-
-        public void OnNavigatedTo(NavigationContext navigationContext)
-        {
-
-        }
-
-
-        //whether the tab is selected;
-        private bool isSelected;
-        public bool IsSelected
-        {
-            get { return isSelected; }
-            set { SetProperty(ref isSelected, value); }
-        }
-
-        //To do:define the UI for tabcontrol's content;
-        public virtual UserControl View { get; set; }
-
-
-        //The command when clicking Close Button;
-        private DelegateCommand _closeCommand;
-        public DelegateCommand CloseCommand =>
-            _closeCommand ?? (_closeCommand = new DelegateCommand(() =>
-            {
-                if (ConfirmToClose())
-                {
-                    _eventAggregator.GetEvent<TabCloseEvent>().Publish(View);
-                }
-            }));
-
-        //It can be overwrite in inherited class to ask for confirming to closing the tab;
-        protected virtual bool ConfirmToClose()
-        {
-            return true;
-        }
-
         #endregion
- 
+
+        
     }
 }

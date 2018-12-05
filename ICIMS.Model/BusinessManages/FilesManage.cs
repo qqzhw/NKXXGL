@@ -37,7 +37,8 @@ namespace ICIMS.Model.BusinessManages
         private string _filename;
         public string FileName { get => _filename; set => SetProperty(ref _filename, value); }
 
-
+        private string _fullname;
+        public string FullName { get => _fullname; set => SetProperty(ref _fullname, value); }
 
         /// <summary>
         /// FileSize

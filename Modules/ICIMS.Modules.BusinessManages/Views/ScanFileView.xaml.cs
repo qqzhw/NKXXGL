@@ -43,8 +43,7 @@ namespace ICIMS.Modules.BusinessManages.Views
         public ScanFileView(ScanFileViewModel viewModel)
         {
             InitializeComponent();
-            this.DataContext = viewModel;
-            viewModel.View = this;
+            this.DataContext = viewModel; 
             this.Loaded += ScanFileView_Loaded;
             //this.FadeIn = (Storyboard)this.LayoutRoot.Resources["FadeIn"];
             //this.FadeOut = (Storyboard)this.LayoutRoot.Resources["FadeOut"];

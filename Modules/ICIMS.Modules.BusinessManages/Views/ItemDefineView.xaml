@@ -54,7 +54,15 @@
                         </telerik:EventToCommandBehavior.EventBindings>-->
             <telerik:RadGridView.Columns>
                 <control:RowNumberColumn Header="序号" Width="40" TextBlock.TextAlignment="Center"/>
-                <telerik:GridViewDataColumn Header="状态" Width="60"    DataMemberBinding="{Binding StatusText}" Background="{Binding StatusColor}" />
+                <telerik:GridViewDataColumn Header="状态" Width="60" Background="{Binding StatusColor}">
+                    <telerik:GridViewDataColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Background="{Binding StatusColor}"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" >
+                                <TextBlock Text="{Binding StatusText}" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </telerik:GridViewDataColumn.CellTemplate>
+                </telerik:GridViewDataColumn>
                
                 <telerik:GridViewDataColumn Header="部门名称" Width="90" DataMemberBinding="{Binding UnitName}"/>
 

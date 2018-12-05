@@ -460,7 +460,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             try
             {
-                var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Xxlz-template.docx");
+                var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "555.docx");
 
                 var file1 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Xxlz-template2.docx");
 
@@ -485,8 +485,51 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
                 doc.Range.Replace("$EndDescription$", "", new FindReplaceOptions(FindReplaceDirection.Forward));
 
+                DocumentBuilder builder = new DocumentBuilder(doc);
+
+              //  DataTable products = this.GetData(); //数据源
 
 
+
+                int count = 0;
+
+                //记录要显示多少列
+                //for (var i = 0; i < products.Columns.Count; i)
+                //{
+                //    if (doc.Range.Bookmarks[products.Columns[i].ColumnName.Trim()] != null)
+                //    {
+                //        Bookmark mark = doc.Range.Bookmarks[products.Columns[i].ColumnName.Trim()];
+                //        mark.Text = "";
+                //        count;
+                //    }
+
+                //}
+                //System.Collections.Generic.List listcolumn = new System.Collections.Generic.List(count);
+                //for (var i = 0; i < count; i)
+                //{
+                //    builder.MoveToCell(0, 0, i, 0); //移动单元格
+                //    if (builder.CurrentNode.NodeType == NodeType.BookmarkStart)
+                //    {
+                //        listcolumn.Add((builder.CurrentNode as BookmarkStart).Name);
+                //    }
+                //}
+                double width = builder.CellFormat.Width;//获取单元格宽度
+                builder.MoveToBookmark("table"); //开始添加值
+                //for (var m = 0; m < products.Rows.Count; m)
+                //{
+                //    for (var i = 0; i < listcolumn.Count; i)
+                //    {
+                //        builder.InsertCell(); // 添加一个单元格 
+                //        builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+                //        builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+                //        builder.CellFormat.Width = width;
+                //        builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                //        builder.Write(products.Rows[m][listcolumn[i]].ToString());
+                //    }
+                //    builder.EndRow();
+                //}
+                //doc.Range.Bookmarks["table"].Text = ""; // 清掉标示 
+                builder.DeleteRow(0, 5);
                 // Save the modified document.
                 doc.Save(file1);
 
