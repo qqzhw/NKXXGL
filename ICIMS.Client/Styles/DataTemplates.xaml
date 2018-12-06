@@ -581,12 +581,12 @@
                             </Border>
                             <telerik:DetailsPresenter x:Name="PART_DetailsPresenter" Grid.ColumnSpan="2" Grid.Column="2" DetailsProvider="{TemplateBinding DetailsProvider}" IsTabStop="False" Grid.Row="1" telerik:SelectiveScrollingGrid.SelectiveScrollingClip="True" Visibility="Collapsed">
                                 <telerik:StyleManager.Theme>
-                                    <telerik:Office_BlackTheme/>
+                                    <telerik:Office2016Theme/>
                                 </telerik:StyleManager.Theme>
                             </telerik:DetailsPresenter>
                             <telerik:IndentPresenter x:Name="PART_IndentPresenter" Grid.Column="1" IsTabStop="False" IndentLevel="{TemplateBinding IndentLevel}" Grid.RowSpan="4" telerik:SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical">
                                 <telerik:StyleManager.Theme>
-                                    <telerik:Office_BlackTheme/>
+                                    <telerik:Office2016Theme/>
                                 </telerik:StyleManager.Theme>
                             </telerik:IndentPresenter>
                             <Border x:Name="PART_IndicatorPresenter" BorderBrush="#FF848484" BorderThickness="0,0,1,1" Grid.Column="0" Grid.RowSpan="3" telerik:SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical" Visibility="{TemplateBinding RowIndicatorVisibility}" VerticalAlignment="Stretch" Width="25">

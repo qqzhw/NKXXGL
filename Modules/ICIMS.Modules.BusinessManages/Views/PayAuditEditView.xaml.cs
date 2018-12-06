@@ -28,9 +28,6 @@ namespace ICIMS.Modules.BusinessManages.Views
             this.DataContext = viewModel;
         }
        
-        private void CustomButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+         
     }
 }

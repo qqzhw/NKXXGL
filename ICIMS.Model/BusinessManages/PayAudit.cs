@@ -122,6 +122,9 @@ namespace ICIMS.Model.BusinessManages
         private string _remark;
         public string Remark { get => _remark; set => SetProperty(ref _remark, value); }
 
+        private decimal _initpayAmount;
+        public decimal InitPayAmount { get => _initpayAmount; set => SetProperty(ref _initpayAmount, value); }
+
         /// <summary>
         /// 是否评审
         /// </summary>

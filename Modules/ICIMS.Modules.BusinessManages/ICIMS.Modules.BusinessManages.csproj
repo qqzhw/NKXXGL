@@ -405,6 +405,10 @@
       <Project>{e642b971-fc28-48e8-9015-a863aa148d6c}</Project>
       <Name>ICIMS.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ICIMS.Metro\ICIMS.Metro.csproj">
+      <Project>{a352bf5f-8655-499a-b0ec-195aab99e83a}</Project>
+      <Name>ICIMS.Metro</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ICIMS.Model\ICIMS.Model.csproj">
       <Project>{EC6B9D27-D03E-48AB-A6DF-060A8AB7F25F}</Project>
       <Name>ICIMS.Model</Name>

@@ -37,9 +37,18 @@ namespace ICIMS.Service.BusinessManages
             return items;
         }
 
-        public Task<PayAudit> GetById(int input)
+        public async Task<PayAudit> GetById(int input)
         {
-            throw new NotImplementedException();
+            var param = new { Id = input };
+            var item = await _webApiClient.GetAsync<PayAudit>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "GetById"), param);
+            return item;
+        }
+
+        public async Task<int> SearchPayCount(int itemDefineId)
+        {
+            var param = new {itemDefineId };
+            var item = await _webApiClient.GetAsync<dynamic>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "SearchPayCount"), param);
+            return item;
         }
     }
 }

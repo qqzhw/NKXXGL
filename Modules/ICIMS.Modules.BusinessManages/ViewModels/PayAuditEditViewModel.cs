@@ -105,7 +105,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             if (findItem != null)
                 return;
             PayAuditDetails.Add(detail);
-            int s = 0;
+            
+            PayAudit.PayAmount = PayAuditDetails.Select(o => o.Amount).Sum();
         }
 
         private void OnSelectedPaymentType()
@@ -158,6 +159,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         internal void BindData(PayAuditList info)
         {
+            InitBusinessAudits();
             if (info.PayAudit == null)
             {
                 UnitName = _userModel.UnitName;
@@ -273,7 +275,13 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             var auditItem = BuinessAudits.Where(o => !o.IsChecked).OrderBy(o => o.DisplayOrder).FirstOrDefault();
             if (auditItem == null)
                 return;
-
+            var flag = IsCanAudit(auditItem);
+            if (!flag)
+            {
+                MessageBox.Show("对不起，您没有审核权限");
+                return;
+            }
+          
             var auditmapping = new AuditMapping()
             {
                 BusinessTypeId = 5,
@@ -322,7 +330,20 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             OnExportFlowDocumentCmd(null);
         }
+        /// <summary>
+        /// 根据当前审核项 查询当前用户是否具有审核资格
+        /// </summary>
+        /// <param name="auditItem"></param>
+        private bool IsCanAudit(BusinessAudit auditItem)
+        {
 
+            var findItem = _userModel.Roles.FirstOrDefault(o => o.Id == auditItem.RoleId);
+            if (findItem == null)
+            {
+                return false;
+            }
+            return true;
+        }
         private void OnScanFile()
         {
             if (ItemDefine.Id < 1)
@@ -420,9 +441,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         private async void LoadAuditMappings()
         {
-            if (ItemDefine.Id == 0)
+            if (PayAudit.Id == 0)
                 return;
-            var items = await _auditMappingService.GetAllAuditMappings(ItemDefine.Id, BusinessTypeName: "支付审核");
+            var items = await _auditMappingService.GetAllAuditMappings(PayAudit.Id, BusinessTypeName: "支付审核");
             AuditMappings.Clear();
             _auditMappings.AddRange(items.Items);
             if (AuditMappings.Count > 0)
@@ -493,7 +514,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     PayAudit.ItemTotalAmount = ItemDefine.DefineAmount;
 
                   await  GetItemDefineFiles(ItemDefine.Id);
-
+                  var paymentNo = await _payAuditService.SearchPayCount(ItemDefine.Id);
+                    int s1 = 1;
                 }
                 int s = 0;
             });

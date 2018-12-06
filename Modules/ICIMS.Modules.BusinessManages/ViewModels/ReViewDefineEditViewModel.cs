@@ -281,6 +281,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             var auditItem = BuinessAudits.Where(o => !o.IsChecked).OrderBy(o => o.DisplayOrder).FirstOrDefault();
             if (auditItem == null)
                 return;
+            var flag = IsCanAudit(auditItem);
+            if (!flag)
+            {
+                MessageBox.Show("对不起，您没有审核权限");
+                return;
+            }
             var auditmapping = new AuditMapping()
             {
                 BusinessTypeId = 3,
@@ -351,7 +357,19 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
            // InitBusinessAudits();
 
         }
-
+        /// <summary>
+        /// 根据当前审核项 查询当前用户是否具有审核资格
+        /// </summary>
+        /// <param name="auditItem"></param>
+        private bool IsCanAudit(BusinessAudit auditItem)
+        {
+            var findItem = _userModel.Roles.FirstOrDefault(o => o.Id == auditItem.RoleId);
+            if (findItem == null)
+            {
+                return false;
+            }
+            return true;
+        }
         /// <summary>
         /// 初始化加载
         /// </summary>

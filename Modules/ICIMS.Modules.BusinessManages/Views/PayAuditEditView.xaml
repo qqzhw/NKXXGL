@@ -23,8 +23,8 @@
         <StackPanel Orientation="Horizontal"  Background="#F2F2F2"> 
             <control:CustomButton Height="28"  IconBackground="#682357" Command="{Binding SaveCommand}" Kind="SaveSolid"  Width="80" Margin="10,0,0,0" Title="保存"/>
             <control:CustomButton Height="28"  IconBackground="#91CE2D" Command="{Binding SubmitCommand}" Kind="CheckSolid"  Width="80" Margin="10,0,0,0" Title="提交"/>
-            <control:CustomButton Height="28"  IconBackground="#AD372D" Command="{Binding CancelComamnd}" Click="CustomButton_Click" Kind="TimesSolid"  Width="80" Margin="10,0,0,0" Title="取消"/>
-            <control:CustomButton Height="28"  IconBackground="#C1852D" Click="CustomButton_Click" Command="{Binding BackCommand}" Kind="ReplySolid"  Width="80" Margin="10,0,0,0" Title="驳回"/>
+            <control:CustomButton Height="28"  IconBackground="#AD372D" Command="{Binding CancelComamnd}" Kind="TimesSolid"  Width="80" Margin="10,0,0,0" Title="取消"/>
+            <control:CustomButton Height="28"  IconBackground="#C1852D"  Command="{Binding BackCommand}" Kind="ReplySolid"  Width="80" Margin="10,0,0,0" Title="驳回"/>
             <control:CustomButton Height="28"  IconBackground="#7DB12D"  Kind="FileWordSolid" Command="{Binding LogCommand}"  Width="80" Margin="10,0,0,0" Title="日志"/>
 
         </StackPanel>
@@ -163,30 +163,19 @@
                 </GroupBox>
                 <GroupBox  Grid.Row="1" Header="相关审核人" >
                     <telerik:RadGridView FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
+						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding BuinessAudits}"  
 							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
-
-                        <!--<telerik:EventToCommandBehavior.EventBindings>
-                            <telerik:EventBinding Command="{Binding ListRightMenue}" EventName="MouseRightButtonUp" 
-                        PassEventArgsToCommand="True" /> 
-                        </telerik:EventToCommandBehavior.EventBindings>-->
+ 
                         <telerik:RadGridView.Columns>
 
-                            <control:RowNumberColumn Header="序号"  Width="60"    HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold" />
+                            <control:RowNumberColumn Header="序号" Width="60" TextBlock.TextAlignment="Center"/>
 
-                            <telerik:GridViewDataColumn Header="审核角色" Width="120"    DataMemberBinding="{Binding DeviceName}" />
+                            <telerik:GridViewDataColumn Header="审核角色" Width="*"    DataMemberBinding="{Binding Name}" />
 
-                            <telerik:GridViewDataColumn Header="审核时间" Width="120">
-                                <telerik:GridViewDataColumn.CellTemplate>
-                                    <DataTemplate >
-                                        <TextBlock Text="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}" />
-                                    </DataTemplate>
-                                </telerik:GridViewDataColumn.CellTemplate>
-                            </telerik:GridViewDataColumn>
-                            <telerik:GridViewDataColumn Header="状态" DataMemberBinding="{Binding StatusName}" TextWrapping="Wrap" Width="*" />
-                           
+                            <telerik:GridViewDataColumn Header="状态" DataMemberBinding="{Binding StatusName}" TextWrapping="Wrap" Width="150" />
+
                         </telerik:RadGridView.Columns>
 
                     </telerik:RadGridView>
