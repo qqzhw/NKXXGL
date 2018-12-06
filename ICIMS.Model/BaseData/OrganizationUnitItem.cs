@@ -33,8 +33,14 @@ namespace ICIMS.Model.BaseData
         {
             this.RaisePropertyChanged(nameof(IsLast));
         }
-
-        public int Id { get; set; }
+        private long _id;
+        public long Id
+        {
+            get => _id; set
+            {
+                SetProperty(ref _id, value);
+            }
+        }
         public string Code { get => _code; set { SetProperty(ref _code, value); RaisePropertyChanged(nameof(GroupNo)); RaisePropertyChanged(nameof(Level)); } }
 
         public string DisplayName { get => _displayName; set => SetProperty(ref _displayName, value); }

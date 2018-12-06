@@ -118,8 +118,8 @@ namespace ICIMS.Client.ViewModels
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "PayAuditView",
-                Title = "档案管理",
+                Id = "DocManagerView",
+                Title = "文档综合管理",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_档案管理.ico",
                 IsDefaultShow = false,
             });

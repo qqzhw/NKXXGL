@@ -125,6 +125,7 @@ namespace ICIMS.Client.ViewModels
             var user=_userSerice.LoginAsync(UserName,Password,TenancyName);
             var userInfo =await _userSerice.GetUserInfoById(user.Id);
             userInfo.AccessToken = user.AccessToken;
+            userInfo.UnitId = userInfo.Unit.Id;
             //if (unit!=null)
             //{
             //    user.UnitId = unit.Id;

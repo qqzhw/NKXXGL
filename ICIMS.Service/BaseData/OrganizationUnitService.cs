@@ -24,7 +24,7 @@ namespace ICIMS.Service.BaseData
             return (totalCount: data.TotalCount, datas: data.Items);
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(long id)
         {
             await _webApiClient.DeleteAsync<object>($"{_webApiClient.BaseUrl}{_baseUrl}/Delete", new { Id = id });
         }

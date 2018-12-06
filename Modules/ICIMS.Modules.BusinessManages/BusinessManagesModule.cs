@@ -47,6 +47,7 @@ namespace ICIMS.Modules.BusinessManages
             containerRegistry.RegisterForNavigation<ReViewDefineView>();
             containerRegistry.RegisterForNavigation<ReViewDefineEditView>();
             containerRegistry.RegisterForNavigation<ScanFileView>();
+            containerRegistry.RegisterForNavigation<DocManagerView>();
             //containerRegistry.RegisterForNavigation<ViewB>();
         }
     }
