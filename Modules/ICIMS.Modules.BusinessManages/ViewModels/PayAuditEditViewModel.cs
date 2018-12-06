@@ -458,6 +458,17 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     }
                 }
                 CanEdit = false;
+                var isComplete = BuinessAudits.FirstOrDefault(o => o.IsChecked == false);
+                if (isComplete == null)
+                {
+                    PayAudit.Status = 2;
+                    await _payAuditService.CreateOrUpdate(PayAudit);
+                }
+                else
+                {
+                    PayAudit.Status = 1;
+                    await _payAuditService.CreateOrUpdate(PayAudit);
+                }
             }
             CheckRole();
         }

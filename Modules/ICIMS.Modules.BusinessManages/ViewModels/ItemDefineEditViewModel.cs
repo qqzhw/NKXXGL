@@ -359,6 +359,17 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         item.StatusName = "已审核";
                     }
                 }
+                var isComplete = BuinessAudits.FirstOrDefault(o => o.IsChecked == false);
+                if (isComplete == null)
+                {
+                    ItemDefine.Status = 2;
+                   await _itemDefineService.CreateOrUpdate(ItemDefine);
+                }
+                else
+                {
+                    ItemDefine.Status = 1;
+                    await _itemDefineService.CreateOrUpdate(ItemDefine);
+                }
                 CanEdit = false;
             }
             else

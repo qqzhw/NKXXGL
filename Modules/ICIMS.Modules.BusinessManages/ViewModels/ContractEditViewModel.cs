@@ -321,8 +321,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         /// </summary>
         /// <param name="auditItem"></param>
         private bool IsCanAudit(BusinessAudit auditItem)
-        {
-            
+        { 
             var findItem = _userModel.Roles.FirstOrDefault(o => o.Id == auditItem.RoleId);
             if (findItem==null)
             { 
@@ -455,6 +454,17 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         item.IsChecked = true;
                         item.StatusName = "已审核";
                     }
+                }
+                var isComplete = BuinessAudits.FirstOrDefault(o => o.IsChecked == false);
+                if (isComplete == null)
+                {
+                    Contract.Status = 2;
+                    await _contractService.CreateOrUpdate(Contract);
+                }
+                else
+                {
+                    Contract.Status = 1;
+                    await _contractService.CreateOrUpdate(Contract);
                 }
                 CanEdit = false;
             }

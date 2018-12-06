@@ -127,18 +127,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         var scanFileViewmodel = fileView.DataContext as ScanFileViewModel;
                         scanFileViewmodel.Dispose();
                         GetFiles(ReViewDefine);
-                    });
-
-                    //var filePath = fileDialog.FileName;
-                    //var fileName = fileDialog.SafeFileName;
-                    //List<KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>();
-                    //keyValuePairs.Add(new KeyValuePair<string, string>("EntityId", ItemDefine.Id.ToString()));
-                    //keyValuePairs.Add(new KeyValuePair<string, string>("FileName", fileName));
-                    //keyValuePairs.Add(new KeyValuePair<string, string>("UploadType", viewModel.SelectedItem.Name));
-                    //keyValuePairs.Add(new KeyValuePair<string, string>("EntityKey", "ItemDefine"));
-                    //keyValuePairs.Add(new KeyValuePair<string, string>("EntityName", "立项登记"));
-                    //var filemanage = await _filesService.UploadFileAsync(keyValuePairs, filePath, fileName);
-                    //FilesManages.Add(filemanage);
+                    }); 
 
                 }
                 int s = 0;
@@ -152,6 +141,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             if (Id>0)
             {
                 var item =await _itemDefineService.GetById(Id);
+                ItemDefine = item;
                 await GetItemDefineFiles(Id);
             }
         }
@@ -326,6 +316,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     item.Status = 1;
                     item.StatusName = "已审核";
                 }
+
             }
         }
 
@@ -335,6 +326,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             if (deleteItem != null)
             {
                 await _auditMappingService.Delete(deleteItem.Id);
+                InitBusinessAudits();
             }
         }
 
@@ -399,6 +391,17 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         item.IsChecked = true;
                         item.StatusName = "已审核";
                     }
+                }
+                var isComplete = BuinessAudits.FirstOrDefault(o => o.IsChecked == false);
+                if (isComplete == null)
+                {
+                    ReViewDefine.Status = 2;
+                    await _reViewDefineService.CreateOrUpdate(ReViewDefine);
+                }
+                else
+                {
+                    ReViewDefine.Status = 1;
+                    await _reViewDefineService.CreateOrUpdate(ReViewDefine);
                 }
                 CanEdit = false;
             }
