@@ -45,6 +45,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand SearchItemCommand { get; private set; }
         public DelegateCommand CaractTypeCommand { get; private set; }
         public DelegateCommand UploadCommand { get; private set; }
+        public DelegateCommand ScanCommand { get; private set; }
         public DelegateCommand SearchVendorCommand { get; private set; }
         private readonly UserModel _userModel;
         private string _title;
@@ -73,7 +74,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             SearchItemCommand = new DelegateCommand(OnSelectedItemCategory);
             CaractTypeCommand= new DelegateCommand(OnSelectedCaractType);
             SearchVendorCommand = new DelegateCommand(OnSelectedVendor);
-            UploadCommand = new DelegateCommand(OnUploadedFiles); 
+            UploadCommand = new DelegateCommand(OnUploadedFiles);
+            ScanCommand = new DelegateCommand(OnScanFile);
             _filesManages = new ObservableCollection<FilesManage>();
             _buinessAudits = new ObservableCollection<BusinessAudit>();
             _auditMappings = new ObservableCollection<AuditMapping>();
@@ -342,6 +344,60 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             
         }
 
+        private void OnScanFile()
+        {
+            if (ItemDefine.Id < 1)
+            {
+                MessageBox.Show("请先保存合同");
+                return;
+            }
+            var view = _unityContainer.Resolve<SelectedDocumentType>();
+            var notification = new Notification()
+            {
+                Title = "文档分类",
+                Content = view,
+            };
+            PopupWindows.NotificationRequest.Raise(notification, async (callback) =>
+            {
+                if (callback.DialogResult == true)
+                {
+                    //选择文档类型
+                    var selectView = callback.Content as SelectedDocumentType;
+                    var viewModel = selectView.DataContext as SelectedDocumentTypeModel;
+                    if (viewModel.SelectedItem == null)
+                        return;
+
+                    var scanParam = new FilesManage() { EntityId = Contract.Id, EntityKey = "Contract", EntityName = "合同登记", UploadType = viewModel.SelectedItem.Name };
+                    var scanView = _unityContainer.Resolve<ScanFileView>(new ParameterOverride("data", scanParam));
+                    var notify = new Notification()
+                    {
+                        Title = "文档扫描",
+                        Content = scanView,
+                    };
+                    PopupWindows.NotificationRequest.Raise(notify, (scanBack) =>
+                    {
+                        var fileView = scanBack.Content as ScanFileView;
+                        var scanFileViewmodel = fileView.DataContext as ScanFileViewModel;
+                        scanFileViewmodel.Dispose();
+                        GetFiles(Contract);
+                    });
+
+                    //var filePath = fileDialog.FileName;
+                    //var fileName = fileDialog.SafeFileName;
+                    //List<KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>();
+                    //keyValuePairs.Add(new KeyValuePair<string, string>("EntityId", ItemDefine.Id.ToString()));
+                    //keyValuePairs.Add(new KeyValuePair<string, string>("FileName", fileName));
+                    //keyValuePairs.Add(new KeyValuePair<string, string>("UploadType", viewModel.SelectedItem.Name));
+                    //keyValuePairs.Add(new KeyValuePair<string, string>("EntityKey", "ItemDefine"));
+                    //keyValuePairs.Add(new KeyValuePair<string, string>("EntityName", "立项登记"));
+                    //var filemanage = await _filesService.UploadFileAsync(keyValuePairs, filePath, fileName);
+                    //FilesManages.Add(filemanage);
+
+                }
+                int s = 0;
+            });
+            view.BindAction(notification.Finish);
+        }
 
 
         [InjectionMethod]
