@@ -254,8 +254,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 return;
             }
             var auditmapping = new AuditMapping()
-            {
-                BusinessTypeId=2,
+            { 
                 BusinessTypeName="立项登记",
                 ItemId=ItemDefine.Id,
                 BusinessAuditId=auditItem.Id,
@@ -316,6 +315,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             if (deleteItem!=null)
             {
                 await _auditMappingService.Delete(deleteItem.Id);
+                InitBusinessAudits();
             } 
         }
 
