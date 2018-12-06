@@ -36,6 +36,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
         private ObservableCollection<UserModel> _items;
         private UserModel _selectedItem;
         private ObservableCollection<OrganizationUnitItem> _departments;
+        private int _selectedIndex;
         public string Title
         {
             get { return _title; }
@@ -80,8 +81,10 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             try
             {
                 var roles = this.Roles.Where(a => a.IsChecked).ToList();
+                var departments = this.Departments.Where(a=>a.IsChecked).ToList();
                 var selectedItem = CommonHelper.CopyItem(this.SelectedItem);
                 selectedItem.Roles = new ObservableCollection<RoleModel>(roles);
+                selectedItem.Units = new List<OrganizationUnitItem>(departments);
                 var rsData = await _service.Update(selectedItem);
                 CommonHelper.SetValue(this.SelectedItem, rsData);
                 MessageBox.Show("保存成功！");
@@ -278,11 +281,17 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             set
             {
                 SetRoleStatusByUser(value);
+                SetDepartmentStatusByUser(value);
                 SetProperty(ref _selectedItem, value);
             }
         }
 
         public ObservableCollection<RoleModel> Roles { get => _roles; set => SetProperty(ref _roles, value); }
+        public int SelectedIndex
+        {
+            get => _selectedIndex;
+            set => SetProperty(ref _selectedIndex,value);
+        }
 
         private ObservableCollection<RoleModel> _roles;
 
@@ -293,6 +302,17 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                 foreach (var item in this.Roles)
                 {
                     item.IsChecked = user?.Roles?.Any(a => a.Id == item.Id) ?? false;
+                }
+            }
+        }
+
+        private void SetDepartmentStatusByUser(UserModel user)
+        {
+            if (this.Departments != null)
+            {
+                foreach (var item in this.Departments)
+                {
+                    item.IsChecked = user?.Units?.Any(a => a.Id == item.Id) ?? false;
                 }
             }
         }
