@@ -64,6 +64,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private void OnDelete(object obj)
         {
+            if (SelectedItem == null)
+                return;
             string confirmText = "你确定要删除当前项吗?";
             RadWindow.Confirm(new DialogParameters
             {
@@ -73,17 +75,21 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             });
         }
 
-        private void OnConfirmClosed(object sender, WindowClosedEventArgs e)
+        private async void OnConfirmClosed(object sender, WindowClosedEventArgs e)
         {
             if (e.DialogResult == true)
             {
                 //删除
+               
+                  await _contractService.Delete(SelectedItem.Id);
+                    OnRefresh();
+                
             }
         }
 
         private void OnRefresh()
         {
-            
+            OnLoad();
         }
         
 

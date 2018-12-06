@@ -316,6 +316,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             {
                 await _auditMappingService.Delete(deleteItem.Id);
                 InitBusinessAudits();
+                
             } 
         }
 
@@ -360,6 +361,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 }
                 CanEdit = false;
             }
+            else
+            {
+                CanEdit = true;
+            }
             CheckRole();
         }
 
@@ -377,7 +382,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 if (canAudit != null)
                 {
                     // MessageBox.Show("你不是审核角色");
-                    CanChecked = true;
+                    CanChecked = true;  
                     return;
                 }
                 else
