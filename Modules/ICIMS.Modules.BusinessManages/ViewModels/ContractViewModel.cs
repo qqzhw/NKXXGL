@@ -115,7 +115,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 //{
                 //    var selectView = callback.Content as SelectItemCategoryView;
                 //    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
-
+                OnLoad();
                 //}
                 int s = 0;
             });
@@ -181,7 +181,16 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private void OnDelete()
         {
+            if (SelectedItem == null)
+                return;
+            string confirmText = "你确定要删除当前项吗?";
+            RadWindow.Confirm(new DialogParameters
+            {
+                Content = confirmText,
+                Closed = new EventHandler<WindowClosedEventArgs>(OnConfirmClosed),
+                Owner = Application.Current.MainWindow,
 
+            });
         }
          
         private void OnEditItem()

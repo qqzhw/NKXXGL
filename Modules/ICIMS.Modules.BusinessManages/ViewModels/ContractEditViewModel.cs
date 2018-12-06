@@ -273,7 +273,17 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             Contract.UnitId = ItemDefine.UnitId;
             Contract.ContractCategoryId = ContractCategory.Id;
             Contract.ItemDefineId = ItemDefine.Id;
-            await _contractService.CreateOrUpdate(Contract);
+            var item=await _contractService.CreateOrUpdate(Contract);
+            if (item.Id>0)
+            {
+                Contract.Id = item.Id;
+                Contract.ContractNo = item.ContractNo;
+                MessageBox.Show("保存成功！");
+            }
+            else
+            {
+                MessageBox.Show("保存失败！");
+            }
 
         }
         private  void OnSubmit()

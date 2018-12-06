@@ -171,12 +171,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             PayAuditList = info;
             PayAudit = info.PayAudit;
             _payAuditDetails = null ?? new ObservableCollection<PayAuditDetail>();
-            PayAuditDetails.Add(new PayAuditDetail()
-            {
-                Amount = 1000,
-                FundName = "市局",
-                Remark = "市局款项",
-            });
+            //PayAuditDetails.Add(new PayAuditDetail()
+            //{
+            //    Amount = 1000,
+            //    FundName = "市局",
+            //    Remark = "市局款项",
+            //});
             GetFiles(PayAudit);
         }
         private ObservableCollection<FilesManage> _filesManages;
@@ -266,8 +266,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             if (item.Id > 0)
             {
                 PayAudit.Id = item.Id;
+                PayAudit.PaymentNo = item.PaymentNo;
+                MessageBox.Show("保存成功！");
             }
-
+            else 
+            MessageBox.Show("保存失败！");
         }
         private void OnSubmit()
         {

@@ -235,8 +235,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                var item= await _itemDefineService.CreateOrUpdate(ItemDefine);
                 if (item.Id>0)
                 {
+                    ItemDefine.ItemNo = item.ItemNo;
                     ItemDefine.Id = item.Id;
+                    MessageBox.Show("保存成功！");
                 }
+                else
+                MessageBox.Show("保存失败！");
             }
         
 

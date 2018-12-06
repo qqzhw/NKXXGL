@@ -261,6 +261,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 {
                     ReViewDefine.Id = item.Id;
                     ReViewDefine.ReViewNo = item.ReViewNo;
+                    MessageBox.Show("保存成功！");
+                } 
+                else
+                {
+                    MessageBox.Show("保存失败！");
                 }
             }
 

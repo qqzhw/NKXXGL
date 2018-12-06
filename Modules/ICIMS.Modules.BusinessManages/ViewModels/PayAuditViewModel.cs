@@ -186,7 +186,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 //{
                 //    var selectView = callback.Content as SelectItemCategoryView;
                 //    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
-
+                OnLoad();
                 //}
                 int s = 0;
             });
