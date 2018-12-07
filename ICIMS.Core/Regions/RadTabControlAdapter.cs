@@ -280,8 +280,8 @@ namespace ICIMS.Core
 					object item = this.GetContainedItem(tabItem);
 					if (!this.Region.ActiveViews.Contains(item))
 					{
-						this.Region.Activate(item);
-					}
+                        this.Region.Activate(item);
+                    }
 				}
 			}
 		}

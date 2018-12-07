@@ -52,8 +52,11 @@ namespace ICIMS.Model.User
         }
         private OrganizationUnitItem _unit;
         public OrganizationUnitItem Unit { get => _unit; set => SetProperty(ref _unit, value); }
- 
-        
+
+        private List<OrganizationUnitItem> _units;
+
+        public List<OrganizationUnitItem> Units { get => _units; set => SetProperty(ref _units, value); }
+
 
         private DateTime? _lastLoginTime;
         public DateTime? LastLoginTime { get => _lastLoginTime; set => SetProperty(ref _lastLoginTime, value); }

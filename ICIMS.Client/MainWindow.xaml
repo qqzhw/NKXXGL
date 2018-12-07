@@ -221,9 +221,9 @@
             <DataTemplate x:Key="ContentTemplate">
                 <Grid />
             </DataTemplate>
-            <Style TargetType="{x:Type telerik:RadTabItem}" BasedOn="{StaticResource RadTabItemStyle}">
+            <!--<Style TargetType="{x:Type telerik:RadTabItem}" BasedOn="{StaticResource RadTabItemStyle}">
                 <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-            </Style>
+            </Style>-->
             <Style x:Key="RadTabControlStyle1" TargetType="{x:Type telerik:RadTabControl}">
                 <Setter Property="TextOptions.TextRenderingMode" Value="ClearType"/>
                 <Setter Property="BorderBrush" Value="{telerik:Office2016TouchResource ResourceKey={x:Static telerik:Office2016TouchResourceKey.BasicBrush}}"/>

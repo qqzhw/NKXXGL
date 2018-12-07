@@ -186,6 +186,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
             this.Items = new ObservableCollection<DocumentTypeItem>(rs.datas);
 
             this.ItemCount = rs.totalCount;
+            this.Items = new ObservableCollection<DocumentTypeItem>(_datas.Where(a => a.Parent == null));
             this.SelectedItem = this.Items.FirstOrDefault();
         }
 
@@ -195,10 +196,6 @@ namespace ICIMS.Modules.BaseData.ViewModels
             {
                 data.Parent = datas.FirstOrDefault(a => a.No == data.GroupNo);
                 data.Parent?.Children.Add(data);
-            }
-            else
-            {
-                this.Items.Add(data);
             }
         }
 
