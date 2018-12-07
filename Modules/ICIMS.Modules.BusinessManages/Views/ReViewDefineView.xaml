@@ -40,7 +40,7 @@
         </StackPanel>
         <Rectangle Height="1" Grid.Row="3" Fill="#DEDEDE"/>
         <telerik:RadGridView Grid.Row="4" FontFamily="SimSun" IsBusy="{Binding IsBusy}"  TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"  SelectedItem="{Binding SelectedItem}"  ItemsSource="{Binding ReViewDefineLists}"  
+						    RowHeight="30" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"  SelectedItem="{Binding SelectedItem}"  ItemsSource="{Binding ReViewDefineLists}"  
 							   BorderBrush="#E4E7F0" x:Name="radInfo"    SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
@@ -50,7 +50,15 @@
                         PassEventArgsToCommand="True" /> 
                         </telerik:EventToCommandBehavior.EventBindings>-->
             <telerik:RadGridView.Columns>
-                <telerik:GridViewDataColumn Header="状态" Width="60"  DataMemberBinding="{Binding ReViewDefine.StatusText}"  Background="{Binding ReViewDefine.Status,Converter={StaticResource statusColorConverter}}" />
+                <telerik:GridViewDataColumn Header="状态" Width="60"  >
+                    <telerik:GridViewDataColumn.CellTemplate >
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch" Background="{Binding ReViewDefine.StatusColor}" Margin="-5,0,-2,0"  Height="30" VerticalAlignment="Stretch" >
+                                <TextBlock      VerticalAlignment="Center"  Text="{Binding ReViewDefine.StatusText}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </telerik:GridViewDataColumn.CellTemplate>
+                </telerik:GridViewDataColumn>
 
                 <telerik:GridViewDataColumn Header="部门名称" Width="120"  TextWrapping="Wrap"   DataMemberBinding="{Binding UnitName}" />
 

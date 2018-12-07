@@ -16,18 +16,14 @@ namespace ICIMS.Model.BusinessManages
                     case 0:
                         StatusText = "制单";
                         StatusColor = "#FFFF00";
-                        break;
+                        break; 
                     case 1:
-                        StatusText = "提交审核";
-                        StatusColor = "#90EE90";
+                        StatusText = "审核中";
+                        StatusColor = "#3cb371";
                         break;
                     case 2:
-                        StatusText = "审核中";
-                        StatusColor = "Green";
-                        break;
-                    case 3:
-                        StatusText = "已审核";
-                        StatusColor = "0099FF";
+                        StatusText = "结审";
+                        StatusColor = "#f08080";
                         break;
                     default:
                         StatusText = "制单";

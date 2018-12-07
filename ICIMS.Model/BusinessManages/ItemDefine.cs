@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
  
 using System.Text;
+using System.Windows.Media;
 
 namespace ICIMS.Model.BusinessManages
 {
@@ -34,25 +35,30 @@ namespace ICIMS.Model.BusinessManages
                 switch (_status)
                 {
                     case 0:
-                        _statusText = "制单";
+                        StatusText = "制单";
+                        StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF00"));
                         break;
                     case 1:
-                        _statusText = "提交审核";
-                        break;
+                        StatusText = "审核中";
+                        StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3cb371"));
+                        break; 
                     case 2:
-                        _statusText = "审核中";
-                        break;
-                    case 3:
-                        _statusText = "已审核";
+                        StatusText = "结审";
+                        StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f08080"));
                         break;
                     default:
-                        _statusText = "制单";
+                        StatusText = "制单";
+                        StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF00"));
                         break;
                 }
-                SetProperty(ref _statusText, _statusText);
+                
             }
         }
-
+        private Brush _statusColor;
+        public Brush StatusColor
+        {
+            get => _statusColor; set => SetProperty(ref _statusColor, value);
+        }
         /// <summary>
         /// 部门ID
         /// </summary>

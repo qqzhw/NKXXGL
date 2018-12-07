@@ -7,12 +7,13 @@
                xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:control="clr-namespace:ICIMS.Controls;assembly=ICIMS.Controls"
             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" FontFamily="SimSun"
               d:DesignHeight="900" d:DesignWidth="1800">
     <Grid Background="#DEDEDE">
         <Grid.Resources> 
             <Style TargetType="TextBox">
                 <Setter Property="MinWidth" Value="100"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
             </Style>
         </Grid.Resources>
         <Grid.RowDefinitions>
@@ -20,14 +21,14 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal"  Background="#F2F2F2"> 
+        <DockPanel   Background="#F2F2F2"> 
             <control:CustomButton Height="28"  IconBackground="#682357" Command="{Binding SaveCommand}" Kind="SaveSolid"  Width="80" Margin="10,0,0,0" Title="保存"/>
             <control:CustomButton Height="28"  IconBackground="#91CE2D" Command="{Binding SubmitCommand}" Kind="CheckSolid"  Width="80" Margin="10,0,0,0" Title="提交"/>
             <control:CustomButton Height="28"  IconBackground="#AD372D" Command="{Binding CancelComamnd}" Kind="TimesSolid"  Width="80" Margin="10,0,0,0" Title="取消"/>
             <control:CustomButton Height="28"  IconBackground="#C1852D"  Command="{Binding BackCommand}" Kind="ReplySolid"  Width="80" Margin="10,0,0,0" Title="驳回"/>
-            <control:CustomButton Height="28"  IconBackground="#7DB12D"  Kind="FileWordSolid" Command="{Binding LogCommand}"  Width="80" Margin="10,0,0,0" Title="日志"/>
-
-        </StackPanel>
+            <control:CustomButton Height="28"  IconBackground="#7DB12D"  Kind="FileWordSolid" Command="{Binding LogCommand}"  Width="80" Margin="10,0,0,0" Title="打印"/>
+            <TextBlock Text="{Binding ItemDefine.StatusText,StringFormat={}【{0}】}" HorizontalAlignment="Right" FontWeight="Bold" VerticalAlignment="Center" FontSize="22" Foreground="{Binding ItemDefine.StatusColor}"/>
+        </DockPanel>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -52,51 +53,51 @@
                     </Grid.RowDefinitions>
                     <DockPanel HorizontalAlignment="Stretch" >
                         <TextBlock Text="关联项目"   VerticalAlignment="Center" />
-                        <TextBox  Height="20" Text="{Binding ItemDefine.ItemName}"   Width="320"  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="22" Text="{Binding ItemDefine.ItemName}"   Width="320"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <Button Command="{Binding SearchItemCommand}" Style="{x:Null}" BorderThickness="0" Height="18">
                             <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                         </Button>
                         <TextBlock Text="关联合同" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox Text="{Binding Contract.ContractName}" Margin="5,0,0,0" Width="320"  Height="20" VerticalAlignment="Center"/>
+                        <TextBox Text="{Binding Contract.ContractName}" Margin="5,0,0,0" Width="320"  Height="22" VerticalAlignment="Center"/>
                         <Button Command="{Binding SearchContractCommand}" Style="{x:Null}" HorizontalAlignment="Left" BorderThickness="0" Height="18">
                             <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                         </Button>
                     </DockPanel>
                     <StackPanel Grid.Row="1" Orientation="Horizontal"  HorizontalAlignment="Stretch" >
                         <TextBlock Text="承建单位"    VerticalAlignment="Center"/>
-                        <TextBox  Height="20" Width="250" Text="{Binding VendorItem.Name}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="22" Width="250" Text="{Binding VendorItem.Name}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="开户行"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <TextBox  Height="20" HorizontalAlignment="Left" Text="{Binding VendorItem.OpenBank}" Width="200" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="22" HorizontalAlignment="Left" Text="{Binding VendorItem.OpenBank}" Width="200" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="银行账户"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <TextBox  Height="20" Width="150"  Text="{Binding VendorItem.AccountName}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="22" Width="200"  Text="{Binding VendorItem.AccountName}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                     </StackPanel> 
                         <DockPanel Grid.Row="2" >
                             <TextBlock Text="部 门" VerticalAlignment="Center" Margin="18,0,0,0"/>
-                            <TextBox  Height="20"  Margin="5,0,0,0" Text="{Binding UnitName}" VerticalAlignment="Center"/>
+                            <TextBox  Height="22"  Margin="5,0,0,0" Text="{Binding UnitName}"  IsReadOnly="True" VerticalAlignment="Center"/>
                             <TextBlock Text="支付类型" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox  Height="20"  Margin="5,0,0,0" Text="{Binding PaymentTypeItem.Name}"  VerticalAlignment="Center"/>
+                        <TextBox  Height="22"  Margin="5,0,0,0" Text="{Binding PaymentTypeItem.Name}" Width="200" VerticalAlignment="Center"/>
                             <Button Command="{Binding SearchPaymentCommand}" Style="{x:Null}" HorizontalAlignment="Left" BorderThickness="0" Height="18">
                                 <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                             </Button>
                         <TextBlock Text="资金来源" VerticalAlignment="Center" Margin="18,0,0,0"/>
-                        <telerik:RadComboBox DisplayMemberPath="Name" SelectedItem="{Binding SelectFundItem}"   SelectedIndex="0" telerik:StyleManager.Theme="Windows8" ItemsSource="{Binding FundItems}"  Height="24" Width="120"/>
+                        <telerik:RadComboBox DisplayMemberPath="Name" FontFamily="SimSun" SelectedItem="{Binding SelectFundItem}"   SelectedIndex="0" telerik:StyleManager.Theme="Windows8" ItemsSource="{Binding FundItems}"  Height="24" Width="120"/>
 
                         <TextBlock Text="金额" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <telerik:RadNumericUpDown Width="120" Value="{Binding TempAmount}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
-                        <control:CustomButton Height="28"  IconBackground="#91CE2D" Command="{Binding AddMoneyCommand}" Kind="PlusSolid"   Margin="10,0,0,0" Title="增加"/>
+                        <telerik:RadNumericUpDown Width="120" Value="{Binding TempAmount}" Height="22" FontFamily="SimSun" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
+                        <control:CustomButton Height="26"  IconBackground="#91CE2D" Command="{Binding AddMoneyCommand}" Kind="PlusSolid" Width="75" HorizontalAlignment="Left"  Margin="5,0,0,0" FontSize="16" ToolTip="支付来源金额" Title="增加"/>
                         <!--<Button Command="{Binding AddMoneyCommand}" Style="{x:Null}" Background="Transparent" HorizontalAlignment="Left" BorderThickness="0" Height="18">
                             <iconPacks:PackIconFontAwesome Kind="PlusSolid" Height="16" Foreground="#999999" />
                         </Button>-->
                     </DockPanel>
                         <DockPanel Grid.Row="3">
                             <TextBlock Text="支付编号" VerticalAlignment="Center"/>
-                        <TextBox  Height="20"  Margin="5,0,0,0" IsReadOnly="True" Text="{Binding PayAudit.PaymentNo}"  VerticalAlignment="Center"/>
+                        <TextBox  Height="22"  Margin="5,0,0,0" IsReadOnly="True" Text="{Binding PayAudit.PaymentNo}"  VerticalAlignment="Center"/>
                             <TextBlock Text="支付名称" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox  Height="20" Text="{Binding PayAudit.PaymentName}"  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="22" Text="{Binding PayAudit.PaymentName}"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         </DockPanel>
                         <DockPanel Grid.Row="4" >
                             <TextBlock Text="预算总额" VerticalAlignment="Center"/>
-                            <TextBox  Height="20" HorizontalAlignment="Left" Text="{Binding PayAudit.ItemYsTotalAmount}" Margin="5,0,0,0"  VerticalAlignment="Center"/>
+                            <TextBox  Height="22" HorizontalAlignment="Left" Text="{Binding PayAudit.ItemYsTotalAmount}" Margin="5,0,0,0"  VerticalAlignment="Center"/>
                             
                             <TextBlock Text="项目总额" Margin="5,0,0,0" VerticalAlignment="Center"/> 
                          <telerik:RadNumericUpDown Width="120" Value="{Binding PayAudit.ItemTotalAmount}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
@@ -122,11 +123,11 @@
                         </DockPanel>
                         <DockPanel Grid.Row="6">
                             <TextBlock VerticalAlignment="Center" Width="48" TextWrapping="Wrap" Text="付款方式及比例"></TextBlock>
-                            <TextBox Height="48" Margin="5,0,0,0"  Text="{Binding PayAudit.PaymentMethod}" />
+                            <TextBox Height="48" VerticalContentAlignment="Top" Margin="5,0,0,0"  Text="{Binding PayAudit.PaymentMethod}" />
                         </DockPanel>
                         <DockPanel Grid.Row="7">
                             <TextBlock VerticalAlignment="Center" Margin="0,2,0,0" TextWrapping="Wrap" Text="备   注"></TextBlock>
-                            <TextBox Height="48" Margin="11,0,0,0" Text="{Binding PayAudit.Remark}" />
+                        <TextBox Height="48" VerticalContentAlignment="Top" Margin="11,0,0,0" Text="{Binding PayAudit.Remark}" />
                         </DockPanel>
                         
                     

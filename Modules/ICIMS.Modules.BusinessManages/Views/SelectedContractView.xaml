@@ -19,9 +19,9 @@
                 <StackPanel Orientation="Horizontal"  VerticalAlignment="Center">
 
                     <TextBlock Text="编号"  Foreground="#7E87AD" FontSize="14"  Margin="8,0,0,0" VerticalAlignment="Center"/>
-                    <TextBox Text="{Binding ItemNo}"   Foreground="#222328"  VerticalAlignment="Center" Width="120" Height="24"/>
+                    <TextBox Text="{Binding ContractNo}"   Foreground="#222328"  VerticalAlignment="Center" Width="120" Height="24"/>
                     <TextBlock Text="合同名称"  Foreground="#7E87AD" FontSize="14"  Margin="10,0,0,0" VerticalAlignment="Center"/>
-                    <TextBox Text="{Binding ItemName}"   Foreground="#222328"  VerticalAlignment="Center" Width="120" Height="24"/>
+                    <TextBox Text="{Binding ContractName}"   Foreground="#222328"  VerticalAlignment="Center" Width="120" Height="24"/>
                     <TextBlock Text="开始时间：" FontSize="12"  Margin="10,0,0,0"  Foreground="#7E87AD"    VerticalAlignment="Center" />
                     <telerik:RadDatePicker DateTimeWatermarkTemplate="{StaticResource dateTemplate}" FontStyle="Normal" TextBlock.FontStyle="Normal" Width="160"  Foreground="#222328"    SelectedValue="{Binding BeginTime}"  DisplayFormat="Long" DateTimeWatermarkContent="请选择开始时间"/>
                     <TextBlock Text="截止时间："   Foreground="#7E87AD" FontSize="12"  Margin="10,0,0,0" VerticalAlignment="Center"/>
@@ -42,14 +42,14 @@
 
                     <telerik:RadGridView.Columns>
 
-                        <telerik:GridViewDataColumn Header="合同编号"  Width="100"     HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  ItemNo}"/>
+                        <telerik:GridViewDataColumn Header="合同编号"  Width="100"     HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  ContractNo}"/>
 
-                        <telerik:GridViewDataColumn Header="合同名称" Width="*"    DataMemberBinding="{Binding ItemName}" />
-                        <!--<telerik:GridViewDataColumn Header="路径" Width="100"    DataMemberBinding="{Binding DirectoryName}" />-->
+                        <telerik:GridViewDataColumn Header="合同名称" Width="*"    DataMemberBinding="{Binding ContractName}" />
+                        <telerik:GridViewDataColumn Header="项目名称" Width="100"    DataMemberBinding="{Binding ItemDefineName}" />
                         <telerik:GridViewDataColumn Header="部门名称" DataMemberBinding="{Binding UnitName}" TextWrapping="Wrap" Width="100" />
-                        <telerik:GridViewDataColumn Header="立项金额" DataMemberBinding="{Binding DefineAmount}" TextWrapping="Wrap" Width="90" />
-                        <telerik:GridViewDataColumn Header="立项时间" DataMemberBinding="{Binding DefineDate,StringFormat=yyyy-MM-dd}" TextWrapping="Wrap" Width="120" />
-                        <telerik:GridViewDataColumn Header="项目地址" DataMemberBinding="{Binding ItemAddress}" TextWrapping="Wrap" Width="150" />
+                        <telerik:GridViewDataColumn Header="合同金额" DataMemberBinding="{Binding ContractAmount}" TextWrapping="Wrap" Width="90" />
+                        <telerik:GridViewDataColumn Header="合同时间" DataMemberBinding="{Binding ContractTime,StringFormat=yyyy-MM-dd}" TextWrapping="Wrap" Width="120" />
+                        <telerik:GridViewDataColumn Header="供应商" DataMemberBinding="{Binding VendorName}" TextWrapping="Wrap" Width="150" />
 
                         <telerik:GridViewDataColumn Header="录入时间" Width="100" HeaderTextAlignment="Center">
                             <telerik:GridViewDataColumn.CellTemplate>

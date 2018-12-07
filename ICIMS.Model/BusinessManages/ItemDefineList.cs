@@ -25,19 +25,15 @@ namespace ICIMS.Model.BusinessManages
                 {
                     case 0:
                         StatusText = "制单";
-                        StatusColor =new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF00"));
+                        StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF00"));
                         break;
                     case 1:
-                        StatusText = "提交审核";
-                        StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#90EE90"));
+                        StatusText = "审核中";
+                        StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3cb371"));
                         break;
                     case 2:
-                        StatusText = "审核中";
-                        StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#Green")); 
-                        break;
-                    case 3:
-                        StatusText = "已审核";
-                        StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0099FF")); 
+                        StatusText = "结审";
+                        StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f08080"));
                         break;
                     default:
                         StatusText = "制单";

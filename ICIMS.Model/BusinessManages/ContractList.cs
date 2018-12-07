@@ -18,8 +18,7 @@ namespace ICIMS.Model.BusinessManages
         public string SysGuid { get; set; }
 
         private int _status;
-        public int Status { get => _status; set { SetProperty(ref _status, value); 
-
+        public int Status { get => _status; set { SetProperty(ref _status, value);   
                 switch (_status)
                 {
                     case 0:
@@ -27,16 +26,12 @@ namespace ICIMS.Model.BusinessManages
                         StatusColor = "#FFFF00";
                         break;
                     case 1:
-                        StatusText = "提交审核";
-                        StatusColor = "#90EE90";
+                        StatusText = "审核中";
+                        StatusColor = "#3cb371";
                         break;
                     case 2:
-                        StatusText = "审核中";
-                        StatusColor = "Green";
-                        break;
-                    case 3:
-                        StatusText = "已审核";
-                        StatusColor = "0099FF";
+                        StatusText = "结审";
+                        StatusColor = "#f08080";
                         break;
                     default:
                         StatusText = "制单";

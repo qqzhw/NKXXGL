@@ -95,6 +95,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             if (SelectFundItem == null)
                 return;
+            if (TempAmount == 0)
+                return;
             var detail = new PayAuditDetail()
             {
                 Amount = TempAmount,
@@ -103,7 +105,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             };
             var findItem = PayAuditDetails.FirstOrDefault(o=>o.FundName==SelectFundItem.Name);
             if (findItem != null)
+            {
+                findItem.Amount = TempAmount;
                 return;
+            }               
             PayAuditDetails.Add(detail);
             
             PayAudit.PayAmount = PayAuditDetails.Select(o => o.Amount).Sum();
@@ -160,15 +165,27 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         internal void BindData(PayAuditList info)
         {
             InitBusinessAudits();
+            UnitName = _userModel.UnitName;
+            _payAudit = null ?? new PayAudit();
+            _itemDefine = null ?? new ItemDefine();
+            PaymentTypeItem = null ?? new PaymentTypeItem();
+            _contract = null ?? new ContractList();
+            _vendorItem = null ?? new VendorItem();
+            _payAuditDetails = null ?? new ObservableCollection<PayAuditDetail>();
             if (info.PayAudit == null)
             {
-                UnitName = _userModel.UnitName;
-                _payAudit = null ?? new PayAudit();
-                _itemDefine = null ?? new ItemDefine();
-                _payAuditDetails = null ?? new ObservableCollection<PayAuditDetail>(); 
+                 
                 return;
             }
+            Contract.ContractName = info.ContractName;
+            VendorItem.OpenBank = info.OpenBank;
+            VendorItem.Name = info.VendorName;
+            VendorItem.AccountName = info.AccountName;            
+            PaymentTypeItem.Name = info.PaymentTypeName;            
             PayAuditList = info;
+            ItemDefine.ItemName = info.ItemDefineName;
+            ItemDefine.DefineAmount = info.DefineAmount;
+            UnitName = info.UnitName;
             PayAudit = info.PayAudit;
             _payAuditDetails = null ?? new ObservableCollection<PayAuditDetail>();
             //PayAuditDetails.Add(new PayAuditDetail()
@@ -552,37 +569,58 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             try
             {
-                var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "555.docx");
+                var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "666.docx");
 
-                var file1 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Xxlz-template2.docx");
-
+                var file1 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "777.docx");
                 var content = "evento";
                 // Open the document.
                 Document doc = new Document(file);
 
+              
+                //// Replace the text in the document.
+                //doc.Range.Replace("$Title$", DateTime.Now.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
+                //string cmdNo = string.Format("成联指【{0}】号", 511);
+                //doc.Range.Replace("$CmdNo$", cmdNo, new FindReplaceOptions(FindReplaceDirection.Forward));
+                //doc.Range.Replace("$HostTypeName$","", new FindReplaceOptions(FindReplaceDirection.Forward));
 
-                // Replace the text in the document.
-                doc.Range.Replace("$Title$", DateTime.Now.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
-                string cmdNo = string.Format("成联指【{0}】号", 511);
-                doc.Range.Replace("$CmdNo$", cmdNo, new FindReplaceOptions(FindReplaceDirection.Forward));
-                doc.Range.Replace("$HostTypeName$","", new FindReplaceOptions(FindReplaceDirection.Forward));
+                //doc.Range.Replace("$EventSourceFiredTime$", DateTime.Now.ToString("yyyy年MM月dd日 HH点mm分"), new FindReplaceOptions(FindReplaceDirection.Forward));
+                //doc.Range.Replace("$InfoContent$", "currentEventInfo.EventInfoContent", new FindReplaceOptions(FindReplaceDirection.Forward));
+                //doc.Range.Replace("$EventSourcePerson$", "currentEventInfo.Clrxm", new FindReplaceOptions(FindReplaceDirection.Forward));
 
-                doc.Range.Replace("$EventSourceFiredTime$", DateTime.Now.ToString("yyyy年MM月dd日 HH点mm分"), new FindReplaceOptions(FindReplaceDirection.Forward));
-                doc.Range.Replace("$InfoContent$", "currentEventInfo.EventInfoContent", new FindReplaceOptions(FindReplaceDirection.Forward));
-                doc.Range.Replace("$EventSourcePerson$", "currentEventInfo.Clrxm", new FindReplaceOptions(FindReplaceDirection.Forward));
+                //doc.Range.Replace("$EventSourceDepartment$"," currentEventInfo.EventSourceDepartment", new FindReplaceOptions(FindReplaceDirection.Forward));
+                //doc.Range.Replace("$Content$", content, new FindReplaceOptions(FindReplaceDirection.Forward));
 
-                doc.Range.Replace("$EventSourceDepartment$"," currentEventInfo.EventSourceDepartment", new FindReplaceOptions(FindReplaceDirection.Forward));
-                doc.Range.Replace("$Content$", content, new FindReplaceOptions(FindReplaceDirection.Forward));
-                
 
-                doc.Range.Replace("$EndDescription$", "", new FindReplaceOptions(FindReplaceDirection.Forward));
+                //doc.Range.Replace("$EndDescription$", "", new FindReplaceOptions(FindReplaceDirection.Forward));
 
                 DocumentBuilder builder = new DocumentBuilder(doc);
-
-              //  DataTable products = this.GetData(); //数据源
-
-
-
+                NodeCollection allTables = doc.GetChildNodes(NodeType.Table, true);
+                builder.MoveToDocumentEnd();
+                //builder.StartTable();
+                Aspose.Words.Tables.Table table = allTables[0] as Aspose.Words.Tables.Table;//拿到第一个表格
+                var rowCount = table.Count;
+                //builder.InsertCell();
+                //builder.Write("ROW1ASD");
+                //builder.InsertCell();
+                //builder.Write("asdsad");
+                //builder.EndRow();
+                //  DataTable products = this.GetData(); //数据源
+                //builder.InsertCell();
+                //builder.InsertCell();
+                for (int i = 0; i < 3; i++)
+                {
+                    var roww = table.Rows[rowCount-2];
+                    //var row = table.LastRow.Clone(true);
+                    var row = roww.Clone(true);//复制第三行(绿色行)
+                    table.Rows.Insert(rowCount + i, row);//将复制的行插入当前行的上方
+                    builder.MoveToCell(0, rowCount+i, 0, 0);
+                    builder.Writeln($"asdas还是审核人{i+1}");
+                    builder.MoveToCell(0, rowCount + i, 1, 0);
+                    builder.Write("$Title$" + i.ToString());
+                }
+                doc.Range.Replace("$Title$", "真的啊", new FindReplaceOptions(FindReplaceDirection.Forward));
+                //builder.MoveToCell(0, 3, 0, 0); //移动到第一个表格的第四行第一个格子
+                builder.Write("test"); //单元格填充文字
                 int count = 0;
 
                 //记录要显示多少列
@@ -606,7 +644,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 //    }
                 //}
                 double width = builder.CellFormat.Width;//获取单元格宽度
-                builder.MoveToBookmark("table"); //开始添加值
+                //builder.MoveToBookmark("table"); //开始添加值
                 //for (var m = 0; m < products.Rows.Count; m)
                 //{
                 //    for (var i = 0; i < listcolumn.Count; i)
@@ -621,7 +659,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 //    builder.EndRow();
                 //}
                 //doc.Range.Bookmarks["table"].Text = ""; // 清掉标示 
-                builder.DeleteRow(0, 5);
+                //builder.DeleteRow(0, 5);
                 // Save the modified document.
                 doc.Save(file1);
 

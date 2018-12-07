@@ -39,9 +39,9 @@
 
         </StackPanel>
         <Rectangle Height="1" Grid.Row="3" Fill="#DEDEDE"/>
-        <telerik:RadGridView Grid.Row="4" FontFamily="SimSun" IsBusy="{Binding IsBusy}"  TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+        <telerik:RadGridView x:Name="radInfo" Grid.Row="4" FontFamily="SimSun" IsBusy="{Binding IsBusy}"  TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
 						    RowHeight="30" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display" SelectedItem="{Binding SelectedItem}"    ItemsSource="{Binding PayAuditLists}"  
-							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
+							   BorderBrush="#E4E7F0" Background="#FAFAFA"   SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#F5F5F5"   AlternationCount="2"   >
 
@@ -51,8 +51,15 @@
                         </telerik:EventToCommandBehavior.EventBindings>-->
             <telerik:RadGridView.Columns>
                 <control:RowNumberColumn Header="序号" Width="40" />
-                <telerik:GridViewDataColumn Header="状态" Width="60"  DataMemberBinding="{Binding PayAudit.StatusText}"  Background="{Binding PayAduit.StatusColor}"  />
-                
+                <telerik:GridViewDataColumn Header="状态" Width="60"  HeaderTextAlignment="Justify" >
+                    <telerik:GridViewDataColumn.CellTemplate >
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch" Background="{Binding PayAudit.StatusColor}" Margin="-5,0,-2,0"  Height="30" VerticalAlignment="Stretch" >
+                            <TextBlock      VerticalAlignment="Center"  Text="{Binding PayAudit.StatusText}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </telerik:GridViewDataColumn.CellTemplate>
+                </telerik:GridViewDataColumn>
                 <telerik:GridViewDataColumn Header="部门名称" Width="100" DataMemberBinding="{Binding UnitName}"/>
                 <telerik:GridViewDataColumn Header="支付编号"  DataMemberBinding="{Binding PayAudit.PaymentNo}" TextWrapping="Wrap" Width="90" />
                 <telerik:GridViewDataColumn Header="支付名称" DataMemberBinding="{Binding PayAudit.PaymentName}" TextWrapping="Wrap" Width="90" />

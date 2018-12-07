@@ -40,7 +40,7 @@
         </StackPanel>
         <Rectangle Height="1" Grid.Row="3" Fill="#DEDEDE"/>
         <telerik:RadGridView ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.Row="4" FontFamily="SimSun"  x:Name="radInfo" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True" IsBusy="{Binding IsBusy}"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display" SelectedItem="{Binding SelectedItem}"   ItemsSource="{Binding ContractLists}"  
+						    RowHeight="30" CanUserInsertRows="True" IsBusy="{Binding IsBusy}"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display" SelectedItem="{Binding SelectedItem}"   ItemsSource="{Binding ContractLists}"  
 							   BorderBrush="#E4E7F0" BorderThickness="1,0,0,0"   SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#F5F5F5"   AlternationCount="2"   >
@@ -50,7 +50,15 @@
                         PassEventArgsToCommand="True" /> 
                         </telerik:EventToCommandBehavior.EventBindings>-->
             <telerik:RadGridView.Columns>
-                <telerik:GridViewDataColumn Header="状态" Width="60"     DataMemberBinding="{Binding StatusText}"  Background="{Binding Status,Converter={StaticResource statusColorConverter}}"  />
+                <telerik:GridViewDataColumn Header="状态" Width="60">
+                    <telerik:GridViewDataColumn.CellTemplate >
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch" Background="{Binding StatusColor}" Margin="-5,0,-2,0"  Height="30" VerticalAlignment="Stretch" >
+                                <TextBlock      VerticalAlignment="Center"  Text="{Binding StatusText}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </telerik:GridViewDataColumn.CellTemplate>
+                </telerik:GridViewDataColumn>
                 <telerik:GridViewDataColumn Header="评审" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="80" />
 
                 <telerik:GridViewDataColumn Header="部门名称" Width="100" DataMemberBinding="{Binding UnitName}" />
