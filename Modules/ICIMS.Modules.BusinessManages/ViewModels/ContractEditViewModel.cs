@@ -368,7 +368,43 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private void OnBack()
         {
-            
+            var auditItem = BuinessAudits.Where(o => !o.IsChecked).OrderBy(o => o.DisplayOrder).FirstOrDefault();
+            if (auditItem == null)
+                return;
+            var flag = IsCanAudit(auditItem);
+            if (!flag)
+            {
+                MessageBox.Show("对不起，您没有审核权限");
+                return;
+            }
+            var auditmapping = new AuditMapping()
+            {
+                BusinessTypeName = "合同登记",
+                ItemId = Contract.Id,
+                BusinessAuditId = auditItem.Id,
+                DisplayOrder = auditItem.DisplayOrder
+            };
+
+            var view = _unityContainer.Resolve<SubmitAuditView>(new ParameterOverride("data", auditmapping));
+            var notification = new Notification()
+            {
+                Title = "驳回审核",
+                Content = view,
+            };
+            PopupWindows.NotificationRequest.Raise(notification, async (callback) => {
+                if (callback.DialogResult == true)
+                {
+                    var selectView = callback.Content as SubmitAuditView;
+                    var viewModel = selectView.DataContext as SubmitAuditViewModel;
+                    viewModel.AuditMapping.Status = 2; //驳回审核
+                    await _auditMappingService.CreateOrUpdate(viewModel.AuditMapping);
+                    UpdateAuditStatus();
+                    //LoadAuditMappings();
+                    InitBusinessAudits();
+                }
+
+            });
+            view.BindAction(notification.Finish);
         }
 
         private void OnShowLog()

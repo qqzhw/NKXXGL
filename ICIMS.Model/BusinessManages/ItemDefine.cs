@@ -41,8 +41,12 @@ namespace ICIMS.Model.BusinessManages
                     case 1:
                         StatusText = "审核中";
                         StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3cb371"));
-                        break; 
+                        break;
                     case 2:
+                        StatusText = "驳回";
+                        StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff8c00"));
+                        break;
+                    case 3:
                         StatusText = "结审";
                         StatusColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f08080"));
                         break;

@@ -22,6 +22,10 @@ namespace ICIMS.Model.BusinessManages
                         StatusColor = "#3cb371";
                         break;
                     case 2:
+                        StatusText = "驳回";
+                        StatusColor = "#ff8c00";
+                        break;
+                    case 3:
                         StatusText = "结审";
                         StatusColor = "#f08080";
                         break;

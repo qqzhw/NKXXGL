@@ -152,7 +152,7 @@ namespace ICIMS.Client
         private static bool SingleInstanceCheck()
         {
             var flag = SingleInstanceMutex.WaitOne(TimeSpan.Zero, true);
-                 SingleInstanceMutex.ReleaseMutex();
+                 
             if (!flag)
             {
                 Process thisProc = Process.GetCurrentProcess();
@@ -176,6 +176,7 @@ namespace ICIMS.Client
                 Application.Current.Shutdown(1);
                 return false;
             }
+            SingleInstanceMutex.ReleaseMutex();
             //SingleInstanceMutex.ReleaseMutex();
             return true;
         }

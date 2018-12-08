@@ -276,10 +276,15 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 {
                     var selectView = callback.Content as SubmitAuditView;
                     var viewModel = selectView.DataContext as SubmitAuditViewModel;
-                    await _auditMappingService.CreateOrUpdate(viewModel.AuditMapping);
-                    UpdateAuditStatus();
-                    //LoadAuditMappings();
-                    InitBusinessAudits();
+                   var item= await _auditMappingService.CreateOrUpdate(viewModel.AuditMapping);
+                    if (item.Id>0)
+                    {
+                        UpdateAuditStatus();
+                        //LoadAuditMappings();
+                        InitBusinessAudits();
+                        UpdateSataus(1);//标记立项处于审核中状态
+                    }
+                   
                 }
                 
             });
@@ -323,10 +328,54 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 
             } 
         }
-
+        /// <summary>
+        /// 驳回审核
+        /// </summary>
         private void OnBack()
         {
-            
+            var auditItem = BuinessAudits.Where(o => !o.IsChecked).OrderBy(o => o.DisplayOrder).FirstOrDefault();
+            if (auditItem == null)
+                return;
+            var flag = IsCanAudit(auditItem);
+            if (!flag)
+            {
+                MessageBox.Show("对不起，您没有审核权限");
+                return;
+            }
+            var auditmapping = new AuditMapping()
+            {
+                BusinessTypeName = "立项登记",
+                ItemId = ItemDefine.Id,
+                BusinessAuditId = auditItem.Id,
+                DisplayOrder = auditItem.DisplayOrder
+            };
+
+            var view = _unityContainer.Resolve<SubmitAuditView>(new ParameterOverride("data", auditmapping));
+            var notification = new Notification()
+            {
+                Title = "驳回审核",
+                Content = view,
+            };
+            PopupWindows.NotificationRequest.Raise(notification, async (callback) => {
+                if (callback.DialogResult == true)
+                {
+                    var selectView = callback.Content as SubmitAuditView;
+                    var viewModel = selectView.DataContext as SubmitAuditViewModel;
+                    viewModel.AuditMapping.Status = 2; //驳回审核
+                   var item= await _auditMappingService.CreateOrUpdate(viewModel.AuditMapping);
+
+                    if (item.Id>0)
+                    {
+                        UpdateAuditStatus();
+                        //LoadAuditMappings();
+                        InitBusinessAudits();
+                        UpdateSataus(2);//标记立项处于已驳回状态
+                    }
+                  
+                }
+
+            });
+            view.BindAction(notification.Finish);
         }
 
         
@@ -366,13 +415,13 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 var isComplete = BuinessAudits.FirstOrDefault(o => o.IsChecked == false);
                 if (isComplete == null)
                 {
-                    ItemDefine.Status = 2;
+                    ItemDefine.Status = 3;
                    await _itemDefineService.CreateOrUpdate(ItemDefine);
                 }
                 else
                 {
-                    ItemDefine.Status = 1;
-                    await _itemDefineService.CreateOrUpdate(ItemDefine);
+                    //ItemDefine.Status = 1;
+                    //await _itemDefineService.CreateOrUpdate(ItemDefine);
                 }
                 CanEdit = false;
             }
@@ -383,7 +432,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             CheckRole();
         }
 
-
+        private async void UpdateSataus(int status)
+        {
+            ItemDefine.Status = status;
+            await _itemDefineService.CreateOrUpdate(ItemDefine);
+        }
         /// <summary>
         /// 获取用户是否是审核角色
         /// </summary>
