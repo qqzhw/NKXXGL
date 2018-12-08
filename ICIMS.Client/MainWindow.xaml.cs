@@ -60,10 +60,6 @@ namespace ICIMS.Client.Views
             //  (this.CloseAllAlertsCommand as DelegateCommand).InvalidateCanExecute();
 
         }
-
-        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            
-        }
+         
     }
 }

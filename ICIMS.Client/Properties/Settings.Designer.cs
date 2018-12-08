@@ -22,5 +22,17 @@ namespace ICIMS.Client.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ICIMS.Client.exe")]
+        public string MainProgramName {
+            get {
+                return ((string)(this["MainProgramName"]));
+            }
+            set {
+                this["MainProgramName"] = value;
+            }
+        }
     }
 }

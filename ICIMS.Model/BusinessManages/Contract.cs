@@ -13,7 +13,7 @@ namespace ICIMS.Model.BusinessManages
    public class Contract: BindableBase
     {
         private int _id;
-        public int Id { get => _status; set => SetProperty(ref _status, value); }
+        public int Id { get => _id; set => SetProperty(ref _id, value); }
         
         /// <summary>
         /// GUID

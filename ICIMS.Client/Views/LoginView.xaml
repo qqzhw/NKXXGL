@@ -30,7 +30,7 @@
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
                         <Image Width="40" Margin="10,0,0,0"  Source="pack://application:,,,/ICIMS.Client;component/logo.png"/>
                
-                   <TextBlock Text="{Binding AppName}" Margin="5,5,0,0" Foreground="White"  FontSize="22"/>
+                   <TextBlock Text="{Binding AppName}" Margin="5,8,0,0" Foreground="White"  FontSize="22"/>
                        
                         
                     </StackPanel>
@@ -39,12 +39,12 @@
                     <TextBlock Text="×" x:Name="tClose" MouseLeftButtonDown="tClose_MouseLeftButtonDown" Canvas.Right="0" Foreground="White" Opacity="0.2"  FontSize="32" Canvas.Top="0" />
                 </Canvas>
                 <TextBlock HorizontalAlignment="Right" Margin="60,20,0,0" Grid.Row="1" TextWrapping="Wrap" Text="账套：" FontSize="16" VerticalAlignment="Center" Foreground="#7E87AD"/>
-                <TextBox  Grid.Column="1" Foreground="#222328"  Height="30" HorizontalAlignment="Left"   Margin="20,20,0,0" Grid.Row="1"  FontSize="16" TextWrapping="Wrap" Text="{Binding UserName}" VerticalAlignment="Center" Width="180"/>
+                <TextBox  Grid.Column="1" VerticalContentAlignment="Center" Foreground="#222328"  Height="30" HorizontalAlignment="Left"   Margin="20,20,0,0" Grid.Row="1"  FontSize="16" TextWrapping="Wrap" Text="{Binding TenancyName}" VerticalAlignment="Center" Width="180"/>
                 <TextBlock HorizontalAlignment="Right" Margin="60,20,0,0" Grid.Row="2" TextWrapping="Wrap" Text="账号：" FontSize="16" VerticalAlignment="Center" Foreground="#7E87AD"/>
-                <TextBox  Grid.Column="1" Foreground="#222328"  Height="30" HorizontalAlignment="Left"   Margin="20,20,0,0" Grid.Row="2"  FontSize="16" TextWrapping="Wrap" Text="{Binding UserName}" VerticalAlignment="Center" Width="180"/>
+                <TextBox  Grid.Column="1" Foreground="#222328" VerticalContentAlignment="Center" Height="30" HorizontalAlignment="Left"   Margin="20,20,0,0" Grid.Row="2"  FontSize="16" TextWrapping="Wrap" Text="{Binding UserName}" VerticalAlignment="Center" Width="180"/>
                
             <TextBlock HorizontalAlignment="Right" Margin="0,10,0,0"   Grid.Row="3" TextWrapping="Wrap" Foreground="#7E87AD" Text="密码："  FontSize="16" VerticalAlignment="Center"/>
-                <PasswordBox  Foreground="#222328" VerticalAlignment="Center" pw:PasswordBoxHelper.Attach="true"  FontSize="16" pw:PasswordBoxHelper.Password="{Binding Path=Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Grid.Column="1" HorizontalAlignment="Left"  Height="30" Margin="20,10,0,0" Grid.Row="3" Width="180">
+                <PasswordBox  Foreground="#222328" VerticalAlignment="Center" VerticalContentAlignment="Center" pw:PasswordBoxHelper.Attach="true"  FontSize="16" pw:PasswordBoxHelper.Password="{Binding Path=Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Grid.Column="1" HorizontalAlignment="Left"  Height="30" Margin="20,10,0,0" Grid.Row="3" Width="180">
                     <telerik:EventToCommandBehavior.EventBindings>
                         <telerik:EventBinding Command="{Binding KeyDown}" EventName="KeyDown" 
                         PassEventArgsToCommand="True" />

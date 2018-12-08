@@ -1,4 +1,6 @@
 ﻿
+using ICIMS.Model.User;
+using ICIMS.Service;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -10,22 +12,23 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Unity;
+using Unity.Lifetime;
 
 namespace ICIMS.Client.ViewModels
 {
     public class LoginViewModel : BindableBase
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly IUnityContainer _container; 
-      
+        private readonly IUnityContainer _container;
+        private readonly IUserService _userSerice;
         public ICommand LoginCommand { get; private set; }
         public ICommand KeyDown { get; set; }
         public Action Close;
-        public LoginViewModel(IUnityContainer container, IEventAggregator eventAggregator )
+        public LoginViewModel(IUnityContainer container, IEventAggregator eventAggregator, IUserService userSerice)
         {
             _container = container;
             _eventAggregator = eventAggregator;
-            
+            _userSerice = userSerice;
             LoginCommand = new Prism.Commands.DelegateCommand(OnLogin);
             KeyDown = new DelegateCommand<KeyEventArgs>(OnKeyDown);
            Initializer();
@@ -47,8 +50,9 @@ namespace ICIMS.Client.ViewModels
         private void Initializer()
         {
             AppName = "内控管理系统";
-            //_userName = "qqzhw";
-            //_password = "123qwe"; 
+            _tenancyName = "Default";
+            _userName = "admin";
+            _password = "123qwe"; 
             //_appName = Settings.Default.AppName;
             //_userName = Settings.Default.UserName;
             if (!string.IsNullOrEmpty(_userName))
@@ -97,30 +101,69 @@ namespace ICIMS.Client.ViewModels
         private async void OnLogin()
         {
             Islogining = true;
-            //var result=await _dataService.Authenticate(UserName, Password);
-            //var item = JsonConvert.DeserializeObject<ResultData<User>>(result).ToEntity();
-            //if (item!=null)
-            //{
-            //    _container.RegisterInstance(typeof(User), item, new ContainerControlledLifetimeManager());
-            //    if (item.TenantId==null)
-            //    {
-            //         Islogining = false;
-            //        MessageBox.Show("账户不存在,请联系管理员！");
-            //        return;
-            //    }
-            //    _dataService.SetToken(item.AccessToken);
-            //    Close?.Invoke();
-            //    if (IsSave)
-            //    {
-            //        //保存账号
-            //        Settings.Default.UserName = UserName;
-            //    }
-            //    else
-            //        Settings.Default.UserName = string.Empty;
-            //    Settings.Default.Save();
-            //}
-            //else 
-            //MessageBox.Show("登录失败！");
+              TenancyName = "Default";
+            // string UserName = "admin";
+            // string Password = "123qwe";
+            try
+            {
+                var user =await Task.Run(()=> { return _userSerice.LoginAsync(UserName, Password, TenancyName); });
+                if (user==null)
+                { 
+                    MessageBox.Show("登录失败");
+                    Islogining = false;
+                    return;
+                }
+                var userInfo = await _userSerice.GetUserInfoById(user.Id);                
+                userInfo.AccessToken = user.AccessToken;
+                userInfo.UnitId = userInfo.Unit.Id;
+                userInfo.UnitName = userInfo.Unit.Name;
+                //if (unit!=null)
+                //{
+                //    user.UnitId = unit.Id;
+                //    user.UnitName = unit.Name;
+                //}
+                _container.RegisterInstance(userInfo, new ContainerControlledLifetimeManager());
+                //var roles = await _userSerice。.GetUserRoles();
+                //foreach (var item in roles.Items)
+                //{
+                //    user.RoleIds.Add(item.Id);
+                //    user.RoleDisplayNames.Add(item.DisplayName); 
+                //    user.RoleNames.Add(item.Name);
+                //}
+                // UserModel = userInfo;
+                // DisplayNames = userInfo.Roles.Select(o => o.DisplayName).FirstOrDefault();
+                //var result=await _dataService.Authenticate(UserName, Password);
+                //var item = JsonConvert.DeserializeObject<ResultData<User>>(result).ToEntity();
+                //if (item!=null)
+                //{
+                //    _container.RegisterInstance(typeof(User), item, new ContainerControlledLifetimeManager());
+                //    if (item.TenantId==null)
+                //    {
+                //         Islogining = false;
+                //        MessageBox.Show("账户不存在,请联系管理员！");
+                //        return;
+                //    }
+                //    _dataService.SetToken(item.AccessToken);
+                //    Close?.Invoke();
+                //    if (IsSave)
+                //    {
+                //        //保存账号
+                //        Settings.Default.UserName = UserName;
+                //    }
+                //    else
+                //        Settings.Default.UserName = string.Empty;
+                //    Settings.Default.Save();
+                //}
+                //else 
+                //MessageBox.Show("登录失败！");
+                Islogining = false;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("登录失败！");
+                return;
+            }
+        
             Close?.Invoke();
         }
     }

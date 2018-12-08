@@ -16,7 +16,7 @@
         TitleBarHeight="36" WindowState="Maximized"
         x:Name="window"
         prism:ViewModelLocator.AutoWireViewModel="True"
-                      mc:Ignorable="d" Closing="MetroWindow_Closing"
+                      mc:Ignorable="d" 
                       GlowBrush="{DynamicResource AccentColorBrush}" 
                       NonActiveGlowBrush="#CDFF0000"
                       ShowIconOnTitleBar="True"
@@ -732,7 +732,9 @@
 
         <StatusBar Grid.Row="1" Grid.ColumnSpan="3" Height="30" BorderBrush="#999999" FontFamily="SimSun" Background="#DEDEDE" Foreground="Black" BorderThickness="0,1,0,0">
             <StatusBarItem Content="用户名："/>
-            <StatusBarItem Content="{Binding UserModel.UserName}"/>
+            <Hyperlink ToolTip="点击切换登录" Command="{Binding LoginCommand}" TextDecorations="{x:Null}">
+                <TextBlock Text="{Binding UserModel.UserName}" FontSize="14"/>
+            </Hyperlink> 
             <Separator  Foreground="#F5F5F5" />
             <StatusBarItem Content="操作员：" Margin="10,0,0,0"/> 
             <StatusBarItem Content="{Binding UserModel.Name}"/>

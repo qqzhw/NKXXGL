@@ -55,29 +55,30 @@ namespace ICIMS.Client
 
         protected override void OnStartup(StartupEventArgs e)
         {
+           
+            base.OnStartup(e);
             if (!SingleInstanceCheck())
             {
                 return;
             }
-            base.OnStartup(e);
         }
 
         protected override Window CreateShell()
         {
-            //Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-            //var loginView = Container.Resolve<LoginView>();
-            //loginView.ShowDialog();
-            //if (loginView.DialogResult == true)
-            //{
-            //    return Container.Resolve<MainWindow>();
-            //}
-            //else
-            //{
-            //    System.Environment.Exit(0);
-            //    return null;
-            //}
+            Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            var loginView = Container.Resolve<LoginView>();
+            loginView.ShowDialog();
+            if (loginView.DialogResult == true)
+            {
+                return Container.Resolve<MainWindow>();
+            }
+            else
+            {
+                System.Environment.Exit(0);
+                return null;
+            }
 
-            return Container.Resolve<MainWindow>();
+            //return Container.Resolve<MainWindow>();
         }
         protected override void InitializeShell(Window shell)
         {
@@ -146,12 +147,13 @@ namespace ICIMS.Client
             moduleCatalog.AddModule<SystemAdminModule>();
             moduleCatalog.AddModule<BusinessManagesModule>();
         }
-        private static Mutex SingleInstanceMutex = new Mutex(true, "{86A802DF-C96C-8765-BAA8-1BC527857BEB}");
+        private static Mutex SingleInstanceMutex = new Mutex(true, "{86A802DF-C96C-8758-BAA8-1BC527857BEB}");
 
         private static bool SingleInstanceCheck()
         {
-
-            if (!SingleInstanceMutex.WaitOne(TimeSpan.Zero, true))
+            var flag = SingleInstanceMutex.WaitOne(TimeSpan.Zero, true);
+                 SingleInstanceMutex.ReleaseMutex();
+            if (!flag)
             {
                 Process thisProc = Process.GetCurrentProcess();
                 Process process = Process.GetProcessesByName(thisProc.ProcessName).FirstOrDefault(delegate (Process p)
@@ -174,6 +176,7 @@ namespace ICIMS.Client
                 Application.Current.Shutdown(1);
                 return false;
             }
+            //SingleInstanceMutex.ReleaseMutex();
             return true;
         }
 
