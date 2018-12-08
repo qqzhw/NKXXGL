@@ -51,10 +51,40 @@ namespace ICIMS.Model.BusinessManages
         /// Status
         /// </summary>
         private int _status;
-        public int Status { get => _status; set => SetProperty(ref _status, value); }
+        public int Status
+        {
+            get => _status; set
+            {
+                SetProperty(ref _status, value);
 
-        private string _statusname;
-        public string StatusName { get => _statusname; set => SetProperty(ref _statusname, value); }
+                switch (_status)
+                {
+                    case 0:
+                        StatusText = "未审核";
+                        StatusColor = "#FFFF00";
+                        break;
+                    case 1:
+                        StatusText = "已审核";
+                        StatusColor = "#3cb371";
+                        break;
+                    case 2:
+                        StatusText = "驳回";
+                        StatusColor ="#ff8c00";
+                        break; 
+                    default:
+                        StatusText = "未审核";
+                        StatusColor = "#FFFF00";
+                        break;
+                }
+            }
+        }
+        private string _statuscolor;
+        public string StatusColor
+        {
+            get => _statuscolor; set => SetProperty(ref _statuscolor, value);
+        }
+        private string _statustext;
+        public string StatusText { get => _statustext; set => SetProperty(ref _statustext, value); }
 
         /// <summary>
         /// AuditOpinion审核意见

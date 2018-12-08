@@ -580,7 +580,7 @@
                                FontFamily="{DynamicResource HeaderFontFamily}"
                                FontSize="{DynamicResource WindowTitleFontSize}"
                                Text="{TemplateBinding Content}"
-                               TextTrimming="CharacterEllipsis" />
+                               TextTrimming="CharacterEllipsis" FontWeight="Bold" />
                 </DataTemplate>
             </Setter.Value>
         </Setter>

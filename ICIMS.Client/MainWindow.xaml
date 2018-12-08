@@ -10,11 +10,12 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:Dialog="clr-namespace:ICIMS.Metro.Controls.Dialogs;assembly=ICIMS.Metro"
         xmlns:Controls="http://metro.wenge.com/winfx/xaml/controls"
+         
         xmlns:framework="clr-namespace:ICIMS.Core.Interactivity;assembly=ICIMS.Core"
         xmlns:Interaction="clr-namespace:ICIMS.Core.Interactivity.InteractionRequest;assembly=ICIMS.Core"
         xmlns:Primitives="clr-namespace:Telerik.Windows.Controls.Primitives;assembly=Telerik.Windows.Controls.Navigation" xmlns:TabControl="clr-namespace:Telerik.Windows.Controls.TabControl;assembly=Telerik.Windows.Controls.Navigation" x:Class="ICIMS.Client.Views.MainWindow"
         TitleBarHeight="36" WindowState="Maximized"
-        x:Name="window"
+        x:Name="window" Icon="pack://application:,,,/ICIMS.Client;component/logo.png"
         prism:ViewModelLocator.AutoWireViewModel="True"
                       mc:Ignorable="d" 
                       GlowBrush="{DynamicResource AccentColorBrush}" 
@@ -22,7 +23,7 @@
                       ShowIconOnTitleBar="True"
                       ShowTitleBar="True"
                       WindowStartupLocation="CenterScreen"
-        Title="Title"  Width="1024" Height="680">
+        Title="内控管理系统V1.0 Beta"  Width="1024" Height="680">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <Ellipse x:Key="AppThemeMenuIcon"
@@ -649,19 +650,10 @@
 
     </i:Interaction.Triggers>
     <Controls:MetroWindow.WindowButtonCommands>
-        <Controls:WindowButtonCommands Style="{DynamicResource ICIMS.Metro.Styles.WindowButtonCommands.Win10}" />
+        <Controls:WindowButtonCommands   Style="{DynamicResource ICIMS.Metro.Styles.WindowButtonCommands.Win10}" />
     </Controls:MetroWindow.WindowButtonCommands>
 
-    <Controls:MetroWindow.LeftWindowCommands>
-        <Controls:WindowCommands>
-            <Button  ToolTip="MahApps.Metro on GitHub">
-                <!--<iconPacks:PackIconModern Width="22"
-                                          Height="22"
-                                          Kind="SocialGithubOctocat" />-->
-            </Button>
-        </Controls:WindowCommands>
-    </Controls:MetroWindow.LeftWindowCommands>
-
+   
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands ShowLastSeparator="False"/>
     </Controls:MetroWindow.RightWindowCommands>

@@ -276,6 +276,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 {
                     var selectView = callback.Content as SubmitAuditView;
                     var viewModel = selectView.DataContext as SubmitAuditViewModel;
+                    viewModel.AuditMapping.Status = 1;
                    var item= await _auditMappingService.CreateOrUpdate(viewModel.AuditMapping);
                     if (item.Id>0)
                     {
@@ -408,11 +409,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     var findItem = AuditMappings.FirstOrDefault(o => o.RoleId == item.RoleId & o.BusinessAuditId == item.Id);
                     if (findItem!=null)
                     {
-                        item.IsChecked = true;
-                        item.StatusName = "已审核";
+                        item.Status = findItem.Status;
+                        item.StatusName = findItem.StatusText;
                     }
                 }
-                var isComplete = BuinessAudits.FirstOrDefault(o => o.IsChecked == false);
+                var isComplete = BuinessAudits.FirstOrDefault(o => o.Status == 0);
                 if (isComplete == null)
                 {
                     ItemDefine.Status = 3;
