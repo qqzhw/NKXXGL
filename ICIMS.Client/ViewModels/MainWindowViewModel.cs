@@ -70,26 +70,17 @@ namespace ICIMS.Client.ViewModels
            // StartMainProgram();
         }
 
+        /// <summary>
+        /// 重新登录
+        /// </summary>
         private void OnLogin()
-        {
-            //Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-            //var loginView = _container.Resolve<LoginView>();
-            //loginView.ShowDialog();
-            //if (loginView.DialogResult == true)
-            //{
-            //    return Container.Resolve<MainWindow>();
-            //}
+        { 
             RestartApplication();
         }
-        private   void RestartApplication()
-        {
-            //System.Windows.Forms.Application.Restart();
-            // Application.ExitThread();
-            // Process.Start(Process.GetCurrentProcess().MainModule.FileName);
+        private  void RestartApplication()
+        { 
              StartMainProgram();
-             Environment.Exit(0); 
-            
-            //Application.Current.Shutdown();
+             Environment.Exit(0);  
         }
 
         /// <summary>
@@ -108,15 +99,12 @@ namespace ICIMS.Client.ViewModels
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.Verb = "RunAs";
                 try
-                {
-                   // MessageListener.Instance.ReceiveMessage("正在启动主程序...");
-                    Thread.Sleep(200);
+                { 
                     process.Start();
                 }
                 catch (Exception ex)
                 {
-                     MessageBox.Show(string.Format("启动主程序失败：{0}", ex.Message));
-                   // Thread.Sleep(500);
+                  MessageBox.Show(string.Format("启动主程序失败：{0}", ex.Message));                  
                 }
             }
         }
