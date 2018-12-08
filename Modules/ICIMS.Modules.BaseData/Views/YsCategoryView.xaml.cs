@@ -40,5 +40,9 @@ namespace ICIMS.Modules.BaseData.Views
         {
             ViewModel.Close = action;
         }
+        private void RadTreeListView1_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ViewModel.EditCommand.Execute(null);
+        }
     }
 }

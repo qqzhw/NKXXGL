@@ -141,7 +141,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                         return true;
                     }
 
-                    var data = await _service.CreateOrUpdate(newItem.Item);
+                    var data = await _service.Create(newItem.Item);
                     if (data != null)
                     {
                         this.Items.Add(data);
@@ -154,6 +154,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                     else if (newItem.IsOkClicked == 2)
                     {
                         newItem.Item = new OrganizationUnitItem();
+                        newItem.Item.Code = CommonHelper.GenerateNextNo(data.Code);
                         return false;
                     }
 

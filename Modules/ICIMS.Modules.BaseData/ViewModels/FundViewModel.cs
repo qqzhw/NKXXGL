@@ -90,7 +90,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                 Title = "资金来源",
                 Content = view,// (new ParameterOverride("name", "")),
             };
-            
+
             PopupWindows.NotificationRequest.RaiseWithCallback(notification, async (callback) =>
             {
                 if (newItem.IsOkClicked == 1)
@@ -157,6 +157,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                     else if (newItem.IsOkClicked == 2)
                     {
                         newItem.Item = new FundItem();
+                        newItem.Item.No = CommonHelper.GenerateNextNo(data.No);
                         return false;
                     }
 
@@ -167,7 +168,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
                     return false;
                 }
-               
+
                 return true;
             });
             newItem.TriggerClose = notification.TriggerClose;
@@ -213,7 +214,15 @@ namespace ICIMS.Modules.BaseData.ViewModels
             }
         }
 
-        public FundItem SelectedItem { get => _selectedItem; set { this._selectedItem = value; this.RaisePropertyChanged(nameof(SelectedItem)); } }
+        public FundItem SelectedItem
+        {
+            get => _selectedItem;
+            set
+            {
+                this._selectedItem = value;
+                this.RaisePropertyChanged(nameof(SelectedItem));
+            }
+        }
 
         public ICommand AddCommand { get; private set; }
         public ICommand EditCommand { get; private set; }

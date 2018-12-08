@@ -46,5 +46,10 @@ namespace ICIMS.Modules.BaseData.Views
         {
             var newIndex = e.NewPageIndex;
         }
+
+        private void RadTreeListView1_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ViewModel.EditCommand.Execute(null);
+        }
     }
 }

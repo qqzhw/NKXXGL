@@ -32,12 +32,13 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
         private IUnityContainer _unityContainer;
         public RolesViewModel(IRoleService service,
             IEventAggregator eventAggregator,
-             IRegionManager regionManager,
+            IRegionManager regionManager,
             IUnityContainer unityContainer)
         {
             this._service = service;
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
+            this._regionManager = regionManager;
             eventAggregator.GetEvent<TabCloseEvent>().Subscribe(OnTabActive);
             AddCommand = new DelegateCommand<object>(OnAddCommand);
             EditCommand = new DelegateCommand<object>(OnEditCommand);
@@ -268,6 +269,23 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
+        }
+
+        private DelegateCommand _closeCommand;
+        public DelegateCommand CloseCommand =>
+            _closeCommand ?? (_closeCommand = new DelegateCommand(() =>
+            {
+                if (ConfirmToClose())
+                {
+                    _eventAggregator.GetEvent<TabCloseEvent>().Publish(View);
+                }
+            }));
+
+
+        //It can be overwrite in inherited class to ask for confirming to closing the tab;
+        protected virtual bool ConfirmToClose()
+        {
+            return true;
         }
     }
 }

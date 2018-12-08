@@ -161,6 +161,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                     else if (newItem.IsOkClicked == 2)
                     {
                         newItem.Item = new BuyCategory();
+                        newItem.Item.No = CommonHelper.GenerateNextNo(data.No);
                         return false;
                     }
 

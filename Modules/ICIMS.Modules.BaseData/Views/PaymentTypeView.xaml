@@ -13,7 +13,6 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
             <control:CustomButton Height="36" Command="{Binding AddCommand}"  IconBackground="#682357"   Kind="PlusSolid"  Width="80" Margin="10,0,0,0" Title="新增"/>
@@ -34,7 +33,38 @@
                 <control:CustomButton Height="36" Command="{Binding Query}"  IconBackground="#91CE2D"   Kind="SearchSolid"  Width="80" Margin="10,0,0,0" Title="查询"/>
             </StackPanel>
         </StackPanel>
-        <telerik:RadTreeListView x:Name="RadTreeListView1"
+        <Grid  Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <telerik:RadTreeView
+            Grid.Column="0"
+			ItemsSource="{Binding Items}"
+			Width="auto"
+			MinHeight="300" 
+			Height="auto"
+            SelectedItem="{Binding SelectedItem,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+            MouseDoubleClick="RadTreeListView1_MouseDoubleClick"
+            FontFamily="SimSun"   TextBlock.FontFamily="SimSun"
+            telerik:StyleManager.Theme="Office2016" FontSize="14" TextOptions.TextFormattingMode="Display"   BorderBrush="#E4E7F0"    SelectionMode="Single"  AlternationCount="2" 
+            >
+                <telerik:RadTreeView.ItemContainerStyle>
+                    <Style TargetType="telerik:RadTreeViewItem">
+                        <Setter Property="IsExpanded" Value="True" />
+                    </Style>
+                </telerik:RadTreeView.ItemContainerStyle>
+                <telerik:RadTreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                        <TextBlock Text="{Binding Name}" />
+                    </HierarchicalDataTemplate>
+                </telerik:RadTreeView.ItemTemplate>
+
+            </telerik:RadTreeView>
+            <TextBlock Grid.Column="1" Text="{Binding SelectedItem.Description}"/>
+        </Grid>
+        
+        <!--<telerik:RadTreeListView x:Name="RadTreeListView1"
                                  Grid.Row="2"
 								 AutoExpandItems="True" 
 								 IsReadOnly="True" 
@@ -44,6 +74,7 @@
 								 Height="auto" IsFilteringAllowed="False"
 								 CanUserFreezeColumns="False"
                                   SelectedItem="{Binding SelectedItem,UpdateSourceTrigger=PropertyChanged}"
+                                 MouseDoubleClick="RadTreeListView1_MouseDoubleClick"
 								 RowIndicatorVisibility="Collapsed"
                                  AutoGenerateColumns="False"
                                  NewRowPosition="None"
@@ -89,7 +120,7 @@
                               
                               >
 
-        </telerik:RadDataPager>
+        </telerik:RadDataPager>-->
 
     </Grid>
 </UserControl>

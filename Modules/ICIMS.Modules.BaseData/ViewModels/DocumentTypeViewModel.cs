@@ -147,6 +147,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                     else if (newItem.IsOkClicked == 2)
                     {
                         newItem.Item = new DocumentTypeItem();
+                        newItem.Item.No = CommonHelper.GenerateNextNo(data.No);
                         return false;
                     }
 

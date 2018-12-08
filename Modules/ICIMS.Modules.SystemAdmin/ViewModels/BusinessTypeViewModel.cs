@@ -1,4 +1,5 @@
-﻿using ICIMS.Core.Interactivity;
+﻿using ICIMS.Core.Events;
+using ICIMS.Core.Interactivity;
 using ICIMS.Core.Interactivity.InteractionRequest;
 using ICIMS.Model.BusinessManages;
 using ICIMS.Model.User;
@@ -53,10 +54,24 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             this._businessTypeService = businessTypeService;
             this._businessAuditService = businessAuditService;
             this._roleService = roleService;
+            eventAggregator.GetEvent<TabCloseEvent>().Subscribe(OnTabActive);
 
             AddCommand = new DelegateCommand<object>(OnAddCommand);
             DeleteCommand = new DelegateCommand<object>(OnDeleteCommand);
             MoveCommand = new DelegateCommand<object>(OnMoveCommand);
+        }
+
+        private void OnTabActive(UserControl view)
+        {
+            var region = _regionManager.Regions["MainRegion"];
+            if (region.Views.Count() > 1)
+            {
+                if (view != null)
+                {
+                    if (region.Views.Contains(view))
+                        region.Remove(view);
+                }
+            }
         }
 
         private async void OnMoveCommand(object obj)
@@ -254,6 +269,23 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
+        }
+
+        private DelegateCommand _closeCommand;
+        public DelegateCommand CloseCommand =>
+            _closeCommand ?? (_closeCommand = new DelegateCommand(() =>
+            {
+                if (ConfirmToClose())
+                {
+                    _eventAggregator.GetEvent<TabCloseEvent>().Publish(View);
+                }
+            }));
+
+
+        //It can be overwrite in inherited class to ask for confirming to closing the tab;
+        protected virtual bool ConfirmToClose()
+        {
+            return true;
         }
     }
 }

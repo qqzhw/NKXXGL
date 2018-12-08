@@ -154,6 +154,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
                     else if (newItem.IsOkClicked == 2)
                     {
                         newItem.Item = new PaymentTypeItem();
+                        newItem.Item.No = CommonHelper.GenerateNextNo(data.No);
                         return false;
                     }
 
@@ -252,7 +253,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
 
 
-        private int _pageSize = 10;
+        private int _pageSize = 100;
         public int PageSize
         {
             get

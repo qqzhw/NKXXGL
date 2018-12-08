@@ -32,6 +32,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
         private IUserService _service;
         private IOrganizationUnitService _departmentService;
         private IRoleService _roleService;
+        private readonly IRegionManager _regionManager;
         private string _title;
         private ObservableCollection<UserModel> _items;
         private UserModel _selectedItem;
@@ -51,6 +52,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
         public ICommand SaveCommand { get; private set; }
         public ICommand RefreshCommand { get; private set; }
         public UsersViewModel(IUnityContainer unityContainer,
+            IRegionManager regionManager,
             IEventAggregator eventAggregator,
             IUserService service,
             IRoleService roleService,
@@ -61,6 +63,8 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             _service = service;
             _departmentService = departmentService;
             _roleService = roleService;
+            this._regionManager = regionManager;
+            eventAggregator.GetEvent<TabCloseEvent>().Subscribe(OnTabActive);
             AddCommand = new DelegateCommand<object>(OnAddCommand);
             EditCommand = new DelegateCommand<object>(OnEditCommand);
             DeleteCommand = new DelegateCommand<object>(OnDeleteCommand);
@@ -69,6 +73,19 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             SaveCommand = new DelegateCommand<object>(OnSaveCommand);
             RefreshCommand = new DelegateCommand<object>(OnRefreshCommand);
             _title = "操作员管理";
+        }
+
+        private void OnTabActive(UserControl view)
+        {
+            var region = _regionManager.Regions["MainRegion"];
+            if (region.Views.Count() > 1)
+            {
+                if (view != null)
+                {
+                    if (region.Views.Contains(view))
+                        region.Remove(view);
+                }
+            }
         }
 
         private void OnRefreshCommand(object obj)
@@ -81,7 +98,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             try
             {
                 var roles = this.Roles.Where(a => a.IsChecked).ToList();
-                var departments = this.Departments.Where(a=>a.IsChecked).ToList();
+                var departments = this.Departments.Where(a => a.IsChecked).ToList();
                 var selectedItem = CommonHelper.CopyItem(this.SelectedItem);
                 selectedItem.Roles = new ObservableCollection<RoleModel>(roles);
                 selectedItem.Units = new List<OrganizationUnitItem>(departments);
@@ -97,17 +114,37 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
 
         private void OnUnCheckAllCommand(object obj)
         {
-            foreach (var item in Roles)
+            if (this.SelectedIndex == 0)
             {
-                item.IsChecked = false;
+                foreach (var item in Roles)
+                {
+                    item.IsChecked = false;
+                }
+            }
+            else
+            {
+                foreach (var item in Departments)
+                {
+                    item.IsChecked = false;
+                }
             }
         }
 
         private void OnCheckAllCommand(object obj)
         {
-            foreach (var item in Roles)
+            if (this.SelectedIndex == 0)
             {
-                item.IsChecked = true;
+                foreach (var item in Roles)
+                {
+                    item.IsChecked = true;
+                }
+            }
+            else
+            {
+                foreach (var item in Departments)
+                {
+                    item.IsChecked = true;
+                }
             }
         }
 
@@ -183,7 +220,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                         newItem.Item.Surname = newItem.Item.UserName;
                         newItem.Item.Password = "111111";
                         newItem.Item.Roles = new ObservableCollection<RoleModel>();
-                       var data = await _service.Create(newItem.Item);
+                        var data = await _service.Create(newItem.Item);
                         if (data != null)
                         {
                             this.Items.Add(data);
@@ -290,7 +327,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
         public int SelectedIndex
         {
             get => _selectedIndex;
-            set => SetProperty(ref _selectedIndex,value);
+            set => SetProperty(ref _selectedIndex, value);
         }
 
         private ObservableCollection<RoleModel> _roles;
@@ -317,6 +354,10 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             }
         }
 
+
+
+
+        //It can be overwrite in inherited class to ask for confirming to closing the tab;
         protected virtual bool ConfirmToClose()
         {
             return true;
