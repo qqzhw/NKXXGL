@@ -219,17 +219,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
 
         private async void OnSave()
-        {
-            //ItemDefine.DefineAmount = 5000;
-            //ItemDefine.DefineDate = DateTime.Now;
-            //ItemDefine.ItemAddress = "成都";
-            //ItemDefine.ItemCategoryId = 1;
-            //ItemDefine.ItemDescription = "挥洒的阿萨德";
-            //ItemDefine.ItemDocNo = "文号110";
-            //ItemDefine.ItemName = "立项研究项目";
-            //ItemDefine.Remark = "beizhu";
-            
-            
+        {  
            // if (ItemDefine.Id==0)
             {
                var item= await _itemDefineService.CreateOrUpdate(ItemDefine);
@@ -246,9 +236,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         }
         private  void OnSubmit()
-        {
-           // var busaudits = await _businessAuditService.GetAllBusinessAudits(BusinessTypeName:"立项登记");
-            var auditItem = BuinessAudits.Where(o=>!o.IsChecked).OrderBy(o => o.DisplayOrder).FirstOrDefault();
+        { 
+            var auditItem = BuinessAudits.Where(o=>o.Status==0).OrderBy(o => o.DisplayOrder).FirstOrDefault();
             if (auditItem == null)
                 return;
             var flag = IsCanAudit(auditItem);
@@ -283,7 +272,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         UpdateAuditStatus();
                         //LoadAuditMappings();
                         InitBusinessAudits();
-                        UpdateSataus(1);//标记立项处于审核中状态
+                        UpdateStatus(1);//标记立项处于审核中状态
                     }
                    
                 }
@@ -313,8 +302,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 var findItem = AuditMappings.FirstOrDefault(o => o.BusinessAuditId == item.Id);
                 if (findItem!=null)
                 {
-                    item.Status = 1;
-                    item.StatusName = "已审核";
+                    item.Status = findItem.Status;
+                    item.StatusName = findItem.StatusText;
                 }
             }
         }
@@ -334,7 +323,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         /// </summary>
         private void OnBack()
         {
-            var auditItem = BuinessAudits.Where(o => !o.IsChecked).OrderBy(o => o.DisplayOrder).FirstOrDefault();
+            var auditItem = BuinessAudits.Where(o =>o.Status==1).OrderBy(o => o.DisplayOrder).FirstOrDefault();
             if (auditItem == null)
                 return;
             var flag = IsCanAudit(auditItem);
@@ -370,7 +359,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         UpdateAuditStatus();
                         //LoadAuditMappings();
                         InitBusinessAudits();
-                        UpdateSataus(2);//标记立项处于已驳回状态
+                        UpdateStatus(2);//标记立项处于已驳回状态
                     }
                   
                 }
@@ -433,7 +422,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             CheckRole();
         }
 
-        private async void UpdateSataus(int status)
+        private async void UpdateStatus(int status)
         {
             ItemDefine.Status = status;
             await _itemDefineService.CreateOrUpdate(ItemDefine);
@@ -444,7 +433,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private void CheckRole()
         {
             //角色是否可审核
-            var findItem = BuinessAudits.Where(o => !o.IsChecked).OrderBy(o => o.DisplayOrder).FirstOrDefault();
+            var findItem = BuinessAudits.Where(o =>o.Status==0).OrderBy(o => o.DisplayOrder).FirstOrDefault();
             if (findItem != null)
             {
                 var canAudit = _userModel.Roles.FirstOrDefault(o => o.Id == findItem.RoleId);

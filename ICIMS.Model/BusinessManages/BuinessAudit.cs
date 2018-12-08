@@ -34,7 +34,7 @@ namespace ICIMS.Model.BusinessManages
         private string _businessTypeName;
         public string BusinessTypeName { get => _businessTypeName; set => SetProperty(ref _businessTypeName, value); }
 
-        private int _status;
+        private int _status=0;
         public int Status { get => _status; set
             {
                 SetProperty(ref _status, value);
