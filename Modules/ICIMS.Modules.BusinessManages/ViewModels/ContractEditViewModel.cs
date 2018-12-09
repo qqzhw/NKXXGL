@@ -47,6 +47,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand UploadCommand { get; private set; }
         public DelegateCommand ScanCommand { get; private set; }
         public DelegateCommand SearchVendorCommand { get; private set; }
+        public DelegateCommand DeleteCommand { get; set; }
         private readonly UserModel _userModel;
         private string _title;
         public string Title
@@ -54,6 +55,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
+
+        private FilesManage _selectedFile;
+        public FilesManage SelectedFile { get => _selectedFile; set => SetProperty(ref _selectedFile, value); }
         public ContractEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ContractList data,IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, IContractService contractService, UserModel userModel)
         {
             _unityContainer = unityContainer;
@@ -74,12 +78,29 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             SearchItemCommand = new DelegateCommand(OnSelectedItemCategory);
             CaractTypeCommand= new DelegateCommand(OnSelectedCaractType);
             SearchVendorCommand = new DelegateCommand(OnSelectedVendor);
+            DeleteCommand = new DelegateCommand(OnDeleteCommand);
             UploadCommand = new DelegateCommand(OnUploadedFiles);
             ScanCommand = new DelegateCommand(OnScanFile);
             _filesManages = new ObservableCollection<FilesManage>();
             _buinessAudits = new ObservableCollection<BusinessAudit>();
             _auditMappings = new ObservableCollection<AuditMapping>();
             BindData(data);
+        }
+
+        private async void OnDeleteCommand()
+        {
+            try
+            {
+                await this._filesService.Delete((long)this.SelectedFile.EntityId);
+                this.FilesManages.Remove(this.SelectedFile);
+                this.SelectedFile = this.FilesManages.FirstOrDefault();
+                MessageBox.Show("删除成功！");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         /// <summary>

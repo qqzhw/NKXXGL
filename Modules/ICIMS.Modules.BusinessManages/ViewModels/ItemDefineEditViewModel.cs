@@ -48,6 +48,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand UploadCommand { get; private set; }
         public DelegateCommand BrowseCommand { get; private set; }
         public DelegateCommand DownloadCommand { get; private set; }
+        public DelegateCommand DeleteCommand { get; set; }
 
 
         private string _title;
@@ -56,6 +57,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
+
+
         public ItemDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ItemDefineList data, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, UserModel userModel)
         {
             _unityContainer = unityContainer;
@@ -81,11 +84,29 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _filesManages = new ObservableCollection<FilesManage>();
             _buinessAudits = new ObservableCollection<BusinessAudit>();
             _auditMappings = new ObservableCollection<AuditMapping>();
+            DeleteCommand = new DelegateCommand(OnDeleteCommand);
             BindData(data);
+        }
+
+        private async void OnDeleteCommand()
+        {
+            try
+            {
+                await this._filesService.Delete((long)this.SelectedFile.EntityId);
+                this.FilesManages.Remove(this.SelectedFile);
+                this.SelectedFile = this.FilesManages.FirstOrDefault();
+                MessageBox.Show("删除成功！");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void OnDownloadCommand()
         {
+            var file = this.SelectedFile;
         }
 
         private void OnBrowseCommand()
