@@ -22,9 +22,11 @@ namespace ICIMS.Controls
             {
                 textBlock = new TextBlock();
             } 
-            textBlock.Text = (this.DataControl.Items.IndexOf(dataItem) + 1).ToString(); 
+            textBlock.Text = (this.DataControl.Items.IndexOf(dataItem) + 1).ToString();
             //textBlock.Text = ((this.DataControl.ItemsSource as IList).IndexOf(dataItem) + 1).ToString();
-            
+            // this.DisplayIndex = (this.DataControl.Items.IndexOf(dataItem) + 1);
+           // cell.Value = (this.DataControl.Items.IndexOf(dataItem) + 1);
+            cell.Content = textBlock.Text;
             return textBlock;
         }
     }

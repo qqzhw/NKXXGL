@@ -38,7 +38,9 @@
             <control:CustomButton Height="30"  IconBackground="#682357"  Command="{Binding AddCommand}"  Kind="PlusSolid"  Width="80" Margin="10,0,0,0" Title="新增"/>
             <control:CustomButton Height="30"  IconBackground="#91CE2D"  Command="{Binding EditCommand}"  Kind="EditSolid"  Width="80" Margin="10,0,0,0" Title="编辑"/>
             <control:CustomButton Height="30"  IconBackground="#AD372D"  Command="{Binding DeleteCommand}" Kind="TimesSolid"  Width="80" Margin="10,0,0,0" Title="删除"/>
-            <control:CustomButton Height="30"  IconBackground="#C1852D"  Command="{Binding RefreshCommand}"  Kind="SyncSolid"  Width="80" Margin="10,0,0,0" Title="刷新"/>         
+            <control:CustomButton Height="30"  IconBackground="#C1852D"  Command="{Binding RefreshCommand}"  Kind="SyncSolid"  Width="80" Margin="10,0,0,0" Title="刷新"/>
+            <control:CustomButton Height="30"  IconBackground="#C1852D"  Click="ExportClick"  Kind="FileExportSolid"  Width="100" Margin="10,0,0,0" Title="导出Excel"/>
+
 
         </StackPanel>
         <Rectangle Height="1" Grid.Row="3" Fill="#DEDEDE"/>
@@ -53,8 +55,8 @@
                         PassEventArgsToCommand="True" /> 
                         </telerik:EventToCommandBehavior.EventBindings>-->
             <telerik:RadGridView.Columns>
-                <control:RowNumberColumn Header="序号" Width="40" TextBlock.TextAlignment="Center"/>
-                <telerik:GridViewDataColumn Header="状态" Width="60" >
+                <control:RowNumberColumn Header="序号" Width="40" TextBlock.TextAlignment="Center" DataMemberBinding="{Binding Text}"/>
+                <telerik:GridViewDataColumn Header="状态" Width="60" DataMemberBinding="{Binding StatusText}">
                     <telerik:GridViewDataColumn.CellTemplate >
                         <DataTemplate>
                             <Grid HorizontalAlignment="Stretch" Background="{Binding StatusColor}" Margin="-5,0,-2,0"  Height="30" VerticalAlignment="Stretch" >

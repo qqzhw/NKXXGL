@@ -27,6 +27,7 @@ using Telerik.Windows.Controls;
 using System.Windows;
 using DelegateCommand = Prism.Commands.DelegateCommand;
 using ICIMS.Model.User;
+using Microsoft.Win32;
 
 namespace ICIMS.Modules.BusinessManages.ViewModels
 {
@@ -61,10 +62,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             DeleteCommand = new DelegateCommand(OnDelete);
             RefreshCommand= new DelegateCommand(OnRefresh);
             PageChanged = new DelegateCommand<Telerik.Windows.Controls.PageIndexChangedEventArgs>(OnPageChanged);
-            SearchCommand = new DelegateCommand(OnSearchData);
-           
+            SearchCommand = new DelegateCommand(OnSearchData); 
         }
-        
+         
 
         //初始加载
         private void OnLoad()
@@ -149,6 +149,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         public DelegateCommand LoadedCommand { get; private set; }
         public ICommand SearchCommand { get; set; }
+        public DelegateCommand ExportCommand { get; private set; }
         public DelegateCommand UploadCommand { get; private set; }
         public ICommand PageChanged { get; set; }
 

@@ -112,6 +112,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             PayAuditDetails.Add(detail);
             
             PayAudit.PayAmount = PayAuditDetails.Select(o => o.Amount).Sum();
+           
         }
 
         private void OnSelectedPaymentType()
@@ -129,6 +130,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     var selectView = callback.Content as SelectedPaymentType;
                     var viewModel = selectView.DataContext as SelectedPaymentTypeModel;
                      PaymentTypeItem = viewModel.SelectedItem;
+                    PayAudit.PaymentTypeId = viewModel.SelectedItem.Id;
+                    PayAudit.PaymentName = viewModel.SelectedItem.Name;
                 }
 
             });
@@ -187,14 +190,21 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             ItemDefine.DefineAmount = info.DefineAmount;
             UnitName = info.UnitName;
             PayAudit = info.PayAudit;
-            _payAuditDetails = null ?? new ObservableCollection<PayAuditDetail>();
+            PayAudit.ItemDefineId = info.PayAudit.ItemDefineId;
+            PayAudit.PaymentTypeId = info.PayAudit.PaymentTypeId;
+           _payAuditDetails = null ?? new ObservableCollection<PayAuditDetail>();
             //PayAuditDetails.Add(new PayAuditDetail()
             //{
             //    Amount = 1000,
             //    FundName = "市局",
             //    Remark = "市局款项",
             //});
+            GetInfo();
             GetFiles(PayAudit);
+        }
+        private async void GetInfo()
+        {
+            await UpdatePayDetail();
         }
         private ObservableCollection<FilesManage> _filesManages;
         public ObservableCollection<FilesManage> FilesManages
@@ -228,7 +238,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             if (_payAudit.Id < 1)
             {
-                MessageBox.Show("请先保存立项");
+                MessageBox.Show("请先提交保存");
                 return;
             }
             var view = _unityContainer.Resolve<SelectedDocumentType>();
@@ -599,24 +609,38 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     
                     this.ItemDefine.Id = viewModel.SelectedItem.Id;
                     this.ItemDefine.ItemName = viewModel.SelectedItem.ItemName;
+                    this.ItemDefine.ItemNo = viewModel.SelectedItem.ItemNo;
                     PayAudit.ItemTotalAmount = ItemDefine.DefineAmount;
                    
                   await  GetItemDefineFiles(ItemDefine.Id);
-                  var item = await _payAuditService.SearchPayCount(ItemDefine.Id);//支付次数
-                    PayAudit.PaymentCount = item.Count + 1;
-                    PayAudit.PaymentNo = ItemDefine.ItemNo;
-                    StringBuilder sb = new StringBuilder();
-                    foreach (var model in item)
-                    {
-                        sb.Append($"第一次支付：{model.PayAmount}元");
-                    }
-                    PayAudit.PayDetail = sb.ToString();
+                    var items=await UpdatePayDetail();
+                    PayAudit.PaymentCount = items.Count + 1;
+                    //PayAudit.PaymentNo = ItemDefine.ItemNo;
                 }
                 int s = 0;
             });
             view.BindAction(notification.Finish);
 
         }
+
+        private async Task<List<PayAudit>>  UpdatePayDetail()
+        {
+            var item = await _payAuditService.SearchPayCount(ItemDefine.Id);//支付次数
+            //PayAudit.PaymentCount = item.Count + 1;
+            //PayAudit.PaymentNo = ItemDefine.ItemNo;
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"初始支付金额：{PayAudit.InitPayAmount}元 ");
+            var index = 1;
+            foreach (var model in item)
+            {
+                sb.Append($"第{index}次支付：{model.PayAmount}元 ");
+                index++;
+            }
+            sb.Append($"累计支付：{item.Sum(o => o.PayAmount)}元 ");
+            PayAudit.PayDetail = sb.ToString();
+            return item;
+        }
+
         private async Task GetItemDefineFiles(int itemdefineId)
         {
             var items = await _filesService.GetAllFiles(itemdefineId, "ItemDefine");

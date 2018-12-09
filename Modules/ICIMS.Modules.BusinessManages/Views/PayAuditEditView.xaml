@@ -124,7 +124,7 @@
                         </DockPanel>
                     <DockPanel Grid.Row="6">
                         <TextBlock VerticalAlignment="Center" Width="48" TextWrapping="Wrap" Text="支付明细"></TextBlock>
-                        <TextBox Height="36" VerticalContentAlignment="Center" Margin="5,0,0,0" Background="#F5F5F5" IsReadOnly="True"  Text="{Binding PayAudit.PayDetail}" />
+                        <TextBox Height="36" VerticalContentAlignment="Center" Foreground="OrangeRed" Margin="5,0,0,0" Background="#F5F5F5" IsReadOnly="True"  Text="{Binding PayAudit.PayDetail}" />
                     </DockPanel>
                     <DockPanel Grid.Row="7">
                             <TextBlock VerticalAlignment="Center" Width="48" TextWrapping="Wrap" Text="付款方式及比例"></TextBlock>
