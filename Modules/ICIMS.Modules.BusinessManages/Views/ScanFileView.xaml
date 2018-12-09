@@ -60,14 +60,16 @@
                         <telerik:RadComboBox x:Name="cbxSmy1" ItemsSource="{Binding ScanDpi}" SelectedIndex="0" Text="标清" SelectedItem="{Binding SelectDpi}" Width="200" FontFamily="SimSun" telerik:StyleManager.Theme="Office2016" Margin="5,0,0,0"  VerticalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel  Orientation="Horizontal" Height="30">
-                        <TextBlock Text="文件类型"  VerticalAlignment="Center" />
-                        <telerik:RadComboBox x:Name="cbxSmy2" Width="200" ItemsSource="{Binding ScanFileTypes}" SelectedIndex="0" Text="PNG" SelectedItem="{Binding SelectFileType}" FontFamily="SimSun" telerik:StyleManager.Theme="Office2016" Margin="5,0,0,0"  VerticalAlignment="Center"/>
+                        <!--<TextBlock Text="文件类型"  VerticalAlignment="Center" />
+                        <telerik:RadComboBox x:Name="cbxSmy2" Width="200" ItemsSource="{Binding ScanFileTypes}" SelectedIndex="0" Text="PNG" SelectedItem="{Binding SelectFileType}" FontFamily="SimSun" telerik:StyleManager.Theme="Office2016" Margin="5,0,0,0"  VerticalAlignment="Center"/>-->
+                            <TextBlock Text="颜色样式"  VerticalAlignment="Center"/>
+                            <telerik:RadComboBox x:Name="cbxSmy3" Width="200" ItemsSource="{Binding ScanColors}" SelectedIndex="0" Text="黑色"  SelectedItem="{Binding SelectColor}" FontFamily="SimSun" telerik:StyleManager.Theme="Office2016" Margin="5,0,0,0"  VerticalAlignment="Center"/>
+                        </StackPanel> 
+                        <StackPanel  Orientation="Horizontal" Height="30">
+                            <TextBlock Text="文档名称"  VerticalAlignment="Center" />
+                            <TextBox Width="200" Text="{Binding FileName}"  FontFamily="SimSun" telerik:StyleManager.Theme="Office2016" Margin="5,0,0,0"  VerticalAlignment="Center"/>
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Height="30">
-                    <TextBlock Text="颜色格式"   VerticalAlignment="Center"/>
-                        <telerik:RadComboBox x:Name="cbxSmy3" Width="200" ItemsSource="{Binding ScanColors}" SelectedIndex="0" Text="黑色"  SelectedItem="{Binding SelectColor}" FontFamily="SimSun" telerik:StyleManager.Theme="Office2016" Margin="5,0,0,0"  VerticalAlignment="Center"/>
-                    </StackPanel>
-                </StackPanel>
                      
                    
                 </Grid>
@@ -103,7 +105,7 @@
 
                         <telerik:GridViewDataColumn Header="上传业务" Width="100" TextBlock.FontFamily="SimSun"   DataMemberBinding="{Binding EntityName}" /> 
                         <telerik:GridViewDataColumn Header="文件名称"  DataMemberBinding="{Binding FileName}" TextWrapping="Wrap" Width="*" />
-                        <telerik:GridViewDataColumn Header="文件类型" DataMemberBinding="{Binding UploadType}" TextWrapping="Wrap" Width="80" />
+                        <telerik:GridViewDataColumn Header="文件类型" DataMemberBinding="{Binding UploadType}" TextWrapping="Wrap" Width="120" />
                         
                     </telerik:RadGridView.Columns>
 

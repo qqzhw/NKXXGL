@@ -425,7 +425,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private void OnScanFile()
         {
-            if (ItemDefine.Id < 1)
+            if (Contract.Id < 1)
             {
                 MessageBox.Show("请先保存合同");
                 return;

@@ -12,7 +12,7 @@ namespace ICIMS.Service.BusinessManages
     /// </summary>
     public interface IContractService
     {
-        Task<ResultData<List<ContractList>>> GetAllContracts(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue);
+        Task<ResultData<List<ContractList>>> GetAllContracts(int? status=null,string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue);
 
 
         Task<Contract> GetById(int input);

@@ -28,9 +28,9 @@ namespace ICIMS.Service.BusinessManages
             await _webApiClient.DeleteAsync<object>($"{_webApiClient.BaseUrl}{BaseUrl}/Delete", new { Id = input });
         }
 
-        public async Task<ResultData<List<ContractList>>> GetAllContracts(string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue)
+        public async Task<ResultData<List<ContractList>>> GetAllContracts(int? status=null,string No = "", string Name = "", int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            var filter = new { No, Name, MaxResultCount = pageSize, SkipCount = pageIndex * pageSize };
+            var filter = new {Status=status, No, Name, MaxResultCount = pageSize, SkipCount = pageIndex * pageSize };
             var items = await _webApiClient.GetAsync<ResultData<List<ContractList>>>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "GetPaged"), filter);
             return items;
         }

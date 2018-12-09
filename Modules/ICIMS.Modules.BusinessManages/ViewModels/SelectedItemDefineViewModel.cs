@@ -89,7 +89,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             //}
             //var result = await _dataService.GetWaterListAsync(DeviceId, BeginTime, EndTime, pageIndex: PageIndex, pageSize: PageSize);
             long dataCount = 0;
-            var items =await _itemDefineService.GetAllItemDefines("", "", PageIndex, PageSize);
+            var items =await _itemDefineService.GetAllItemDefines(3,"", "", PageIndex, PageSize);
             if (items != null)
             {                
                 TotalCount = items.TotalCount;

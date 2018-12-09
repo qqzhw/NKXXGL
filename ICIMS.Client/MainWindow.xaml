@@ -15,7 +15,7 @@
         xmlns:Interaction="clr-namespace:ICIMS.Core.Interactivity.InteractionRequest;assembly=ICIMS.Core"
         xmlns:Primitives="clr-namespace:Telerik.Windows.Controls.Primitives;assembly=Telerik.Windows.Controls.Navigation" xmlns:TabControl="clr-namespace:Telerik.Windows.Controls.TabControl;assembly=Telerik.Windows.Controls.Navigation" x:Class="ICIMS.Client.Views.MainWindow"
         TitleBarHeight="36" WindowState="Maximized"
-        x:Name="window" Icon="pack://application:,,,/ICIMS.Client;component/logo.png"
+        x:Name="window" Icon="pack://application:,,,/ICIMS.Client;component/logo.ico"
         prism:ViewModelLocator.AutoWireViewModel="True"
                       mc:Ignorable="d" 
                       GlowBrush="{DynamicResource AccentColorBrush}" 

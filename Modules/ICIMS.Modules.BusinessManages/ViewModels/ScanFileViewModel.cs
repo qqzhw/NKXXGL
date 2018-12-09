@@ -19,6 +19,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Unity.Attributes;
@@ -122,6 +123,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             try
             {
+                if (string.IsNullOrEmpty(FileName))
+                {
+                    MessageBox.Show("请输入扫描文件名称");
+                    return;
+                }
                 float dpi = 300f;
                 switch (SelectDpi)
                 {
@@ -201,7 +207,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             PageCount++;
             string empty = string.Empty;
-            empty = $"Scan{PageCount.ToString().PadLeft(3, '0')}";
+            empty = $"{FileName}{PageCount.ToString().PadLeft(3, '0')}";
             string filename = mImagePath + empty + ".png";
             e.Image.Save(filename, ImageFormat.Png);
             NewScanPage = true;
@@ -415,7 +421,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             {
                 ScanDevices.Add(mTwain.GetSourceProductName(i));
             }
-            
+            SelectColor = "彩色";
+            SelectDpi = "高清";
+            SelectFileType = "PNG";
+            DeviceIndex = 0;
+            OnSelectedScanDevice(DeviceIndex);
         }
         public void Dispose()
         {
@@ -436,6 +446,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             get { return _isbusy; }
             set { SetProperty(ref _isbusy, value); }
+        }
+        private string _fileName;
+        public string FileName
+        {
+            get { return _fileName; }
+            set { SetProperty(ref _fileName, value); }
         }
         //选择的设备
         private int _deviceIndex;

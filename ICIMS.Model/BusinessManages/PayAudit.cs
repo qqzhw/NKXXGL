@@ -148,7 +148,12 @@ namespace ICIMS.Model.BusinessManages
             get { return _payAuditDetails; }
             set { SetProperty(ref _payAuditDetails, value); }
         }
-
+        private string _payDetail;
+        public string PayDetail
+        {
+            get { return _payDetail; }
+            set { SetProperty(ref _payDetail, value); }
+        }
         private string _statusText;
         public string StatusText
         {

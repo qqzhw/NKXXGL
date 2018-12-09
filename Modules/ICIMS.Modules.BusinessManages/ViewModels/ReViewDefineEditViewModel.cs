@@ -93,7 +93,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         private void OnScanFile()
         {
-            if (ItemDefine.Id < 1)
+            if (ReViewDefine.Id < 1)
             {
                 MessageBox.Show("请先保存评审登记");
                 return;

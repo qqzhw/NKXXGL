@@ -23,7 +23,7 @@
 
         <DockPanel   Background="#F2F2F2"> 
             <control:CustomButton Height="28"  IconBackground="#682357" Command="{Binding SaveCommand}" Kind="SaveSolid"  Width="80" Margin="10,0,0,0" Title="保存"/>
-            <control:CustomButton Height="28"  IconBackground="#91CE2D" Command="{Binding SubmitCommand}" Kind="CheckSolid"  Width="80" Margin="10,0,0,0" Title="提交"/>
+            <control:CustomButton Height="28"  IconBackground="#91CE2D" Command="{Binding SubmitCommand}" Kind="CheckSolid"  Width="80" Margin="10,0,0,0" Title="审批"/>
             <control:CustomButton Height="28"  IconBackground="#AD372D" Command="{Binding CancelComamnd}" Kind="TimesSolid"  Width="80" Margin="10,0,0,0" Title="取消"/>
             <control:CustomButton Height="28"  IconBackground="#C1852D"  Command="{Binding BackCommand}" Kind="ReplySolid"  Width="80" Margin="10,0,0,0" Title="驳回"/>
             <control:CustomButton Height="28"  IconBackground="#7DB12D"  Kind="FileWordSolid" Command="{Binding LogCommand}"  Width="80" Margin="10,0,0,0" Title="打印"/>
@@ -47,6 +47,7 @@
                         <RowDefinition Height="25"/>
                         <RowDefinition Height="25"/>
                         <RowDefinition Height="25"/>
+                        <RowDefinition />
                         <RowDefinition />
                         <RowDefinition/>
                         <RowDefinition />
@@ -75,7 +76,7 @@
                             <TextBlock Text="部 门" VerticalAlignment="Center" Margin="18,0,0,0"/>
                             <TextBox  Height="22"  Margin="5,0,0,0" Text="{Binding UnitName}"  IsReadOnly="True" VerticalAlignment="Center"/>
                             <TextBlock Text="支付类型" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox  Height="22"  Margin="5,0,0,0" Text="{Binding PaymentTypeItem.Name}" Width="200" VerticalAlignment="Center"/>
+                        <TextBox  Height="22"  Margin="5,0,0,0" Text="{Binding PaymentTypeItem.Name}"  IsReadOnly="True"  Width="200" VerticalAlignment="Center"/>
                             <Button Command="{Binding SearchPaymentCommand}" Style="{x:Null}" HorizontalAlignment="Left" BorderThickness="0" Height="18">
                                 <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                             </Button>
@@ -83,7 +84,7 @@
                         <telerik:RadComboBox DisplayMemberPath="Name" FontFamily="SimSun" SelectedItem="{Binding SelectFundItem}"   SelectedIndex="0" telerik:StyleManager.Theme="Windows8" ItemsSource="{Binding FundItems}"  Height="24" Width="120"/>
 
                         <TextBlock Text="金额" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <telerik:RadNumericUpDown Width="120" Value="{Binding TempAmount}" Height="22" FontFamily="SimSun" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
+                        <telerik:RadNumericUpDown Width="120"  Value="{Binding TempAmount}" Height="22" FontFamily="SimSun" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
                         <control:CustomButton Height="26"  IconBackground="#91CE2D" Command="{Binding AddMoneyCommand}" Kind="PlusSolid" Width="75" HorizontalAlignment="Left"  Margin="5,0,0,0" FontSize="16" ToolTip="支付来源金额" Title="增加"/>
                         <!--<Button Command="{Binding AddMoneyCommand}" Style="{x:Null}" Background="Transparent" HorizontalAlignment="Left" BorderThickness="0" Height="18">
                             <iconPacks:PackIconFontAwesome Kind="PlusSolid" Height="16" Foreground="#999999" />
@@ -91,20 +92,20 @@
                     </DockPanel>
                         <DockPanel Grid.Row="3">
                             <TextBlock Text="支付编号" VerticalAlignment="Center"/>
-                        <TextBox  Height="22"  Margin="5,0,0,0" IsReadOnly="True" Text="{Binding PayAudit.PaymentNo}"  VerticalAlignment="Center"/>
+                        <TextBox  Height="22" FontFamily="SimSun"  Margin="5,0,0,0" IsReadOnly="True" Text="{Binding PayAudit.PaymentNo}"  VerticalAlignment="Center"/>
                             <TextBlock Text="支付名称" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBox  Height="22" Text="{Binding PayAudit.PaymentName}"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         </DockPanel>
                         <DockPanel Grid.Row="4" >
                             <TextBlock Text="预算总额" VerticalAlignment="Center"/>
-                            <TextBox  Height="22" HorizontalAlignment="Left" Text="{Binding PayAudit.ItemYsTotalAmount}" Margin="5,0,0,0"  VerticalAlignment="Center"/>
+                        <TextBox  Height="22" HorizontalAlignment="Left"  IsReadOnly="True"  Text="{Binding PayAudit.ItemYsTotalAmount}" Margin="5,0,0,0"  VerticalAlignment="Center"/>
                             
-                            <TextBlock Text="项目总额" Margin="5,0,0,0" VerticalAlignment="Center"/> 
-                         <telerik:RadNumericUpDown Width="120" Value="{Binding PayAudit.ItemTotalAmount}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
+                            <TextBlock Text="项目总额" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <telerik:RadNumericUpDown Width="120"  IsReadOnly="True"  Value="{Binding PayAudit.ItemTotalAmount}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
 
                         <TextBlock VerticalAlignment="Center" Width="12">元</TextBlock>
-                            <TextBlock Text="合同总额" Margin="30,0,0,0" VerticalAlignment="Center"/> 
-                        <telerik:RadNumericUpDown Width="140" HorizontalAlignment="Left" Value="{Binding PayAudit.ContractTotalAmount}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
+                            <TextBlock Text="合同总额" Margin="30,0,0,0" VerticalAlignment="Center"/>
+                        <telerik:RadNumericUpDown Width="140" HorizontalAlignment="Left"   IsReadOnly="True"  Value="{Binding PayAudit.ContractTotalAmount}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
                         <TextBlock Text="初始已付金额" VerticalAlignment="Center" Margin="18,0,0,0"/>
                         <telerik:RadNumericUpDown Width="120" HorizontalAlignment="Left"  Value="{Binding PayAudit.InitPayAmount}"  Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
                     </DockPanel>
@@ -112,23 +113,28 @@
                         <TextBlock  VerticalAlignment="Center" Text="本次支付"/> 
                         <telerik:RadNumericUpDown Width="140" Value="{Binding PayAudit.PayAmount}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
 
-                        <TextBlock Text="第" VerticalAlignment="Center" Margin="5,0,0,0"/> 
-                        <telerik:RadNumericUpDown   Value="{Binding PayAudit.PaymentCount}" Minimum="0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" NumberDecimalDigits="0" Maximum="100" />
+                        <TextBlock Text="第" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                        <telerik:RadNumericUpDown   IsReadOnly="True"  Value="{Binding PayAudit.PaymentCount}" Minimum="0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" NumberDecimalDigits="0" Maximum="100" />
 
                         <TextBlock VerticalAlignment="Center">次支付</TextBlock>
                           <TextBlock Text="本次支付比例" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center"/> 
-                        <telerik:RadNumericUpDown  Value="{Binding PayAudit.PaymentPer}" NumberDecimalDigits="0" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8"  Maximum="100" />
+                        <telerik:RadNumericUpDown  Value="{Binding PayAudit.PaymentPer}" NumberDecimalDigits="0" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center"  IsReadOnly="True" telerik:StyleManager.Theme="Windows8"  Maximum="100" />
 
                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="SimSun" FontSize="14" Width="20">%</TextBlock>
                         </DockPanel>
-                        <DockPanel Grid.Row="6">
+                    <DockPanel Grid.Row="6">
+                        <TextBlock VerticalAlignment="Center" Width="48" TextWrapping="Wrap" Text="支付明细"></TextBlock>
+                        <TextBox Height="36" VerticalContentAlignment="Center" Margin="5,0,0,0" Background="#F5F5F5" IsReadOnly="True"  Text="{Binding PayAudit.PayDetail}" />
+                    </DockPanel>
+                    <DockPanel Grid.Row="7">
                             <TextBlock VerticalAlignment="Center" Width="48" TextWrapping="Wrap" Text="付款方式及比例"></TextBlock>
                             <TextBox Height="48" VerticalContentAlignment="Top" Margin="5,0,0,0"  Text="{Binding PayAudit.PaymentMethod}" />
                         </DockPanel>
-                        <DockPanel Grid.Row="7">
+                        <DockPanel Grid.Row="8">
                             <TextBlock VerticalAlignment="Center" Margin="0,2,0,0" TextWrapping="Wrap" Text="备   注"></TextBlock>
                         <TextBox Height="48" VerticalContentAlignment="Top" Margin="11,0,0,0" Text="{Binding PayAudit.Remark}" />
-                        </DockPanel>
+                         
+                    </DockPanel>
                         
                     
                 </Grid>
@@ -140,9 +146,9 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions> 
-                <GroupBox Header="支付明细">
+                <GroupBox Header="支付资金来源">
                     <telerik:RadGridView FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding PayAuditDetails}"  
+						    CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding PayAuditDetails}"  
 							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
                                        GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
@@ -153,10 +159,10 @@
                         </telerik:EventToCommandBehavior.EventBindings>-->
                         <telerik:RadGridView.Columns>
                            
-                            <telerik:GridViewDataColumn Header="资金来源" Width="100" IsReadOnly="True"   DataMemberBinding="{Binding FundName}" />
-                            <telerik:GridViewDataColumn Header="金额" Width="100"    DataMemberBinding="{Binding Amount}" />
+                            <telerik:GridViewDataColumn Header="资金来源" Width="80" IsReadOnly="True"   DataMemberBinding="{Binding FundName}" />
+                            <telerik:GridViewDataColumn Header="金额" Width="90"    DataMemberBinding="{Binding Amount}" />
 
-                            <telerik:GridViewDataColumn Header="备注" Width="*"    DataMemberBinding="{Binding Remark}" />
+                            <telerik:GridViewDataColumn Header="附件备注" Width="*"  TextWrapping="Wrap" DataMemberBinding="{Binding Remark}" />
 
                         </telerik:RadGridView.Columns>
 
@@ -164,7 +170,7 @@
                 </GroupBox>
                 <GroupBox  Grid.Row="1" Header="相关审核人" >
                     <telerik:RadGridView FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding BuinessAudits}"  
+						     CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding BuinessAudits}"  
 							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
@@ -183,7 +189,7 @@
                 </GroupBox>
                 <GroupBox Header="相关审核人" Grid.Row="2">
                     <telerik:RadGridView FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
+						     CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding StatusInfos}"  
 							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
@@ -192,20 +198,14 @@
                             <telerik:EventBinding Command="{Binding ListRightMenue}" EventName="MouseRightButtonUp" 
                         PassEventArgsToCommand="True" /> 
                         </telerik:EventToCommandBehavior.EventBindings>-->
-                        <telerik:RadGridView.Columns>
-                            <telerik:GridViewDataColumn Header="序号"  Width="60"    HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  DeviceId,Mode =TwoWay}"/>
+                        <telerik:RadGridView.Columns>                            
+                            <telerik:GridViewDataColumn Header="审核业务" Width="100" TextBlock.FontFamily="SimSun"   DataMemberBinding="{Binding BusinessTypeName}" />
 
-                            <telerik:GridViewDataColumn Header="审核角色" Width="120"    DataMemberBinding="{Binding DeviceName}" />
+                            <telerik:GridViewDataColumn Header="审核角色"  DataMemberBinding="{Binding RoleName}" TextWrapping="Wrap" Width="80" />
+                            <telerik:GridViewDataColumn Header="审核意见" DataMemberBinding="{Binding AuditOpinion}" TextWrapping="Wrap" Width="*" />
+                            <telerik:GridViewDataColumn Header="审核人" DataMemberBinding="{Binding AuditUserName}" TextWrapping="Wrap" Width="80" />
 
-                            <telerik:GridViewDataColumn Header="审核时间" Width="120">
-                                <telerik:GridViewDataColumn.CellTemplate>
-                                    <DataTemplate >
-                                        <TextBlock Text="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}" />
-                                    </DataTemplate>
-                                </telerik:GridViewDataColumn.CellTemplate>
-                            </telerik:GridViewDataColumn>                           
-                            <telerik:GridViewDataColumn Header="审核人" DataMemberBinding="{Binding SYDL}" TextWrapping="Wrap" Width="90" />
-                            <telerik:GridViewDataColumn Header="审核意见" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" MinWidth="120" />
+                            <telerik:GridViewDataColumn Header="审核时间" Width="120"  DataMemberBinding="{Binding AuditTime,StringFormat=yyyy-MM-dd HH:mm}"/>
 
                         </telerik:RadGridView.Columns>
 

@@ -122,7 +122,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 }
 
             }
-            var result = await _itemDefineService.GetAllItemDefines("", "", pageIndex: PageIndex, pageSize: PageSize);
+            var result = await _itemDefineService.GetAllItemDefines(null,"", "", pageIndex: PageIndex, pageSize: PageSize);
             _itemDefineLists.Clear();
             TotalCount = result.TotalCount;
             ItemDefineLists.AddRange(result.Items);

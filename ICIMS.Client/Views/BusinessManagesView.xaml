@@ -14,6 +14,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <telerik:RadExpander FontFamily="SimSun" x:Name="radExpander" Margin="20" telerik:StyleManager.Theme="Office2016Touch" IsExpanded="True" VerticalContentAlignment="Top" 
@@ -105,5 +107,49 @@
             </telerik:RadExpander.Content>
         </telerik:RadExpander>
         <Rectangle Height="1" Fill="#666666"  Grid.Row="3" Margin="20,5,20,5" VerticalAlignment="Top"/>
+        <telerik:RadExpander FontFamily="SimSun" Grid.Row="4"  Margin="20" telerik:StyleManager.Theme="Office2016Touch" IsExpanded="True" VerticalContentAlignment="Top" 
+								 telerik:AnimationManager.IsAnimationEnabled="{Binding ElementName=AnimationEnableCheckBox, Path=IsChecked}">
+            <telerik:RadExpander.HeaderTemplate>
+                <DataTemplate>
+                    <Grid x:Name="spheader"  Height="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Height="36" Margin="5,0,0,0" Source="pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu2_报表管理.ico"/>
+                        <TextBlock Text="报表管理" Grid.Column="1" Margin="10,0,0,0" FontSize="22" VerticalAlignment="Center"  FontWeight="Black"/>
+                    </Grid>
+                    <DataTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="spheader" Property="Background" Value="#DEDEDE"/>
+                        </Trigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </telerik:RadExpander.HeaderTemplate>
+            <telerik:RadExpander.Content>
+                <Grid>
+
+                    <ItemsControl ItemsSource="{Binding BbInfos}">
+                        <!--<i:Interaction.Triggers>
+                            <i:EventTrigger EventName="ListBoxItem.Selected">
+                                <prism:InvokeCommandAction Command="{Binding SelectedCommand}"    TriggerParameterPath="AddedItems" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>-->
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <telerik:VirtualizingWrapPanel Orientation="Horizontal"    ItemWidth="120" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <controls:SwitchControl Title="{Binding Title}"  Command="{Binding DataContext.SelectedCommand,RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" CommandParameter="{Binding}"  Margin="0,0,20,0"  Height="90" IsSelected="{Binding IsSelected}" SelectedBackground="#222328"     FontFamily="SimSun" FontSize="14" ImageSource="{Binding Icon}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </Grid>
+            </telerik:RadExpander.Content>
+        </telerik:RadExpander>
+        <Rectangle Height="1" Fill="#666666"  Grid.Row="5" Margin="20,5,20,5" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>

@@ -154,7 +154,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 }
 
             }
-            var result = await _contractService.GetAllContracts("", "", pageIndex: PageIndex, pageSize: PageSize);
+            var result = await _contractService.GetAllContracts(null,"", "", pageIndex: PageIndex, pageSize: PageSize);
 
             TotalCount = result.TotalCount;
             _contractList.AddRange(result.Items);
@@ -200,7 +200,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             var view = _container.Resolve<ContractEditView>(new ParameterOverride("data", SelectedItem));
             var notification = new Notification()
             {
-                Title = "立项编辑",
+                Title = "合同编辑",
                 WindowState = System.Windows.WindowState.Maximized,
                 Content = view,// (new ParameterOverride("name", "")), 
             };

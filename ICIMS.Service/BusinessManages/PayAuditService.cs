@@ -44,11 +44,11 @@ namespace ICIMS.Service.BusinessManages
             return item;
         }
 
-        public async Task<long> SearchPayCount(int input)
+        public async Task<List<PayAudit>> SearchPayCount(int input)
         {
-            var param = new { Id= input };
-            var item = await _webApiClient.GetAsync<object>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "SearchPayCount"), param);
-            return Convert.ToInt64(item);
+            var param = new { Id= input }; 
+             var item = await _webApiClient.GetAsync<List<PayAudit>>(Path.Combine(_webApiClient.BaseUrl, BaseUrl, "GetSearchPayCount"), param);
+            return item;
         }
     }
 }

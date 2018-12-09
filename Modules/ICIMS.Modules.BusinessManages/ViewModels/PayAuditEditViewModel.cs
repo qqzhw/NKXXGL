@@ -419,7 +419,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         private void OnScanFile()
         {
-            if (ItemDefine.Id < 1)
+            if (PayAudit.Id < 1)
             {
                 MessageBox.Show("请先提交保存");
                 return;
@@ -600,10 +600,17 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     this.ItemDefine.Id = viewModel.SelectedItem.Id;
                     this.ItemDefine.ItemName = viewModel.SelectedItem.ItemName;
                     PayAudit.ItemTotalAmount = ItemDefine.DefineAmount;
-
+                   
                   await  GetItemDefineFiles(ItemDefine.Id);
-                  var paymentNo = await _payAuditService.SearchPayCount(ItemDefine.Id);
-                    int s1 = 1;
+                  var item = await _payAuditService.SearchPayCount(ItemDefine.Id);//支付次数
+                    PayAudit.PaymentCount = item.Count + 1;
+                    PayAudit.PaymentNo = ItemDefine.ItemNo;
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var model in item)
+                    {
+                        sb.Append($"第一次支付：{model.PayAmount}元");
+                    }
+                    PayAudit.PayDetail = sb.ToString();
                 }
                 int s = 0;
             });

@@ -48,15 +48,22 @@ namespace ICIMS.Client.ViewModels
             get { return _ysInfos; }
             set { SetProperty(ref _ysInfos, value); }
         }
-
+        private ObservableCollection<SystemInfoViewModel> _bbInfos;
+        public ObservableCollection<SystemInfoViewModel> BbInfos
+        {
+            get { return _bbInfos; }
+            set { SetProperty(ref _bbInfos, value); }
+        }
         [InjectionMethod]
         public void Init()
         {
             _systemInfos = new ObservableCollection<SystemInfoViewModel>();
             _ysInfos= new ObservableCollection<SystemInfoViewModel>();
+            _bbInfos = new ObservableCollection<SystemInfoViewModel>();
             SelectedCommand = new DelegateCommand<SystemInfoViewModel>(OnItemSelected);
             InitMenu();
             InitMenu2();
+            InitMenu3();
         }
         private void InitMenu()
         {
@@ -171,6 +178,59 @@ namespace ICIMS.Client.ViewModels
                 IsDefaultShow = false,
             });
            
+
+        }
+        private void InitMenu3()
+        {
+            _bbInfos.Add(new SystemInfoViewModel()
+            {
+                Id = "BudgetView",
+                Title = "合同汇总表",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_合同汇总表.ico",
+                IsDefaultShow = false,
+            });
+            _bbInfos.Add(new SystemInfoViewModel()
+            {
+                Id = "BudgetLabelView",
+                Title = "合同明细表",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_合同明细表.ico",
+                IsDefaultShow = false,
+            });
+            _bbInfos.Add(new SystemInfoViewModel()
+            {
+                Id = "BudgetAdjustView",
+                Title = "收支汇总表",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_收支汇总表.ico",
+                IsDefaultShow = false,
+            });
+            _bbInfos.Add(new SystemInfoViewModel()
+            {
+                Id = "BudgetReplyView",
+                Title = "收支明细表",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_收支明细表.ico",
+                IsDefaultShow = false,
+            });
+            _bbInfos.Add(new SystemInfoViewModel()
+            {
+                Id = "BudgetMiddleAdjustView",
+                Title = "项目汇总表",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目汇总表.ico",
+                IsDefaultShow = false,
+            });
+            _bbInfos.Add(new SystemInfoViewModel()
+            {
+                Id = "BudgetMiddleReplyView",
+                Title = "项目明细表",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目明细表.ico",
+                IsDefaultShow = false,
+            });
+            _bbInfos.Add(new SystemInfoViewModel()
+            {
+                Id = "BudgetMiddleReplyView",
+                Title = "预算执行情况表",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_预算执行情况表.ico",
+                IsDefaultShow = false,
+            });
 
         }
 
