@@ -40,12 +40,12 @@ namespace ICIMS.Modules.BaseData.Views
             var autoCompleteBox = sender as RadAutoCompleteBox;
             if (autoCompleteBox.SelectedItem != null)
             {
-                this.movieInfoStackPanel.Visibility = System.Windows.Visibility.Visible;
+               // this.movieInfoStackPanel.Visibility = System.Windows.Visibility.Visible;
                // this.viewModel.CurrentDate = DateTime.Now;
             }
             else
             {
-                this.movieInfoStackPanel.Visibility = System.Windows.Visibility.Collapsed;
+               // this.movieInfoStackPanel.Visibility = System.Windows.Visibility.Collapsed;
             }
         }
     }

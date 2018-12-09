@@ -25,7 +25,7 @@
             </DataTemplate>
            
         </Grid.Resources>
-        <telerik:RadNumericUpDown Width="100" Minimum="0"  telerik:StyleManager.Theme="Office2016" ValueFormat="Currency" Maximum="100000000000" />
+        <!--<telerik:RadNumericUpDown Width="100" Minimum="0"  telerik:StyleManager.Theme="Office2016" ValueFormat="Currency" Maximum="100000000000" />
         <Button Content="测试" Height="30" Width="80"   Command="{Binding ShowCommand}"/>
         <StackPanel x:Name="CenterColumn"   Width="265.5" Margin="14 0 14 0">
            
@@ -61,6 +61,6 @@
                      
                 </StackPanel>
             </StackPanel>
-        </StackPanel>
+        </StackPanel>-->
     </Grid>
 </UserControl>

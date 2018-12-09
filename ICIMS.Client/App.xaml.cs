@@ -55,12 +55,12 @@ namespace ICIMS.Client
 
         protected override void OnStartup(StartupEventArgs e)
         {
-           
+            //if (!SingleInstanceCheck())
+            //{
+            //    return;
+            //}
             base.OnStartup(e);
-            if (!SingleInstanceCheck())
-            {
-                return;
-            }
+          
         }
 
         protected override Window CreateShell()
@@ -74,6 +74,7 @@ namespace ICIMS.Client
             }
             else
             {
+                App.Current.Shutdown();
                 System.Environment.Exit(0);
                 return null;
             }
@@ -152,7 +153,7 @@ namespace ICIMS.Client
         private static bool SingleInstanceCheck()
         {
             var flag = SingleInstanceMutex.WaitOne(TimeSpan.Zero, true);
-                 
+            SingleInstanceMutex.ReleaseMutex();
             if (!flag)
             {
                 Process thisProc = Process.GetCurrentProcess();
@@ -175,8 +176,7 @@ namespace ICIMS.Client
                 }
                 Application.Current.Shutdown(1);
                 return false;
-            }
-            SingleInstanceMutex.ReleaseMutex();
+            }           
             //SingleInstanceMutex.ReleaseMutex();
             return true;
         }

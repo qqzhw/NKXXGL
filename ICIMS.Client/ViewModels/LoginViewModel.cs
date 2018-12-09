@@ -109,7 +109,7 @@ namespace ICIMS.Client.ViewModels
                 var user =await Task.Run(()=> { return _userSerice.LoginAsync(UserName, Password, TenancyName); });
                 if (user==null)
                 { 
-                    MessageBox.Show("登录失败");
+                    MessageBox.Show("登录失败,用户不存在");
                     Islogining = false;
                     return;
                 }
@@ -158,9 +158,10 @@ namespace ICIMS.Client.ViewModels
                 //MessageBox.Show("登录失败！");
                 Islogining = false;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("登录失败！");
+                MessageBox.Show("登录失败！",ex.Message);
+                Islogining = false;
                 return;
             }
         

@@ -80,7 +80,7 @@ namespace ICIMS.Client.ViewModels
         private  void RestartApplication()
         { 
              StartMainProgram();
-             Environment.Exit(0);  
+            App.Current.Shutdown(); 
         }
 
         /// <summary>
