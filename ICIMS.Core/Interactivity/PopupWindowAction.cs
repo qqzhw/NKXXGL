@@ -206,6 +206,10 @@ namespace ICIMS.Core.Interactivity
                             
                             return;
                         }
+                        else
+                        {
+                            wrapperWindow.SizeToContent = SizeToContent.WidthAndHeight;
+                        }
                         FrameworkElement view = this.AssociatedObject;
 
                         // Position is the top left position of the view from which the request was initiated.
