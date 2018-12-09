@@ -16,6 +16,7 @@ namespace ICIMS.Core.Interactivity.DefaultPopupWindows
         public DefaultNotificationWindow()
         {
             InitializeComponent();
+           
         }
 
         /// <summary>

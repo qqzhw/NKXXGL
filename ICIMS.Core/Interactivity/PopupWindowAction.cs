@@ -199,17 +199,14 @@ namespace ICIMS.Core.Interactivity
                             wrapperWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
                             return;
                         }
-                        if (parentWindow.WindowState==WindowState.Maximized)
+                        if (wrapperWindow.WindowState == WindowState.Maximized)
                         {
                             wrapperWindow.SizeToContent = SizeToContent.Manual;
                             wrapperWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-                            
+
                             return;
                         }
-                        else
-                        {
-                            wrapperWindow.SizeToContent = SizeToContent.WidthAndHeight;
-                        }
+                        
                         FrameworkElement view = this.AssociatedObject;
 
                         // Position is the top left position of the view from which the request was initiated.
@@ -355,7 +352,16 @@ namespace ICIMS.Core.Interactivity
             }
             else
             {
+                
                 window = new DefaultNotificationWindow() { Notification = notification };
+                if (!notification.Maximized)
+                {
+                    window.SizeToContent = SizeToContent.WidthAndHeight;
+                }
+                else
+                {
+                    window.SizeToContent = SizeToContent.Manual;
+                }
             }
 
             return window;
