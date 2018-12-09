@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Telerik.Windows.Controls.GridView;
 
 namespace ICIMS.Modules.BusinessManages.Views
 {
@@ -26,8 +27,15 @@ namespace ICIMS.Modules.BusinessManages.Views
         {
             InitializeComponent();
             this.DataContext = viewModel;
-        }
-       
+        } 
          
+        private void CellDoubleClick(object sender, Telerik.Windows.RadRoutedEventArgs e)
+        {
+            GridViewCellBase cell = e.OriginalSource as GridViewCellBase;
+            if (cell != null)
+            {
+               // this.ClickedCell = cell;
+            }
+        }
     }
 }

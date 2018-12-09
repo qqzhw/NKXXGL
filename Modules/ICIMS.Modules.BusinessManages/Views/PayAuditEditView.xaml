@@ -147,8 +147,8 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions> 
                 <GroupBox Header="支付资金来源">
-                    <telerik:RadGridView FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding PayAuditDetails}"  
+                    <telerik:RadGridView FontFamily="SimSun"  x:Name="radfund" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+						    CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"   ItemsSource="{Binding PayAuditDetails}"  SelectedItem="{Binding PayAuditDetail}"
 							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
                                        GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
@@ -158,8 +158,18 @@
                         PassEventArgsToCommand="True" /> 
                         </telerik:EventToCommandBehavior.EventBindings>-->
                         <telerik:RadGridView.Columns>
-                           
-                            <telerik:GridViewDataColumn Header="资金来源" Width="80" IsReadOnly="True"   DataMemberBinding="{Binding FundName}" />
+
+                            <telerik:GridViewDataColumn Header="资金来源"   Width="80" IsReadOnly="True"   DataMemberBinding="{Binding FundName}" >
+                                <telerik:GridViewDataColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding FundName}">
+                                             <TextBlock.InputBindings>
+                                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DataContext.DelFund, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" CommandParameter="{Binding SelectedItem,ElementName=radfund}"/>
+                                        </TextBlock.InputBindings>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </telerik:GridViewDataColumn.CellTemplate>
+                            </telerik:GridViewDataColumn>
                             <telerik:GridViewDataColumn Header="金额" Width="90"    DataMemberBinding="{Binding Amount}" />
 
                             <telerik:GridViewDataColumn Header="附件备注" Width="*"  TextWrapping="Wrap" DataMemberBinding="{Binding Remark}" />

@@ -52,6 +52,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand UploadCommand { get; private set; }
         public DelegateCommand AddMoneyCommand { get; private set; }
         public DelegateCommand ScanCommand { get; private set; }
+        public DelegateCommand<object> DelFund { get; private set; }
 
         private readonly UserModel _userModel;
         private string _title;
@@ -84,11 +85,19 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             UploadCommand = new DelegateCommand(OnUploadedFiles);
             AddMoneyCommand = new DelegateCommand(OnAddFundFrom);
             ScanCommand = new DelegateCommand(OnScanFile);
+            DelFund = new DelegateCommand<object>(OnDelSelectedFund);
             _filesManages = new ObservableCollection<FilesManage>();
             _buinessAudits = new ObservableCollection<BusinessAudit>();
             _auditMappings = new ObservableCollection<AuditMapping>();
             _fundItems = new ObservableCollection<FundItem>();
             BindData(data);
+            _payAuditList = data;
+        }
+
+        private void OnDelSelectedFund(object obj)
+        {
+            PayAuditDetails.Remove(PayAuditDetail);
+            PayAudit.PayAmount = PayAuditDetails.Select(o => o.Amount).Sum();
         }
 
         private void OnAddFundFrom()
@@ -611,21 +620,26 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     this.ItemDefine.ItemName = viewModel.SelectedItem.ItemName;
                     this.ItemDefine.ItemNo = viewModel.SelectedItem.ItemNo;
                     PayAudit.ItemTotalAmount = ItemDefine.DefineAmount;
-                   
+                    PayAudit.ItemDefineId = viewModel.SelectedItem.Id;
                   await  GetItemDefineFiles(ItemDefine.Id);
                     var items=await UpdatePayDetail();
                     PayAudit.PaymentCount = items.Count + 1;
-                    //PayAudit.PaymentNo = ItemDefine.ItemNo;
+                    var id = PayAudit.PaymentCount.ToString().PadLeft(3, '0');
+                    var no = $"{ItemDefine.ItemNo}_ZF{id}";
+                    
+                     PayAudit.PaymentNo =no;
+                     
+                    
                 }
                 int s = 0;
             });
             view.BindAction(notification.Finish);
 
         }
-
+         
         private async Task<List<PayAudit>>  UpdatePayDetail()
         {
-            var item = await _payAuditService.SearchPayCount(ItemDefine.Id);//支付次数
+            var item = await _payAuditService.SearchPayCount(PayAudit.ItemDefineId);//支付次数
             //PayAudit.PaymentCount = item.Count + 1;
             //PayAudit.PaymentNo = ItemDefine.ItemNo;
             StringBuilder sb = new StringBuilder();
@@ -664,22 +678,27 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 // Open the document.
                 Document doc = new Document(file);
 
-              
+
                 //// Replace the text in the document.
-                //doc.Range.Replace("$Title$", DateTime.Now.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
-                //string cmdNo = string.Format("成联指【{0}】号", 511);
-                //doc.Range.Replace("$CmdNo$", cmdNo, new FindReplaceOptions(FindReplaceDirection.Forward));
-                //doc.Range.Replace("$HostTypeName$","", new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$UnitName$", UnitName, new FindReplaceOptions(FindReplaceDirection.Forward));
+                string cmdNo = string.Format("成联指【{0}】号", 511);
+                doc.Range.Replace("$CreationTime$", PayAuditList.CreationTime.ToString("yyyy-MM-dd"), new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$ItemDefineName$", PayAuditList.ItemDefineName, new FindReplaceOptions(FindReplaceDirection.Forward));
 
-                //doc.Range.Replace("$EventSourceFiredTime$", DateTime.Now.ToString("yyyy年MM月dd日 HH点mm分"), new FindReplaceOptions(FindReplaceDirection.Forward));
-                //doc.Range.Replace("$InfoContent$", "currentEventInfo.EventInfoContent", new FindReplaceOptions(FindReplaceDirection.Forward));
-                //doc.Range.Replace("$EventSourcePerson$", "currentEventInfo.Clrxm", new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$DefineAmount$", PayAuditList.DefineAmount.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$ItemDescription$", ItemDefine?.ItemDescription==null?"":ItemDefine?.ItemDescription, new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$FundItems$", PayAuditList.AccountName.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
 
-                //doc.Range.Replace("$EventSourceDepartment$"," currentEventInfo.EventSourceDepartment", new FindReplaceOptions(FindReplaceDirection.Forward));
-                //doc.Range.Replace("$Content$", content, new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$ContractName$", PayAuditList.ContractName, new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$ContractAmount$", PayAuditList.ContractAmount.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
 
 
-                //doc.Range.Replace("$EndDescription$", "", new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$VendorName$", PayAuditList.VendorName, new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$PayDescription$", PayAudit.PayDetail, new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$PayAmount$", PayAudit.PayAmount.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
+
+
+                doc.Range.Replace("$AuditOpinion1$", "", new FindReplaceOptions(FindReplaceDirection.Forward));
 
                 DocumentBuilder builder = new DocumentBuilder(doc);
                 NodeCollection allTables = doc.GetChildNodes(NodeType.Table, true);
@@ -695,20 +714,20 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 //  DataTable products = this.GetData(); //数据源
                 //builder.InsertCell();
                 //builder.InsertCell();
-                for (int i = 0; i < 3; i++)
-                {
-                    var roww = table.Rows[rowCount-2];
-                    //var row = table.LastRow.Clone(true);
-                    var row = roww.Clone(true);//复制第三行(绿色行)
-                    table.Rows.Insert(rowCount + i, row);//将复制的行插入当前行的上方
-                    builder.MoveToCell(0, rowCount+i, 0, 0);
-                    builder.Writeln($"asdas还是审核人{i+1}");
-                    builder.MoveToCell(0, rowCount + i, 1, 0);
-                    builder.Write("$Title$" + i.ToString());
-                }
-                doc.Range.Replace("$Title$", "真的啊", new FindReplaceOptions(FindReplaceDirection.Forward));
+                //for (int i = 0; i < 3; i++)
+                //{
+                //    var roww = table.Rows[rowCount-2];
+                //    //var row = table.LastRow.Clone(true);
+                //    var row = roww.Clone(true);//复制第三行(绿色行)
+                //    table.Rows.Insert(rowCount + i, row);//将复制的行插入当前行的上方
+                //    builder.MoveToCell(0, rowCount+i, 0, 0);
+                //    builder.Writeln($"asdas还是审核人{i+1}");
+                //    builder.MoveToCell(0, rowCount + i, 1, 0);
+                //    builder.Write("$Title$" + i.ToString());
+                //}
+                //doc.Range.Replace("$Title$", "真的啊", new FindReplaceOptions(FindReplaceDirection.Forward));
                 //builder.MoveToCell(0, 3, 0, 0); //移动到第一个表格的第四行第一个格子
-                builder.Write("test"); //单元格填充文字
+                //builder.Write("test"); //单元格填充文字
                 int count = 0;
 
                 //记录要显示多少列
@@ -840,7 +859,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _selectFundItem; }
             set { SetProperty(ref _selectFundItem, value); }
         }
-
+        private PayAuditDetail _payAuditDetail;
+        public PayAuditDetail PayAuditDetail
+        {
+            get { return _payAuditDetail; }
+            set { SetProperty(ref _payAuditDetail, value); }
+        }
         private bool _canEdit = true;
         public bool CanEdit
         {
@@ -853,6 +877,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _canChecked; }
             set { SetProperty(ref _canChecked, value); }
         }
+         
+
+        
     }
 
 }
