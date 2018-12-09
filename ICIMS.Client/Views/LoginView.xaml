@@ -28,7 +28,7 @@
             </Grid.RowDefinitions>
             <Border Height="50" Grid.Row="0"   Grid.ColumnSpan="2"  Background="#2C324F">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
-                        <Image Width="40" Margin="10,0,0,0"  Source="pack://application:,,,/ICIMS.Client;component/logo.png"/>
+                        <Image Width="40" Margin="10,0,0,0"  Source="pack://application:,,,/ICIMS.Client;component/logo.ico"/>
                
                    <TextBlock Text="{Binding AppName}" Margin="5,8,0,0" Foreground="White"  FontSize="22"/>
                        

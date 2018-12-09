@@ -52,11 +52,11 @@
                         </telerik:EventToCommandBehavior.EventBindings>-->
             <telerik:RadGridView.Columns>
                 <control:RowNumberColumn Header="序号" Width="40" DataMemberBinding="{Binding Text}"/>
-                <telerik:GridViewDataColumn Header="状态" Width="60" DataMemberBinding="{Binding ReViewDefine.StatusText}" >
+                <telerik:GridViewDataColumn Header="状态" Width="60" DataMemberBinding="{Binding StatusText}" >
                     <telerik:GridViewDataColumn.CellTemplate >
                         <DataTemplate>
-                            <Grid HorizontalAlignment="Stretch" Background="{Binding ReViewDefine.StatusColor}" Margin="-5,0,-2,0"  Height="30" VerticalAlignment="Stretch" >
-                                <TextBlock      VerticalAlignment="Center"  Text="{Binding ReViewDefine.StatusText}"/>
+                            <Grid HorizontalAlignment="Stretch" Background="{Binding StatusColor}" Margin="-5,0,-2,0"  Height="30" VerticalAlignment="Stretch" >
+                                <TextBlock      VerticalAlignment="Center"  Text="{Binding StatusText}"/>
                             </Grid>
                         </DataTemplate>
                     </telerik:GridViewDataColumn.CellTemplate>

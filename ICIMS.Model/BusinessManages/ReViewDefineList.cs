@@ -10,31 +10,7 @@ namespace ICIMS.Model.BusinessManages
     public class ReViewDefineList : BindableBase
     {
         private ReViewDefine _reviewDefine;
-        public ReViewDefine ReViewDefine { get => _reviewDefine; set { SetProperty(ref _reviewDefine, value);
-                switch (_reviewDefine?.Status)
-                {
-                    case 0:
-                        StatusText = "制单";
-                        StatusColor = "#FFFF00";
-                        break; 
-                    case 1:
-                        StatusText = "审核中";
-                        StatusColor = "#3cb371";
-                        break;
-                    case 2:
-                        StatusText = "驳回";
-                        StatusColor = "#ff8c00";
-                        break;
-                    case 3:
-                        StatusText = "结审";
-                        StatusColor = "#f08080";
-                        break;
-                    default:
-                        StatusText = "制单";
-                        StatusColor = "#FFFF00";
-                        break;
-                }               
-            }
+        public ReViewDefine ReViewDefine { get => _reviewDefine; set { SetProperty(ref _reviewDefine, value); }
         }
         private string _statuscolor;
         public string StatusColor
@@ -72,6 +48,41 @@ namespace ICIMS.Model.BusinessManages
                 return _statusText;
             }
             set { SetProperty(ref _statusText, value); }
+        }
+
+        private int _status;
+        public int Status
+        {
+            get
+            {
+                return _status;
+            }
+            set { SetProperty(ref _status, value);
+
+                switch (Status)
+                {
+                    case 0:
+                        StatusText = "制单";
+                        StatusColor = "#FFFF00";
+                        break;
+                    case 1:
+                        StatusText = "审核中";
+                        StatusColor = "#3cb371";
+                        break;
+                    case 2:
+                        StatusText = "驳回";
+                        StatusColor = "#ff8c00";
+                        break;
+                    case 3:
+                        StatusText = "结审";
+                        StatusColor = "#f08080";
+                        break;
+                    default:
+                        StatusText = "制单";
+                        StatusColor = "#FFFF00";
+                        break;
+                }
+            }
         }
     }
 }

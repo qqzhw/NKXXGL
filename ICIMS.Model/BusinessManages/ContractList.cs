@@ -59,6 +59,13 @@ namespace ICIMS.Model.BusinessManages
         private long _unitId;
         public long UnitId { get => _unitId; set => SetProperty(ref _unitId, value); }
 
+        private string _unitName;
+        public string UnitName
+        {
+            get => _unitName; set => SetProperty(ref _unitName, value);
+        }
+         
+        
         /// <summary>
         /// 合同类型
         /// </summary>
