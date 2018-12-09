@@ -6,12 +6,7 @@
             Title="{Binding Title}"  ShowMaxRestoreButton="False" ShowTitleBar="True" IsWindowDraggable="False" AllowDrop="False" ResizeMode="CanMinimize"   WindowStartupLocation="CenterScreen" WindowState="Normal" SizeToContent="WidthAndHeight">
     <controls:MetroWindow.Style>
         <Style TargetType="{x:Type Window}">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Maximized,UpdateSourceTrigger=PropertyChanged}" Value="True">
-                    <Setter Property="SizeToContent" Value="Manual"/>
-                    <Setter Property="WindowState" Value="Maximized"/>
-                </DataTrigger>
-            </Style.Triggers>
+            <Setter Property="SizeToContent" Value="WidthAndHeight" />
         </Style>
         
     </controls:MetroWindow.Style>

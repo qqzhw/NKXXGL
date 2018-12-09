@@ -313,8 +313,15 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             var deleteItem = AuditMappings.LastOrDefault(o => o.Status == 1);
             if (deleteItem!=null)
             {
-                await _auditMappingService.Delete(deleteItem.Id);
-                InitBusinessAudits();
+                try
+                {
+                    await _auditMappingService.Delete(deleteItem.Id);
+                    InitBusinessAudits();
+                }
+                catch (Exception)
+                {
+                     
+                } 
                 
             } 
         }
