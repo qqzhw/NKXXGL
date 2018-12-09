@@ -69,6 +69,11 @@
             <StackPanel Grid.Row="1" Grid.Column="1" >
                 <TabControl Background="#F5F5F5"  SelectedIndex="{Binding SelectedIndex}">
                     <TabItem Header="所属角色" TabIndex="0" FontSize="14"  FontFamily="SimSun">
+                        <TabItem.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="5 5 1 5" VerticalAlignment="Center" Text="所属角色" FontSize="18"  FontFamily="SimSun"/>
+                            </DataTemplate>
+                        </TabItem.HeaderTemplate>
                         <telerik:RadGridView ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="1" FontFamily="SimSun"  x:Name="radInfo1" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
 						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"   ItemsSource="{Binding Roles}"  
 							   BorderBrush="#E4E7F0" BorderThickness="1,0,0,0"   SelectionUnit="FullRow"  SelectionMode="Single"    
@@ -89,6 +94,11 @@
                         </telerik:RadGridView>
                     </TabItem>
                     <TabItem Header="可见部门" TabIndex="1" FontSize="14"  FontFamily="SimSun">
+                        <TabItem.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="5 5 1 5" VerticalAlignment="Center" Text="可见部门" FontSize="18"  FontFamily="SimSun"/>
+                            </DataTemplate>
+                        </TabItem.HeaderTemplate>
                         <telerik:RadGridView ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="1" FontFamily="SimSun"  TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
 						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"   ItemsSource="{Binding Departments}"  
 							   BorderBrush="#E4E7F0" BorderThickness="1,0,0,0"   SelectionUnit="FullRow"  SelectionMode="Single"    

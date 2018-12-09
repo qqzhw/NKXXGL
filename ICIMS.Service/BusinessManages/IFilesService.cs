@@ -12,6 +12,7 @@ namespace ICIMS.Service.BusinessManages
         Task<ResultData<List<FilesManage>>> GetAllFiles(int entityId, string entityKey, string entityName = "", int pageIndex = 0, int pageSize = int.MaxValue);
 
         Task<FilesManage> UploadFileAsync(List<KeyValuePair<string, string>> keyValuePairs, string filePath, string fileName);
+        Task Delete(long id);
 
     }
 }

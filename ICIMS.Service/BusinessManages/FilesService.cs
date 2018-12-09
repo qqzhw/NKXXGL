@@ -35,5 +35,10 @@ namespace ICIMS.Service.BusinessManages
             var item = await _webApiClient.UploadFileAsync<FilesManage>(Path.Combine(_webApiClient.BaseUrl, "api/FilesManage/UploadFileAsync"),keyValuePairs, filePath, fileName);
             return item;
         }
+
+        public async Task Delete(long id)
+        {
+            await _webApiClient.DeleteAsync<object>(Path.Combine(_webApiClient.BaseUrl, "api/services/app/FilesManage/Delete"), id);
+        }
     }
 }

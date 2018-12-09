@@ -53,6 +53,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand AddMoneyCommand { get; private set; }
         public DelegateCommand ScanCommand { get; private set; }
         public DelegateCommand<object> DelFund { get; private set; }
+        public DelegateCommand DeleteCommand { get; set; }
 
         private readonly UserModel _userModel;
         private string _title;
@@ -81,9 +82,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             LogCommand = new DelegateCommand(OnShowLog);
             SearchItemCommand = new DelegateCommand(OnSelectedItem);
             SearchContractCommand = new DelegateCommand(OnSelectedContract);
-            SearchPaymentCommand= new DelegateCommand(OnSelectedPaymentType);
+            SearchPaymentCommand = new DelegateCommand(OnSelectedPaymentType);
             UploadCommand = new DelegateCommand(OnUploadedFiles);
             AddMoneyCommand = new DelegateCommand(OnAddFundFrom);
+            DeleteCommand = new DelegateCommand(OnDeleteCommand);
             ScanCommand = new DelegateCommand(OnScanFile);
             DelFund = new DelegateCommand<object>(OnDelSelectedFund);
             _filesManages = new ObservableCollection<FilesManage>();
@@ -92,6 +94,22 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _fundItems = new ObservableCollection<FundItem>();
             BindData(data);
             _payAuditList = data;
+        }
+
+        private async void OnDeleteCommand()
+        {
+            try
+            {
+                await this._filesService.Delete((long)this.SelectedFile.EntityId);
+                this.FilesManages.Remove(this.SelectedFile);
+                this.SelectedFile = this.FilesManages.FirstOrDefault();
+                MessageBox.Show("删除成功！");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         private void OnDelSelectedFund(object obj)
@@ -112,16 +130,16 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 FundName = SelectFundItem.Name,
                 PayAuditId = PayAudit.Id
             };
-            var findItem = PayAuditDetails.FirstOrDefault(o=>o.FundName==SelectFundItem.Name);
+            var findItem = PayAuditDetails.FirstOrDefault(o => o.FundName == SelectFundItem.Name);
             if (findItem != null)
             {
                 findItem.Amount = TempAmount;
                 return;
-            }               
+            }
             PayAuditDetails.Add(detail);
-            
+
             PayAudit.PayAmount = PayAuditDetails.Select(o => o.Amount).Sum();
-           
+
         }
 
         private void OnSelectedPaymentType()
@@ -138,7 +156,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 {
                     var selectView = callback.Content as SelectedPaymentType;
                     var viewModel = selectView.DataContext as SelectedPaymentTypeModel;
-                     PaymentTypeItem = viewModel.SelectedItem;
+                    PaymentTypeItem = viewModel.SelectedItem;
                     PayAudit.PaymentTypeId = viewModel.SelectedItem.Id;
                     PayAudit.PaymentName = viewModel.SelectedItem.Name;
                 }
@@ -186,14 +204,14 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _payAuditDetails = null ?? new ObservableCollection<PayAuditDetail>();
             if (info.PayAudit == null)
             {
-                 
+
                 return;
             }
             Contract.ContractName = info.ContractName;
             VendorItem.OpenBank = info.OpenBank;
             VendorItem.Name = info.VendorName;
-            VendorItem.AccountName = info.AccountName;            
-            PaymentTypeItem.Name = info.PaymentTypeName;            
+            VendorItem.AccountName = info.AccountName;
+            PaymentTypeItem.Name = info.PaymentTypeName;
             PayAuditList = info;
             ItemDefine.ItemName = info.ItemDefineName;
             ItemDefine.DefineAmount = info.DefineAmount;
@@ -201,7 +219,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             PayAudit = info.PayAudit;
             PayAudit.ItemDefineId = info.PayAudit.ItemDefineId;
             PayAudit.PaymentTypeId = info.PayAudit.PaymentTypeId;
-           _payAuditDetails = null ?? new ObservableCollection<PayAuditDetail>();
+            _payAuditDetails = null ?? new ObservableCollection<PayAuditDetail>();
             //PayAuditDetails.Add(new PayAuditDetail()
             //{
             //    Amount = 1000,
@@ -221,6 +239,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _filesManages; }
             set { SetProperty(ref _filesManages, value); }
         }
+
+        private FilesManage _selectedFile;
         private async void GetFiles(PayAudit payAudit)
         {
             FilesManages.Clear();
@@ -239,7 +259,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _auditMappings; }
             set { SetProperty(ref _auditMappings, value); }
         }
-        
+
         /// <summary>
         /// 上传附件
         /// </summary>
@@ -287,26 +307,26 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private async void OnSave()
         {
-            _payAudit.ContractTotalAmount=Contract.ContractAmount;
-            _payAudit.ContrctId=Contract.Id;
-            _payAudit.ItemDefineId=ItemDefine.Id;
-            _payAudit.ItemTotalAmount=ItemDefine.DefineAmount;
-            _payAudit.PaymentTypeId=PaymentTypeItem.Id ;
+            _payAudit.ContractTotalAmount = Contract.ContractAmount;
+            _payAudit.ContrctId = Contract.Id;
+            _payAudit.ItemDefineId = ItemDefine.Id;
+            _payAudit.ItemTotalAmount = ItemDefine.DefineAmount;
+            _payAudit.PaymentTypeId = PaymentTypeItem.Id;
             //_payAudit.p = "文号110";
             //_payAudit.ItemName = "立项研究项目";
             //_payAudit.Remark = "beizhu";
-           
+
             _payAudit.PayAuditDetails = PayAuditDetails;
             _payAudit.UnitId = _userModel.UnitId;
-            var item=await _payAuditService.CreateOrUpdate(_payAudit);
+            var item = await _payAuditService.CreateOrUpdate(_payAudit);
             if (item.Id > 0)
             {
                 PayAudit.Id = item.Id;
                 PayAudit.PaymentNo = item.PaymentNo;
                 MessageBox.Show("保存成功！");
             }
-            else 
-            MessageBox.Show("保存失败！");
+            else
+                MessageBox.Show("保存失败！");
         }
         private void OnSubmit()
         {
@@ -320,7 +340,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 MessageBox.Show("对不起，您没有审核权限");
                 return;
             }
-          
+
             var auditmapping = new AuditMapping()
             {
                 BusinessTypeId = 5,
@@ -336,12 +356,13 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 Title = "审核",
                 Content = view,
             };
-            PopupWindows.NotificationRequest.Raise(notification, async (callback) => {
+            PopupWindows.NotificationRequest.Raise(notification, async (callback) =>
+            {
                 if (callback.DialogResult == true)
                 {
                     var selectView = callback.Content as SubmitAuditView;
                     var viewModel = selectView.DataContext as SubmitAuditViewModel;
-                    var item= await _auditMappingService.CreateOrUpdate(viewModel.AuditMapping);
+                    var item = await _auditMappingService.CreateOrUpdate(viewModel.AuditMapping);
                     if (item.Id > 0)
                     {
                         UpdateAuditStatus();
@@ -374,13 +395,13 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
 
                 }
-                
+
             }
         }
 
         private void OnBack()
         {
-            var auditItem = BuinessAudits.Where(o => o.Status==1).OrderBy(o => o.DisplayOrder).FirstOrDefault();
+            var auditItem = BuinessAudits.Where(o => o.Status == 1).OrderBy(o => o.DisplayOrder).FirstOrDefault();
             if (auditItem == null)
                 return;
             var flag = IsCanAudit(auditItem);
@@ -403,13 +424,14 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 Title = "驳回审核",
                 Content = view,
             };
-            PopupWindows.NotificationRequest.Raise(notification, async (callback) => {
+            PopupWindows.NotificationRequest.Raise(notification, async (callback) =>
+            {
                 if (callback.DialogResult == true)
                 {
                     var selectView = callback.Content as SubmitAuditView;
                     var viewModel = selectView.DataContext as SubmitAuditViewModel;
                     viewModel.AuditMapping.Status = 2; //驳回审核
-                    var item=await _auditMappingService.CreateOrUpdate(viewModel.AuditMapping);
+                    var item = await _auditMappingService.CreateOrUpdate(viewModel.AuditMapping);
                     if (item.Id > 0)
                     {
                         UpdateAuditStatus();
@@ -421,7 +443,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     {
                         MessageBox.Show("驳回失败");
                     }
-                   
+
                 }
 
             });
@@ -503,9 +525,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
 
         [InjectionMethod]
-        public  void Init()
+        public void Init()
         {
-            
+
             //InitBusinessAudits();
             //LoadAuditMappings();
             LoadFundFrom();//加载资金来源
@@ -520,15 +542,15 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 var findItem = AuditMappings.FirstOrDefault(o => o.BusinessAuditId == item.Id);
                 if (findItem != null)
                 {
-                    item.Status =findItem.Status;
-                    item.StatusName =findItem.StatusText;
+                    item.Status = findItem.Status;
+                    item.StatusName = findItem.StatusText;
                 }
             }
         }
         private async void GetVendorById(int Id)
         {
             if (Contract != null)
-            { 
+            {
                 var item = await _vendorService.GetById(Contract.VendorId);
                 VendorItem = item;
             }
@@ -539,7 +561,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             BuinessAudits.Clear();
             BuinessAudits.AddRange(items.Items);
             LoadAuditMappings();
-             
+
         }
         private async void LoadAuditMappings()
         {
@@ -556,7 +578,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     if (findItem != null)
                     {
                         item.Status = findItem.Status;
-                        item.StatusName =findItem.StatusText;
+                        item.StatusName = findItem.StatusText;
                     }
                 }
                 CanEdit = false;
@@ -568,7 +590,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 }
                 else
                 {
-                   
+
                 }
             }
             CheckRole();
@@ -584,7 +606,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private void CheckRole()
         {
             //角色是否可审核
-            var findItem = BuinessAudits.Where(o => o.Status==0).OrderBy(o => o.DisplayOrder).FirstOrDefault();
+            var findItem = BuinessAudits.Where(o => o.Status == 0).OrderBy(o => o.DisplayOrder).FirstOrDefault();
             if (findItem != null)
             {
                 var canAudit = _userModel.Roles.FirstOrDefault(o => o.Id == findItem.RoleId);
@@ -603,10 +625,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private async void LoadFundFrom()
         {
             var result = await _fundFromService.GetPageItems();
-            if (result.datas.Count>0)
+            if (result.datas.Count > 0)
             {
                 FundItems.AddRange(result.datas);
-            }            
+            }
         }
 
         /// <summary>
@@ -619,35 +641,35 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             {
                 Content = view,// (new ParameterOverride("name", "")), 
             };
-            PopupWindows.NotificationRequest.Raise(notification, async(callback) =>
+            PopupWindows.NotificationRequest.Raise(notification, async (callback) =>
             {
                 if (callback.DialogResult == true)
                 {
                     var selectView = callback.Content as SelectedItemDefineView;
                     var viewModel = selectView.DataContext as SelectedItemDefineViewModel;
-                    
+
                     this.ItemDefine.Id = viewModel.SelectedItem.Id;
                     this.ItemDefine.ItemName = viewModel.SelectedItem.ItemName;
                     this.ItemDefine.ItemNo = viewModel.SelectedItem.ItemNo;
                     PayAudit.ItemTotalAmount = ItemDefine.DefineAmount;
                     PayAudit.ItemDefineId = viewModel.SelectedItem.Id;
-                  await  GetItemDefineFiles(ItemDefine.Id);
-                    var items=await UpdatePayDetail();
+                    await GetItemDefineFiles(ItemDefine.Id);
+                    var items = await UpdatePayDetail();
                     PayAudit.PaymentCount = items.Count + 1;
                     var id = PayAudit.PaymentCount.ToString().PadLeft(3, '0');
                     var no = $"{ItemDefine.ItemNo}_ZF{id}";
-                    
-                     PayAudit.PaymentNo =no;
-                     
-                    
+
+                    PayAudit.PaymentNo = no;
+
+
                 }
                 int s = 0;
             });
             view.BindAction(notification.Finish);
 
         }
-         
-        private async Task<List<PayAudit>>  UpdatePayDetail()
+
+        private async Task<List<PayAudit>> UpdatePayDetail()
         {
             var item = await _payAuditService.SearchPayCount(PayAudit.ItemDefineId);//支付次数
             //PayAudit.PaymentCount = item.Count + 1;
@@ -677,7 +699,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
             await Task.CompletedTask;
         }
-        private  void OnExportFlowDocumentCmd(object o)
+        private void OnExportFlowDocumentCmd(object o)
         {
             try
             {
@@ -696,7 +718,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 doc.Range.Replace("$ItemDefineName$", PayAuditList.ItemDefineName, new FindReplaceOptions(FindReplaceDirection.Forward));
 
                 doc.Range.Replace("$DefineAmount$", PayAuditList.DefineAmount.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
-                doc.Range.Replace("$ItemDescription$", ItemDefine?.ItemDescription==null?"":ItemDefine?.ItemDescription, new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$ItemDescription$", ItemDefine?.ItemDescription == null ? "" : ItemDefine?.ItemDescription, new FindReplaceOptions(FindReplaceDirection.Forward));
                 doc.Range.Replace("$FundItems$", PayAuditList.AccountName.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
 
                 doc.Range.Replace("$ContractName$", PayAuditList.ContractName, new FindReplaceOptions(FindReplaceDirection.Forward));
@@ -861,10 +883,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public ObservableCollection<FundItem> FundItems
         {
             get { return _fundItems; }
-            set { SetProperty(ref _fundItems, value); } 
+            set { SetProperty(ref _fundItems, value); }
         }
         private FundItem _selectFundItem;
-        public  FundItem SelectFundItem
+        public FundItem SelectFundItem
         {
             get { return _selectFundItem; }
             set { SetProperty(ref _selectFundItem, value); }
@@ -887,9 +909,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _canChecked; }
             set { SetProperty(ref _canChecked, value); }
         }
-         
 
-        
+        public FilesManage SelectedFile { get => _selectedFile; set => SetProperty(ref _selectedFile, value); }
     }
 
 }
