@@ -39,24 +39,24 @@ namespace ICIMS.Client.Views
             //  tt.Content = new TextBlock() { Text = "asdasdasd" };
             this.selectedDesktopAlertManager.CloseAlert(tt);
             this.selectedDesktopAlertManager.ShowAlert(new DesktopAlertParameters
+            {
+                Header = "提示",
+                Content = new TextBlock() { Text = "欢迎您使用内控信息化管理系统" },
+                ShowDuration = 3,
+                CanMove = true,
+                CanAutoClose = true,
+                //Icon = new Image { Source = Application.Current.FindResource("DesktopAlertIcon") as ImageSource, Width = 48, Height = 48 },
+                IconColumnWidth = 48,
+                IconMargin = new Thickness(10, 0, 20, 0),
+                ShowMenuButton = true,
+                ShowCloseButton = this.ShowCloseButton,
+                //MenuItemsSource = this.GetMenuItems(),
+                Closed = (s, a) =>
                 {
-                    Header = "测试",
-                    Content = new TextBlock(){Text="asdasdasd" },
-                    ShowDuration =1,
-                    CanMove =true,
-                    CanAutoClose =true,
-                    //Icon = new Image { Source = Application.Current.FindResource("DesktopAlertIcon") as ImageSource, Width = 48, Height = 48 },
-                    IconColumnWidth = 48,
-                    IconMargin = new Thickness(10, 0, 20, 0),
-                    ShowMenuButton = true,
-                    ShowCloseButton = this.ShowCloseButton,
-                    //MenuItemsSource = this.GetMenuItems(),
-                    Closed = (s, a) =>
-                    {
-                       // (this.CloseAllAlertsCommand as DelegateCommand).InvalidateCanExecute();
+                        // (this.CloseAllAlertsCommand as DelegateCommand).InvalidateCanExecute();
                     }
-                });
-           // this.selectedDesktopAlertManager.ShowAlert(tt);
+            });
+            // this.selectedDesktopAlertManager.ShowAlert(tt);
             //  (this.CloseAllAlertsCommand as DelegateCommand).InvalidateCanExecute();
 
         }

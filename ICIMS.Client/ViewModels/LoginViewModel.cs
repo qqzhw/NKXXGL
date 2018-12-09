@@ -49,7 +49,7 @@ namespace ICIMS.Client.ViewModels
 
         private void Initializer()
         {
-            AppName = "内控管理系统";
+            AppName = "内控信息化管理系统【V2.81209】";
             _tenancyName = "Default";
             _userName = "admin";
             _password = "123qwe"; 

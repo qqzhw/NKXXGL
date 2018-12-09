@@ -30,7 +30,7 @@
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
                         <Image Width="40" Margin="10,0,0,0"  Source="pack://application:,,,/ICIMS.Client;component/logo.ico"/>
                
-                   <TextBlock Text="{Binding AppName}" Margin="5,8,0,0" Foreground="White"  FontSize="22"/>
+                   <TextBlock Text="{Binding AppName}" Margin="5,6,0,0" Foreground="White"  FontSize="22"/>
                        
                         
                     </StackPanel>
