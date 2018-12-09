@@ -201,7 +201,9 @@ namespace ICIMS.Core.Interactivity
                         }
                         if (parentWindow.WindowState==WindowState.Maximized)
                         {
+                            wrapperWindow.SizeToContent = SizeToContent.Manual;
                             wrapperWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+                            
                             return;
                         }
                         FrameworkElement view = this.AssociatedObject;
