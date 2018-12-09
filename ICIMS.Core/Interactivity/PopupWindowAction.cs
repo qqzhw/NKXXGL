@@ -199,7 +199,11 @@ namespace ICIMS.Core.Interactivity
                             wrapperWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
                             return;
                         }
-
+                        if (parentWindow.WindowState==WindowState.Maximized)
+                        {
+                            wrapperWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+                            return;
+                        }
                         FrameworkElement view = this.AssociatedObject;
 
                         // Position is the top left position of the view from which the request was initiated.
@@ -213,7 +217,7 @@ namespace ICIMS.Core.Interactivity
                         // Take the width and height of the view divided by 2 and add to the X and Y coordinates.
                         var middleOfView = new Point(position.X + (view.ActualWidth / 2),
                                                      position.Y + (view.ActualHeight / 2));
-
+                        
                         // Set the coordinates for the top left part of the wrapperWindow.
                         // Take the width of the wrapperWindow, divide it by 2 and substract it from 
                         // the X coordinate of middleOfView. Do the same thing for the Y coordinate.
