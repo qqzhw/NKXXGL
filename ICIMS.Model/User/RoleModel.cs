@@ -27,7 +27,7 @@ namespace ICIMS.Model.User
         public bool IsStatic { get => _isStatic; set => SetProperty(ref _isStatic, value); }
 
         public ObservableCollection<string> _permissions;
-        public ObservableCollection<string> Permissions { get => _permissions; set =>SetProperty(ref _permissions, (ObservableCollection<string>)value.Where(a=>!string.IsNullOrEmpty(a))); }
+        public ObservableCollection<string> Permissions { get => _permissions; set =>SetProperty(ref _permissions, new ObservableCollection<string> (value.Where(a => !string.IsNullOrEmpty(a)))); }
         //private long _unitId;
         //public long UnitId { get => _unitId; set => SetProperty(ref _unitId, value); }
 

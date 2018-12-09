@@ -41,6 +41,11 @@ namespace ICIMS.Service
             return user;
         }
 
+        public async Task ChangePasswordAsync(long id, string password)
+        {
+            await _webApiClient.PostAsync($"{_webApiClient.BaseUrl}{BaseUrl}ChangePasswordAsync", new { id, password });
+        }
+
         public async Task<string> GetCurrentLoginInfo()
         {
             return null;

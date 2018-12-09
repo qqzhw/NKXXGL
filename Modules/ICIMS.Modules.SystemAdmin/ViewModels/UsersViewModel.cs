@@ -51,6 +51,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
         public ICommand UnCheckAllCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
         public ICommand RefreshCommand { get; private set; }
+        public ICommand ResetPasswordCommand { get; set; }
         public UsersViewModel(IUnityContainer unityContainer,
             IRegionManager regionManager,
             IEventAggregator eventAggregator,
@@ -72,7 +73,44 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             UnCheckAllCommand = new DelegateCommand<object>(OnUnCheckAllCommand);
             SaveCommand = new DelegateCommand<object>(OnSaveCommand);
             RefreshCommand = new DelegateCommand<object>(OnRefreshCommand);
+            ResetPasswordCommand = new DelegateCommand(OnResetPasswordCommand);
             _title = "操作员管理";
+        }
+
+        private void OnResetPasswordCommand()
+        {
+            ResetPasswordViewModel vm = new ResetPasswordViewModel();
+            ResetPassword view = new ResetPassword(vm);
+
+            var notification = new Notification()
+            {
+                Title = "密码修改",
+                Content = view,// (new ParameterOverride("name", "")),
+            };
+            PopupWindows.NotificationRequest.RaiseWithCallback(notification, async (callback) =>
+            {
+                if (vm.IsOkClick)
+                {
+                    try
+                    {
+                        await _service.ChangePasswordAsync(this.SelectedItem.Id, vm.Pwd1);
+
+                        MessageBox.Show("密码修改成功！");
+                        return true;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+
+                    }
+
+                }
+                return false;
+
+            });
+            vm.TriggerClose = notification.TriggerClose;
+
         }
 
         private void OnTabActive(UserControl view)

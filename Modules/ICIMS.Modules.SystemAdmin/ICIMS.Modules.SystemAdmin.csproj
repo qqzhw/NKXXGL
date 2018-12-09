@@ -120,6 +120,7 @@
     <Compile Include="SystemAdminModule.cs" />
     <Compile Include="ViewModels\BusinessTypeEditViewModel.cs" />
     <Compile Include="ViewModels\BusinessTypeViewModel.cs" />
+    <Compile Include="ViewModels\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\RolesEditViewModel.cs" />
     <Compile Include="ViewModels\RolesViewModel.cs" />
     <Compile Include="ViewModels\UsersEditViewModel.cs" />
@@ -129,6 +130,9 @@
     </Compile>
     <Compile Include="Views\BusinessTypeView.xaml.cs">
       <DependentUpon>BusinessTypeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ResetPassword.xaml.cs">
+      <DependentUpon>ResetPassword.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RolesEditView.xaml.cs">
       <DependentUpon>RolesEditView.xaml</DependentUpon>
@@ -187,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BusinessTypeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ResetPassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

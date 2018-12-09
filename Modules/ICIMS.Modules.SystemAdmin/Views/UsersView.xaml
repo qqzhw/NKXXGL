@@ -17,7 +17,7 @@
             <control:CustomButton Height="36" Command="{Binding AddCommand}"  IconBackground="#682357"   Kind="PlusSolid"  Width="100" Margin="10,0,0,0" Title="新增"/>
             <control:CustomButton Height="36" Command="{Binding EditCommand}" IconBackground="#91CE2D"   Kind="EditSolid"  Width="100" Margin="10,0,0,0" Title="修改"/>
             <control:CustomButton Height="36" Command="{Binding DeleteCommand}" IconBackground="#AD372D"   Kind="TimesSolid"  Width="100" Margin="10,0,0,0" Title="删除"/>
-            <!--<control:CustomButton Height="36" Command="{Binding RefreshCommand}" IconBackground="#C1852D"  Kind="RedoSolid"  Width="100" Margin="10,0,0,0" Title="密码重设"/>-->
+            <control:CustomButton Height="36" Command="{Binding ResetPasswordCommand}" IconBackground="#C1852D"  Kind="RedoSolid"  Width="100" Margin="10,0,0,0" Title="密码重设"/>
             <control:CustomButton Height="36" Command="{Binding RefreshCommand}" IconBackground="#C1852D"  Kind="SyncSolid"  Width="100" Margin="10,0,0,0" Title="刷新"/>
         </StackPanel>
         <Grid Grid.Row="1" Background="#F5F5F5">

@@ -72,6 +72,14 @@ namespace ICIMS.Model.BaseData
             }
         }
 
+        public string NoStr
+        {
+            get
+            {
+                return $"编号：{No}";
+            }
+        }
+
         public int Level
         {
             get

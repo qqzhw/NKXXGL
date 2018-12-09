@@ -24,6 +24,7 @@ namespace ICIMS.Service
         Task<UserModel> GetUserInfoById(long userId);
         Task<List<UnitModel>> GetUserManagerUnits(long userId);
         Task Delete(int Id);
+        Task ChangePasswordAsync(long id,string password);
 
     }
 }

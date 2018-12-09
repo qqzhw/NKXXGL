@@ -56,12 +56,12 @@
                 </telerik:RadTreeView.ItemContainerStyle>
                 <telerik:RadTreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                        <TextBlock Text="{Binding Name}" />
+                        <TextBlock Text="{Binding Name}" ToolTip="{Binding NoStr}"/>
                     </HierarchicalDataTemplate>
                 </telerik:RadTreeView.ItemTemplate>
 
             </telerik:RadTreeView>
-            <TextBlock Grid.Column="1" Text="{Binding SelectedItem.Description}"/>
+            <TextBlock Grid.Column="1" TextWrapping="Wrap" MinHeight="200" Text="{Binding SelectedItem.Description}"/>
         </Grid>
         
         <!--<telerik:RadTreeListView x:Name="RadTreeListView1"

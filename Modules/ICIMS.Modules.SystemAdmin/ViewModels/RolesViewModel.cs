@@ -52,9 +52,9 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
         {
             try
             {
-                var permissions = this.AllPermissions.Where(a => a.IsChecked).Select(b => b.Name);
+                var permissions = this.AllPermissions.Where(a => a.IsChecked).Select(b => b.Name).ToList();
                 var selectedItem = CommonHelper.CopyItem(this.SelectedItem);
-                selectedItem.Permissions = (ObservableCollection<string>)permissions;
+                selectedItem.Permissions = new ObservableCollection<string>(permissions);
                 var rsData = await _service.Update(selectedItem);
                 CommonHelper.SetValue(this.SelectedItem, rsData);
                 MessageBox.Show("保存成功！");

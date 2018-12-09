@@ -1,5 +1,4 @@
-﻿using ICIMS.Model.BusinessManages;
-using ICIMS.Modules.BusinessManages.ViewModels;
+﻿using ICIMS.Modules.SystemAdmin.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,22 +14,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ICIMS.Modules.BusinessManages.Views
+namespace ICIMS.Modules.SystemAdmin.Views
 {
     /// <summary>
-    /// ItemDefineEditView.xaml 的交互逻辑
+    /// ResetPassword.xaml 的交互逻辑
     /// </summary>
-    public partial class ItemDefineEditView : UserControl
+    public partial class ResetPassword : UserControl
     {
-        public ItemDefineEditView(ItemDefineEditViewModel viewModel,ItemDefineList data)
+        public ResetPasswordViewModel ViewModel { get; set; }
+        public ResetPassword(ResetPasswordViewModel viewModel)
         {
             InitializeComponent();
-            this.DataContext = viewModel;         
+            this.DataContext = viewModel;
+            this.ViewModel = viewModel;
         }
 
         private void CustomButton_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.Pwd1 = pd1.Password;
+            ViewModel.Pwd2 = pd2.Password;
+            ViewModel.ResetPasswordCommand.Execute(null);
         }
     }
 }

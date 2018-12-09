@@ -46,6 +46,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand LogCommand { get; private set; }
         public DelegateCommand SearchItemCommand { get; private set; }
         public DelegateCommand UploadCommand { get; private set; }
+        public DelegateCommand BrowseCommand { get; private set; }
+        public DelegateCommand DownloadCommand { get; private set; }
+
 
         private string _title;
         public string Title
@@ -69,6 +72,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             CancelCommand = new DelegateCommand(OnCancel);
             BackCommand = new DelegateCommand(OnBack);
             ScanCommand = new DelegateCommand(OnScanFile);
+            BrowseCommand = new DelegateCommand(OnBrowseCommand);
+            DownloadCommand = new DelegateCommand(OnDownloadCommand);
             //LogCommand = new DelegateCommand(OnShowLog);
             SearchItemCommand = new DelegateCommand(OnSelectedItemCategory);
             UploadCommand = new DelegateCommand(OnUploadedFiles);
@@ -77,6 +82,14 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _buinessAudits = new ObservableCollection<BusinessAudit>();
             _auditMappings = new ObservableCollection<AuditMapping>();
             BindData(data);
+        }
+
+        private void OnDownloadCommand()
+        {
+        }
+
+        private void OnBrowseCommand()
+        {
         }
 
         private void OnScanFile()
@@ -155,6 +168,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _filesManages; }
             set { SetProperty(ref _filesManages, value); }
         }
+
+        private FilesManage _selectedFile;
+    
         private async void GetFiles(ItemDefine itemDefine)
         { 
             var items = await _filesService.GetAllFiles(itemDefine.Id, "ItemDefine"); 
@@ -502,6 +518,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _canChecked; }
             set { SetProperty(ref _canChecked, value); }
         }
+
+        public FilesManage SelectedFile { get => _selectedFile; set => SetProperty(ref _selectedFile,value); }
     }
     
 }
