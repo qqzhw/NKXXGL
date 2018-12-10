@@ -57,16 +57,16 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             var index = FileName.LastIndexOf("\\");
             var name = FileName.Substring(index + 1, FileName.Length - index - 1);
-            //if (!Properties.Settings.Default.LocalPath.EndsWith("\\"))
+            //if (!Application.Current..Settings.Default.LocalPath.EndsWith("\\"))
             //{
             //    Properties.Settings.Default.LocalPath += "\\";
             //}
-            //var saveFilePath = Properties.Settings.Default.LocalPath + name;
-            //client = new WebClient();
+            var saveFilePath = "d:\\" + name;// Properties.Settings.Default.LocalPath + name;
+            client = new WebClient();
 
-            //client.DownloadProgressChanged += Client_DownloadProgressChanged;
-            //client.DownloadFileCompleted += Client_DownloadFileCompleted;
-            //client.DownloadFileAsync(new Uri(Properties.Settings.Default.DwonloadUrl + FileName), saveFilePath);
+            client.DownloadProgressChanged += Client_DownloadProgressChanged;
+            client.DownloadFileCompleted += Client_DownloadFileCompleted;
+            //client.DownloadFileAsync(new Uri(+ FileName), saveFilePath);
 
 
             dispatcherTimer.Start();

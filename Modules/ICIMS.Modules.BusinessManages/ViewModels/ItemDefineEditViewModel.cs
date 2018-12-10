@@ -107,6 +107,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private void OnDownloadCommand()
         {
             var file = this.SelectedFile;
+            OnDownloadFile(file);
         }
 
         private void OnBrowseCommand()
@@ -167,7 +168,20 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             });
             view.BindAction(notification.Finish);
         }
+        
+        private void OnDownloadFile(FilesManage model)
+        {
+            if (model == null)
+                return;
+            var notification = new Notification()
+            {
+                Title = "文件下载",
+                Content = _unityContainer.Resolve<FileDownloadView>(new ParameterOverride("fileName", model.FullName)),
+            };
+            PopupWindows.NotificationRequest.Raise(notification, (callback) => {
 
+            });
+        }
         internal void BindData(ItemDefineList info)
         {
             InitBusinessAudits();

@@ -54,6 +54,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand ScanCommand { get; private set; }
         public DelegateCommand<object> DelFund { get; private set; }
         public DelegateCommand DeleteCommand { get; set; }
+        public DelegateCommand DownloadCommand { get; }
 
         private readonly UserModel _userModel;
         private string _title;
@@ -86,6 +87,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             UploadCommand = new DelegateCommand(OnUploadedFiles);
             AddMoneyCommand = new DelegateCommand(OnAddFundFrom);
             DeleteCommand = new DelegateCommand(OnDeleteCommand);
+            DownloadCommand = new DelegateCommand(OnDownloadCommand);
             ScanCommand = new DelegateCommand(OnScanFile);
             DelFund = new DelegateCommand<object>(OnDelSelectedFund);
             _filesManages = new ObservableCollection<FilesManage>();
@@ -94,6 +96,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _fundItems = new ObservableCollection<FundItem>();
             BindData(data);
             _payAuditList = data;
+        }
+
+        private void OnDownloadCommand()
+        {
+            OnDownloadFile(SelectedFile);
         }
 
         private async void OnDeleteCommand()
@@ -169,6 +176,21 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
             });
             view.BindAction(notification.Finish);
+        }
+
+
+        private void OnDownloadFile(FilesManage model)
+        {
+            if (model == null)
+                return;
+            var notification = new Notification()
+            {
+                Title = "文件下载",
+                Content = _unityContainer.Resolve<FileDownloadView>(new ParameterOverride("fileName", model.FullName)),
+            };
+            PopupWindows.NotificationRequest.Raise(notification, (callback) => {
+
+            });
         }
 
         /// <summary>

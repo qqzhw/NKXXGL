@@ -46,6 +46,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand CaractTypeCommand { get; private set; }
         public DelegateCommand UploadCommand { get; private set; }
         public DelegateCommand ScanCommand { get; private set; }
+        public DelegateCommand DownloadCommand { get; private set; }
         public DelegateCommand SearchVendorCommand { get; private set; }
         public DelegateCommand DeleteCommand { get; set; }
         private readonly UserModel _userModel;
@@ -81,10 +82,16 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             DeleteCommand = new DelegateCommand(OnDeleteCommand);
             UploadCommand = new DelegateCommand(OnUploadedFiles);
             ScanCommand = new DelegateCommand(OnScanFile);
+            DownloadCommand = new DelegateCommand(OnDownloadCommand);
             _filesManages = new ObservableCollection<FilesManage>();
             _buinessAudits = new ObservableCollection<BusinessAudit>();
             _auditMappings = new ObservableCollection<AuditMapping>();
             BindData(data);
+        }
+
+        private void OnDownloadCommand()
+        {
+            OnDownloadFile(SelectedFile);
         }
 
         private async void OnDeleteCommand()
@@ -452,7 +459,19 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             
         }
+        private void OnDownloadFile(FilesManage model)
+        {
+            if (model == null)
+                return;
+            var notification = new Notification()
+            {
+                Title = "文件下载",
+                Content = _unityContainer.Resolve<FileDownloadView>(new ParameterOverride("fileName", model.FullName)),
+            };
+            PopupWindows.NotificationRequest.Raise(notification, (callback) => {
 
+            });
+        }
         private void OnScanFile()
         {
             if (Contract.Id < 1)

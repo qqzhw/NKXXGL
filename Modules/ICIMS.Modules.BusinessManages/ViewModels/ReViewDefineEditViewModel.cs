@@ -45,6 +45,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand SearchItemCommand { get; private set; }
         public DelegateCommand DeleteCommand { get; set; }
         public DelegateCommand UploadCommand { get; private set; }
+        public DelegateCommand DownloadCommand { get; private set; }
+
         private readonly UserModel _userModel;
         private string _title;
         public string Title
@@ -74,11 +76,17 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             ScanCommand = new DelegateCommand(OnScanFile);
             SearchItemCommand = new DelegateCommand(OnSelectedItemCategory);
             DeleteCommand = new DelegateCommand(OnDeleteCommand);
-            UploadCommand = new DelegateCommand(OnUploadedFiles); 
+            UploadCommand = new DelegateCommand(OnUploadedFiles);
+            DownloadCommand = new DelegateCommand(OnDownloadCommand);
             _filesManages = new ObservableCollection<FilesManage>();
             _buinessAudits = new ObservableCollection<BusinessAudit>();
             _auditMappings = new ObservableCollection<AuditMapping>();
             BindData(data);
+        }
+
+        private void OnDownloadCommand()
+        {
+            OnDownloadFile(SelectedFile);
         }
 
         private async void OnDeleteCommand()
@@ -416,7 +424,19 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             });
             view.BindAction(notification.Finish);
         }
+        private void OnDownloadFile(FilesManage model)
+        {
+            if (model == null)
+                return;
+            var notification = new Notification()
+            {
+                Title = "文件下载",
+                Content = _unityContainer.Resolve<FileDownloadView>(new ParameterOverride("fileName", model.FullName)),
+            };
+            PopupWindows.NotificationRequest.Raise(notification, (callback) => {
 
+            });
+        }
         private void OnShowLog()
         {
 
