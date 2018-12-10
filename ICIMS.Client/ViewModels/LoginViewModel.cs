@@ -117,11 +117,13 @@ namespace ICIMS.Client.ViewModels
                 userInfo.AccessToken = user.AccessToken;
                 userInfo.UnitId = userInfo.Unit.Id;
                 userInfo.UnitName = userInfo.Unit.Name;
-                //if (unit!=null)
-                //{
-                //    user.UnitId = unit.Id;
-                //    user.UnitName = unit.Name;
-                //}
+                foreach (var role in userInfo.Roles)
+                {
+                    foreach (var item  in role.Permissions)
+                    {
+                        userInfo.Permissions.Add(item);
+                    }
+                }
                 _container.RegisterInstance(userInfo, new ContainerControlledLifetimeManager());
                 //var roles = await _userSerice。.GetUserRoles();
                 //foreach (var item in roles.Items)

@@ -1,4 +1,5 @@
 ﻿using ICIMS.Core.Events;
+using ICIMS.Model.User;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -19,16 +20,18 @@ namespace ICIMS.Client.ViewModels
     {
         private IEventAggregator _eventAggregator;
         private readonly IRegionManager _regionManager;
+        private UserModel _userModel;
         private string _title;
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public SystemAdminViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
+        public SystemAdminViewModel(IRegionManager regionManager, IEventAggregator eventAggregator,UserModel userModel)
         {
             _regionManager = regionManager;
             _eventAggregator = eventAggregator;
+            _userModel = userModel;
             _title = "系统管理";
 
         }
@@ -57,21 +60,23 @@ namespace ICIMS.Client.ViewModels
                 Title = "操作员管理",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_操作员管理.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, "Pages.Users"));
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "RolesView",
                 Title = "角色权限",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_角色权限.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, "Pages.Roles"));
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "BusinessTypeView",
                 Title = "审核流设置",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_审核流设置.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, "Pages.BusinessAudit"));
+             
+         
         }
 
         private void OnItemSelected(SystemInfoViewModel selectedItem)

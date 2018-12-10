@@ -50,7 +50,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <controls:SwitchControl Title="{Binding Title}"  Command="{Binding DataContext.SelectedCommand,RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" CommandParameter="{Binding}"  Margin="0,0,20,0"  Height="90" IsSelected="{Binding IsSelected}" SelectedBackground="#222328"     FontFamily="SimSun" FontSize="14" ImageSource="{Binding Icon}"/>
+                                <controls:SwitchControl Title="{Binding Title}" IsEnabled="{Binding IsReadOnly}" Opacity="{Binding Opacity}" Command="{Binding DataContext.SelectedCommand,RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" CommandParameter="{Binding}"  Margin="0,0,20,0"  Height="90" IsSelected="{Binding IsSelected}" SelectedBackground="#222328"     FontFamily="SimSun" FontSize="14" ImageSource="{Binding Icon}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

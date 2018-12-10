@@ -147,6 +147,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Common\TabModel.cs" />
     <Compile Include="ConfigurationMapper.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="ICIMSModule.cs" />
     <Compile Include="ViewModels\BaseDataViewModel.cs" />
     <Compile Include="ViewModels\BusinessManagesViewModel.cs" />

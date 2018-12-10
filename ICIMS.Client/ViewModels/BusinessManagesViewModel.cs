@@ -1,4 +1,5 @@
 ﻿using ICIMS.Core.Events;
+using ICIMS.Model.User;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -19,18 +20,19 @@ namespace ICIMS.Client.ViewModels
     {
         private IEventAggregator _eventAggregator;
         private readonly IRegionManager _regionManager;
+        private readonly UserModel _userModel;
         private string _title;
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public BusinessManagesViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
+        public BusinessManagesViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, UserModel userModel)
         {
             _regionManager = regionManager;
             _eventAggregator = eventAggregator;
             _title = "内控管理";
-
+            _userModel = userModel;
         }
 
         private ObservableCollection<SystemInfoViewModel> _systemInfos;
@@ -67,71 +69,74 @@ namespace ICIMS.Client.ViewModels
         }
         private void InitMenu()
         {
-            _systemInfos.Add(new SystemInfoViewModel()
+            var itemInit = new SystemInfoViewModel()
             {
                 Id = "ItemDefineEditView",
                 Title = "项目初始化",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_项目初始化.ico",
                 IsDefaultShow = false,
-            });
+                IsReadOnly = false
+            };
+            itemInit.IsEnabled(_userModel.Permissions, "Pages.ItemDefine");
+         
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "ItemDefineView",
                 Title = "立项登记",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_立项登记.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, "Pages.ItemDefine"));
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "ReViewDefineView",
                 Title = "评审登记",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_评审登记.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, "Pages.ReViewDefine"));
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "ContractView",
                 Title = "合同登记",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_合同登记.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, "Pages.Contract"));
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "PayAuditView",
                 Title = "支付审核",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_支付审核系统.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, "Pages.PayAudit"));
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "ContractView",
                 Title = "结算管理",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_合同结算.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, "Pages.PayAudit"));
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "PayAuditView",
                 Title = "项目决算",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_项目决算.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, "Pages.PayAudit"));
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "PayAuditView",
                 Title = "项目绩效评价",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_项目绩效评价.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, "Pages.PayAudit"));
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "DocManagerView",
                 Title = "文档综合管理",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_档案管理.ico",
                 IsDefaultShow = false,
-            });
-           
-            
+            }.IsEnabled(_userModel.Permissions, "Pages.ReViewDefine"));
+
+
         }
         private void InitMenu2()
         {

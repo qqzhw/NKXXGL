@@ -14,6 +14,7 @@ namespace ICIMS.Model.User
         {
             _roleNames = new List<string>();
             _roles = new ObservableCollection<RoleModel>();
+            _permissions = new List<string>();
         }
         public int? TenantId { get; set; }
         public string TenantName { get; set; }
@@ -57,6 +58,11 @@ namespace ICIMS.Model.User
 
         public List<OrganizationUnitItem> Units { get => _units; set => SetProperty(ref _units, value); }
 
+        private List<string> _permissions;
+        public List<string> Permissions
+        {
+            get => _permissions; set => SetProperty(ref _permissions, value);
+        }
 
         private DateTime? _lastLoginTime;
         public DateTime? LastLoginTime { get => _lastLoginTime; set => SetProperty(ref _lastLoginTime, value); }

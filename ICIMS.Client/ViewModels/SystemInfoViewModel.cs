@@ -70,6 +70,14 @@ namespace ICIMS.Client.ViewModels
             get { return _childs; }
             set { SetProperty(ref _childs, value); }
         }
+        private double _opacity;
+        public double Opacity
+        {
+            get { return _opacity; }
+            set { SetProperty(ref _opacity, value); }
+        }
+      
     }
+   
 }
  
