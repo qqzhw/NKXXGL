@@ -78,13 +78,14 @@ namespace ICIMS.Client.ViewModels
                 IsReadOnly = false
             };
             itemInit.IsEnabled(_userModel.Permissions, "Pages.ItemDefine");
-         
+            _systemInfos.Add(itemInit);
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "ItemDefineView",
                 Title = "立项登记",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_立项登记.ico",
                 IsDefaultShow = false,
+                
             }.IsEnabled(_userModel.Permissions, "Pages.ItemDefine"));
             _systemInfos.Add(new SystemInfoViewModel()
             {
@@ -146,43 +147,43 @@ namespace ICIMS.Client.ViewModels
                 Title = "预算编制",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_预算管理_预算编制.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, ""));
             _ysInfos.Add(new SystemInfoViewModel()
             {
                 Id = "BudgetLabelView",
                 Title = "预算归类",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_预算管理_预算归类.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, ""));
             _ysInfos.Add(new SystemInfoViewModel()
             {
                 Id = "BudgetAdjustView",
                 Title = "预算调整",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_预算管理_预算调整.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, ""));
             _ysInfos.Add(new SystemInfoViewModel()
             {
                 Id = "BudgetReplyView",
                 Title = "预算批复",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_预算管理_预算批复.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, ""));
             _ysInfos.Add(new SystemInfoViewModel()
             {
                 Id = "BudgetMiddleAdjustView",
                 Title = "中期调整",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_预算管理_中期调整.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, ""));
             _ysInfos.Add(new SystemInfoViewModel()
             {
                 Id = "BudgetMiddleReplyView",
                 Title = "中期批复",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_预算管理_中期批复.ico",
                 IsDefaultShow = false,
-            });
-           
+            }.IsEnabled(_userModel.Permissions, ""));
+
 
         }
         private void InitMenu3()
@@ -193,49 +194,49 @@ namespace ICIMS.Client.ViewModels
                 Title = "合同汇总表",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_合同汇总表.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, "")); 
             _bbInfos.Add(new SystemInfoViewModel()
             {
                 Id = "BudgetLabelView",
                 Title = "合同明细表",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_合同明细表.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, ""));
             _bbInfos.Add(new SystemInfoViewModel()
             {
                 Id = "BudgetAdjustView",
                 Title = "收支汇总表",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_收支汇总表.ico",
                 IsDefaultShow = false,
-            });
-            _bbInfos.Add(new SystemInfoViewModel()
+            }.IsEnabled(_userModel.Permissions, ""));
+            BbInfos.Add(new SystemInfoViewModel()
             {
                 Id = "BudgetReplyView",
                 Title = "收支明细表",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_收支明细表.ico",
                 IsDefaultShow = false,
-            });
-            _bbInfos.Add(new SystemInfoViewModel()
+            }.IsEnabled(_userModel.Permissions, ""));
+            BbInfos.Add(new SystemInfoViewModel()
             {
                 Id = "BudgetMiddleAdjustView",
                 Title = "项目汇总表",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目汇总表.ico",
                 IsDefaultShow = false,
-            });
-            _bbInfos.Add(new SystemInfoViewModel()
+            }.IsEnabled(_userModel.Permissions, ""));
+            BbInfos.Add(new SystemInfoViewModel()
             {
                 Id = "BudgetMiddleReplyView",
                 Title = "项目明细表",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目明细表.ico",
                 IsDefaultShow = false,
-            });
-            _bbInfos.Add(new SystemInfoViewModel()
+            }.IsEnabled(_userModel.Permissions, ""));
+            BbInfos.Add(new SystemInfoViewModel()
             {
                 Id = "BudgetMiddleReplyView",
                 Title = "预算执行情况表",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_预算执行情况表.ico",
                 IsDefaultShow = false,
-            });
+            }.IsEnabled(_userModel.Permissions, ""));
 
         }
 

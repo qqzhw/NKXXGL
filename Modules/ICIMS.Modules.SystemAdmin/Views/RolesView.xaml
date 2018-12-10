@@ -42,18 +42,23 @@
                 </StackPanel>
             </Border>
             <Border Margin="5 0 0 0" BorderThickness="1" BorderBrush="Beige" Grid.Column="1">
-                <StackPanel Grid.Column="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition  Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" Background="#DEDEDE">
                         <control:CustomButton Height="36" Command="{Binding CheckAllCommand}" IconBackground="#91CE2D"   Kind="CheckSolid"  Width="80" Margin="10,0,0,0" Title="全选"/>
                         <control:CustomButton Height="36" Command="{Binding UnCheckAllCommand}" IconBackground="#91CE2D"   Kind="UndoSolid"  Width="80" Margin="10,0,0,0" Title="取消"/>
                         <control:CustomButton Height="36" Command="{Binding SaveCommand}" IconBackground="#91CE2D"   Kind="SaveSolid"  Width="80" Margin="10,0,0,0" Title="保存"/>
                     </StackPanel>
-                    <StackPanel>
-                        <TextBlock Background="#DEDEDE" Margin="0 10 0 0" Padding="10 ">权限</TextBlock>
-                        <telerik:RadGridView ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.Row="4" FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"   ItemsSource="{Binding AllPermissions}"  
+                    <TextBlock Background="#DEDEDE" Grid.Row="1" Margin="0 10 0 0" Padding="10 ">权限</TextBlock>
+                 
+                <telerik:RadGridView Grid.Row="2" ScrollViewer.HorizontalScrollBarVisibility="Auto" FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+						     CanUserInsertRows="True" Background="AliceBlue"   GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"   ItemsSource="{Binding AllPermissions}"  
 							   BorderBrush="#E4E7F0" BorderThickness="1,0,0,0"   SelectionUnit="FullRow"  SelectionMode="Single"    
-                                 IsReadOnly="False"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
+                                 IsReadOnly="False"       GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#F5F5F5"   AlternationCount="2"   >
 
                             <telerik:RadGridView.Columns>
@@ -68,8 +73,8 @@
                                 <telerik:GridViewDataColumn IsReadOnly="True" Header="序号" DataMemberBinding="{Binding No}" TextWrapping="Wrap" MinWidth="100"/>
                             </telerik:RadGridView.Columns>
                         </telerik:RadGridView>
-                    </StackPanel>
-                </StackPanel>
+                   
+                </Grid>
             </Border>
         </Grid>
     </Grid>

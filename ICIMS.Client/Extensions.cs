@@ -12,7 +12,8 @@ namespace ICIMS.Client
 
         public static SystemInfoViewModel IsEnabled(this SystemInfoViewModel viewModel, List<string> permissions, string permissionName)
         {
-            if (permissions.Contains(permissionName))
+            var findItem = permissions.FirstOrDefault(o => o == permissionName);
+            if (!string.IsNullOrEmpty(findItem))
             {
                 viewModel.IsReadOnly = true;
                 viewModel.Opacity = 1.0;
