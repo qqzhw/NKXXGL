@@ -23,7 +23,7 @@
                       ShowIconOnTitleBar="True"
                       ShowTitleBar="True"
                       WindowStartupLocation="CenterScreen"
-        Title="内控信息化管理系统【V2.81209 Beta】"  Width="1024" Height="680">
+        Title="内控信息化管理系统【V2.81210】"  Width="1024" Height="680">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <Ellipse x:Key="AppThemeMenuIcon"

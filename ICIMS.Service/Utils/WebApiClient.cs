@@ -42,7 +42,7 @@ namespace ICIMS.Service
           
             ResponseHeaders = new List<NameValue>();
             BaseUrl = "http://120.79.144.79:10085/";
-            //BaseUrl = "http://localhost:21025/";
+           // BaseUrl = "http://localhost:21025/";
         }
 
         public virtual async Task PostAsync(string url, int? timeout = null)
@@ -79,7 +79,8 @@ namespace ICIMS.Service
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     foreach (var header in RequestHeaders)
                     {
-                        client.DefaultRequestHeaders.Add(header.Name, header.Value);
+                        if (!client.DefaultRequestHeaders.Contains(header.Name))
+                            client.DefaultRequestHeaders.Add(header.Name, header.Value);
                     }
                     
                     using (var requestContent = new StringContent(Object2JsonString(input), Encoding.UTF8, "application/json"))
@@ -182,7 +183,8 @@ namespace ICIMS.Service
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     foreach (var header in RequestHeaders)
                     {
-                        client.DefaultRequestHeaders.Add(header.Name, header.Value);
+                        if (!client.DefaultRequestHeaders.Contains(header.Name))
+                            client.DefaultRequestHeaders.Add(header.Name, header.Value);
                     }
                      
                         using (var response = await client.GetAsync(url))
@@ -223,6 +225,8 @@ namespace ICIMS.Service
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     foreach (var header in RequestHeaders)
                     {
+
+                        if (!client.DefaultRequestHeaders.Contains(header.Name)) 
                         client.DefaultRequestHeaders.Add(header.Name, header.Value);
                     }
 
@@ -267,7 +271,8 @@ namespace ICIMS.Service
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     foreach (var header in RequestHeaders)
                     {
-                        client.DefaultRequestHeaders.Add(header.Name, header.Value);
+                        if (!client.DefaultRequestHeaders.Contains(header.Name))
+                            client.DefaultRequestHeaders.Add(header.Name, header.Value);
                     }
 
                     using (var requestContent = new StringContent(Object2JsonString(input), Encoding.UTF8, "application/json"))
@@ -314,7 +319,8 @@ namespace ICIMS.Service
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     foreach (var header in RequestHeaders)
                     {
-                        client.DefaultRequestHeaders.Add(header.Name, header.Value);
+                        if (!client.DefaultRequestHeaders.Contains(header.Name))
+                            client.DefaultRequestHeaders.Add(header.Name, header.Value);
                     }
 
                     using (var requestContent = new StringContent(Object2JsonString(input), Encoding.UTF8, "application/json"))
@@ -402,7 +408,8 @@ namespace ICIMS.Service
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("multipart/form-data"));
                     foreach (var header in RequestHeaders)
                     {
-                        client.DefaultRequestHeaders.Add(header.Name, header.Value);
+                        if (!client.DefaultRequestHeaders.Contains(header.Name))
+                            client.DefaultRequestHeaders.Add(header.Name, header.Value);
                     }
                     using (var requestContent = new MultipartFormDataContent())
                     {
