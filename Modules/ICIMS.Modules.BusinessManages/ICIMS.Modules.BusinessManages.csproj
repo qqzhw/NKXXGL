@@ -160,6 +160,7 @@
     <Compile Include="ViewModels\ContractEditViewModel.cs" />
     <Compile Include="ViewModels\ContractViewModel.cs" />
     <Compile Include="ViewModels\DocManagerViewModel.cs" />
+    <Compile Include="ViewModels\FileDownloadViewModel.cs" />
     <Compile Include="ViewModels\ItemDefineEditViewModel.cs" />
     <Compile Include="ViewModels\ItemDefineViewModel.cs" />
     <Compile Include="ViewModels\PayAuditEditViewModel.cs" />
@@ -213,6 +214,9 @@
     </Compile>
     <Compile Include="Views\DocManagerView.xaml.cs">
       <DependentUpon>DocManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FileDownloadView.xaml.cs">
+      <DependentUpon>FileDownloadView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ItemDefineEditView.xaml.cs">
       <DependentUpon>ItemDefineEditView.xaml</DependentUpon>
@@ -330,6 +334,10 @@
     <Page Include="Views\DocManagerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FileDownloadView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ItemDefineEditView.xaml">
       <SubType>Designer</SubType>

@@ -5,5 +5,8 @@
     <Setting Name="MainProgramName" Type="System.String" Scope="User">
       <Value Profile="(Default)">ICIMS.Client.exe</Value>
     </Setting>
+    <Setting Name="LocalPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\\</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

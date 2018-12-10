@@ -34,5 +34,17 @@ namespace ICIMS.Client.Properties {
                 this["MainProgramName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\\\")]
+        public string LocalPath {
+            get {
+                return ((string)(this["LocalPath"]));
+            }
+            set {
+                this["LocalPath"] = value;
+            }
+        }
     }
 }
