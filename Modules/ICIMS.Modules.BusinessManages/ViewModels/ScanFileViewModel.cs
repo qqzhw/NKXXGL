@@ -187,10 +187,18 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             {
                 File.Delete(files[i].FullName);
             }
-            
-            mTwain.Language = TwLanguage.CHINESE_SINGAPORE;
-            mTwain.IsTwain2Enable = false;
-            mTwain.OpenDSM();
+            try
+            {
+                mTwain.Language = TwLanguage.CHINESE_SINGAPORE;
+                mTwain.IsTwain2Enable = false;
+                mTwain.OpenDSM();
+
+            }
+            catch 
+            { 
+
+            } 
+           
             InitMenu();
             mTwain.EndXfer += twEndXfer;
             mTwain.AcquireCompleted += MTwain_AcquireCompleted;

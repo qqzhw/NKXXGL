@@ -37,7 +37,7 @@
 
                     <telerik:RadGridView.Columns>
 
-                        <telerik:GridViewDataColumn Header="项目编号"  Width="90"     HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  No}"/>
+                        <telerik:GridViewDataColumn Header="编号"  Width="90"     HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  No}"/>
 
                         <telerik:GridViewDataColumn Header="供应商名称" Width="*"    DataMemberBinding="{Binding Name}" />
                        

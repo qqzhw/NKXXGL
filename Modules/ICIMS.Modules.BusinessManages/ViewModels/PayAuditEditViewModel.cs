@@ -100,6 +100,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             try
             {
+                if (SelectedFile==null)
+                {
+                    return;
+                }
                 await this._filesService.Delete((long)this.SelectedFile.EntityId);
                 this.FilesManages.Remove(this.SelectedFile);
                 this.SelectedFile = this.FilesManages.FirstOrDefault();
@@ -159,6 +163,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     PaymentTypeItem = viewModel.SelectedItem;
                     PayAudit.PaymentTypeId = viewModel.SelectedItem.Id;
                     PayAudit.PaymentName = viewModel.SelectedItem.Name;
+                    SelectedIndex = 1;
+                    PaymentRemark = viewModel.SelectedItem.Description;
                 }
 
             });
@@ -909,7 +915,19 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _canChecked; }
             set { SetProperty(ref _canChecked, value); }
         }
-
+        private int _selectedIndex = 0;
+        public int SelectedIndex
+        {
+            get { return _selectedIndex; }
+            set { SetProperty(ref _selectedIndex, value); }
+        }
+        private string _paymentRemark;
+        public string PaymentRemark  //附件备注
+        {
+            get { return _paymentRemark; }
+            set { SetProperty(ref _paymentRemark, value); }
+        }
+        
         public FilesManage SelectedFile { get => _selectedFile; set => SetProperty(ref _selectedFile, value); }
     }
 

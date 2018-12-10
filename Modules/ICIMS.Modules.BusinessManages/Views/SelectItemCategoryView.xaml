@@ -38,9 +38,7 @@
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Description}" 
                                              Header="备注"
 											Width="*" /> 
-                <telerik:GridViewDataColumn DataMemberBinding="{Binding Published}" 
-                                            Header="启用"
-											Width="100" /> 
+               
             </telerik:RadTreeListView.Columns>
             <!--<telerik:EventToCommandBehavior.EventBindings>
                 <telerik:EventBinding Command="{Binding DoubleClick}" EventName="MouseDoubleClick" RaiseOnHandledEvents="False" 

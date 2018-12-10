@@ -24,10 +24,10 @@
         <DockPanel   Background="#F2F2F2"> 
             <control:CustomButton Height="28"  IconBackground="#682357" Command="{Binding SaveCommand}" Kind="SaveSolid"  Width="80" Margin="10,0,0,0" Title="保存"/>
             <control:CustomButton Height="28"  IconBackground="#91CE2D" Command="{Binding SubmitCommand}" Kind="CheckSolid"  Width="80" Margin="10,0,0,0" Title="审批"/>
-            <control:CustomButton Height="28"  IconBackground="#AD372D" Command="{Binding CancelComamnd}" Kind="TimesSolid"  Width="80" Margin="10,0,0,0" Title="取消"/>
+            <control:CustomButton Height="28"  IconBackground="#AD372D" Command="{Binding CancelComamnd}" Kind="TimesSolid"  Width="80" Margin="10,0,0,0" Title="取消审批"/>
             <control:CustomButton Height="28"  IconBackground="#C1852D"  Command="{Binding BackCommand}" Kind="ReplySolid"  Width="80" Margin="10,0,0,0" Title="驳回"/>
             <control:CustomButton Height="28"  IconBackground="#7DB12D"  Kind="FileWordSolid" Command="{Binding LogCommand}"  Width="80" Margin="10,0,0,0" Title="打印"/>
-            <TextBlock Text="{Binding ItemDefine.StatusText,StringFormat={}【{0}】}" HorizontalAlignment="Right" FontWeight="Bold" VerticalAlignment="Center" FontSize="22" Foreground="{Binding ItemDefine.StatusColor}"/>
+            <TextBlock Text="{Binding ItemDefine.StatusText,StringFormat={}【{0}】}" HorizontalAlignment="Right" FontWeight="Bold" VerticalAlignment="Center" FontSize="22" Foreground="{Binding PayAudit.StatusColor}"/>
         </DockPanel>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -114,11 +114,11 @@
                         <telerik:RadNumericUpDown Width="140" Value="{Binding PayAudit.PayAmount}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
 
                         <TextBlock Text="第" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                        <telerik:RadNumericUpDown   IsReadOnly="True"  Value="{Binding PayAudit.PaymentCount}" Minimum="0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" NumberDecimalDigits="0" Maximum="100" />
+                        <TextBox   IsReadOnly="True"  Text="{Binding PayAudit.PaymentCount}"  Width="60" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8"   />
 
                         <TextBlock VerticalAlignment="Center">次支付</TextBlock>
                           <TextBlock Text="本次支付比例" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center"/> 
-                        <telerik:RadNumericUpDown  Value="{Binding PayAudit.PaymentPer}" NumberDecimalDigits="0" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center"  IsReadOnly="True" telerik:StyleManager.Theme="Windows8"  Maximum="100" />
+                        <TextBox  Text="{Binding PayAudit.PaymentPer}"  Width="60"  Margin="5,0,0,0" VerticalAlignment="Center"  IsReadOnly="True" telerik:StyleManager.Theme="Windows8" />
 
                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="SimSun" FontSize="14" Width="20">%</TextBlock>
                         </DockPanel>
@@ -146,38 +146,42 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions> 
-                <GroupBox Header="支付资金来源">
-                    <telerik:RadGridView FontFamily="SimSun"  x:Name="radfund" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+                 
+                    <telerik:RadTabControl telerik:StyleManager.Theme="Windows8" FontFamily="SimSun" SelectedIndex="{Binding SelectedIndex}">
+                        <telerik:RadTabItem Header="资金来源" FontFamily="SimSun">
+                            <telerik:RadGridView FontFamily="SimSun"  x:Name="radfund" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
 						    CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"   ItemsSource="{Binding PayAuditDetails}"  SelectedItem="{Binding PayAuditDetail}"
 							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
                                        GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
+ 
+                                <telerik:RadGridView.Columns>
 
-                        <!--<telerik:EventToCommandBehavior.EventBindings>
-                            <telerik:EventBinding Command="{Binding ListRightMenue}" EventName="MouseRightButtonUp" 
-                        PassEventArgsToCommand="True" /> 
-                        </telerik:EventToCommandBehavior.EventBindings>-->
-                        <telerik:RadGridView.Columns>
+                                    <telerik:GridViewDataColumn Header="资金来源"   Width="80" IsReadOnly="True"   DataMemberBinding="{Binding FundName}" >
+                                        <telerik:GridViewDataColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding FundName}">
+                                                    <TextBlock.InputBindings>
+                                                        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DataContext.DelFund, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" CommandParameter="{Binding SelectedItem,ElementName=radfund}"/>
+                                                    </TextBlock.InputBindings>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </telerik:GridViewDataColumn.CellTemplate>
+                                    </telerik:GridViewDataColumn>
+                                    <telerik:GridViewDataColumn Header="金额" Width="90"    DataMemberBinding="{Binding Amount}" />
 
-                            <telerik:GridViewDataColumn Header="资金来源"   Width="80" IsReadOnly="True"   DataMemberBinding="{Binding FundName}" >
-                                <telerik:GridViewDataColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding FundName}">
-                                             <TextBlock.InputBindings>
-                                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DataContext.DelFund, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" CommandParameter="{Binding SelectedItem,ElementName=radfund}"/>
-                                        </TextBlock.InputBindings>
-                                        </TextBlock>
-                                    </DataTemplate>
-                                </telerik:GridViewDataColumn.CellTemplate>
-                            </telerik:GridViewDataColumn>
-                            <telerik:GridViewDataColumn Header="金额" Width="90"    DataMemberBinding="{Binding Amount}" />
+                                    <telerik:GridViewDataColumn Header="附件备注" Width="*"  TextWrapping="Wrap" DataMemberBinding="{Binding Remark}" />
 
-                            <telerik:GridViewDataColumn Header="附件备注" Width="*"  TextWrapping="Wrap" DataMemberBinding="{Binding Remark}" />
+                                </telerik:RadGridView.Columns>
 
-                        </telerik:RadGridView.Columns>
+                            </telerik:RadGridView>
 
-                    </telerik:RadGridView>
-                </GroupBox>
+                        </telerik:RadTabItem>
+                        <telerik:RadTabItem Header="附件备注" FontFamily="SimSun">
+                        <TextBlock><Run Text="{Binding PaymentRemark}"></Run></TextBlock>
+                        </telerik:RadTabItem>
+                    </telerik:RadTabControl>
+                 
                 <GroupBox  Grid.Row="1" Header="相关审核人" >
                     <telerik:RadGridView FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
 						     CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding BuinessAudits}"  

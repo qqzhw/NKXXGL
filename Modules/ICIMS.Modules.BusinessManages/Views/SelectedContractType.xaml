@@ -44,7 +44,7 @@
 
                         <telerik:GridViewDataColumn Header="分类编号"  Width="100"     HeaderTextAlignment="Justify"  TextBlock.FontWeight="SemiBold"  DataMemberBinding="{Binding  No}"/>
 
-                        <telerik:GridViewDataColumn Header="分类名称" Width="*"    DataMemberBinding="{Binding Name}" />
+                        <telerik:GridViewDataColumn Header="合同分类名称" Width="*"    DataMemberBinding="{Binding Name}" />
                         <!--<telerik:GridViewDataColumn Header="路径" Width="100"    DataMemberBinding="{Binding DirectoryName}" />-->
                       
                         <telerik:GridViewDataColumn Header="分类描述" DataMemberBinding="{Binding Description}" TextWrapping="Wrap" Width="*" />
