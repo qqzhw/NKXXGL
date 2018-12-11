@@ -116,6 +116,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             }
             
             ReViewDefine = info.ReViewDefine;
+            ReViewDefine.UnitName = info.UnitName;
             GetFiles(ReViewDefine); 
             LoadItemDefine(ReViewDefine.ItemDefineId);//加载立项项目
         }

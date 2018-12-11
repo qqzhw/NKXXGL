@@ -22,13 +22,13 @@
             <RowDefinition Height="34"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>        
-        <StackPanel Orientation="Horizontal" Background="#FEFEFE"> 
+        <DockPanel  Background="#FEFEFE"> 
             <control:CustomButton Height="28"  IconBackground="#682357" Command="{Binding SaveCommand}" Kind="SaveSolid"  Width="75" Margin="0,0,0,0" Title="保存"/>
             <control:CustomButton Height="28"  IconBackground="#91CE2D" Command="{Binding SubmitCommand}" Kind="CheckSolid"  Width="75" Margin="10,0,0,0" Title="审批"/>
-            <control:CustomButton Height="28"  IconBackground="#AD372D" Command="{Binding CancelCommand}" Kind="TimesSolid"  Width="75" Margin="10,0,0,0" Title="取消审批"/>
+            <control:CustomButton Height="28"  IconBackground="#AD372D" Command="{Binding CancelCommand}" Kind="TimesSolid"  Width="100" Margin="10,0,0,0" Title="取消审批"/>
             <control:CustomButton Height="28"  IconBackground="#C1852D" Command="{Binding BackCommand}" Kind="ReplySolid"  Width="75" Margin="10,0,0,0" Title="驳回"/>
-            <TextBlock Text="{Binding ItemDefine.StatusText,StringFormat={}【{0}】}" HorizontalAlignment="Right" FontWeight="Bold" VerticalAlignment="Center" FontSize="22" Foreground="{Binding ReViewDefine.StatusColor}"/>
-        </StackPanel>
+            <TextBlock Text="{Binding ReViewDefine.StatusText,StringFormat={}【{0}】}" HorizontalAlignment="Right" FontWeight="Bold" VerticalAlignment="Center" FontSize="22" Foreground="{Binding ReViewDefine.StatusColor}"/>
+        </DockPanel>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -48,7 +48,7 @@
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Height="30">
                         <TextBlock Text="部  门" VerticalAlignment="Center"/>
-                        <TextBox Height="20" Margin="5,0,0,0" Text="{Binding ItemDefine.UnitName}" VerticalAlignment="Center"/>
+                        <TextBox Height="20" Margin="5,0,0,0" Text="{Binding ReViewDefine.UnitName}" VerticalAlignment="Center"/>
                         <TextBlock Text="项目分类"  Margin="5,0,0,0" VerticalAlignment="Center" />
                         <TextBox  Height="20" Width="240" Text="{Binding ItemDefine.ItemCategoryName}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                        
@@ -176,9 +176,7 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="{Binding}" FontSize="16" Foreground="#333333"  VerticalAlignment="Center"/>
-                            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                                <control:CustomButton Height="36"  IconBackground="#07AA7E" Command="{Binding DataContext.ScanCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="CameraSolid"  Width="80" Margin="10,0,0,0" Title="日志"/>
-                            </StackPanel>
+                            
                         </Grid>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
