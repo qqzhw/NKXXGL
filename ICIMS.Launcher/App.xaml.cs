@@ -56,7 +56,7 @@ namespace ICIMS.Launcher
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
             if (!App.SingleInstanceCheck())
             {
                 return;
