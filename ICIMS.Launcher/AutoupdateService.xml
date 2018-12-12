@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<updateFiels>
+  <file path="ICIMS.Launcher.exe" url="http://120.79.144.79:10085/clientapp/ICIMS.Launcher.exe"
+        lastver="1.0.0.0" size="1578000" needRestart="True" />
+  <file path="update.zip" url="http://120.79.144.79:10085/clientapp/update.zip"
+       lastver="1.0.0.0" size="1578000" needRestart="True" />
+</updateFiels>

@@ -273,7 +273,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             //ItemDefine.ItemDocNo = "文号110";
             //ItemDefine.ItemName = "立项研究项目";
             //ItemDefine.Remark = "beizhu";
-            if (ItemDefine.Id<1)
+            if (ReViewDefine.Id<1)
             {
                 RadWindow.Confirm(new DialogParameters
                 {

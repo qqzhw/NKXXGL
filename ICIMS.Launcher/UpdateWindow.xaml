@@ -1,0 +1,32 @@
+﻿<Controls:MetroWindow x:Class="ICIMS.Launcher.UpdateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+         xmlns:Controls="http://metro.wenge.com/winfx/xaml/controls"
+        ShowSystemMenuOnRightClick="False"  FocusVisualStyle="{x:Null}"
+        Title="客户端升级" FontFamily="SimSun" FontSize="13"    
+        Width="500"       Height="250"  WindowTransitionsEnabled="False"                  
+        ShowTitleBar="True"  WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"     d:DesignHeight="768"    d:DesignWidth="1024" 
+       
+        TextOptions.TextFormattingMode="Display"  TextOptions.TextRenderingMode="ClearType">
+     
+    <Border BorderBrush="#41B1E1" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition  Height="30"/>
+                <RowDefinition  Height="Auto"/>
+                <RowDefinition  Height="*"/>
+                <RowDefinition  Height="Auto"/> 
+            </Grid.RowDefinitions>
+            <TextBlock Text="内控信息化管理系统" Margin="5,0,0,0" FontSize="14" FontWeight="SemiBold" />
+           
+            <TextBlock Text="正在下载全新安装文件..." Margin="5,0,0,0" Grid.Row="1" /> 
+             
+            <ProgressBar Grid.Row="2" x:Name="prBarCurrent"  Height="28" />
+            <TextBlock Text="0%" x:Name="txtPercent"  Grid.Row="2" FontSize="20"  HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+            <Button x:Name="btnCancel" Grid.Row="3" Click="btnCancel_Click" HorizontalAlignment="Right" Content="取消" Width="75"  Margin="0,20,20,10"/>
+        </Grid>
+    </Border>
+</Controls:MetroWindow>

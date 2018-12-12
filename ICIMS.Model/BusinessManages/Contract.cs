@@ -21,8 +21,46 @@ namespace ICIMS.Model.BusinessManages
         public string SysGuid { get; set; }
 
         private int _status;
-        public int Status { get => _status; set => SetProperty(ref _status, value); }
-
+        public int Status
+        {
+            get => _status; set
+            {
+                SetProperty(ref _status, value);
+                switch (_status)
+                {
+                    case 0:
+                        StatusText = "制单";
+                        StatusColor = "#FFFF00";
+                        break;
+                    case 1:
+                        StatusText = "审核中";
+                        StatusColor = "#3cb371";
+                        break;
+                    case 2:
+                        StatusText = "结审";
+                        StatusColor = "#f08080";
+                        break;
+                    default:
+                        StatusText = "制单";
+                        StatusColor = "#FFFF00";
+                        break;
+                }
+            }
+        }
+        private string _statuscolor;
+        public string StatusColor
+        {
+            get => _statuscolor; set => SetProperty(ref _statuscolor, value);
+        }
+        private string _statusText = "制单";
+        public string StatusText
+        {
+            get
+            {
+                return _statusText;
+            }
+            set { SetProperty(ref _statusText, value); }
+        }
         /// <summary>
         /// 立项登记ID
         /// </summary>
@@ -34,6 +72,8 @@ namespace ICIMS.Model.BusinessManages
         /// </summary>
         private long _unitId;
         public long UnitId { get => _unitId; set => SetProperty(ref _unitId, value); }
+        private string _unitName;
+        public string UnitName { get => _unitName; set => SetProperty(ref _unitName, value); }
 
         /// <summary>
         /// 合同类型

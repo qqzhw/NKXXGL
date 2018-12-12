@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DLLs", "DLLs", "{AF1C8B75-C
 	ProjectSection(SolutionItems) = preProject
 		C:\Users\qqzhw\Downloads\Aspose.Words.dll = C:\Users\qqzhw\Downloads\Aspose.Words.dll
 		ICIMS.Metro\bin\Debug\ControlzEx.dll = ICIMS.Metro\bin\Debug\ControlzEx.dll
+		..\..\Pvirtech.Commander.Launcher\bin\Debug\ICSharpCode.SharpZipLib.dll = ..\..\Pvirtech.Commander.Launcher\bin\Debug\ICSharpCode.SharpZipLib.dll
 		ICIMS.Metro\bin\Debug\JetBrains.Annotations.dll = ICIMS.Metro\bin\Debug\JetBrains.Annotations.dll
 		ICIMS.Metro\bin\Debug\System.Windows.Interactivity.dll = ICIMS.Metro\bin\Debug\System.Windows.Interactivity.dll
 		D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.Data.dll = D:\Program Files (x86)\Progress\Telerik UI for WPF R2 2018\Binaries\WPF45\Telerik.Windows.Controls.Data.dll
@@ -41,6 +42,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{85E9E79F-979E-4FFB-89A3-4B9F06474A2D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICIMS.Modules.BusinessManages", "Modules\ICIMS.Modules.BusinessManages\ICIMS.Modules.BusinessManages.csproj", "{55B13A35-E0DC-493E-AAD9-D4166CA5E14C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICIMS.Launcher", "ICIMS.Launcher\ICIMS.Launcher.csproj", "{4C723712-D42A-42BB-B424-AB5C73D66B95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,6 +91,10 @@ Global
 		{55B13A35-E0DC-493E-AAD9-D4166CA5E14C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55B13A35-E0DC-493E-AAD9-D4166CA5E14C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55B13A35-E0DC-493E-AAD9-D4166CA5E14C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C723712-D42A-42BB-B424-AB5C73D66B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C723712-D42A-42BB-B424-AB5C73D66B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C723712-D42A-42BB-B424-AB5C73D66B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C723712-D42A-42BB-B424-AB5C73D66B95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

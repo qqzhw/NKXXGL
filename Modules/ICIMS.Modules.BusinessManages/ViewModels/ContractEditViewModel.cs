@@ -174,7 +174,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 _contract.ContractTime = DateTime.Now;
                 return;
             }
-            
+            _contractCategory = null ?? new ContractItem();
+            _vendorItem = null ?? new VendorItem();
+            ContractCategory.Name = info.ContractCategoryName;
+            ContractCategory.Id = info.ContractCategoryId;
+            VendorItem.Name = info.VendorName;
             Contract = Mapper.Map<Contract>(info);
             GetFiles(Contract); 
             LoadItemDefine(Contract.ItemDefineId);//加载立项项目

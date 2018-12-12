@@ -25,7 +25,7 @@
             <control:CustomButton Height="28"  IconBackground="#91CE2D" Command="{Binding SubmitCommand}" Kind="CheckSolid"  Width="75" Margin="10,0,0,0" Title="审批"/>
             <control:CustomButton Height="28"  IconBackground="#AD372D" Command="{Binding CancelCommand}" Kind="TimesSolid"  Width="100" Margin="10,0,0,0" Title="取消审批"/>
             <control:CustomButton Height="28"  IconBackground="#C1852D" Command="{Binding BackCommand}" Kind="ReplySolid"  Width="75" Margin="10,0,0,0" Title="驳回"/>
-        
+
             <TextBlock Text="{Binding Contract.StatusText,StringFormat={}【{0}】}" HorizontalAlignment="Right" FontWeight="Bold" VerticalAlignment="Center" FontSize="22" Foreground="{Binding Contract.StatusColor}"/>
         </DockPanel>
         <Grid Grid.Row="1">
@@ -86,7 +86,7 @@
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                         <TextBlock Text="部门"   VerticalAlignment="Center"/>
-                        <TextBox   Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox   Margin="5,0,0,0" Text="{Binding Contract.UnitName}" VerticalAlignment="Center"/>
                         <TextBlock Text="合同分类"  Margin="5,0,0,0" VerticalAlignment="Center" />
                         <TextBox   Text="{Binding ContractCategory.Name}"   Width="200" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <Button Command="{Binding CaractTypeCommand}" IsEnabled="True" Style="{x:Null}" BorderThickness="0" Height="18">
@@ -100,7 +100,7 @@
                     </StackPanel>
                     <DockPanel Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Top"  >
                         <TextBlock  HorizontalAlignment="Center"  TextAlignment="Center" Text="合同编号" VerticalAlignment="Center"/>
-                        <TextBox  AcceptsReturn="True" IsReadOnly="True" Margin="5,0,0,0" TextWrapping="Wrap"   />
+                        <TextBox  AcceptsReturn="True" IsReadOnly="True" Text="{Binding Contract.ContractNo}" Margin="5,0,0,0" TextWrapping="Wrap"   />
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Margin="5,0,0,0" Text="合同名称" VerticalAlignment="Center"/>
                         <TextBox  AcceptsReturn="True" Text="{Binding Contract.ContractName}" Margin="5,0,10,0" TextWrapping="Wrap"   />
                     </DockPanel>
