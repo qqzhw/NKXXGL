@@ -36,6 +36,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IBusinessAuditService _businessAuditService;
         private readonly IAuditMappingService _auditMappingService;
         private readonly IReViewDefineService _reViewDefineService;
+        private readonly IBusinessAuditStatusService _businessAuditStatusService;
         public DelegateCommand SaveCommand { get; private set; }
         public DelegateCommand SubmitCommand { get; private set; }
         public DelegateCommand CancelCommand { get; private set; }
@@ -56,7 +57,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         private FilesManage _selectedFile;
         public FilesManage SelectedFile { get => _selectedFile; set => SetProperty(ref _selectedFile, value); }
-        public ReViewDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ReViewDefineList data, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, IReViewDefineService reViewDefineService, UserModel userModel)
+        public ReViewDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ReViewDefineList data, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, IReViewDefineService reViewDefineService, UserModel userModel, IBusinessAuditStatusService businessAuditStatusService)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
@@ -66,6 +67,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _businessAuditService = businessAuditService;
             _auditMappingService = auditMappingService; 
             _reViewDefineService = reViewDefineService;
+            _businessAuditStatusService = businessAuditStatusService;
             _title = "评审审核";
             _userModel = userModel;
             SaveCommand = new DelegateCommand(OnSave);

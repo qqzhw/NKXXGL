@@ -37,6 +37,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IBusinessAuditService _businessAuditService;
         private readonly IAuditMappingService _auditMappingService;
         private readonly IContractService _contractService;
+        private readonly IBusinessAuditStatusService _businessAuditStatusService;
         public DelegateCommand SaveCommand { get; private set; }
         public DelegateCommand SubmitCommand { get; private set; }
         public DelegateCommand CancelCommand { get; private set; }
@@ -59,7 +60,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private FilesManage _selectedFile;
         public FilesManage SelectedFile { get => _selectedFile; set => SetProperty(ref _selectedFile, value); }
-        public ContractEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ContractList data,IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, IContractService contractService, UserModel userModel)
+        public ContractEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ContractList data,IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, IContractService contractService, UserModel userModel, IBusinessAuditStatusService businessAuditStatusService)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
@@ -69,6 +70,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _businessAuditService = businessAuditService;
             _auditMappingService = auditMappingService;
             _contractService = contractService;
+            _businessAuditStatusService = businessAuditStatusService;
             _userModel = userModel;
             _title = "合同登记";
             SaveCommand = new DelegateCommand(OnSave);

@@ -41,6 +41,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IFundFromService _fundFromService;
         private readonly IBusinessAuditService _businessAuditService;
         private readonly IAuditMappingService _auditMappingService;
+        private readonly IBusinessAuditStatusService _businessAuditStatusService;
         public DelegateCommand SaveCommand { get; private set; }
         public DelegateCommand SubmitCommand { get; private set; }
         public DelegateCommand CancelCommand { get; private set; }
@@ -63,7 +64,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public PayAuditEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, PayAuditList data, IItemDefineService itemDefineService, IFilesService filesService, IPayAuditService payAuditService, IVendorService vendorService, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, UserModel userModel, IFundFromService fundFromService)
+        public PayAuditEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, PayAuditList data, IItemDefineService itemDefineService, IFilesService filesService, IPayAuditService payAuditService, IVendorService vendorService, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, UserModel userModel, IFundFromService fundFromService, IBusinessAuditStatusService businessAuditStatusService)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
@@ -74,6 +75,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _payAuditService = payAuditService;
             _vendorService = vendorService;
             _fundFromService = fundFromService;
+            _businessAuditStatusService = businessAuditStatusService;
             _title = "支付审核";
             _userModel = userModel;
             SaveCommand = new DelegateCommand(OnSave);

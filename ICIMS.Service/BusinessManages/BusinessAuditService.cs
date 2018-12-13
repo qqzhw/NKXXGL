@@ -28,6 +28,20 @@ namespace ICIMS.Service.BusinessManages
             await _webApiClient.DeleteAsync<BusinessAudit>($"{_webApiClient.BaseUrl}{BaseUrl}Delete", new { Id });
         }
 
+        public async Task<ResultData<List<BusinessAuditList>>> GetAll(string BusinessTypeName, int entityId = 0, int pageIndex = 0, int pageSize = int.MaxValue)
+        {
+            var filter = new
+            { 
+                BusinessTypeName,
+                EntityId=entityId,
+                MaxResultCount = pageSize,
+                SkipCount = pageIndex * pageSize
+            };
+            var url = $"{_webApiClient.BaseUrl}{BaseUrl}GetPaged";
+            var items = await _webApiClient.GetAsync<ResultData<List<BusinessAuditList>>>(url, filter);
+            return items;
+        }
+
         public async Task<ResultData<List<BusinessAudit>>> GetAllBusinessAudits(int? BusinessTypeId = null, string BusinessTypeName = "", int pageIndex = 0, int pageSize = int.MaxValue)
         {
             var filter = new

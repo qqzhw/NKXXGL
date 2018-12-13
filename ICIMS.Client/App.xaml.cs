@@ -120,7 +120,7 @@ namespace ICIMS.Client
             containerRegistry.RegisterSingleton<IFilesService, FilesService>();
             containerRegistry.RegisterSingleton<IBusinessAuditService, BusinessAuditService>();
             containerRegistry.RegisterSingleton<IAuditMappingService, AuditMappingService>();
-            
+            containerRegistry.RegisterSingleton<IBusinessAuditStatusService, BusinessAuditStatusService>();
             ConfigurationMapper.Configure();
         }
        

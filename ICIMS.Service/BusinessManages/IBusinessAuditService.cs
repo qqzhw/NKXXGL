@@ -11,6 +11,8 @@ namespace ICIMS.Service.BusinessManages
     {
         Task<ResultData<List<BusinessAudit>>> GetAllBusinessAudits(int? BusinessTypeId=null, string BusinessTypeName = "", int pageIndex = 0, int pageSize = int.MaxValue);
 
+        //业务流程审核查询
+        Task<ResultData<List<BusinessAuditList>>> GetAll(string BusinessTypeName,int entityId=0,int pageIndex = 0, int pageSize = int.MaxValue);
 
         Task<BusinessAudit> GetById(int input);
 

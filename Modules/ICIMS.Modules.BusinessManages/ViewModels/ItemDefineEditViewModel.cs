@@ -37,6 +37,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IWebApiClient _webApiClient;
         private readonly IBusinessAuditService _businessAuditService;
         private readonly IAuditMappingService _auditMappingService;
+        private readonly IBusinessAuditStatusService _businessAuditStatusService;
         private readonly UserModel _userModel;
         public DelegateCommand SaveCommand { get; private set; }
         public DelegateCommand SubmitCommand { get; private set; }
@@ -59,7 +60,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
 
 
-        public ItemDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ItemDefineList data, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, UserModel userModel)
+        public ItemDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ItemDefineList data, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, UserModel userModel, IBusinessAuditStatusService businessAuditStatusService)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
@@ -68,6 +69,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _webApiClient = webApiClient;
             _businessAuditService = businessAuditService;
             _auditMappingService = auditMappingService;
+            _businessAuditStatusService = businessAuditStatusService;
             _title = "项目立项";
             _userModel = userModel;
             SaveCommand = new DelegateCommand(OnSave);
@@ -82,7 +84,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             UploadCommand = new DelegateCommand(OnUploadedFiles);
             _itemDefine = new ItemDefine();
             _filesManages = new ObservableCollection<FilesManage>();
-            _buinessAudits = new ObservableCollection<BusinessAudit>();
+            _buinessAudits = new ObservableCollection<BusinessAuditList>();
             _auditMappings = new ObservableCollection<AuditMapping>();
             DeleteCommand = new DelegateCommand(OnDeleteCommand);
             BindData(data);
@@ -127,7 +129,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 Title = "文档分类",
                 Content = view,
             };
-            PopupWindows.NotificationRequest.Raise(notification, async (callback) =>
+            PopupWindows.NotificationRequest.Raise(notification,  (callback) =>
             {
                 if (callback.DialogResult == true)
                 {
@@ -212,8 +214,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             var items = await _filesService.GetAllFiles(itemDefine.Id, "ItemDefine"); 
             FilesManages = new ObservableCollection<FilesManage>(items.Items);
         }
-        private ObservableCollection<BusinessAudit> _buinessAudits;
-        public ObservableCollection<BusinessAudit> BuinessAudits
+        private ObservableCollection<BusinessAuditList> _buinessAudits;
+        public ObservableCollection<BusinessAuditList> BuinessAudits
         {
             get { return _buinessAudits; }
             set { SetProperty(ref _buinessAudits, value); }
@@ -277,6 +279,19 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                var item= await _itemDefineService.CreateOrUpdate(ItemDefine);
                 if (item.Id>0)
                 {
+                    //foreach (var businessaudit in BuinessAudits)
+                    //{
+                    //    var auditStatus = new BusinessAuditStatus()
+                    //    {
+                    //        BusinessAuditId=businessaudit.Id,
+                    //        BusinessTypeName=businessaudit.BusinessTypeName,
+                    //        DisplayOrder=businessaudit.DisplayOrder,
+                    //        EntityId=item.Id,
+                    //        RoleId=businessaudit.RoleId,
+                    //        RoleName=businessaudit.RoleName,                           
+                    //    };
+                    //   await _businessAuditStatusService.CreateOrUpdate(auditStatus);
+                    //}
                     ItemDefine.ItemNo = item.ItemNo;
                     ItemDefine.Id = item.Id;
                     MessageBox.Show("保存成功！");
@@ -318,14 +333,22 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     var selectView = callback.Content as SubmitAuditView;
                     var viewModel = selectView.DataContext as SubmitAuditViewModel;
                     viewModel.AuditMapping.Status = 1;
-                   var item= await _auditMappingService.CreateOrUpdate(viewModel.AuditMapping);
-                    if (item.Id>0)
+                    try
                     {
-                        UpdateAuditStatus();
-                        //LoadAuditMappings();
-                        InitBusinessAudits();
-                        UpdateStatus(1);//标记立项处于审核中状态
+                        var item = await _auditMappingService.CreateOrUpdate(viewModel.AuditMapping);
+                        if (item.Id > 0)
+                        {
+                            UpdateAuditStatus();
+                            //LoadAuditMappings();
+                            InitBusinessAudits();
+                            UpdateStatus(1);//标记立项处于审核中状态
+                        }
                     }
+                    catch (Exception)
+                    { 
+
+                    }
+                   
                    
                 }
                 
@@ -337,7 +360,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         /// 根据当前审核项 查询当前用户是否具有审核资格
         /// </summary>
         /// <param name="auditItem"></param>
-        private bool IsCanAudit(BusinessAudit auditItem)
+        private bool IsCanAudit(BusinessAuditList auditItem)
         {
 
             var findItem = _userModel.Roles.FirstOrDefault(o => o.Id == auditItem.RoleId);
@@ -355,7 +378,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 if (findItem!=null)
                 {
                     item.Status = findItem.Status;
-                    item.StatusName = findItem.StatusText;
+                    item.StatusText = findItem.StatusText;
                 }
             }
         }
@@ -419,6 +442,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         //LoadAuditMappings();
                         InitBusinessAudits();
                         UpdateStatus(2);//标记立项处于已驳回状态
+                        var status =await _businessAuditStatusService.GetById(auditItem.BusinessAuditStatusId);
+                        if (status!=null)
+                        {
+                            status.Status = 0;
+                            await _businessAuditStatusService.CreateOrUpdate(status);
+                        }
                     }
                   
                 }
@@ -438,10 +467,38 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private async void InitBusinessAudits()
         { 
-            var items = await _businessAuditService.GetAllBusinessAudits(BusinessTypeName:"立项登记");
+            var items = await _businessAuditService.GetAll(BusinessTypeName:"立项登记",entityId:ItemDefine.Id);
             BuinessAudits.Clear();
             BuinessAudits.AddRange(items.Items);
             LoadAuditMappings();
+
+          
+            //foreach (var item in BuinessAudits)
+            //{
+            //    var findItem = AuditMappings.FirstOrDefault(o => o.RoleId == item.RoleId & o.BusinessAuditId == item.Id);
+            //    if (findItem != null)
+            //    {
+            //        item.Status = findItem.Status;
+            //        item.StatusName = findItem.StatusText;
+            //    }
+            //}
+            //var isComplete = BuinessAudits.FirstOrDefault(o => o.Status ==0);
+            //if (isComplete == null)
+            //{
+            //    ItemDefine.Status = 3;
+            //    await _itemDefineService.CreateOrUpdate(ItemDefine);
+            //}
+            //else
+            //{
+            //    //ItemDefine.Status = 1;
+            //    //await _itemDefineService.CreateOrUpdate(ItemDefine);
+            //}
+            //CanEdit = false;
+
+            //{
+            //    CanEdit = true;
+            //}
+            CheckRole();
         }
         private async void LoadAuditMappings()
         {
@@ -450,35 +507,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             var items = await _auditMappingService.GetAllAuditMappings(ItemDefine.Id, BusinessTypeName:"立项登记");
             AuditMappings.Clear();
             _auditMappings.AddRange(items.Items);
-            if (AuditMappings.Count>0)
-            {
-                foreach (var item in BuinessAudits)
-                {
-                    var findItem = AuditMappings.FirstOrDefault(o => o.RoleId == item.RoleId & o.BusinessAuditId == item.Id);
-                    if (findItem!=null)
-                    {
-                        item.Status = findItem.Status;
-                        item.StatusName = findItem.StatusText;
-                    }
-                }
-                var isComplete = BuinessAudits.FirstOrDefault(o => o.Status == 0);
-                if (isComplete == null)
-                {
-                    ItemDefine.Status = 3;
-                   await _itemDefineService.CreateOrUpdate(ItemDefine);
-                }
-                else
-                {
-                    //ItemDefine.Status = 1;
-                    //await _itemDefineService.CreateOrUpdate(ItemDefine);
-                }
-                CanEdit = false;
-            }
-            else
-            {
-                CanEdit = true;
-            }
-            CheckRole();
+         
+            
         }
 
         private async void UpdateStatus(int status)
@@ -506,6 +536,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 {
                     CanChecked = false;
                 }
+            }
+            else
+            {
+                //审核完毕
+               
             }
         }
 
