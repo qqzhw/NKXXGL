@@ -96,12 +96,14 @@
     <Compile Include="BusinessManages\AuditMappingService.cs" />
     <Compile Include="BusinessManages\BudgetService.cs" />
     <Compile Include="BusinessManages\BusinessAuditService.cs" />
+    <Compile Include="BusinessManages\BusinessAuditStatusService.cs" />
     <Compile Include="BusinessManages\BusinessTypeService.cs" />
     <Compile Include="BusinessManages\ContractService.cs" />
     <Compile Include="BusinessManages\FilesService.cs" />
     <Compile Include="BusinessManages\IAuditMappingService.cs" />
     <Compile Include="BusinessManages\IBudgetService.cs" />
     <Compile Include="BusinessManages\IBusinessAuditService.cs" />
+    <Compile Include="BusinessManages\IBusinessAuditStatusService.cs" />
     <Compile Include="BusinessManages\IBusinessTypeService.cs" />
     <Compile Include="BusinessManages\IContractService.cs" />
     <Compile Include="BusinessManages\IFilesService.cs" />

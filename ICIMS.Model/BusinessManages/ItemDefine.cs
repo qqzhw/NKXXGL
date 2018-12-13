@@ -118,7 +118,7 @@ namespace ICIMS.Model.BusinessManages
         public string Remark { get => _remark; set => SetProperty(ref _remark, value); }//备注 
 
 
-        private string _statusText;
+        private string _statusText="制单";
         public string StatusText
         {
             get

@@ -72,6 +72,7 @@
     <Compile Include="BusinessManages\AuditMapping.cs" />
     <Compile Include="BusinessManages\Budget.cs" />
     <Compile Include="BusinessManages\BuinessAudit.cs" />
+    <Compile Include="BusinessManages\BusinessAuditStatus.cs" />
     <Compile Include="BusinessManages\BusinessType.cs" />
     <Compile Include="BusinessManages\Contract.cs" />
     <Compile Include="BusinessManages\ContractList.cs" />

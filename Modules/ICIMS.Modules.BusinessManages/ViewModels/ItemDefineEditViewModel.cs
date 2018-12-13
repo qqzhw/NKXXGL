@@ -187,6 +187,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             InitBusinessAudits();
             if (info.Id == 0)
             {
+                ItemDefine.Status = 0;
                 ItemDefine.DefineDate = DateTime.Now;
                 ItemDefine.UnitId = _userModel.UnitId;
                 ItemDefine.UnitName = _userModel.UnitName;
