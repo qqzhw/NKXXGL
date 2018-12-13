@@ -186,17 +186,15 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         internal void BindData(ItemDefineList info)
         {
-            InitBusinessAudits();
+            ItemDefine = Mapper.Map<ItemDefine>(info);
             if (info.Id == 0)
             {
                 ItemDefine.Status = 0;
                 ItemDefine.DefineDate = DateTime.Now;
                 ItemDefine.UnitId = _userModel.UnitId;
-                ItemDefine.UnitName = _userModel.UnitName;
-                return;
-            }
-            
-            ItemDefine = Mapper.Map<ItemDefine>(info);
+                ItemDefine.UnitName = _userModel.UnitName; 
+            } 
+            InitBusinessAudits();
             GetFiles(ItemDefine);
            
         }
@@ -304,7 +302,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         private  void OnSubmit()
         { 
-            var auditItem = BuinessAudits.Where(o=>o.Status==0).OrderBy(o => o.DisplayOrder).FirstOrDefault();
+            var auditItem = BuinessAudits.Where(o=>o.Status!=1).OrderBy(o => o.DisplayOrder).FirstOrDefault();
             if (auditItem == null)
                 return;
             var flag = IsCanAudit(auditItem);
@@ -333,15 +331,26 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     var selectView = callback.Content as SubmitAuditView;
                     var viewModel = selectView.DataContext as SubmitAuditViewModel;
                     viewModel.AuditMapping.Status = 1;
+                    viewModel.AuditMapping.BusinessAuditStatusId = auditItem.BusinessAuditStatusId;
                     try
                     {
                         var item = await _auditMappingService.CreateOrUpdate(viewModel.AuditMapping);
                         if (item.Id > 0)
                         {
+
+                            UpdateBusinessAudit(auditItem, ItemDefine.Id, 1);
                             UpdateAuditStatus();
                             //LoadAuditMappings();
-                            InitBusinessAudits();
-                            UpdateStatus(1);//标记立项处于审核中状态
+                            InitBusinessAudits();                            
+                            var completed = BuinessAudits.Count(o => o.Status == 1);
+                            if (completed == BuinessAudits.Count)
+                            {
+                                UpdateStatus(3);
+                            }
+                            else
+                            {
+                                UpdateStatus(1);//标记立项处于审核中状态
+                            }
                         }
                     }
                     catch (Exception)
@@ -385,20 +394,46 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private async void OnCancel()
         {
-            var deleteItem = AuditMappings.LastOrDefault(o => o.Status == 1);
-            if (deleteItem!=null)
+            if (ItemDefine.Status == 3)
+                return;
+            var findItem = BuinessAudits.OrderBy(o=>o.DisplayOrder).LastOrDefault(o => o.Status == 1);
+            if (findItem == null)
+                return;
+            var candelete = _userModel.Roles.FirstOrDefault(o => o.Id == findItem.RoleId);
+            if (candelete == null)
+                return; 
+            try
+            { 
+                //var findItem = BuinessAudits.LastOrDefault(o => o.Status == 1);
+                var findmap = AuditMappings.LastOrDefault(o => o.BusinessAuditId == findItem.Id);
+                await _auditMappingService.Delete(findmap.Id);
+                 UpdateBusinessAudit(findItem, ItemDefine.Id, 0);
+                InitBusinessAudits();
+            }
+            catch (Exception)
             {
-                try
-                {
-                    await _auditMappingService.Delete(deleteItem.Id);
-                    InitBusinessAudits();
-                }
-                catch (Exception)
-                {
-                     
-                } 
-                
-            } 
+
+            }
+        }
+        /// <summary>
+        /// 更新审核状态
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="entityId"></param>
+        /// <param name="status"></param>
+        private async void UpdateBusinessAudit(BusinessAuditList item,int entityId,int status)
+        {
+            var entity = new BusinessAuditStatus()
+            {
+                BusinessAuditId = item.Id,
+                BusinessTypeName = item.BusinessTypeName,
+                DisplayOrder = item.DisplayOrder,
+                EntityId = entityId,
+                Id = item.BusinessAuditStatusId,
+                Status = status,
+            };
+            await _businessAuditStatusService.CreateOrUpdate(entity);
+
         }
         /// <summary>
         /// 驳回审核
@@ -434,6 +469,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     var selectView = callback.Content as SubmitAuditView;
                     var viewModel = selectView.DataContext as SubmitAuditViewModel;
                     viewModel.AuditMapping.Status = 2; //驳回审核
+                    viewModel.AuditMapping.BusinessAuditStatusId = auditItem.BusinessAuditStatusId;
                    var item= await _auditMappingService.CreateOrUpdate(viewModel.AuditMapping);
 
                     if (item.Id>0)

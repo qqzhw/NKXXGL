@@ -31,7 +31,8 @@ namespace ICIMS.Service.BusinessManages
         public async Task<ResultData<List<BusinessAuditList>>> GetAll(string BusinessTypeName, int entityId = 0, int pageIndex = 0, int pageSize = int.MaxValue)
         {
             var filter = new
-            { 
+            {
+                BusinessTypeId=0,
                 BusinessTypeName,
                 EntityId=entityId,
                 MaxResultCount = pageSize,

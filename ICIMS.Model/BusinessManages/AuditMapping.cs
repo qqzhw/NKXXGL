@@ -123,5 +123,11 @@ namespace ICIMS.Model.BusinessManages
         public int RoleId { get => _roleId; set => SetProperty(ref _roleId, value); }
         private string _rolename;
         public string RoleName { get => _rolename; set => SetProperty(ref _rolename, value); }
+
+        private int _businessAuditStatusId;
+        public int BusinessAuditStatusId
+        {
+            get => _businessAuditStatusId; set => SetProperty(ref _businessAuditStatusId, value);
+        }
     }
 }
