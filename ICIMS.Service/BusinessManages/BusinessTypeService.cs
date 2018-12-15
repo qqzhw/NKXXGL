@@ -10,7 +10,7 @@ namespace ICIMS.Service.BusinessManages
 {
     public class BusinessTypeService : IBusinessTypeService
     {
-        private readonly string BaseUrl = "/api/services/app/BusinessType/";
+        private readonly string BaseUrl = "api/services/app/BusinessType/";
         private readonly IWebApiClient _webApiClient;
         public BusinessTypeService(IWebApiClient webApiClient)
         {
