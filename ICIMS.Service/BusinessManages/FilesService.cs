@@ -38,7 +38,7 @@ namespace ICIMS.Service.BusinessManages
 
         public async Task Delete(long id)
         {
-            await _webApiClient.DeleteAsync<object>(Path.Combine(_webApiClient.BaseUrl, "api/services/app/FilesManage/Delete"), id);
+            await _webApiClient.DeleteAsync<object>(Path.Combine(_webApiClient.BaseUrl, "api/services/app/FilesManage/Delete"), new { Id=id});
         }
     }
 }

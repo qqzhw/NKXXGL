@@ -100,7 +100,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             try
             {
-                await this._filesService.Delete((long)this.SelectedFile.EntityId);
+                await this._filesService.Delete((long)this.SelectedFile.Id);
                 this.FilesManages.Remove(this.SelectedFile);
                 this.SelectedFile = this.FilesManages.FirstOrDefault();
                 MessageBox.Show("删除成功！");

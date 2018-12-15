@@ -9,6 +9,7 @@ namespace ICIMS.Model.BusinessManages
 {
     public class FilesManage: BindableBase
     {
+        public long Id { get; set; }
         private int? _entityId;
         public int? EntityId { get => _entityId; set => SetProperty(ref _entityId, value); }
         private string _entityKey;
