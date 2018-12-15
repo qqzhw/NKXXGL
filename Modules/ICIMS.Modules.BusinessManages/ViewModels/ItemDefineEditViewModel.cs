@@ -352,13 +352,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         var item = await _auditMappingService.CreateOrUpdate(viewModel.AuditMapping);
                         if (item.Id > 0)
                         {
-                            
-                          
-                            
-                            UpdateBusinessAudit(auditItem, ItemDefine.Id, 1);
 
                             auditItem.Status = 1;
-                            await GetNewStatus();
+
+                            await UpdateBusinessAudit(auditItem, ItemDefine.Id, 1);
+                             
+                            //await GetNewStatus();
                             var completed = BusinessAudits.Count(o => o.Status == 1);
                             if (completed == BusinessAudits.Count)
                             {
@@ -410,7 +409,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 //var findItem = BuinessAudits.LastOrDefault(o => o.Status == 1);
                 var findmap = AuditMappings.LastOrDefault(o =>_userModel.Roles.FirstOrDefault(r=>r.Id==o.RoleId)!=null);
                 await _auditMappingService.Delete(findmap.Id);
-                 UpdateBusinessAudit(findItem, ItemDefine.Id, 0);
+                await UpdateBusinessAudit(findItem, ItemDefine.Id, 0);
                  
                 if (BusinessAudits.FirstOrDefault(o=>o.Status>0)==null)
                 {
@@ -492,9 +491,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         //    status.Status = 0;
                         //    await _businessAuditStatusService.CreateOrUpdate(status);
                         //}
-                        UpdateBusinessAudit(auditItem, ItemDefine.Id, 0);
-                        await GetNewStatus();//获取最新状态
                         auditItem.Status = 1;
+                        await UpdateBusinessAudit(auditItem, ItemDefine.Id, 0);
+                        //await GetNewStatus();//获取最新状态
+                        
                         await GetNewStatus();
                         var completed = BusinessAudits.Count(o => o.Status == 1);
                         if (completed == BusinessAudits.Count)
