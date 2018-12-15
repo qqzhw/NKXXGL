@@ -226,7 +226,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
 
 
-        private int _pageSize = 10;
+        private int _pageSize = int.MaxValue;
         public int PageSize
         {
             get
