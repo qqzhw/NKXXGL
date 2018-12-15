@@ -467,16 +467,20 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         private void OnDownloadFile(FilesManage model)
         {
-            if (model == null)
+            var permission = _userModel.Permissions.FirstOrDefault(o => o == "Pages.FilesManage");
+            if (permission == null)
+            {
+                MessageBox.Show("你没有权限操作此项");
+            }
+            if (model == null || string.IsNullOrEmpty(model.DownloadUrl))
                 return;
+            var view = _unityContainer.Resolve<FileDownloadView>(new ParameterOverride("model", model));
             var notification = new Notification()
             {
-                Title = "文件下载",
-                Content = _unityContainer.Resolve<FileDownloadView>(new ParameterOverride("fileName", model.FullName)),
+                Title = "附件下载",
+                Content = view,// (new ParameterOverride("name", "")), 
             };
-            PopupWindows.NotificationRequest.Raise(notification, (callback) => {
-
-            });
+            PopupWindows.NotificationRequest.Raise(notification, (callback) => { });
         }
         private void OnScanFile()
         {
@@ -657,6 +661,18 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             get { return _canChecked; }
             set { SetProperty(ref _canChecked, value); }
+        }
+        private bool _canCancel = false;
+        public bool CanCancel
+        {
+            get { return _canCancel; }
+            set { SetProperty(ref _canCancel, value); }
+        }
+        private bool _canBack = false;
+        public bool CanBack
+        {
+            get { return _canBack; }
+            set { SetProperty(ref _canBack, value); }
         }
     }
 

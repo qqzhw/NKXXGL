@@ -168,13 +168,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 MessageBox.Show("你没有权限操作此项");
             }
             if (model == null||string.IsNullOrEmpty(model.DownloadUrl))
-                return;
-            //var notification = new Notification()
-            //{
-            //    Title = "文件下载",
-            //    Content = _unityContainer.Resolve<FileDownloadView>(new ParameterOverride("fileName", model.FullName)),
-            //};
-      
+                return; 
             var view = _unityContainer.Resolve<FileDownloadView>(new ParameterOverride("model", model));
             var notification = new Notification()
             {
@@ -198,7 +192,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             } 
             
             GetFiles(ItemDefine);
-            LoadAuditMappings();
+            await LoadAuditMappings();
             await  GetNewStatus();
             
 
@@ -367,7 +361,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                             {
                                 UpdateStatus(1);//标记立项处于审核中状态
                             }
-                            LoadAuditMappings();
+                            await LoadAuditMappings();
                         }
                     }
                     catch (Exception)
@@ -441,6 +435,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             };
             await _businessAuditStatusService.CreateOrUpdate(entity);
             await GetNewStatus();
+            await LoadAuditMappings();
         }
         /// <summary>
         /// 驳回审核
@@ -491,7 +486,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         //    status.Status = 0;
                         //    await _businessAuditStatusService.CreateOrUpdate(status);
                         //}
-                        auditItem.Status = 1;
+                         
                         await UpdateBusinessAudit(auditItem, ItemDefine.Id, 0);
                         //await GetNewStatus();//获取最新状态
                         
@@ -509,7 +504,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                                 UpdateStatus(0);
                             }
                         }
-                        LoadAuditMappings();
+                        await LoadAuditMappings();
                     }
                   
                 }
@@ -602,6 +597,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 {
                     CanCancel = true;
                 }
+                else
+                {
+                    CanCancel = false;
+                }
             }
         }
         //获取当前待审批项 无审核项返回null
@@ -635,20 +634,23 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 {
                     CanBack = true;
                 }
-
+                else
+                {
+                    CanBack = false;
+                }
             }
             
         }
 
-        private async void LoadAuditMappings()
+        private async Task LoadAuditMappings()
         {
             if (ItemDefine.Id == 0)
                 return;
             var items = await _auditMappingService.GetAllAuditMappings(ItemDefine.Id, BusinessTypeName:"立项登记");
             AuditMappings.Clear();
             AuditMappings.AddRange(items.Items);
-         
-            
+
+           await Task.CompletedTask;
         }
 
         private async void UpdateStatus(int status)
