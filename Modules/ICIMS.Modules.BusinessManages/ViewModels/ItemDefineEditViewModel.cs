@@ -279,6 +279,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {  
             try
             {
+                if (ItemDefine.ItemCategoryId==0)
+                {
+                    MessageBox.Show("请选择项目分类");
+                    return;
+                }
                var item= await _itemDefineService.CreateOrUpdate(ItemDefine);
                 if (item.Id>0)
                 {
@@ -348,7 +353,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         if (item.Id > 0)
                         {
                             
-                            //LoadAuditMappings();
+                          
                             
                             UpdateBusinessAudit(auditItem, ItemDefine.Id, 1);
 
@@ -363,7 +368,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                             {
                                 UpdateStatus(1);//标记立项处于审核中状态
                             }
-                           
+                            LoadAuditMappings();
                         }
                     }
                     catch (Exception)
@@ -424,7 +429,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         /// <param name="item"></param>
         /// <param name="entityId"></param>
         /// <param name="status"></param>
-        private async void UpdateBusinessAudit(BusinessAuditList item,int entityId,int status)
+        private async Task UpdateBusinessAudit(BusinessAuditList item,int entityId,int status)
         {
             var entity = new BusinessAuditStatus()
             {
@@ -436,7 +441,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 Status = status,
             };
             await _businessAuditStatusService.CreateOrUpdate(entity);
-
+            await GetNewStatus();
         }
         /// <summary>
         /// 驳回审核
@@ -504,6 +509,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                                 UpdateStatus(0);
                             }
                         }
+                        LoadAuditMappings();
                     }
                   
                 }
