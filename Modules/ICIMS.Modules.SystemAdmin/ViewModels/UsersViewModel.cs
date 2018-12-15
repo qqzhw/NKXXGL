@@ -256,7 +256,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                     {
                         newItem.Item.Name = newItem.Item.UserName;
                         newItem.Item.Surname = newItem.Item.UserName;
-                        newItem.Item.Password = "111111";
+                        newItem.Item.Password = "123456";
                         newItem.Item.Roles = new ObservableCollection<RoleModel>();
                         var data = await _service.Create(newItem.Item);
                         if (data != null)
