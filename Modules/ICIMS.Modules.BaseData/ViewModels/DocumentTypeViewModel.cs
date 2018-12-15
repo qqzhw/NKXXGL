@@ -187,7 +187,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
             this.Items = new ObservableCollection<DocumentTypeItem>(rs.datas);
 
             this.ItemCount = rs.totalCount;
-            this.Items = new ObservableCollection<DocumentTypeItem>(_datas.Where(a => a.Parent == null));
+            //this.Items = new ObservableCollection<DocumentTypeItem>(_datas.Where(a => a.Parent == null));
             this.SelectedItem = this.Items.FirstOrDefault();
         }
 
@@ -242,7 +242,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
 
 
-        private int _pageSize = 10;
+        private int _pageSize = int.MaxValue;
         public int PageSize
         {
             get

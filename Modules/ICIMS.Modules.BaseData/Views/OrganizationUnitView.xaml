@@ -64,10 +64,10 @@
 											IsReadOnly="True"
                                             Header="名称"
 											Width="150" />
-                <telerik:GridViewDataColumn DataMemberBinding="{Binding Description}"
+                <!--<telerik:GridViewDataColumn DataMemberBinding="{Binding Description}"
 											IsReadOnly="True"
                                              Header="备注"
-											Width="*" />
+											Width="*" />-->
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Level}"
 											IsReadOnly="True"
                                             Header="层级"

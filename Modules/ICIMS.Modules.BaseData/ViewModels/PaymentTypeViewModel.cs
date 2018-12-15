@@ -144,7 +144,13 @@ namespace ICIMS.Modules.BaseData.ViewModels
                     var data = await _service.CreateOrUpdate(newItem.Item);
                     if (data != null)
                     {
-                        this.Items.Add(data);
+                        this.InitOneData(this._datas, data);
+                        this._datas.Add(data);
+                        if (data.Parent == null)
+                        {
+                            this.Items.Add(data);
+                        }
+                        this.SelectedItem = this.Items.FirstOrDefault();
                     }
 
                     if (newItem.IsOkClicked == 1)
@@ -256,7 +262,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
 
 
 
-        private int _pageSize = 100;
+        private int _pageSize = int.MaxValue;
         public int PageSize
         {
             get
