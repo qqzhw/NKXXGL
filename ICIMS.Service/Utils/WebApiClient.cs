@@ -6,7 +6,8 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
+using ICIMS.Model.User;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -35,14 +36,14 @@ namespace ICIMS.Service
             RequestHeaders = new List<NameValue>();
         }
 
-        public WebApiClient()
+        public WebApiClient(SettingModel settingModel)
         {
             Timeout = DefaultTimeout;
             Cookies = new Collection<Cookie>();
           
             ResponseHeaders = new List<NameValue>();
-         //BaseUrl = "http://120.79.144.79:10085/";
-          BaseUrl = "http://localhost:21025/";
+           //BaseUrl = "http://120.79.144.79:10085/";
+            BaseUrl = settingModel.ServerApi;
         }
 
         public virtual async Task PostAsync(string url, int? timeout = null)

@@ -23,7 +23,8 @@
                 </Grid.RowDefinitions>
                 <Border Background="#D9EDF7">
                     <Grid>
-                        <TextBlock Text="{Binding FileName}" FontSize="16" Foreground="#31708F" VerticalAlignment="Center" Margin="20,0,0,0"/>                       
+                        <TextBlock Text="{Binding FileName}" FontSize="16" Foreground="#31708F" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                        <Button Margin="0,0,10,0" HorizontalAlignment="Right" Style="{DynamicResource MetroFlatButton}" VerticalAlignment="Center" Visibility="{Binding IsEnable}"  Content="打开文件" Width="90" Height="28" Command="{Binding DataContext.OpenFile,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"  />
                     </Grid>
                 </Border>
                 <Border BorderThickness="1"  BorderBrush="#D9EDF7" Grid.Row="1">

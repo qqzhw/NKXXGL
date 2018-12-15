@@ -18,7 +18,7 @@
             <DockPanel   Background="#FEFEFE">
                 <control:CustomButton Height="28"  IconBackground="#682357" Command="{Binding SaveCommand}"  IsEnabled="{Binding CanEdit}" Kind="SaveSolid"  Width="75" Margin="0,0,0,0" Title="保存"/>
                 <control:CustomButton Height="28"  IconBackground="#91CE2D"  IsEnabled="{Binding CanChecked}" Command="{Binding SubmitCommand}" Kind="CheckSolid"  Width="75" Margin="10,0,0,0" Title="审批"/>
-                <control:CustomButton Height="28"  IconBackground="#AD372D"  Command="{Binding CancelCommand}" Kind="TimesSolid"  Width="100" Margin="10,0,0,0" Title="取消审批"/>
+            <control:CustomButton Height="28"  IconBackground="#AD372D"  IsEnabled="{Binding CanCancel}" Command="{Binding CancelCommand}" Kind="TimesSolid"  Width="100" Margin="10,0,0,0" Title="取消审批"/>
             <control:CustomButton Height="28"  IconBackground="#C1852D" IsEnabled="{Binding CanBack}" Command="{Binding BackCommand}" Kind="ReplySolid"  Width="75" Margin="10,0,0,0" Title="驳回"/>
                 <TextBlock Text="{Binding ItemDefine.StatusText,StringFormat={}【{0}】}" HorizontalAlignment="Right" FontWeight="Bold" VerticalAlignment="Center" FontSize="22" Foreground="{Binding ItemDefine.StatusColor}"/>
             </DockPanel> 
@@ -115,7 +115,7 @@
             <Grid Grid.Column="1" Grid.RowSpan="2">
                 <GroupBox Header="相关审核流程" BorderThickness="1,0,0,1">
                     <telerik:RadGridView FontFamily="SimSun"   TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
-						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding BuinessAudits}"  
+						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding BusinessAudits}"  
 							   BorderBrush="#E4E7F0"    SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2">

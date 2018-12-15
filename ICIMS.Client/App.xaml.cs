@@ -1,8 +1,10 @@
-﻿using ICIMS.Client.ViewModels;
+﻿using ICIMS.Client.Properties;
+using ICIMS.Client.ViewModels;
 using ICIMS.Client.Views;
 using ICIMS.Core;
 using ICIMS.Core.Common;
 using ICIMS.Metro.Controls;
+using ICIMS.Model.User;
 using ICIMS.Modules.BaseData;
 using ICIMS.Modules.BusinessManages;
 using ICIMS.Modules.SystemAdmin;
@@ -58,7 +60,7 @@ namespace ICIMS.Client
             //if (!SingleInstanceCheck())
             //{
             //    return;
-            //}
+            //} 
             base.OnStartup(e);
           
         }
@@ -90,6 +92,7 @@ namespace ICIMS.Client
         }
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            LoadSetting(containerRegistry);//加载设置
             containerRegistry.RegisterForNavigation<BaseDataView>();
            containerRegistry.RegisterSingleton<IWebApiClient, WebApiClient>();
             // var webApiClient = new WebApiClient();
@@ -123,7 +126,15 @@ namespace ICIMS.Client
             containerRegistry.RegisterSingleton<IBusinessAuditStatusService, BusinessAuditStatusService>();
             ConfigurationMapper.Configure();
         }
-       
+
+        private void LoadSetting(IContainerRegistry containerRegistry)
+        {
+            var setting = new SettingModel();
+            setting.LocalPath = Settings.Default.LocalPath;
+            setting.ServerApi = Settings.Default.ServerApi;
+            setting.MainProgramName = Settings.Default.MainProgramName;
+            containerRegistry.RegisterInstance(typeof(SettingModel),setting);
+        }
 
         protected override void ConfigureRegionAdapterMappings(RegionAdapterMappings regionAdapterMappings)
         {

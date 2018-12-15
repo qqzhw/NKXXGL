@@ -6,7 +6,10 @@
       <Value Profile="(Default)">ICIMS.Client.exe</Value>
     </Setting>
     <Setting Name="LocalPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">D:\\</Value>
+      <Value Profile="(Default)">D:\</Value>
+    </Setting>
+    <Setting Name="ServerApi" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost:21025/</Value>
     </Setting>
   </Settings>
 </SettingsFile>
