@@ -75,6 +75,7 @@
     <Compile Include="BusinessManages\BusinessAuditList.cs" />
     <Compile Include="BusinessManages\BusinessAuditStatus.cs" />
     <Compile Include="BusinessManages\BusinessType.cs" />
+    <Compile Include="BusinessManages\ByteFormatter.cs" />
     <Compile Include="BusinessManages\Contract.cs" />
     <Compile Include="BusinessManages\ContractList.cs" />
     <Compile Include="BusinessManages\FilesManage.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User\PermissionModel.cs" />
     <Compile Include="User\RoleModel.cs" />
+    <Compile Include="User\SettingModel.cs" />
     <Compile Include="User\UnitModel.cs" />
     <Compile Include="User\UserModel.cs" />
   </ItemGroup>

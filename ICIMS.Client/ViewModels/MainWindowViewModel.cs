@@ -164,9 +164,9 @@ namespace ICIMS.Client.ViewModels
         /// <summary>
         /// 加载设置选项
         /// </summary>
-        public  async void InitLoadSetting()
+        public   void InitLoadSetting()
         {
-            // _title = Settings.Default.AppName;
+           
             //var ss =await _userSerice.GetUserInfoAsync(1);
             //string TenancyName = "Default";
             //string UserName = "admin";
@@ -181,7 +181,7 @@ namespace ICIMS.Client.ViewModels
             //    user.UnitId = unit.Id;
             //    user.UnitName = unit.Name;
             //}
-           //  _container.RegisterInstance(userInfo, new ContainerControlledLifetimeManager());
+            //  _container.RegisterInstance(userInfo, new ContainerControlledLifetimeManager());
             //var roles = await _userSerice。.GetUserRoles();
             //foreach (var item in roles.Items)
             //{

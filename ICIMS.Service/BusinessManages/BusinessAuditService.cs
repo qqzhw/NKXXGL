@@ -38,7 +38,7 @@ namespace ICIMS.Service.BusinessManages
                 MaxResultCount = pageSize,
                 SkipCount = pageIndex * pageSize
             };
-            var url = $"{_webApiClient.BaseUrl}{BaseUrl}GetPaged";
+            var url = $"{_webApiClient.BaseUrl}{BaseUrl}GetAllAuditStatus";
             var items = await _webApiClient.GetAsync<ResultData<List<BusinessAuditList>>>(url, filter);
             return items;
         }

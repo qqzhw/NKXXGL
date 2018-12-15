@@ -44,8 +44,11 @@ namespace ICIMS.Model.BusinessManages
         /// FileSize
         /// </summary>
         private long _filesize;
-        public long FileSize { get => _filesize; set => SetProperty(ref _filesize, value); }
-
+        public long FileSize { get => _filesize; set { SetProperty(ref _filesize, value);
+                FileSizeText = ByteFormatter.ToString(_filesize);
+            } }
+        private string _filesizetext;
+        public string FileSizeText { get => _filesizetext; set => SetProperty(ref _filesizetext, value); }
         /// <summary>
         /// Extension
         /// </summary>

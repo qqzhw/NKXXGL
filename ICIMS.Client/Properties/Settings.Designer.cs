@@ -37,13 +37,25 @@ namespace ICIMS.Client.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\\\")]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\")]
         public string LocalPath {
             get {
                 return ((string)(this["LocalPath"]));
             }
             set {
                 this["LocalPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:21025/")]
+        public string ServerApi {
+            get {
+                return ((string)(this["ServerApi"]));
+            }
+            set {
+                this["ServerApi"] = value;
             }
         }
     }
