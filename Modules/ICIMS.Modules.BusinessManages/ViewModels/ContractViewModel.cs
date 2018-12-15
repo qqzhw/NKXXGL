@@ -111,13 +111,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 Content = view,
             };
             PopupWindows.NotificationRequest.Raise(notification, (callback) => {
-                //if (callback.DialogResult == true)
-                //{
-                //    var selectView = callback.Content as SelectItemCategoryView;
-                //    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
+               
                 OnLoad();
-                //}
-                int s = 0;
+                 
             });
         }
         private void OnPageChanged(Telerik.Windows.Controls.PageIndexChangedEventArgs e)

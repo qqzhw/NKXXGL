@@ -162,7 +162,7 @@ namespace ICIMS.Client.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show("登录失败！",ex.Message);
+                MessageBox.Show("登录失败"+ex.Message);
                 Islogining = false;
                 return;
             }

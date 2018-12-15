@@ -114,7 +114,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private async void Initializer()
         {
             IsBusy = true;
-            _reviewDefineLists.Clear();
+            
             if (BeginTime != null)
             {
                 if (BeginTime == EndTime)
@@ -122,10 +122,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     EndTime = BeginTime.Value.AddDays(1);
                 }
             }
-            
-
+             
             var result = await _reviewDefineService.GetAllReViewDefines("", "", pageIndex: PageIndex, pageSize: PageSize);
-
+            _reviewDefineLists.Clear();
             TotalCount = result.TotalCount;
             ReViewDefineLists.AddRange(result.Items);
             IsBusy = false;
