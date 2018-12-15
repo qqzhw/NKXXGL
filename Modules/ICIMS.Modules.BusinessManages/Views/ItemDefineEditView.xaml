@@ -18,8 +18,8 @@
             <DockPanel   Background="#FEFEFE">
                 <control:CustomButton Height="28"  IconBackground="#682357" Command="{Binding SaveCommand}"  IsEnabled="{Binding CanEdit}" Kind="SaveSolid"  Width="75" Margin="0,0,0,0" Title="保存"/>
                 <control:CustomButton Height="28"  IconBackground="#91CE2D"  IsEnabled="{Binding CanChecked}" Command="{Binding SubmitCommand}" Kind="CheckSolid"  Width="75" Margin="10,0,0,0" Title="审批"/>
-                <control:CustomButton Height="28"  IconBackground="#AD372D" Command="{Binding CancelCommand}" Kind="TimesSolid"  Width="100" Margin="10,0,0,0" Title="取消审批"/>
-                <control:CustomButton Height="28"  IconBackground="#C1852D" Command="{Binding BackCommand}" Kind="ReplySolid"  Width="75" Margin="10,0,0,0" Title="驳回"/>
+                <control:CustomButton Height="28"  IconBackground="#AD372D"  Command="{Binding CancelCommand}" Kind="TimesSolid"  Width="100" Margin="10,0,0,0" Title="取消审批"/>
+            <control:CustomButton Height="28"  IconBackground="#C1852D" IsEnabled="{Binding CanBack}" Command="{Binding BackCommand}" Kind="ReplySolid"  Width="75" Margin="10,0,0,0" Title="驳回"/>
                 <TextBlock Text="{Binding ItemDefine.StatusText,StringFormat={}【{0}】}" HorizontalAlignment="Right" FontWeight="Bold" VerticalAlignment="Center" FontSize="22" Foreground="{Binding ItemDefine.StatusColor}"/>
             </DockPanel> 
           
@@ -146,7 +146,7 @@
                     </telerik:RadGridView>
                 </GroupBox>
             </Grid>
-            <GroupBox Header="上传附件" Background="#DEDEDE" Grid.Row="2"  BorderThickness="0">
+            <GroupBox Header="上传附件" Background="#DEDEDE" Grid.Row="2"  BorderThickness="0"  >
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <Grid Background="#DEDEDE" Height="32">
@@ -156,7 +156,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="{Binding}" FontSize="16" Foreground="#333333"  VerticalAlignment="Center"/>
                             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                                <StackPanel Orientation="Horizontal" IsEnabled="{Binding CanEdit}" >
+                                <StackPanel Orientation="Horizontal" IsEnabled="{Binding DataContext.CanEdit,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" >
                                 <control:CustomButton Height="28"   IconBackground="#07AA7E" Command="{Binding DataContext.ScanCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="CameraSolid"  Width="80" Margin="10,0,0,0" Title="扫描"/>
                                 <control:CustomButton Height="28"     IconBackground="#0382A6" Command="{Binding DataContext.UploadCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="UploadSolid"  Width="80" Margin="10,0,0,0" Title="上传"/>
                                 <control:CustomButton Height="28"   IconBackground="#C0350A" Command="{Binding DataContext.DeleteCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Kind="TrashSolid"  Width="80" Margin="10,0,0,0" Title="删除"/>

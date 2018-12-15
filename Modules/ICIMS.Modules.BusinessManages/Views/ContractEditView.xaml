@@ -217,7 +217,7 @@
 
                         <telerik:GridViewDataColumn Header="文件名称"  DataMemberBinding="{Binding FileName}" TextWrapping="Wrap" Width="*" />
                         <telerik:GridViewDataColumn Header="文件类型" DataMemberBinding="{Binding UploadType}" TextWrapping="Wrap" Width="80" />
-                        <telerik:GridViewDataColumn Header="文件大小" DataMemberBinding="{Binding FileSize}" TextWrapping="Wrap" Width="80" />
+                        <telerik:GridViewDataColumn Header="文件大小" DataMemberBinding="{Binding FileSizeText}" TextWrapping="Wrap" Width="80" />
                         <telerik:GridViewDataColumn Header="上传时间" Width="120"  DataMemberBinding="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}"/>
 
 

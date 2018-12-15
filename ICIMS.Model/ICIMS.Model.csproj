@@ -75,6 +75,7 @@
     <Compile Include="BusinessManages\BusinessAuditList.cs" />
     <Compile Include="BusinessManages\BusinessAuditStatus.cs" />
     <Compile Include="BusinessManages\BusinessType.cs" />
+    <Compile Include="BusinessManages\ByteFormatter.cs" />
     <Compile Include="BusinessManages\Contract.cs" />
     <Compile Include="BusinessManages\ContractList.cs" />
     <Compile Include="BusinessManages\FilesManage.cs" />
