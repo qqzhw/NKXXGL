@@ -66,9 +66,10 @@ namespace ICIMS.Model.User
 
         private DateTime? _lastLoginTime;
         public DateTime? LastLoginTime { get => _lastLoginTime; set => SetProperty(ref _lastLoginTime, value); }
-        public string EmailAddress { get; set; }
+        private string _emailAddress = "";
         public string Surname { get; set; }
         private string _password;
         public string Password { get => _password; set => SetProperty(ref _password, value); }
+        public string EmailAddress { get => _emailAddress; set => SetProperty(ref _emailAddress,value); }
     }
 }
