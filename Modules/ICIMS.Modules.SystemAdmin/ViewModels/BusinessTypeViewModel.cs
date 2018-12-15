@@ -90,8 +90,10 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                         var temp = a.DisplayOrder;
                         a.DisplayOrder = b.DisplayOrder;
                         b.DisplayOrder = temp;
-                        await _businessAuditService.CreateOrUpdate(a);
-                        await _businessAuditService.CreateOrUpdate(b);
+                        var newA = await _businessAuditService.CreateOrUpdate(a);
+                        var newB = await _businessAuditService.CreateOrUpdate(b);
+                        a.DisplayOrder = newA.DisplayOrder;
+                        b.DisplayOrder = newB.DisplayOrder;
                         this.SelectedItem.Audits = new ObservableCollection<BusinessAudit>(this.SelectedItem.Audits.OrderBy(item => item.DisplayOrder));
                         int i = 1;
                         foreach (var item in this.SelectedItem.Audits)
@@ -109,8 +111,10 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                         var temp = a.DisplayOrder;
                         a.DisplayOrder = b.DisplayOrder;
                         b.DisplayOrder = temp;
-                        await _businessAuditService.CreateOrUpdate(a);
-                        await _businessAuditService.CreateOrUpdate(b);
+                        var newA = await _businessAuditService.CreateOrUpdate(a);
+                        var newB =  await _businessAuditService.CreateOrUpdate(b);
+                        a.DisplayOrder = newA.DisplayOrder;
+                        b.DisplayOrder = newB.DisplayOrder;
                         this.SelectedItem.Audits = new ObservableCollection<BusinessAudit>(this.SelectedItem.Audits.OrderBy(item => item.DisplayOrder));
                         int i = 1;
                         foreach (var item in this.SelectedItem.Audits)
@@ -215,7 +219,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             {
                 if(value.Audits == null)
                 {
-                    var audits = this.BusinessAudits.Where(a => a.BusinessTypeId == value.Id).ToList();
+                    var audits = this.BusinessAudits.Where(a => a.BusinessTypeId == value.Id).OrderBy(b=>b.DisplayOrder).ToList();
                     var idx = 1;
                     audits.ForEach(a=>a.No = idx++);
                     value.Audits = new ObservableCollection<BusinessAudit>(audits);
@@ -238,7 +242,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             var businessTypes = (await _businessTypeService.GetAllBusinessTypes()).Items;
             int idx = 1;
             businessTypes.ForEach(a => a.No = idx++);
-            this.Items = new ObservableCollection<BusinessType>(businessTypes);
+            this.Items = new ObservableCollection<BusinessType>(businessTypes?.OrderBy(a=>a.DisplayOrder));
 
             try
             {
