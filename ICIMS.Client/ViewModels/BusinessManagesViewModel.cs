@@ -77,7 +77,7 @@ namespace ICIMS.Client.ViewModels
                 IsDefaultShow = false,
                 IsReadOnly = false
             };
-            itemInit.IsEnabled(_userModel.Permissions, "Pages.ItemDefine");
+            itemInit.IsEnabled(_userModel.Permissions, "");
             _systemInfos.Add(itemInit);
             _systemInfos.Add(new SystemInfoViewModel()
             {
@@ -114,21 +114,21 @@ namespace ICIMS.Client.ViewModels
                 Title = "结算管理",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_合同结算.ico",
                 IsDefaultShow = false,
-            }.IsEnabled(_userModel.Permissions, "Pages.PayAudit"));
+            }.IsEnabled(_userModel.Permissions, ""));
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "PayAuditView",
                 Title = "项目决算",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_项目决算.ico",
                 IsDefaultShow = false,
-            }.IsEnabled(_userModel.Permissions, "Pages.PayAudit"));
+            }.IsEnabled(_userModel.Permissions, ""));
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "PayAuditView",
                 Title = "项目绩效评价",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_项目管理_项目管理_项目绩效评价.ico",
                 IsDefaultShow = false,
-            }.IsEnabled(_userModel.Permissions, "Pages.PayAudit"));
+            }.IsEnabled(_userModel.Permissions, ""));
             _systemInfos.Add(new SystemInfoViewModel()
             {
                 Id = "DocManagerView",

@@ -549,6 +549,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         model.Status = item.Status;                        
                     }
                 }
+                RaisePropertyChanged("BusinessAudits");
             } 
            
             CheckRole();
