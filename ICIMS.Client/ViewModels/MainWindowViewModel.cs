@@ -245,7 +245,7 @@ namespace ICIMS.Client.ViewModels
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "UserView",
+                Id = "",
                 Title = "资产管理",
                 InitMode = InitializationMode.OnDemand,
                 IsDefaultShow = false,
@@ -253,7 +253,7 @@ namespace ICIMS.Client.ViewModels
             });
             _systemInfos.Add(new SystemInfoViewModel()
             {
-                Id = "ScanFileView",
+                Id = "",
                 Title = "数据采集",
                 InitMode = InitializationMode.OnDemand,
                 IsDefaultShow = false,

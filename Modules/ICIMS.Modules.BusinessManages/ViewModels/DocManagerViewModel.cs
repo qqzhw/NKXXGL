@@ -77,16 +77,16 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 WindowState = System.Windows.WindowState.Maximized,
                 Content = view,
             };
-            PopupWindows.NotificationRequest.Raise(notification, (callback) => {
-                //if (callback.DialogResult == true)
-                //{
-                //    var selectView = callback.Content as SelectItemCategoryView;
-                //    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
+            //PopupWindows.NotificationRequest.Raise(notification, (callback) => {
+            //    //if (callback.DialogResult == true)
+            //    //{
+            //    //    var selectView = callback.Content as SelectItemCategoryView;
+            //    //    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
 
-                //}
-                Initializer();
-                int s = 0;
-            });
+            //    //}
+            //    Initializer();
+            //    int s = 0;
+            //});
         }
         private void OnPageChanged(Telerik.Windows.Controls.PageIndexChangedEventArgs e)
         {
@@ -176,15 +176,15 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 WindowState = System.Windows.WindowState.Maximized,
                 Content = view,// (new ParameterOverride("name", "")), 
             };
-            PopupWindows.NotificationRequest.Raise(notification, (callback) => {
-                //if (callback.DialogResult == true)
-                //{
-                //    var selectView = callback.Content as SelectItemCategoryView;
-                //    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
-                Initializer();
-                //}
-                int s = 0;
-            });
+            //PopupWindows.NotificationRequest.Raise(notification, (callback) => {
+            //    //if (callback.DialogResult == true)
+            //    //{
+            //    //    var selectView = callback.Content as SelectItemCategoryView;
+            //    //    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
+            //    Initializer();
+            //    //}
+            //    int s = 0;
+            //});
         }
         private void navigationCallback(NavigationResult nr)
         {
@@ -213,15 +213,15 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 WindowState = System.Windows.WindowState.Maximized,
                 Content = view,// (new ParameterOverride("name", "")), 
             };
-            PopupWindows.NotificationRequest.Raise(notification, (callback) => {
-                //if (callback.DialogResult == true)
-                //{
-                //    var selectView = callback.Content as SelectItemCategoryView;
-                //    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
-                Initializer();
-                //}
-                int s = 0;
-            });
+            //PopupWindows.NotificationRequest.Raise(notification, (callback) => {
+            //    //if (callback.DialogResult == true)
+            //    //{
+            //    //    var selectView = callback.Content as SelectItemCategoryView;
+            //    //    var viewModel = selectView.DataContext as SelectItemCategoryViewModel;
+            //    Initializer();
+            //    //}
+            //    int s = 0;
+            //});
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

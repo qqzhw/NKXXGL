@@ -46,146 +46,178 @@
 							   BorderBrush="#E4E7F0" RowDetailsVisibilityMode="VisibleWhenSelected"   SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"  BorderThickness="0,0,0,1"    GroupRenderMode="Flat"    AutoGenerateColumns="False"  
                                          CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#F5F5F5"   AlternationCount="2"   >
-
-            <!--<telerik:EventToCommandBehavior.EventBindings>
-                            <telerik:EventBinding Command="{Binding ListRightMenue}" EventName="MouseRightButtonUp" 
-                        PassEventArgsToCommand="True" /> 
-                        </telerik:EventToCommandBehavior.EventBindings>-->
+ 
             <telerik:RadGridView.Columns>
                 <control:RowNumberColumn Header="序号" Width="40" TextBlock.TextAlignment="Center"/>
-                <telerik:GridViewDataColumn Header="状态" Width="60" Background="{Binding StatusColor}">
-                    <telerik:GridViewDataColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Background="{Binding StatusColor}"  Margin="0" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" >
-                                <TextBlock Text="{Binding StatusText}"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </telerik:GridViewDataColumn.CellTemplate>
-                </telerik:GridViewDataColumn>
-
+              
                 <telerik:GridViewDataColumn Header="部门名称" Width="90" DataMemberBinding="{Binding UnitName}"/>
   
-                <telerik:GridViewDataColumn Header="项目分类"  DataMemberBinding="{Binding ItemCategoryName}" TextWrapping="Wrap" Width="80" />
+                <telerik:GridViewDataColumn Header="项目分类"  DataMemberBinding="{Binding ItemCategoryName}" TextWrapping="Wrap" Width="100" />
                 <telerik:GridViewDataColumn Header="项目编号" DataMemberBinding="{Binding ItemNo}" TextWrapping="Wrap" Width="80" />
                 <telerik:GridViewDataColumn Header="项目名称" DataMemberBinding="{Binding ItemName}" TextWrapping="Wrap" Width="*" />
                 <telerik:GridViewDataColumn Header="立项日期" DataMemberBinding="{Binding DefineDate,StringFormat=yyyy-MM-dd}" TextWrapping="Wrap" Width="90" />
                 <telerik:GridViewDataColumn Header="立项金额" DataMemberBinding="{Binding DefineAmount}" TextWrapping="Wrap" Width="90" />
                 <telerik:GridViewDataColumn Header="项目地址" DataMemberBinding="{Binding ItemAddress}" TextWrapping="Wrap" Width="*" />
                 <telerik:GridViewDataColumn Header="预算名称" DataMemberBinding="{Binding BudgetName}" TextWrapping="Wrap" Width="*" />
-                <!--<telerik:GridViewDataColumn Header="预算编号" DataMemberBinding="{Binding SBWD}" TextWrapping="Wrap" Width="*" />-->
-                <telerik:GridViewDataColumn Header="录入日期" Width="90" DataMemberBinding="{Binding CreationTime,StringFormat=yyyy-MM-dd}"/>
-
+                
                 <telerik:GridViewDataColumn Header="结审日期" DataMemberBinding="{Binding AuditDate,StringFormat=yyyy-MM-dd}" TextWrapping="Wrap" Width="90" />
 
-                <telerik:GridViewDataColumn Header="结审人" DataMemberBinding="{Binding AuditUserName}" TextWrapping="Wrap" Width="80" />
-                <telerik:GridViewDataColumn Header="是否决算" DataMemberBinding="{Binding IsFinal}" TextWrapping="Wrap" Width="80" />
-
+               
             </telerik:RadGridView.Columns>
             <telerik:RadGridView.RowDetailsTemplate>
                 <DataTemplate>
-                    <Controls:MetroTabControl x:Name="RadTabContr"
-										   Width="702"
-										   HorizontalAlignment="Left"
-										   Margin="8"
-										   VerticalAlignment="Center">
-                        <Controls:MetroTabItem Header="Details" 
-											DataContext="{Binding}">
-                            <Grid Width="Auto"
-								  HorizontalAlignment="Stretch">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition Height="15" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Border Grid.Column="0"
-										Grid.RowSpan="6"
-										Grid.Row="0"
-										VerticalAlignment="Top"
-										HorizontalAlignment="Stretch"
-										Height="115"
-										Width="115"
-										Margin="15"
-										BorderThickness="1"
-										BorderBrush="#FFD6D4D4">
-                                 
-                                </Border>
-                                <TextBlock Text="Last Name: "
-										   Margin="5,10,0,0"
-										   FontWeight="Bold"
-										   Grid.Row="0"
-										   Grid.Column="1" />
-                                <TextBlock Text="{Binding LastName}"
-										   Margin="5,10,0,0"
-										   Grid.Row="0"
-										   Grid.Column="2" />
-                                <TextBlock Text="First Name: "
-										   Margin="5,0,0,0"
-										   FontWeight="Bold"
-										   Grid.Row="1"
-										   Grid.Column="1" />
-                                <TextBlock Text="{Binding FirstName}"
-										   Margin="5,0,0,0"
-										   Grid.Row="1"
-										   Grid.Column="2" />
-                                <TextBlock Text="Title: "
-										   Margin="5,0,0,0"
-										   FontWeight="Bold"
-										   Grid.Row="2"
-										   Grid.Column="1" />
-                                <TextBlock Text="{Binding Title}"
-										   Margin="5,0,0,0"
-										   Grid.Row="2"
-										   Grid.Column="2" />
-                                <TextBlock Text="Address: "
-										   Margin="5,0,0,0"
-										   FontWeight="Bold"
-										   Grid.Row="3"
-										   Grid.Column="1" />
-                                <StackPanel Orientation="Horizontal"
-											Grid.Row="3"
-											Grid.Column="2">
-                                    <TextBlock Text="{Binding Address}"
-											   Margin="5,0,0,0" />
-                                    <TextBlock Text=", " />
-                                    <TextBlock Text="{Binding PostalCode}" />
-                                </StackPanel>
-                                <TextBlock Text="City: "
-										   Margin="5,0,0,0"
-										   FontWeight="Bold"
-										   Grid.Row="4"
-										   Grid.Column="1" />
-                                <TextBlock Text="{Binding City}"
-										   Margin="5,0,0,0"
-										   Grid.Row="4"
-										   Grid.Column="2" />
-                                <TextBlock Text="Phone: "
-										   Margin="5,0,0,0"
-										   FontWeight="Bold"
-										   Grid.Row="5"
-										   Grid.Column="1" />
-                                <TextBlock Text="{Binding HomePhone}"
-										   Margin="5,0,0,0"
-										   Grid.Row="5"
-										   Grid.Column="2" />
-                            </Grid>
-                        </Controls:MetroTabItem>
+                    <Controls:MetroTabControl x:Name="RadTabContr" 
+										   HorizontalAlignment="Left" 
+										   VerticalAlignment="Center"> 
                         <Controls:MetroTabItem Header="预算文档">
-                            <TextBlock Text="预算文档再这里"/>
+                            <telerik:RadGridView x:Name="dgInfo" FontFamily="SimSun" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+						     CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding FilesManages}" SelectedItem="{Binding SelectedFile,UpdateSourceTrigger=PropertyChanged}" 
+							   BorderBrush="#E4E7F0"  FontWeight="Medium"  SelectionUnit="FullRow"  SelectionMode="Single"    
+                                 IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
+                                         CanUserSortColumns="False"   MinHeight="200"	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
+
+
+                                <telerik:RadGridView.Columns>
+
+                                    <telerik:GridViewDataColumn Header="上传业务" Width="150" TextBlock.FontFamily="SimSun"   DataMemberBinding="{Binding EntityName}" />
+
+
+                                    <telerik:GridViewDataColumn Header="文件名称"  DataMemberBinding="{Binding FileName}" TextWrapping="Wrap" Width="150" />
+                                    <telerik:GridViewDataColumn Header="文件类型" DataMemberBinding="{Binding UploadType}" TextWrapping="Wrap" Width="*" />
+                                    <telerik:GridViewDataColumn Header="文件大小" DataMemberBinding="{Binding FileSize}" TextWrapping="Wrap" Width="100" />
+                                    <telerik:GridViewDataColumn Header="上传时间" Width="120"  DataMemberBinding="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}"/>
+
+
+                                    <telerik:GridViewDataColumn Header="扩展名" DataMemberBinding="{Binding Extension}" TextWrapping="Wrap" Width="80" />
+
+                                    <!--<telerik:GridViewDataColumn Header="上传人" DataMemberBinding="{Binding CreatorName}" TextWrapping="Wrap" Width="80" />-->
+
+
+
+
+                                </telerik:RadGridView.Columns>
+
+                            </telerik:RadGridView>
                         </Controls:MetroTabItem>
-                        <Controls:MetroTabItem Header="Performance Chart"
-											HorizontalContentAlignment="Stretch"
-											HorizontalAlignment="Left">
-                            <TextBlock Text="评审文档" />
+                        <Controls:MetroTabItem Header="立项文档">
+                            <telerik:RadGridView x:Name="dgInfo1" FontFamily="SimSun" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+						     CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding FilesManages}" SelectedItem="{Binding SelectedFile,UpdateSourceTrigger=PropertyChanged}" 
+							   BorderBrush="#E4E7F0"  FontWeight="Medium"  SelectionUnit="FullRow"  SelectionMode="Single"    
+                                 IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
+                                         CanUserSortColumns="False"   MinHeight="200"	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
+
+
+                                <telerik:RadGridView.Columns>
+
+                                    <telerik:GridViewDataColumn Header="上传业务" Width="120" TextBlock.FontFamily="SimSun"   DataMemberBinding="{Binding EntityName}" />
+
+
+                                    <telerik:GridViewDataColumn Header="文件名称"  DataMemberBinding="{Binding FileName}" TextWrapping="Wrap" Width="150" />
+                                    <telerik:GridViewDataColumn Header="文件类型" DataMemberBinding="{Binding UploadType}" TextWrapping="Wrap" Width="*" />
+                                    <telerik:GridViewDataColumn Header="文件大小" DataMemberBinding="{Binding FileSize}" TextWrapping="Wrap" Width="100" />
+                                    <telerik:GridViewDataColumn Header="上传时间" Width="120"  DataMemberBinding="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}"/>
+
+
+                                    <telerik:GridViewDataColumn Header="扩展名" DataMemberBinding="{Binding Extension}" TextWrapping="Wrap" Width="80" />
+
+                                    <!--<telerik:GridViewDataColumn Header="上传人" DataMemberBinding="{Binding CreatorName}" TextWrapping="Wrap" Width="80" />-->
+
+
+
+
+                                </telerik:RadGridView.Columns>
+
+                            </telerik:RadGridView>
+                        </Controls:MetroTabItem>
+                        <Controls:MetroTabItem Header="评审文档">
+                            <telerik:RadGridView x:Name="dgInfo2" FontFamily="SimSun" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding FilesManages}" SelectedItem="{Binding SelectedFile,UpdateSourceTrigger=PropertyChanged}" 
+							   BorderBrush="#E4E7F0"  FontWeight="Medium"  SelectionUnit="FullRow"  SelectionMode="Single"    
+                                 IsReadOnly="True"     MinHeight="200"  GroupRenderMode="Flat"    AutoGenerateColumns="False"  
+                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
+
+
+                                <telerik:RadGridView.Columns>
+
+                                    <telerik:GridViewDataColumn Header="上传业务" Width="120" TextBlock.FontFamily="SimSun"   DataMemberBinding="{Binding EntityName}" />
+
+
+                                    <telerik:GridViewDataColumn Header="文件名称"  DataMemberBinding="{Binding FileName}" TextWrapping="Wrap" Width="150" />
+                                    <telerik:GridViewDataColumn Header="文件类型" DataMemberBinding="{Binding UploadType}" TextWrapping="Wrap" Width="*" />
+                                    <telerik:GridViewDataColumn Header="文件大小" DataMemberBinding="{Binding FileSize}" TextWrapping="Wrap" Width="100" />
+                                    <telerik:GridViewDataColumn Header="上传时间" Width="120"  DataMemberBinding="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}"/>
+
+
+                                    <telerik:GridViewDataColumn Header="扩展名" DataMemberBinding="{Binding Extension}" TextWrapping="Wrap" Width="80" />
+
+                                    <!--<telerik:GridViewDataColumn Header="上传人" DataMemberBinding="{Binding CreatorName}" TextWrapping="Wrap" Width="80" />-->
+
+
+
+
+                                </telerik:RadGridView.Columns>
+
+                            </telerik:RadGridView>
+                        </Controls:MetroTabItem>
+                        <Controls:MetroTabItem Header="合同文档">
+                            <telerik:RadGridView x:Name="dgInfo3" FontFamily="SimSun" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+						     CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding FilesManages}" SelectedItem="{Binding SelectedFile,UpdateSourceTrigger=PropertyChanged}" 
+							   BorderBrush="#E4E7F0"  FontWeight="Medium"  SelectionUnit="FullRow"  SelectionMode="Single"    
+                                 IsReadOnly="True"      GroupRenderMode="Flat"  MinHeight="200"   AutoGenerateColumns="False"  
+                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
+
+
+                                <telerik:RadGridView.Columns>
+
+                                    <telerik:GridViewDataColumn Header="上传业务" Width="120" TextBlock.FontFamily="SimSun"   DataMemberBinding="{Binding EntityName}" />
+
+
+                                    <telerik:GridViewDataColumn Header="文件名称"  DataMemberBinding="{Binding FileName}" TextWrapping="Wrap" Width="150" />
+                                    <telerik:GridViewDataColumn Header="文件类型" DataMemberBinding="{Binding UploadType}" TextWrapping="Wrap" Width="*" />
+                                    <telerik:GridViewDataColumn Header="文件大小" DataMemberBinding="{Binding FileSize}" TextWrapping="Wrap" Width="100" />
+                                    <telerik:GridViewDataColumn Header="上传时间" Width="120"  DataMemberBinding="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}"/>
+
+
+                                    <telerik:GridViewDataColumn Header="扩展名" DataMemberBinding="{Binding Extension}" TextWrapping="Wrap" Width="80" />
+
+                                    <!--<telerik:GridViewDataColumn Header="上传人" DataMemberBinding="{Binding CreatorName}" TextWrapping="Wrap" Width="80" />-->
+
+
+
+
+                                </telerik:RadGridView.Columns>
+
+                            </telerik:RadGridView>
+                        </Controls:MetroTabItem>
+                        <Controls:MetroTabItem Header="支付审核文档">
+                            <telerik:RadGridView x:Name="dgInfo5"  FontFamily="SimSun" TextBlock.FontFamily="SimSun"  EnableRowVirtualization="True" FrozenColumnsSplitterVisibility="Collapsed"  IsFilteringAllowed="False"  RowIndicatorVisibility="Collapsed"    telerik:StyleManager.Theme="Office2016" FontSize="14"   ShowGroupPanel="False"
+						    RowHeight="30" CanUserInsertRows="True" MinHeight="200"   GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display"    ItemsSource="{Binding FilesManages}" SelectedItem="{Binding SelectedFile,UpdateSourceTrigger=PropertyChanged}" 
+							   BorderBrush="#E4E7F0"  FontWeight="Medium"  SelectionUnit="FullRow"  SelectionMode="Single"    
+                                 IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
+                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#FCFCFC"   AlternationCount="2"   >
+
+
+                                <telerik:RadGridView.Columns>
+
+                                    <telerik:GridViewDataColumn Header="上传业务" Width="120" TextBlock.FontFamily="SimSun"   DataMemberBinding="{Binding EntityName}" />
+
+
+                                    <telerik:GridViewDataColumn Header="文件名称"  DataMemberBinding="{Binding FileName}" TextWrapping="Wrap" Width="150" />
+                                    <telerik:GridViewDataColumn Header="文件类型" DataMemberBinding="{Binding UploadType}" TextWrapping="Wrap" Width="*" />
+                                    <telerik:GridViewDataColumn Header="文件大小" DataMemberBinding="{Binding FileSize}" TextWrapping="Wrap" Width="100" />
+                                    <telerik:GridViewDataColumn Header="上传时间" Width="120"  DataMemberBinding="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}"/>
+
+
+                                    <telerik:GridViewDataColumn Header="扩展名" DataMemberBinding="{Binding Extension}" TextWrapping="Wrap" Width="80" />
+
+                                    <!--<telerik:GridViewDataColumn Header="上传人" DataMemberBinding="{Binding CreatorName}" TextWrapping="Wrap" Width="80" />-->
+
+
+
+
+                                </telerik:RadGridView.Columns>
+
+                            </telerik:RadGridView>
                         </Controls:MetroTabItem>
                     </Controls:MetroTabControl>
                 </DataTemplate>
