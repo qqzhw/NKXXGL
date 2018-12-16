@@ -226,9 +226,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             view.BindAction(notification.Finish);
         }
 
-        internal void BindData(PayAuditList info)
+        internal async void BindData(PayAuditList info)
         {
-            InitBusinessAudits();
+            await InitBusinessAudits();
             UnitName = _userModel.UnitName;
             _payAudit = null ?? new PayAudit();
             _itemDefine = null ?? new ItemDefine();
@@ -236,9 +236,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _contract = null ?? new ContractList();
             _vendorItem = null ?? new VendorItem();
             _payAuditDetails = null ?? new ObservableCollection<PayAuditDetail>();
+            RaisePropertyChanged("PayAudit");
             if (info.PayAudit == null)
-            {
-
+            { 
+               
                 return;
             }
             Contract.ContractName = info.ContractName;
@@ -568,7 +569,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             if (ItemDefine.Id > 0)
             {
-                var result = await _businessAuditService.GetAll(BusinessTypeName: "立项登记", entityId: ItemDefine.Id);
+                var result = await _businessAuditService.GetAll(BusinessTypeName: "支付审核", entityId: PayAudit.Id);
 
                 foreach (var item in result.Items)
                 {
@@ -587,6 +588,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             CheckEdit();
             CheckAudit();//取消审核
             CheckOnBack();
+            CheckComplete();
         }
         /// <summary>
         /// 是否可编辑
@@ -626,22 +628,42 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         //获取当前待审批项 无审核项返回null
         public BusinessAuditList GetCurrent()
         {
-            var findItem = BusinessAudits.OrderBy(o => o.DisplayOrder).FirstOrDefault(o => o.Status == 0 && _userModel.Roles.FirstOrDefault(r => r.Id == o.RoleId) != null);
+            var findItem = BusinessAudits.FirstOrDefault(o => o.Status == 0);
             if (findItem != null)
             {
-                return findItem;
+                var role = _userModel.Roles.FirstOrDefault(r => r.Id == findItem.RoleId);
+                if (role != null)
+                {
+                    return findItem;
+                }
+
             }
             return null;
         }
 
         public BusinessAuditList GetCheckedItem()
         {
-            var findItem = BusinessAudits.OrderBy(o => o.DisplayOrder).LastOrDefault(o => o.Status == 1 && _userModel.Roles.FirstOrDefault(r => r.Id == o.RoleId) != null);
+            var findItem = BusinessAudits.LastOrDefault(o => o.Status == 1);
             if (findItem != null)
             {
-                return findItem;
+                var role = _userModel.Roles.FirstOrDefault(r => r.Id == findItem.RoleId);
+                if (role != null)
+                {
+                    return findItem;
+                }
+
             }
             return null;
+        }
+        private void CheckComplete()
+        {
+            if (PayAudit.Status == 3)
+            {
+                CanEdit = false;
+                CanChecked = false;
+                CanBack = false;
+                CanCancel = false;
+            }
         }
         //是否可以驳回
         private void CheckOnBack()

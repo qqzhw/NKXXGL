@@ -155,6 +155,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     var selectView = callback.Content as SelectedContractType;
                     var viewModel = selectView.DataContext as SelectedContractTypeModel;
                     ContractCategory = viewModel.SelectedItem;
+                    Contract.ContractCategoryId = ContractCategory.Id;
+                    
                 }
 
             });
@@ -174,6 +176,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 _contract.EndTime = DateTime.Now;
                 _contract.IdentifyDate = DateTime.Now;
                 _contract.ContractTime = DateTime.Now;
+                _contract.UnitName = _userModel.UnitName;
+                _contract.UnitId = _userModel.UnitId;
+                RaisePropertyChanged("Contract");
                 CanEdit = true;
                 return;
             }
@@ -302,17 +307,27 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             Contract.UnitId = ItemDefine.UnitId;
             Contract.ContractCategoryId = ContractCategory.Id;
             Contract.ItemDefineId = ItemDefine.Id;
-            var item=await _contractService.CreateOrUpdate(Contract);
-            if (item.Id>0)
+            try
             {
-                Contract.Id = item.Id;
-                Contract.ContractNo = item.ContractNo;
-                MessageBox.Show("保存成功！");
+                var item = await _contractService.CreateOrUpdate(Contract);
+                if (item.Id > 0)
+                {
+                    CanChecked = true;
+                    Contract.Id = item.Id;
+                    Contract.ContractNo = item.ContractNo;
+                    await GetNewStatus();
+                    MessageBox.Show("保存成功！");
+                }
+                else
+                {
+                    MessageBox.Show("保存失败！");
+                }
             }
-            else
+            catch
             {
                 MessageBox.Show("保存失败！");
             }
+           
 
         }
         private  void OnSubmit()
@@ -361,13 +376,15 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                             var completed = BusinessAudits.Count(o => o.Status == 1);
                             if (completed == BusinessAudits.Count)
                             {
-                                UpdateStatus(3);
+                               await UpdateStatus(3);
                             }
                             else
                             {
-                                UpdateStatus(1);//标记立项处于审核中状态
+                               await UpdateStatus(1);//标记立项处于审核中状态
                             }
                             await LoadAuditMappings();
+                            await GetNewStatus();
+                             
                         }
                     }
                     catch (Exception)
@@ -472,23 +489,23 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         
                         if (item.Id > 0)
                         { 
-                            UpdateStatus(2);//标记立项处于已驳回状态 
+                            await  UpdateStatus(2);//标记立项处于已驳回状态 
                             await UpdateBusinessAudit(auditItem, ItemDefine.Id, 0);
                             await GetNewStatus();//获取最新状态 
                           
-                            var completed = BusinessAudits.Count(o => o.Status == 1);
-                            if (completed == BusinessAudits.Count)
-                            {
-                                UpdateStatus(3);
-                            }
-                            else
-                            {
-                                //UpdateStatus(1);//标记立项处于审核中状态
-                                if (completed == 0)
-                                {
-                                    UpdateStatus(0);
-                                }
-                            }
+                            //var completed = BusinessAudits.Count(o => o.Status == 1);
+                            //if (completed == BusinessAudits.Count)
+                            //{
+                            //    UpdateStatus(3);
+                            //}
+                            //else
+                            //{
+                            //    //UpdateStatus(1);//标记立项处于审核中状态
+                            //    if (completed == 0)
+                            //    {
+                            //        UpdateStatus(0);
+                            //    }
+                            //}
                             await LoadAuditMappings();
                         }
                     }
@@ -590,7 +607,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             if (ItemDefine.Id > 0)
             {
-                var result = await _businessAuditService.GetAll(BusinessTypeName: "合同登记", entityId: ItemDefine.Id);
+                var result = await _businessAuditService.GetAll(BusinessTypeName: "合同登记", entityId: Contract.Id);
 
                 foreach (var item in result.Items)
                 {
@@ -609,9 +626,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             CheckEdit();
             CheckAudit();//取消审核
             CheckOnBack();
-        }/// <summary>
-         /// 是否可编辑
-         /// </summary>
+            CheckComplete();
+        }
+         
+        /// <summary>
+        /// 是否可编辑
+        /// </summary>
         private void CheckEdit()
         {
             //查询当前是否有审核项 true 不能编辑
@@ -643,25 +663,46 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 }
             }
         }
+
         //获取当前待审批项 无审核项返回null
         public BusinessAuditList GetCurrent()
         {
-            var findItem = BusinessAudits.OrderBy(o => o.DisplayOrder).FirstOrDefault(o => o.Status == 0 && _userModel.Roles.FirstOrDefault(r => r.Id == o.RoleId) != null);
+            var findItem = BusinessAudits.FirstOrDefault(o => o.Status == 0);
             if (findItem != null)
             {
-                return findItem;
+                var role = _userModel.Roles.FirstOrDefault(r => r.Id == findItem.RoleId);
+                if (role != null)
+                {
+                    return findItem;
+                }
+
             }
             return null;
         }
 
         public BusinessAuditList GetCheckedItem()
         {
-            var findItem = BusinessAudits.OrderBy(o => o.DisplayOrder).LastOrDefault(o => o.Status == 1 && _userModel.Roles.FirstOrDefault(r => r.Id == o.RoleId) != null);
+            var findItem = BusinessAudits.LastOrDefault(o => o.Status == 1);
             if (findItem != null)
             {
-                return findItem;
+                var role = _userModel.Roles.FirstOrDefault(r => r.Id == findItem.RoleId);
+                if (role != null)
+                {
+                    return findItem;
+                }
+
             }
             return null;
+        }
+        private void CheckComplete()
+        {
+            if (Contract.Status == 3)
+            {
+                CanEdit = false;
+                CanChecked = false;
+                CanBack = false;
+                CanCancel = false;
+            }
         }
         //是否可以驳回
         private void CheckOnBack()
@@ -709,7 +750,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
             await Task.CompletedTask;
         }
-        private async void UpdateStatus(int status)
+        private async Task UpdateStatus(int status)
         {
             Contract.Status = status;
             await _contractService.CreateOrUpdate(Contract);

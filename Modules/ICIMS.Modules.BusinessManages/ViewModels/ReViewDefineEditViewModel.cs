@@ -114,13 +114,14 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             {
                 _itemDefine = new ItemDefine();
                 _reviewDefine = new ReViewDefine();
-                ReViewDefine.UnitName = _userModel.UnitName;
+                ReViewDefine.UnitName = _userModel.UnitName; 
+                RaisePropertyChanged("ReViewDefine");
                 CanEdit = true;
                 return;
             }
             
             ReViewDefine = info.ReViewDefine;
-            ReViewDefine.UnitName = info.UnitName;
+            ReViewDefine.UnitName = info.UnitName; 
             GetFiles(ReViewDefine); 
             await LoadItemDefine(ReViewDefine.ItemDefineId);//加载立项项目 
             await GetNewStatus();
@@ -360,6 +361,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                                 UpdateStatus(1);//标记立项处于审核中状态
                             }
                             await LoadAuditMappings();
+                            CheckComplete();
                         }
                         else
                         {
@@ -462,7 +464,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         UpdateStatus(2);//标记立项处于已驳回状态
                        
                        
-                        await UpdateBusinessAudit(auditItem, ReViewDefine.Id, 0);
+                        await UpdateBusinessAudit(auditItem, ReViewDefine.Id, 2);
                         //await GetNewStatus();//获取最新状态
 
                         await GetNewStatus();
@@ -476,7 +478,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                             //UpdateStatus(1);//标记立项处于审核中状态
                             if (completed == 0)
                             {
-                                UpdateStatus(0);
+                               // UpdateStatus(0);
                             }
                         }
                         await LoadAuditMappings();
@@ -576,6 +578,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             CheckEdit();
             CheckAudit();//取消审核
             CheckOnBack();
+            CheckComplete();
         }
         /// <summary>
         /// 是否可编辑
@@ -629,30 +632,52 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             }
 
         }
+
         //获取当前待审批项 无审核项返回null
         public BusinessAuditList GetCurrent()
         {
-            var findItem = BusinessAudits.OrderBy(o => o.DisplayOrder).FirstOrDefault(o => o.Status == 0 && _userModel.Roles.FirstOrDefault(r => r.Id == o.RoleId) != null);
+            var findItem = BusinessAudits.FirstOrDefault(o => o.Status == 0);
             if (findItem != null)
             {
-                return findItem;
+                var role = _userModel.Roles.FirstOrDefault(r => r.Id == findItem.RoleId);
+                if (role != null)
+                {
+                    return findItem;
+                }
+
             }
             return null;
         }
 
         public BusinessAuditList GetCheckedItem()
         {
-            var findItem = BusinessAudits.OrderBy(o => o.DisplayOrder).LastOrDefault(o => o.Status == 1 && _userModel.Roles.FirstOrDefault(r => r.Id == o.RoleId) != null);
+            var findItem = BusinessAudits.LastOrDefault(o => o.Status == 1);
             if (findItem != null)
             {
-                return findItem;
+                var role = _userModel.Roles.FirstOrDefault(r => r.Id == findItem.RoleId);
+                if (role != null)
+                {
+                    return findItem;
+                }
+
             }
             return null;
+        }
+        private void CheckComplete()
+        {
+            if (ReViewDefine.Status == 3)
+            {
+                CanEdit = false;
+                CanChecked = false;
+                CanBack = false;
+                CanCancel = false;
+            }
         }
         private async void UpdateStatus(int status)
         {
             ReViewDefine.Status = status;
-            await _reViewDefineService.CreateOrUpdate(ReViewDefine);
+            var item=await _reViewDefineService.CreateOrUpdate(ReViewDefine); 
+            
         }
         /// <summary>
         /// 获取用户是否是审核角色
@@ -706,6 +731,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             get { return _itemDefine; }
             set { SetProperty(ref _itemDefine, value); }
+        }
+        private string _unitName;
+        public string UnitName
+        {
+            get { return _unitName; }
+            set { SetProperty(ref _unitName, value); }
         }
         private bool _canEdit = true;
         public bool CanEdit

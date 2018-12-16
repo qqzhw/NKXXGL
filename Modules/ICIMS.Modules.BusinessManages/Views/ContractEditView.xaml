@@ -12,7 +12,7 @@
     <Grid Background="#DEDEDE">
         <Grid.Resources> 
             <Style TargetType="TextBox">
-                <Setter Property="MinWidth" Value="100"/>
+                <Setter Property="MinWidth" Value="50"/>
                 <Setter Property="Height" Value="20"/>
             </Style>
         </Grid.Resources>
@@ -38,7 +38,7 @@
                 <ColumnDefinition Width="0.65*"/>
                 <ColumnDefinition Width="0.35*"/>
             </Grid.ColumnDefinitions>
-            <GroupBox Header="关联立项" FontFamily="SimSun" FontSize="12" >
+            <GroupBox Header="关联立项" FontFamily="SimSun" FontSize="12" IsEnabled="{Binding CanEdit}">
                 <Grid VerticalAlignment="Top"  >
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -73,7 +73,7 @@
                 </Grid>
 
             </GroupBox>
-            <GroupBox Header="合同登记" FontFamily="SimSun" FontSize="12" Grid.Row="1">
+            <GroupBox Header="合同登记" FontFamily="SimSun" FontSize="12" Grid.Row="1" IsEnabled="{Binding CanEdit}">
                 <Grid VerticalAlignment="Top" Margin="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="28"/>
@@ -85,8 +85,8 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                        <TextBlock Text="部门"   VerticalAlignment="Center"/>
-                        <TextBox   Margin="5,0,0,0" Text="{Binding Contract.UnitName}" VerticalAlignment="Center"/>
+                        <TextBlock Text="所属部门"   VerticalAlignment="Center"/>
+                        <TextBox   Margin="5,0,0,0" Width="100" Text="{Binding Contract.UnitName,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                         <TextBlock Text="合同分类"  Margin="5,0,0,0" VerticalAlignment="Center" />
                         <TextBox   Text="{Binding ContractCategory.Name}"   Width="200" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <Button Command="{Binding CaractTypeCommand}" IsEnabled="True" Style="{x:Null}" BorderThickness="0" Height="18">
@@ -100,22 +100,22 @@
                     </StackPanel>
                     <DockPanel Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Top"  >
                         <TextBlock  HorizontalAlignment="Center"  TextAlignment="Center" Text="合同编号" VerticalAlignment="Center"/>
-                        <TextBox  AcceptsReturn="True" IsReadOnly="True" Text="{Binding Contract.ContractNo}" Margin="5,0,0,0" TextWrapping="Wrap"   />
+                        <TextBox  AcceptsReturn="True" IsReadOnly="True" Width="100" Text="{Binding Contract.ContractNo}" Margin="5,0,0,0" TextWrapping="Wrap"   />
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Margin="5,0,0,0" Text="合同名称" VerticalAlignment="Center"/>
-                        <TextBox  AcceptsReturn="True" Text="{Binding Contract.ContractName}" Margin="5,0,10,0" TextWrapping="Wrap"   />
+                        <TextBox  AcceptsReturn="True" Text="{Binding Contract.ContractName,UpdateSourceTrigger=PropertyChanged}" Margin="5,0,10,0" TextWrapping="Wrap"   />
                     </DockPanel>
                     <DockPanel Grid.Row="2" HorizontalAlignment="Stretch"  VerticalAlignment="Top"  >
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="合同金额" VerticalAlignment="Center"/>
-                        <TextBox  AcceptsReturn="True" Text="{Binding Contract.ContractAmount}"  Margin="5,0,0,0" TextWrapping="Wrap"   />
+                        <TextBox  AcceptsReturn="True" Width="100" Text="{Binding Contract.ContractAmount}"  Margin="5,0,0,0" TextWrapping="Wrap"   />
                         <TextBlock VerticalAlignment="Center" Width="12">元</TextBlock>
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Margin="5,0,0,0" Text="暂列金额" VerticalAlignment="Center"/>
-                        <TextBox  AcceptsReturn="True" Text="{Binding Contract.ProvisionalAmount}"  Margin="5,0,0,0" TextWrapping="Wrap"   />
+                        <TextBox  AcceptsReturn="True" Width="100" Text="{Binding Contract.ProvisionalAmount}"  Margin="5,0,0,0" TextWrapping="Wrap"   />
                         <TextBlock VerticalAlignment="Center" Width="12">元</TextBlock>
-                        <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="印花税" VerticalAlignment="Center"/>
+                        <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Margin="5,0,0,0" Text="印花税" VerticalAlignment="Center"/>
                         <TextBox  AcceptsReturn="True" Text="{Binding Contract.Tax}"  Margin="5,0,0,0" TextWrapping="Wrap"   />
                         <TextBlock VerticalAlignment="Center" Width="12">%</TextBlock>
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="印花税额" VerticalAlignment="Center"/>
-                        <TextBox  AcceptsReturn="True" Text="{Binding Contract.TaxAmount}"  Margin="5,0,0,0" TextWrapping="Wrap"   />
+                        <TextBox  AcceptsReturn="True" Text="{Binding Contract.TaxAmount}" Width="100" Margin="5,0,0,0" TextWrapping="Wrap"   />
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Width="12">元</TextBlock>
                     </DockPanel>
                     <DockPanel Grid.Row="3" HorizontalAlignment="Stretch"  VerticalAlignment="Top"  >
@@ -130,26 +130,29 @@
                     </DockPanel>
                     <DockPanel Grid.Row="4" HorizontalAlignment="Stretch"  VerticalAlignment="Top"  >
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="是否结算" VerticalAlignment="Center"/>
-                        <CheckBox    Margin="5,0,0,0"   IsChecked="{Binding Contract.IsClearing}"  />
+                        <ComboBox    Margin="5,0,0,0"  SelectedIndex="{Binding Contract.IsClearing}" >
+                            <ComboBoxItem Content="否"/>
+                            <ComboBoxItem Content="是"/>
+                        </ComboBox>
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="结算金额" VerticalAlignment="Center"/>
-                        <TextBox  AcceptsReturn="True"  Text="{Binding Contract.ClearingAmount}" Margin="5,0,0,0" TextWrapping="Wrap"   />
+                        <TextBox  AcceptsReturn="True"  Text="{Binding Contract.ClearingAmount}" Width="100" Margin="5,0,0,0" TextWrapping="Wrap"   />
                         <TextBlock VerticalAlignment="Center" Width="12">元</TextBlock>
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="结算前支付比例" VerticalAlignment="Center"/>
                         <TextBox  Text="{Binding Contract.ClearingPer}" Width="30" AcceptsReturn="True" Margin="5,0,0,0" TextWrapping="Wrap"   />
                         <TextBlock VerticalAlignment="Center" Width="12">%</TextBlock>
                         <TextBlock  TextAlignment="Center" HorizontalAlignment="Left" Text="预警" VerticalAlignment="Center"/>
-                        <TextBox  AcceptsReturn="True"  Text="{Binding Contract.Warining}" HorizontalAlignment="Left"  TextWrapping="Wrap"   />
-                        <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="预警日期" VerticalAlignment="Center"/>
-                        <telerik:RadDatePicker DateTimeWatermarkTemplate="{StaticResource dateTemplate}" telerik:StyleManager.Theme="Office2016"  FontFamily="SimSun" FontStyle="Normal"  Width="120"   Foreground="#222328"      SelectedValue="{Binding Contract.WariningDate}"   DisplayFormat="Long"  DateTimeWatermarkContent="签订日期" />
+                        <TextBox  AcceptsReturn="True"  Text="{Binding Contract.Warining}" HorizontalAlignment="Left" Width="160" TextWrapping="Wrap"   />
+                        <TextBlock  HorizontalAlignment="Left" TextAlignment="Center" Margin="5,0,0,0" Text="预警日期" VerticalAlignment="Center"/>
+                        <telerik:RadDatePicker DateTimeWatermarkTemplate="{StaticResource dateTemplate}" HorizontalAlignment="Left" telerik:StyleManager.Theme="Office2016"  FontFamily="SimSun" FontStyle="Normal"  Width="120"   Foreground="#222328"      SelectedValue="{Binding Contract.WariningDate}"   DisplayFormat="Long"  DateTimeWatermarkContent="签订日期" />
 
                     </DockPanel>
                     <DockPanel Grid.Row="5" HorizontalAlignment="Stretch"  VerticalAlignment="Top"  >
-                        <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="付款方式及比例" Width="50" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                        <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="付款方式及比例" Width="48" TextWrapping="Wrap" VerticalAlignment="Center"/>
 
-                        <TextBox   Text="{Binding Contract.PaymentMethod}"   AcceptsReturn="True" Margin="5,0,0,0" TextWrapping="Wrap"   />
+                        <TextBox   Text="{Binding Contract.PaymentMethod}" Height="32"   AcceptsReturn="True" Margin="5,0,0,0" TextWrapping="Wrap"   />
                     </DockPanel>
                     <DockPanel Grid.Row="6" HorizontalAlignment="Stretch" Margin="0,5,0,0" VerticalAlignment="Center"  >
-                        <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="备注" VerticalAlignment="Center"/>
+                        <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Margin="22,0,0,0" Text="备注" VerticalAlignment="Center"/>
 
                         <TextBox Height="32" Text="{Binding Contract.Remark}" AcceptsReturn="True" Margin="5,0,0,0" TextWrapping="Wrap"   />
                     </DockPanel>

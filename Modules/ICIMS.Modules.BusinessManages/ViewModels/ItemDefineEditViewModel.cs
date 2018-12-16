@@ -187,7 +187,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 ItemDefine.DefineDate = DateTime.Now;
                 ItemDefine.UnitId = _userModel.UnitId;
                 ItemDefine.UnitName = _userModel.UnitName;
-                CanEdit = true; 
+                CanEdit = true;
+                RaisePropertyChanged("ItemDefine");
                 return;
             } 
             
@@ -351,17 +352,18 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
                             await UpdateBusinessAudit(auditItem, ItemDefine.Id, 1);
                              
-                            //await GetNewStatus();
+                            
                             var completed = BusinessAudits.Count(o => o.Status == 1);
                             if (completed == BusinessAudits.Count)
                             {
-                                UpdateStatus(3);
+                               await UpdateStatus(3);
                             }
                             else
                             {
-                                UpdateStatus(1);//标记立项处于审核中状态
+                               await UpdateStatus(1);//标记立项处于审核中状态
                             }
                             await LoadAuditMappings();
+                            CheckComplete();
                         }
                     }
                     catch (Exception)
@@ -407,7 +409,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                  
                 if (BusinessAudits.FirstOrDefault(o=>o.Status>0)==null)
                 {
-                    UpdateStatus(0);//标记立项处于制单中
+                   await UpdateStatus(0);//标记立项处于制单中
                 }
                
             }
@@ -501,7 +503,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                             //UpdateStatus(1);//标记立项处于审核中状态
                             if (completed==0)
                             {
-                                UpdateStatus(0);
+                              //  UpdateStatus(0);
                             }
                         }
                         await LoadAuditMappings();
@@ -557,7 +559,20 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             CheckEdit();
             CheckAudit();//取消审核
             CheckOnBack();
+            CheckComplete();
         }
+
+        private void CheckComplete()
+        {
+            if (ItemDefine.Status==3)
+            {
+                CanEdit = false;
+                CanChecked = false;
+                CanBack = false;
+                CanCancel = false;
+            }
+        }
+
         /// <summary>
         /// 是否可编辑
         /// </summary>
@@ -571,55 +586,59 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             }
             else
             {
-                CanEdit = true;
-                //var check = BusinessAudits.OrderBy(o => o.DisplayOrder).FirstOrDefault(o=>o.Status==0);
-                //var item = _userModel.Roles.FirstOrDefault(o => o.Id == check.RoleId);
-                //if (item==null)
-                //{
-                //    CanEdit = false;
-                //}
-                //else
-                //{
-                //    CanEdit = true;
-                //}
-                
-            }
-        }
-        /// <summary>
-        /// 是否可审批
-        /// </summary>
-        private void CheckAudit()
-        {
-            var findItem =BusinessAudits.LastOrDefault(o=>o.Status==1&&_userModel.Roles.FirstOrDefault(r=>r.Id==o.RoleId)!=null);
-            if (findItem!=null)
-            { 
-                if (findItem != null)
+                var item = GetCurrent();
+                if (item!=null)
                 {
-                    CanCancel = true;
+                    CanEdit = true;
                 }
                 else
                 {
-                    CanCancel = false;
+                    CanEdit = false;
                 }
+            }
+        }
+        /// <summary>
+        /// 是否可取消审批
+        /// </summary>
+        private void CheckAudit()
+        {
+            var findItem = GetCheckedItem();
+            if (findItem != null)
+            { 
+                CanCancel = true; 
+            }
+            else
+            {
+                CanCancel = false;
             }
         }
         //获取当前待审批项 无审核项返回null
         public BusinessAuditList GetCurrent()
         {
-            var findItem = BusinessAudits.OrderBy(o => o.DisplayOrder).FirstOrDefault(o => o.Status == 0 && _userModel.Roles.FirstOrDefault(r => r.Id == o.RoleId)!=null);
+            var findItem = BusinessAudits.FirstOrDefault(o => o.Status == 0);
             if (findItem!=null)
-            { 
-                return findItem;
+            {
+                var role = _userModel.Roles.FirstOrDefault(r => r.Id == findItem.RoleId);
+                if (role != null)
+                {
+                    return findItem;
+                }
+              
             }
             return null;
         }
 
         public BusinessAuditList GetCheckedItem()
         {
-            var findItem = BusinessAudits.OrderBy(o => o.DisplayOrder).LastOrDefault(o => o.Status == 1 && _userModel.Roles.FirstOrDefault(r => r.Id == o.RoleId) != null);
+            var findItem = BusinessAudits.LastOrDefault(o => o.Status == 1);
             if (findItem != null)
             {
-                return findItem;
+                var role = _userModel.Roles.FirstOrDefault(r => r.Id == findItem.RoleId);
+                if (role!=null)
+                {
+                    return findItem;
+                }
+               
             }
             return null;
         }
@@ -653,10 +672,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
            await Task.CompletedTask;
         }
 
-        private async void UpdateStatus(int status)
+        private async Task UpdateStatus(int status)
         {
             ItemDefine.Status = status;
-            await _itemDefineService.CreateOrUpdate(ItemDefine);
+           var item= await _itemDefineService.CreateOrUpdate(ItemDefine);
+              
         }
         /// <summary>
         /// 获取用户是否可审核

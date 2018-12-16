@@ -141,7 +141,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private async void Initializer()
         {
             IsBusy = true;
-            _contractList.Clear();
+            
             if (BeginTime != null)
             {
                 if (BeginTime == EndTime)
@@ -151,9 +151,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
             }
             var result = await _contractService.GetAllContracts(null,"", "", pageIndex: PageIndex, pageSize: PageSize);
-
+            _contractList.Clear();
             TotalCount = result.TotalCount;
-            _contractList.AddRange(result.Items);
+            ContractLists.AddRange(result.Items);
             IsBusy = false;
 
         }
