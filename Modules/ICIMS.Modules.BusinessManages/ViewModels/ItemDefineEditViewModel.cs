@@ -359,11 +359,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         private  void OnSubmit()
         {
+            
             var auditItem = GetCurrent();
-            if (auditItem == null)
-                return;
-            var flag = IsCanAudit(auditItem);
-            if (!flag)
+            if (auditItem == null) 
             {
                 MessageBox.Show("对不起，您没有审核权限");
                 return;
@@ -449,7 +447,10 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 return;
             var role = _userModel.Roles.FirstOrDefault(r => r.Id == findItem.RoleId);
             if (role == null)
+            {
+                MessageBox.Show("对不起，您没有审核权限");
                 return;
+            }
             try
             { 
                 //var findItem = BuinessAudits.LastOrDefault(o => o.Status == 1);
@@ -494,7 +495,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         /// </summary>
         private void OnBack()
         {
-            var auditItem = BusinessAudits.Where(o =>o.Status==1).OrderBy(o => o.DisplayOrder).LastOrDefault();
+            var auditItem =GetCheckedItem();
             if (auditItem == null)
                 return;
             var flag = IsCanAudit(auditItem);

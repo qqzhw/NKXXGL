@@ -54,7 +54,7 @@
                     </Grid.RowDefinitions>
                     <DockPanel HorizontalAlignment="Stretch" >
                         <TextBlock Text="关联项目"   VerticalAlignment="Center" />
-                        <TextBox  Height="22" Text="{Binding ItemDefine.ItemName,UpdateSourceTrigger=PropertyChanged}"   Width="320"  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="22"  IsReadOnly="True" Text="{Binding ItemDefine.ItemName,UpdateSourceTrigger=PropertyChanged}"   Width="320"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <Button Command="{Binding SearchItemCommand}" Style="{x:Null}" BorderThickness="0" Height="18">
                             <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                         </Button>
@@ -66,7 +66,7 @@
                     </DockPanel>
                     <StackPanel Grid.Row="1" Orientation="Horizontal"  HorizontalAlignment="Stretch" >
                         <TextBlock Text="承建单位"    VerticalAlignment="Center"/>
-                        <TextBox  Height="22" Width="250" Text="{Binding VendorItem.Name,UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="22"  Width="250" Text="{Binding VendorItem.Name,UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="开户行"  Margin="5,0,0,0" VerticalAlignment="Center" />
                         <TextBox  Height="22" HorizontalAlignment="Left" Text="{Binding VendorItem.OpenBank,UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="银行账户"  Margin="5,0,0,0" VerticalAlignment="Center" />
@@ -74,9 +74,9 @@
                     </StackPanel> 
                         <DockPanel Grid.Row="2" >
                             <TextBlock Text="部 门" VerticalAlignment="Center" Margin="18,0,0,0"/>
-                        <TextBox  Height="22"  Margin="5,0,0,0" Text="{Binding UnitName,UpdateSourceTrigger=PropertyChanged}"  IsReadOnly="True" VerticalAlignment="Center"/>
+                        <TextBox  Height="22"     Margin="5,0,0,0" Text="{Binding UnitName,UpdateSourceTrigger=PropertyChanged}"  IsReadOnly="True" VerticalAlignment="Center"/>
                             <TextBlock Text="支付类型" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox  Height="22"  Margin="5,0,0,0" Text="{Binding PaymentTypeItem.Name,UpdateSourceTrigger=PropertyChanged}"  IsReadOnly="True"  Width="200" VerticalAlignment="Center"/>
+                        <TextBox  Height="22"    Margin="5,0,0,0" Text="{Binding PaymentTypeItem.Name,UpdateSourceTrigger=PropertyChanged}"  IsReadOnly="True"  Width="200" VerticalAlignment="Center"/>
                             <Button Command="{Binding SearchPaymentCommand}" Style="{x:Null}" HorizontalAlignment="Left" BorderThickness="0" Height="18">
                                 <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                             </Button>

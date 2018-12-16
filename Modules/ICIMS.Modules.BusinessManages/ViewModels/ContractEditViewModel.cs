@@ -374,10 +374,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private  void OnSubmit()
         {
             var auditItem = GetCurrent();
-            if (auditItem == null)
-                return;
-            var flag = IsCanAudit(auditItem);
-            if (!flag)
+            if (auditItem == null) 
             {
                 MessageBox.Show("对不起，您没有审核权限");
                 return;

@@ -349,10 +349,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         { 
             
             var auditItem = GetCurrent();
-            if (auditItem == null)
-                return;
-            var flag = IsCanAudit(auditItem);
-            if (!flag)
+            if (auditItem == null) 
             {
                 MessageBox.Show("对不起，您没有审核权限");
                 return;
@@ -442,9 +439,15 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         { 
             if (ReViewDefine.Status == 3)
                 return;
-            var findItem = GetCheckedItem();
+            var findItem = BusinessAudits.LastOrDefault(o => o.Status == 1);
             if (findItem == null)
                 return;
+            var role = _userModel.Roles.FirstOrDefault(r => r.Id == findItem.RoleId);
+            if (role == null)
+            {
+                MessageBox.Show("对不起，您没有审核权限");
+                return;
+            }
             try
             {  
                 var findmap = AuditMappings.LastOrDefault(o => _userModel.Roles.FirstOrDefault(r => r.Id == o.RoleId) != null);

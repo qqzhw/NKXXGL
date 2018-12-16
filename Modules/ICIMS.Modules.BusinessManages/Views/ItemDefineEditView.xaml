@@ -17,9 +17,9 @@
         </Grid.RowDefinitions> 
             <DockPanel   Background="#FEFEFE">
                 <control:CustomButton Height="28"  IconBackground="#682357" Command="{Binding SaveCommand}"  IsEnabled="{Binding CanEdit}" Kind="SaveSolid"  Width="75" Margin="0,0,0,0" Title="保存"/>
-                <control:CustomButton Height="28"  IconBackground="#91CE2D"  IsEnabled="{Binding CanChecked}" Command="{Binding SubmitCommand}" Kind="CheckSolid"  Width="75" Margin="10,0,0,0" Title="审批"/>
-            <control:CustomButton Height="28"  IconBackground="#AD372D"  IsEnabled="{Binding CanCancel}" Command="{Binding CancelCommand}" Kind="TimesSolid"  Width="100" Margin="10,0,0,0" Title="取消审批"/>
-            <control:CustomButton Height="28"  IconBackground="#C1852D" IsEnabled="{Binding CanBack}" Command="{Binding BackCommand}" Kind="ReplySolid"  Width="75" Margin="10,0,0,0" Title="驳回"/>
+                <control:CustomButton Height="28"  IconBackground="#91CE2D"   Command="{Binding SubmitCommand}" Kind="CheckSolid"  Width="75" Margin="10,0,0,0" Title="审批"/>
+            <control:CustomButton Height="28"  IconBackground="#AD372D"   Command="{Binding CancelCommand}" Kind="TimesSolid"  Width="100" Margin="10,0,0,0" Title="取消审批"/>
+            <control:CustomButton Height="28"  IconBackground="#C1852D"  Command="{Binding BackCommand}" Kind="ReplySolid"  Width="75" Margin="10,0,0,0" Title="驳回"/>
                 <TextBlock Text="{Binding ItemDefine.StatusText,StringFormat={}【{0}】}" HorizontalAlignment="Right" FontWeight="Bold" VerticalAlignment="Center" FontSize="22" Foreground="{Binding ItemDefine.StatusColor}"/>
             </DockPanel> 
           
