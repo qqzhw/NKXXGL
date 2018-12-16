@@ -55,6 +55,7 @@
                     DisplayMemberPath="DisplayName"
 					ItemsSource="{Binding Departments}"
                     SelectedItem="{Binding Item.Unit}"
+                    
                    
                      IsFilteringEnabled="True"
                     />

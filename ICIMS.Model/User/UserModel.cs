@@ -71,5 +71,13 @@ namespace ICIMS.Model.User
         private string _password;
         public string Password { get => _password; set => SetProperty(ref _password, value); }
         public string EmailAddress { get => _emailAddress; set => SetProperty(ref _emailAddress,value); }
+
+        public string RoleName
+        {
+            get
+            {
+                return this.Roles?.FirstOrDefault()?.DisplayName;
+            }
+        }
     }
 }

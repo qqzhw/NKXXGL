@@ -152,37 +152,47 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
 
         private void OnUnCheckAllCommand(object obj)
         {
-            if (this.SelectedIndex == 0)
+            //if (this.SelectedIndex == 0)
+            //{
+            //    foreach (var item in Roles)
+            //    {
+            //        item.IsChecked = false;
+            //    }
+            //}
+            //else
+            //{
+            //    foreach (var item in Departments)
+            //    {
+            //        item.IsChecked = false;
+            //    }
+            //}
+
+            foreach (var item in Departments)
             {
-                foreach (var item in Roles)
-                {
-                    item.IsChecked = false;
-                }
-            }
-            else
-            {
-                foreach (var item in Departments)
-                {
-                    item.IsChecked = false;
-                }
+                item.IsChecked = false;
             }
         }
 
         private void OnCheckAllCommand(object obj)
         {
-            if (this.SelectedIndex == 0)
+            //if (this.SelectedIndex == 0)
+            //{
+            //    foreach (var item in Roles)
+            //    {
+            //        item.IsChecked = true;
+            //    }
+            //}
+            //else
+            //{
+            //    foreach (var item in Departments)
+            //    {
+            //        item.IsChecked = true;
+            //    }
+            //}
+
+            foreach (var item in Departments)
             {
-                foreach (var item in Roles)
-                {
-                    item.IsChecked = true;
-                }
-            }
-            else
-            {
-                foreach (var item in Departments)
-                {
-                    item.IsChecked = true;
-                }
+                item.IsChecked = true;
             }
         }
 
@@ -191,7 +201,7 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             try
             {
                 if (this.SelectedItem != null)
-                { 
+                {
                     await _service.Delete(this.SelectedItem.Id);
                     this.Items.Remove(SelectedItem);
                     this.SelectedItem = this.Items.FirstOrDefault();
@@ -208,6 +218,8 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             var newItem = new UsersEditViewModel(this.Departments, this.Roles);
             var selectedItem = CommonHelper.CopyItem(this.SelectedItem);
             newItem.Item = selectedItem;
+            newItem.Item.Unit = this.Departments.FirstOrDefault(a => a.Code == newItem.Item.Unit?.Code);
+            newItem.SelectedRole = Roles.FirstOrDefault(a=>a.Id == selectedItem.Roles.FirstOrDefault()?.Id);
             UsersEditView view = new UsersEditView(newItem);
             var notification = new Notification()
             {
@@ -257,7 +269,6 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
                         newItem.Item.Name = newItem.Item.UserName;
                         newItem.Item.Surname = newItem.Item.UserName;
                         newItem.Item.Password = "123456";
-                        //newItem.Item.Roles = new ObservableCollection<RoleModel>();
                         var data = await _service.Create(newItem.Item);
                         if (data != null)
                         {
