@@ -37,5 +37,9 @@ namespace ICIMS.Modules.SystemAdmin.Views
             ViewModel.View = this;
         }
 
+        private void radInfo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ViewModel.EditCommand.Execute(null);
+        }
     }
 }

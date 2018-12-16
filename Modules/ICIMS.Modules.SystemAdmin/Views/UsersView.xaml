@@ -46,13 +46,14 @@
 						    RowHeight="32" CanUserInsertRows="True"    GridLinesVisibility="Both"  TextOptions.TextFormattingMode="Display" SelectedItem="{Binding SelectedItem}"   ItemsSource="{Binding Items}"  
 							   BorderBrush="#E4E7F0" BorderThickness="1,0,0,0"   SelectionUnit="FullRow"  SelectionMode="Single"    
                                  IsReadOnly="True"      GroupRenderMode="Flat"    AutoGenerateColumns="False"  
-                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#F5F5F5"   AlternationCount="2"   >
+                                         CanUserSortColumns="False"  	 CanUserFreezeColumns="False" AlternateRowBackground="#F5F5F5"   AlternationCount="2"  
+                                 MouseDoubleClick="radInfo_MouseDoubleClick">
 
                 <telerik:RadGridView.Columns>
                     <!--<telerik:GridViewDataColumn Header="序号" Width="60"    DataMemberBinding="{Binding Status}" />-->
                     <telerik:GridViewDataColumn Header="登录名" DataMemberBinding="{Binding UserName}" TextWrapping="Wrap" MinWidth="100"/>
                     <telerik:GridViewDataColumn Header="操作员" Width="60"    DataMemberBinding="{Binding Name}" />
-                    <!--<telerik:GridViewDataColumn Header="角色名称" Width="80"    DataMemberBinding="{Binding RolesName}" />-->
+                    <telerik:GridViewDataColumn Header="角色名称" Width="80"    DataMemberBinding="{Binding RoleName}" />
                     <telerik:GridViewDataColumn Header="部门编号" Width="80"    DataMemberBinding="{Binding Unit.Code}" />
                     <telerik:GridViewDataColumn Header="部门名称" Width="80"    DataMemberBinding="{Binding Unit.Name}" />
                     <telerik:GridViewDataColumn  IsReadOnly="True" Header="邮箱" Width="60"    DataMemberBinding="{Binding EmailAddress}" />
@@ -68,7 +69,7 @@
             </Grid>
             <StackPanel Grid.Row="1" Grid.Column="1" >
                 <TabControl Background="#F5F5F5"  SelectedIndex="{Binding SelectedIndex}">
-                    <TabItem Header="所属角色" TabIndex="0" FontSize="14"  FontFamily="SimSun">
+                    <!--<TabItem Header="所属角色" TabIndex="0" FontSize="14"  FontFamily="SimSun">
                         <TabItem.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Padding="5 5 1 5" VerticalAlignment="Center" Text="所属角色" FontSize="18"  FontFamily="SimSun"/>
@@ -92,8 +93,8 @@
                                 <telerik:GridViewDataColumn  IsReadOnly="True" Header="名称" Width="60"    DataMemberBinding="{Binding DisplayName}" />
                             </telerik:RadGridView.Columns>
                         </telerik:RadGridView>
-                    </TabItem>
-                    <TabItem Header="可见部门" TabIndex="1" FontSize="14"  FontFamily="SimSun">
+                    </TabItem>-->
+                    <TabItem Header="可见部门" TabIndex="0" FontSize="14"  FontFamily="SimSun">
                         <TabItem.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Padding="5 5 1 5" VerticalAlignment="Center" Text="可见部门" FontSize="18"  FontFamily="SimSun"/>
