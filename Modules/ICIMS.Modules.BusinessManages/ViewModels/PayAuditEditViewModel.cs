@@ -380,7 +380,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             {
                 BusinessTypeId = 5,
                 BusinessTypeName = "支付审核",
-                ItemId = ItemDefine.Id,
+                ItemId = PayAudit.Id,
                 BusinessAuditId = auditItem.Id,
                 DisplayOrder = auditItem.DisplayOrder
             };
@@ -407,7 +407,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
                             auditItem.Status = 1;
 
-                            await UpdateBusinessAudit(auditItem, ItemDefine.Id, 1);
+                            await UpdateBusinessAudit(auditItem, PayAudit.Id, 1);
 
                             //await GetNewStatus();
                             var completed = BusinessAudits.Count(o => o.Status == 1);
@@ -437,7 +437,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         { 
             if (PayAudit.Status == 3)
                 return;
-            var findItem = BusinessAudits.LastOrDefault(o => o.Status == 1 && _userModel.Roles.FirstOrDefault(r => r.Id == o.RoleId) != null);
+            var findItem = GetCheckedItem();
             if (findItem == null)
                 return;
             try
@@ -445,7 +445,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 //var findItem = BuinessAudits.LastOrDefault(o => o.Status == 1);
                 var findmap = AuditMappings.LastOrDefault(o => _userModel.Roles.FirstOrDefault(r => r.Id == o.RoleId) != null);
                 await _auditMappingService.Delete(findmap.Id);
-                await UpdateBusinessAudit(findItem, ItemDefine.Id, 0);
+                await UpdateBusinessAudit(findItem, PayAudit.Id, 0);
 
                 if (BusinessAudits.FirstOrDefault(o => o.Status > 0) == null)
                 {
@@ -508,7 +508,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                                             //    await _businessAuditStatusService.CreateOrUpdate(status);
                                             //}
 
-                            await UpdateBusinessAudit(auditItem, ItemDefine.Id, 0);
+                            await UpdateBusinessAudit(auditItem, PayAudit.Id, 0);
                             //await GetNewStatus();//获取最新状态
 
                             await GetNewStatus();
@@ -568,7 +568,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         private async Task GetNewStatus()
         {
-            if (ItemDefine.Id > 0)
+            if (PayAudit.Id > 0)
             {
                 var result = await _businessAuditService.GetAll(BusinessTypeName: "支付审核", entityId: PayAudit.Id);
 
@@ -578,7 +578,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     if (model != null)
                     {
                         model.BusinessAuditStatusId = item.BusinessAuditStatusId;
-                        model.EntityId = ItemDefine.Id;
+                        model.EntityId = PayAudit.Id;
                         model.Status = item.Status;
                     }
                 }
@@ -687,7 +687,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private async Task LoadAuditMappings()
         {
-            if (ItemDefine.Id == 0)
+            if (PayAudit.Id == 0)
                 return;
             var items = await _auditMappingService.GetAllAuditMappings(PayAudit.Id, BusinessTypeName: "支付审核");
             AuditMappings.Clear();

@@ -44,7 +44,7 @@ namespace ICIMS.Model.BusinessManages
                 switch (_status)
                 {
                     case 0:
-                        StatusText = "未审核";
+                        StatusText = "";
                         StatusColor = "#FFFF00";
                         break;
                     case 1:
@@ -56,7 +56,7 @@ namespace ICIMS.Model.BusinessManages
                         StatusColor = "#ff8c00";
                         break;
                     default:
-                        StatusText = "未审核";
+                        StatusText = "";
                         StatusColor = "#FFFF00";
                         break;
                 }

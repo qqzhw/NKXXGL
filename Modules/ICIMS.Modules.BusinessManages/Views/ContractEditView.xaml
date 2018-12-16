@@ -123,7 +123,7 @@
                         <telerik:RadDatePicker Margin="5,0,0,0" DateTimeWatermarkTemplate="{StaticResource dateTemplate}" telerik:StyleManager.Theme="Office2016"  FontFamily="SimSun" FontStyle="Normal"  Width="100"   Foreground="#222328"      SelectedValue="{Binding Contract.IdentifyDate}"   DisplayFormat="Long"  DateTimeWatermarkContent="签订日期" />
 
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Margin="55,0,0,0" Text="承建单位" VerticalAlignment="Center"/>
-                        <TextBox   Text="{Binding VendorItem.Name}" Width="510" AcceptsReturn="True" Margin="5,0,0,0" TextWrapping="Wrap"   />
+                        <TextBox   Text="{Binding VendorItem.Name,UpdateSourceTrigger=PropertyChanged}" Width="510" AcceptsReturn="True" Margin="5,0,0,0" TextWrapping="Wrap"   />
                         <Button Command="{Binding SearchVendorCommand}" IsEnabled="True" Style="{x:Null}" BorderThickness="0" HorizontalAlignment="Left" Height="18">
                             <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                         </Button>
@@ -138,7 +138,7 @@
                         <TextBox  AcceptsReturn="True"  Text="{Binding Contract.ClearingAmount}" Width="100" Margin="5,0,0,0" TextWrapping="Wrap"   />
                         <TextBlock VerticalAlignment="Center" Width="12">元</TextBlock>
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="结算前支付比例" VerticalAlignment="Center"/>
-                        <TextBox  Text="{Binding Contract.ClearingPer}" Width="30" AcceptsReturn="True" Margin="5,0,0,0" TextWrapping="Wrap"   />
+                        <TextBox  Text="{Binding Contract.ClearingPer,UpdateSourceTrigger=PropertyChanged}" Width="30" AcceptsReturn="True" Margin="5,0,0,0" TextWrapping="Wrap"   />
                         <TextBlock VerticalAlignment="Center" Width="12">%</TextBlock>
                         <TextBlock  TextAlignment="Center" HorizontalAlignment="Left" Text="预警" VerticalAlignment="Center"/>
                         <TextBox  AcceptsReturn="True"  Text="{Binding Contract.Warining,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="160" TextWrapping="Wrap"   />

@@ -187,7 +187,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             ContractCategory.Name = info.ContractCategoryName;
             ContractCategory.Id = info.ContractCategoryId;
             VendorItem.Name = info.VendorName;
+            VendorItem.Id = info.VendorId; 
             Contract = Mapper.Map<Contract>(info);
+            Contract.VendorId = info.VendorId;
+            RaisePropertyChanged("ContractCategory");
+            RaisePropertyChanged("VendorItem");
             GetFiles(Contract); 
             LoadItemDefine(Contract.ItemDefineId);//加载立项项目
             await LoadAuditMappings();
@@ -298,7 +302,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private async void OnSave()
         { 
-            if (ContractCategory==null||ItemDefine==null||VendorItem==null)
+            if (ContractCategory==null||ItemDefine==null||VendorItem.Id==0)
             {
                 MessageBox.Show("请选择相关分类数据");
                 return;
@@ -370,7 +374,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
                             auditItem.Status = 1;
 
-                            await UpdateBusinessAudit(auditItem, ItemDefine.Id, 1);
+                            await UpdateBusinessAudit(auditItem, Contract.Id, 1);
 
                             //await GetNewStatus();
                             var completed = BusinessAudits.Count(o => o.Status == 1);
@@ -436,19 +440,30 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private async void OnCancel()
         {
-            var deleteItem = AuditMappings.LastOrDefault(o => o.Status == 1);
-            if (deleteItem != null)
+            if (Contract.Status == 3)
+                return;
+            var findItem = BusinessAudits.LastOrDefault(o => o.Status == 1 ); 
+            if (findItem == null)
+                return;
+            var role = _userModel.Roles.FirstOrDefault(r => r.Id == findItem.RoleId);
+            if (role == null)
+                return;
+            try
             {
-                try
-                {
-                    await _auditMappingService.Delete(deleteItem.Id);
-                    InitBusinessAudits();
-                }
-                catch (Exception)
-                {
+                //var findItem = BuinessAudits.LastOrDefault(o => o.Status == 1);
+                var findmap = AuditMappings.LastOrDefault(o => _userModel.Roles.FirstOrDefault(r => r.Id == o.RoleId) != null);
+                await _auditMappingService.Delete(findmap.Id);
+                await UpdateBusinessAudit(findItem, Contract.Id, 0);
 
-                     
-                } 
+                if (BusinessAudits.FirstOrDefault(o => o.Status > 0) == null)
+                {
+                    await UpdateStatus(0);//标记立项处于制单中
+                }
+
+            }
+            catch (Exception)
+            {
+
             }
         }
 
@@ -490,7 +505,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                         if (item.Id > 0)
                         { 
                             await  UpdateStatus(2);//标记立项处于已驳回状态 
-                            await UpdateBusinessAudit(auditItem, ItemDefine.Id, 0);
+                            await UpdateBusinessAudit(auditItem, Contract.Id, 0);
                             await GetNewStatus();//获取最新状态 
                           
                             //var completed = BusinessAudits.Count(o => o.Status == 1);
@@ -605,7 +620,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
         private async Task GetNewStatus()
         {
-            if (ItemDefine.Id > 0)
+            if (Contract.Id > 0)
             {
                 var result = await _businessAuditService.GetAll(BusinessTypeName: "合同登记", entityId: Contract.Id);
 
@@ -615,7 +630,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     if (model != null)
                     {
                         model.BusinessAuditStatusId = item.BusinessAuditStatusId;
-                        model.EntityId = ItemDefine.Id;
+                        model.EntityId = Contract.Id;
                         model.Status = item.Status;
                     }
                 }
@@ -742,7 +757,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private async Task LoadAuditMappings()
         {
-            if (ItemDefine.Id == 0)
+            if (Contract.Id == 0)
                 return;
             var items = await _auditMappingService.GetAllAuditMappings(Contract.Id, BusinessTypeName: "合同登记");
             AuditMappings.Clear();

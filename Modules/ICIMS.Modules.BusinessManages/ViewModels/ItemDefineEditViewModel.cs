@@ -274,6 +274,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {  
             try
             {
+                //var item = GetCurrent();
+                //if (item==null)
+                //{
+                //    MessageBox.Show("当前角色不能保存");
+
+                //}
                 if (ItemDefine.ItemCategoryId==0)
                 {
                     MessageBox.Show("请选择项目分类");
@@ -397,9 +403,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             if (ItemDefine.Status == 3)
                 return;
-            var findItem = BusinessAudits.LastOrDefault(o => o.Status == 1&&_userModel.Roles.FirstOrDefault(r=>r.Id==o.RoleId)!=null);
+            var findItem = BusinessAudits.LastOrDefault(o => o.Status == 1);
             if (findItem == null)
-                return; 
+                return;
+            var role = _userModel.Roles.FirstOrDefault(r => r.Id == findItem.RoleId);
+            if (role == null)
+                return;
             try
             { 
                 //var findItem = BuinessAudits.LastOrDefault(o => o.Status == 1);

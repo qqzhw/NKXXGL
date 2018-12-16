@@ -557,7 +557,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private async Task GetNewStatus()
         {
-            if (ItemDefine.Id > 0)
+            if (ReViewDefine.Id > 0)
             {
                 var result = await _businessAuditService.GetAll(BusinessTypeName: "评审登记", entityId: ReViewDefine.Id);
 
@@ -567,7 +567,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     if (model != null)
                     {
                         model.BusinessAuditStatusId = item.BusinessAuditStatusId;
-                        model.EntityId = ItemDefine.Id;
+                        model.EntityId = ReViewDefine.Id;
                         model.Status = item.Status;
                     }
                 }
