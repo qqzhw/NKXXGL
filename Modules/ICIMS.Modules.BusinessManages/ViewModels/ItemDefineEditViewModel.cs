@@ -167,6 +167,15 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             {
                 MessageBox.Show("你没有权限操作此项");
             }
+            //FolderDialog openFolder = new FolderDialog();
+            //if (openFolder.DisplayDialog() == DialogResult.OK)
+            //{
+            //    textBox1.Text = openFolder.Path.ToString();
+            //}
+            //else
+            //{
+            //    textBox1.Text = "你没有选择目录";
+            //}
             if (model == null||string.IsNullOrEmpty(model.DownloadUrl))
                 return; 
             var view = _unityContainer.Resolve<FileDownloadView>(new ParameterOverride("model", model));

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ICIMS.Modules.SystemAdmin.Views"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" Width="400"
                 xmlns:control="clr-namespace:ICIMS.Controls;assembly=ICIMS.Controls"
               xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              d:DesignHeight="300" d:DesignWidth="260" Background="White">
@@ -26,17 +26,17 @@
         <StackPanel Grid.Row="1" Background="#DCDCDC">
             <DockPanel Margin="10">
                 <TextBlock>登录名</TextBlock>
-                <TextBox Text="{Binding Item.UserName}"/>
+                <TextBox Text="{Binding Item.UserName}" Height="24" VerticalContentAlignment="Center"/>
             </DockPanel>
             <DockPanel Margin="10">
                 <TextBlock xml:space="preserve" >姓  名</TextBlock>
-                <TextBox Text="{Binding Item.Name}"/>
+                <TextBox Text="{Binding Item.Name}" Height="24" VerticalContentAlignment="Center"/>
             </DockPanel> 
             <DockPanel Margin="10">
                 <TextBlock xml:space="preserve" >邮  箱</TextBlock>
-                <TextBox Text="{Binding Item.EmailAddress}"/>
+                <TextBox Text="{Binding Item.EmailAddress}" Height="24" VerticalContentAlignment="Center"/>
             </DockPanel>
-            <!--<DockPanel  xml:space="preserve" Margin="10">
+            <DockPanel  xml:space="preserve" Margin="10">
                 <TextBlock>角  色</TextBlock>
                 <telerik:RadComboBox 
 					TextSearchMode="Contains"
@@ -46,7 +46,7 @@
                     IsFilteringEnabled="True"
                     SelectedItem="{Binding SelectedRole}"
                     />
-            </DockPanel>-->
+            </DockPanel>
             <DockPanel Margin="10">
                 <TextBlock>所属部门</TextBlock>
                 <!--<TextBox Text="{Binding Department}"/>-->

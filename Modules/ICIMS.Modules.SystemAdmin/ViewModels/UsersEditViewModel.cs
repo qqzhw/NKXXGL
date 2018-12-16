@@ -60,7 +60,10 @@ namespace ICIMS.Modules.SystemAdmin.ViewModels
             {
                 //this.Item.RoleNames = new List<string> { value.DisplayName };
                 //this.Item.RoleIds = new List<int> { value.Id};
+                
                 SetProperty(ref _selectedRole, value);
+                //this.Item.Roles.Clear();
+                //this.Item.Roles.Add(SelectedRole);
             }
         }
         public OrganizationUnitItem SelectedDepartment

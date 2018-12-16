@@ -1,4 +1,5 @@
 ﻿
+using ICIMS.Client.Properties;
 using ICIMS.Model.User;
 using ICIMS.Service;
 using Prism.Commands;
@@ -49,12 +50,11 @@ namespace ICIMS.Client.ViewModels
 
         private void Initializer()
         {
-            AppName = "内控信息化管理系统【V2.81209】";
+            AppName = "内控信息化管理系统【V2.81216】";
             _tenancyName = "Default";
-            _userName = "admin";
-            _password = "123qwe"; 
+             
             //_appName = Settings.Default.AppName;
-            //_userName = Settings.Default.UserName;
+             _userName = Settings.Default.UserName;
             if (!string.IsNullOrEmpty(_userName))
             {
                 IsSave = true;

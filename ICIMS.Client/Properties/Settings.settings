@@ -11,5 +11,8 @@
     <Setting Name="ServerApi" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://localhost:21025/</Value>
     </Setting>
+    <Setting Name="UserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
