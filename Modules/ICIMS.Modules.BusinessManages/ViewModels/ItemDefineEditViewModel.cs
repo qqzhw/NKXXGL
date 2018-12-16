@@ -38,6 +38,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         private readonly IBusinessAuditService _businessAuditService;
         private readonly IAuditMappingService _auditMappingService;
         private readonly IBusinessAuditStatusService _businessAuditStatusService;
+        private readonly SettingModel _settingModel;
         private readonly UserModel _userModel;
         public DelegateCommand SaveCommand { get; private set; }
         public DelegateCommand SubmitCommand { get; private set; }
@@ -60,7 +61,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
 
 
-        public ItemDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ItemDefineList data, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, UserModel userModel, IBusinessAuditStatusService businessAuditStatusService)
+        public ItemDefineEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ItemDefineList data, IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, UserModel userModel, IBusinessAuditStatusService businessAuditStatusService, SettingModel settingModel)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
@@ -72,6 +73,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _businessAuditStatusService = businessAuditStatusService;
             _title = "项目立项";
             _userModel = userModel;
+            _settingModel = settingModel;
             SaveCommand = new DelegateCommand(OnSave);
             SubmitCommand = new DelegateCommand(OnSubmit);
             CancelCommand = new DelegateCommand(OnCancel);
@@ -113,9 +115,39 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         }
 
         private void OnBrowseCommand()
-        {
+        { 
+            var permission = _userModel.Permissions.FirstOrDefault(o => o == "Pages.FilesManage");
+            if (permission == null)
+            {
+                MessageBox.Show("你没有权限操作此项");
+            } 
+            if (SelectedFile == null || string.IsNullOrEmpty(SelectedFile.DownloadUrl))
+                return;
+            using (WebClient client = new WebClient())
+            {
+                var url = _settingModel.ServerApi + SelectedFile.DownloadUrl.Replace("\\", "/").Replace("//", "/");
+                var saveFilePath =AppDomain.CurrentDomain.BaseDirectory+ SelectedFile.FileName;// Properties.Settings.Default.LocalPath + name;
+                client.DownloadFileCompleted += Client_DownloadFileCompleted;
+                client.DownloadFileAsync(new Uri(url), saveFilePath);
+            } 
+ 
         }
 
+        private void Client_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+
+            try
+            {
+                System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + SelectedFile.FileName);
+            }
+            catch
+            {
+
+
+            }
+
+        }
+          
         private void OnScanFile()
         {
             if (ItemDefine.Id < 1)
@@ -686,7 +718,15 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             var items = await _auditMappingService.GetAllAuditMappings(ItemDefine.Id, BusinessTypeName:"立项登记");
             AuditMappings.Clear();
             AuditMappings.AddRange(items.Items);
-
+            foreach (var item in BusinessAudits)
+            {
+                var findItem = AuditMappings.FirstOrDefault(o => o.RoleId == item.RoleId && o.BusinessAuditId == item.Id);
+                if (findItem!=null)
+                {
+                    item.AuditUserName = findItem.AuditUserName;
+                    item.AuditTime = findItem.AuditTime;
+                }
+            }
            await Task.CompletedTask;
         }
 

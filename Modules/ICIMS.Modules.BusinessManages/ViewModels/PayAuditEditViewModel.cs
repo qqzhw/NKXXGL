@@ -21,6 +21,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -52,12 +53,13 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand SearchContractCommand { get; private set; }
         public DelegateCommand SearchPaymentCommand { get; private set; }
         public DelegateCommand UploadCommand { get; private set; }
+        public DelegateCommand BrowseCommand { get; private set; }
         public DelegateCommand AddMoneyCommand { get; private set; }
         public DelegateCommand ScanCommand { get; private set; }
         public DelegateCommand<object> DelFund { get; private set; }
         public DelegateCommand DeleteCommand { get; set; }
         public DelegateCommand DownloadCommand { get; }
-
+        private readonly SettingModel _settingModel;
         private readonly UserModel _userModel;
         private string _title;
         public string Title
@@ -65,7 +67,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public PayAuditEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, PayAuditList data, IItemDefineService itemDefineService, IFilesService filesService, IPayAuditService payAuditService, IVendorService vendorService, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, UserModel userModel, IFundFromService fundFromService, IBusinessAuditStatusService businessAuditStatusService)
+        public PayAuditEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, PayAuditList data, IItemDefineService itemDefineService, IFilesService filesService, IPayAuditService payAuditService, IVendorService vendorService, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, UserModel userModel, IFundFromService fundFromService, IBusinessAuditStatusService businessAuditStatusService,SettingModel settingModel)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
@@ -79,6 +81,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _businessAuditStatusService = businessAuditStatusService;
             _title = "支付审核";
             _userModel = userModel;
+            _settingModel = settingModel;
             SaveCommand = new DelegateCommand(OnSave);
             SubmitCommand = new DelegateCommand(OnSubmit);
             CancelCommand = new DelegateCommand(OnCancel);
@@ -88,6 +91,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             SearchContractCommand = new DelegateCommand(OnSelectedContract);
             SearchPaymentCommand = new DelegateCommand(OnSelectedPaymentType);
             UploadCommand = new DelegateCommand(OnUploadedFiles);
+            BrowseCommand = new DelegateCommand(OnBrowseCommand);
             AddMoneyCommand = new DelegateCommand(OnAddFundFrom);
             DeleteCommand = new DelegateCommand(OnDeleteCommand);
             DownloadCommand = new DelegateCommand(OnDownloadCommand);
@@ -125,7 +129,39 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             }
             
         }
+        private void OnBrowseCommand()
+        {
+            var permission = _userModel.Permissions.FirstOrDefault(o => o == "Pages.FilesManage");
+            if (permission == null)
+            {
+                MessageBox.Show("你没有权限操作此项");
+            }
+            if (SelectedFile == null || string.IsNullOrEmpty(SelectedFile.DownloadUrl))
+                return;
+            using (WebClient client = new WebClient())
+            {
+                var url = _settingModel.ServerApi + SelectedFile.DownloadUrl.Replace("\\", "/").Replace("//", "/");
+                var saveFilePath = AppDomain.CurrentDomain.BaseDirectory + SelectedFile.FileName;// Properties.Settings.Default.LocalPath + name;
+                client.DownloadFileCompleted += Client_DownloadFileCompleted;
+                client.DownloadFileAsync(new Uri(url), saveFilePath);
+            }
 
+        }
+
+        private void Client_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+
+            try
+            {
+                System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + SelectedFile.FileName);
+            }
+            catch
+            {
+
+
+            }
+
+        }
         private void OnDelSelectedFund(object obj)
         {
             PayAuditDetails.Remove(PayAuditDetail);
@@ -692,7 +728,15 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             var items = await _auditMappingService.GetAllAuditMappings(PayAudit.Id, BusinessTypeName: "支付审核");
             AuditMappings.Clear();
             AuditMappings.AddRange(items.Items);
-
+            foreach (var item in BusinessAudits)
+            {
+                var findItem = AuditMappings.FirstOrDefault(o => o.RoleId == item.RoleId && o.BusinessAuditId == item.Id);
+                if (findItem != null)
+                {
+                    item.AuditUserName = findItem.AuditUserName;
+                    item.AuditTime = findItem.AuditTime;
+                }
+            }
             await Task.CompletedTask; 
           
         } 

@@ -122,7 +122,8 @@ namespace ICIMS.Model.BusinessManages
         private string _audituserName;
         public string AuditUserName { get => _audituserName; set => SetProperty(ref _audituserName, value); }
 
-        
+        private string _createuserName;
+        public string CreatorUserName { get => _createuserName; set => SetProperty(ref _createuserName, value); }
 
         #region 导航属性
         private ItemDefine _itemdefine;

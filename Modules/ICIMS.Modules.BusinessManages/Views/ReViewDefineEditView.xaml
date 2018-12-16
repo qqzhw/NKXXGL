@@ -118,7 +118,7 @@
                             <control:RowNumberColumn Header="序号" Width="60" TextBlock.TextAlignment="Center"/>
 
                             <telerik:GridViewDataColumn Header="审核角色" Width="*"    DataMemberBinding="{Binding Name}" />
- 
+                            <telerik:GridViewDataColumn Header="审核人" DataMemberBinding="{Binding AuditUserName}" TextWrapping="Wrap" Width="90" />
                             <telerik:GridViewDataColumn Header="状态" DataMemberBinding="{Binding StatusText}" TextWrapping="Wrap" Width="150" />
                            
                         </telerik:RadGridView.Columns>

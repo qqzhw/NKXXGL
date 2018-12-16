@@ -83,6 +83,11 @@ namespace ICIMS.Model.BusinessManages
         {
             get => _businessAuditStatusId; set => SetProperty(ref _businessAuditStatusId, value);
         }
+        private DateTime? _auditTime;
+        public DateTime? AuditTime { get => _auditTime; set => SetProperty(ref _auditTime, value); }
+
+        private string _auditusername;
+        public string AuditUserName { get => _auditusername; set => SetProperty(ref _auditusername, value); }
 
     }
 

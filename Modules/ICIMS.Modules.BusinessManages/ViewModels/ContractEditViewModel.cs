@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -42,6 +43,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand SubmitCommand { get; private set; }
         public DelegateCommand CancelCommand { get; private set; }
         public DelegateCommand BackCommand { get; private set; }
+        public DelegateCommand BrowseCommand { get; private set; }
         public DelegateCommand LogCommand { get; private set; }
         public DelegateCommand SearchItemCommand { get; private set; }
         public DelegateCommand CaractTypeCommand { get; private set; }
@@ -51,6 +53,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         public DelegateCommand SearchVendorCommand { get; private set; }
         public DelegateCommand DeleteCommand { get; set; }
         private readonly UserModel _userModel;
+        private readonly SettingModel _settingModel;
         private string _title;
         public string Title
         {
@@ -60,7 +63,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private FilesManage _selectedFile;
         public FilesManage SelectedFile { get => _selectedFile; set => SetProperty(ref _selectedFile, value); }
-        public ContractEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ContractList data,IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, IContractService contractService, UserModel userModel, IBusinessAuditStatusService businessAuditStatusService)
+        public ContractEditViewModel(IEventAggregator eventAggregator, IUnityContainer unityContainer, ContractList data,IItemDefineService itemDefineService, IFilesService filesService, IWebApiClient webApiClient, IBusinessAuditService businessAuditService, IAuditMappingService auditMappingService, IContractService contractService, UserModel userModel, IBusinessAuditStatusService businessAuditStatusService, SettingModel settingModel)
         {
             _unityContainer = unityContainer;
             _eventAggregator = eventAggregator;
@@ -72,12 +75,13 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             _contractService = contractService;
             _businessAuditStatusService = businessAuditStatusService;
             _userModel = userModel;
+            _settingModel = settingModel;
             _title = "合同登记";
             SaveCommand = new DelegateCommand(OnSave);
             SubmitCommand = new DelegateCommand(OnSubmit);
             CancelCommand = new DelegateCommand(OnCancel);
             BackCommand = new DelegateCommand(OnBack);
-            //LogCommand = new DelegateCommand(OnShowLog);
+            BrowseCommand = new DelegateCommand(OnBrowseCommand);
             SearchItemCommand = new DelegateCommand(OnSelectedItemCategory);
             CaractTypeCommand= new DelegateCommand(OnSelectedCaractType);
             SearchVendorCommand = new DelegateCommand(OnSelectedVendor);
@@ -112,6 +116,39 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         }
 
+        private void OnBrowseCommand()
+        {
+            var permission = _userModel.Permissions.FirstOrDefault(o => o == "Pages.FilesManage");
+            if (permission == null)
+            {
+                MessageBox.Show("你没有权限操作此项");
+            }
+            if (SelectedFile == null || string.IsNullOrEmpty(SelectedFile.DownloadUrl))
+                return;
+            using (WebClient client = new WebClient())
+            {
+                var url = _settingModel.ServerApi + SelectedFile.DownloadUrl.Replace("\\", "/").Replace("//", "/");
+                var saveFilePath = AppDomain.CurrentDomain.BaseDirectory + SelectedFile.FileName;// Properties.Settings.Default.LocalPath + name;
+                client.DownloadFileCompleted += Client_DownloadFileCompleted;
+                client.DownloadFileAsync(new Uri(url), saveFilePath);
+            }
+
+        }
+
+        private void Client_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+
+            try
+            {
+                System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + SelectedFile.FileName);
+            }
+            catch
+            {
+
+
+            }
+
+        }
         /// <summary>
         /// 选择合同分类
         /// </summary>
@@ -762,7 +799,15 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             var items = await _auditMappingService.GetAllAuditMappings(Contract.Id, BusinessTypeName: "合同登记");
             AuditMappings.Clear();
             AuditMappings.AddRange(items.Items);
-
+            foreach (var item in BusinessAudits)
+            {
+                var findItem = AuditMappings.FirstOrDefault(o => o.RoleId == item.RoleId && o.BusinessAuditId == item.Id);
+                if (findItem != null)
+                {
+                    item.AuditUserName = findItem.AuditUserName;
+                    item.AuditTime = findItem.AuditTime;
+                }
+            }
             await Task.CompletedTask;
         }
         private async Task UpdateStatus(int status)

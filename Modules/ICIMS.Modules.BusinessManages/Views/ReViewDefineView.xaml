@@ -63,6 +63,7 @@
                 </telerik:GridViewDataColumn>
 
                 <telerik:GridViewDataColumn Header="部门名称" Width="120"  TextWrapping="Wrap"   DataMemberBinding="{Binding UnitName}" />
+                <telerik:GridViewDataColumn Header="制单人" Width="90" DataMemberBinding="{Binding CreatorUserName}"/>
 
                 <telerik:GridViewDataColumn Header="评审编号" DataMemberBinding="{Binding ReViewDefine.ReViewNo}" TextWrapping="Wrap" Width="90" />
                 <telerik:GridViewDataColumn Header="评审名称" DataMemberBinding="{Binding ReViewDefine.ReViewName}" TextWrapping="Wrap" Width="90" />

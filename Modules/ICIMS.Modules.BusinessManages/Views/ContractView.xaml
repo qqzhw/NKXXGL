@@ -64,6 +64,7 @@
 
                 <telerik:GridViewDataColumn Header="部门名称" Width="100" DataMemberBinding="{Binding UnitName}" />
 
+                <telerik:GridViewDataColumn Header="制单人" Width="90" DataMemberBinding="{Binding CreatorUserName}"/>
 
 
 

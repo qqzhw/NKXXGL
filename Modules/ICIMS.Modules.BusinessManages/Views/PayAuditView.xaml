@@ -62,6 +62,8 @@
                     </telerik:GridViewDataColumn.CellTemplate>
                 </telerik:GridViewDataColumn>
                 <telerik:GridViewDataColumn Header="部门名称" Width="100" DataMemberBinding="{Binding UnitName}"/>
+                <telerik:GridViewDataColumn Header="制单人" Width="90" DataMemberBinding="{Binding CreatorUserName}"/>
+
                 <telerik:GridViewDataColumn Header="支付编号"  DataMemberBinding="{Binding PayAudit.PaymentNo}" TextWrapping="Wrap" Width="90" />
                 <telerik:GridViewDataColumn Header="支付名称" DataMemberBinding="{Binding PayAudit.PaymentName}" TextWrapping="Wrap" Width="90" />
                 <telerik:GridViewDataColumn Header="支付类型" DataMemberBinding="{Binding PaymentTypeName}" TextWrapping="Wrap" Width="120" />
