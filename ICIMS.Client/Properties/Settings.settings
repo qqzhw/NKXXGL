@@ -8,11 +8,11 @@
     <Setting Name="LocalPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">D:\</Value>
     </Setting>
-    <Setting Name="ServerApi" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://localhost:21025/</Value>
-    </Setting>
     <Setting Name="UserName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ServerApi" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://lkxt.gnway.cc:7200/</Value>
     </Setting>
   </Settings>
 </SettingsFile>

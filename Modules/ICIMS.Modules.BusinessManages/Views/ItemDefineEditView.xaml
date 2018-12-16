@@ -218,14 +218,14 @@
 
                     <telerik:RadGridView.Columns>
 
-                        <telerik:GridViewDataColumn Header="审核业务" Width="100" TextBlock.FontFamily="SimSun"   DataMemberBinding="{Binding BusinessTypeName}" />
- 
-                        <telerik:GridViewDataColumn Header="审核角色"  DataMemberBinding="{Binding RoleName}" TextWrapping="Wrap" Width="80" />
-                        <telerik:GridViewDataColumn Header="审核意见" DataMemberBinding="{Binding AuditOpinion}" TextWrapping="Wrap" Width="*" />
+                        <!--<telerik:GridViewDataColumn Header="审核业务" Width="100" TextBlock.FontFamily="SimSun"   DataMemberBinding="{Binding BusinessTypeName}" />-->
+
+                        <telerik:GridViewDataColumn Header="审核角色"  DataMemberBinding="{Binding RoleName}" TextWrapping="Wrap" Width="120" />
+
                         <telerik:GridViewDataColumn Header="审核人" DataMemberBinding="{Binding AuditUserName}" TextWrapping="Wrap" Width="80" />
 
                         <telerik:GridViewDataColumn Header="审核时间" Width="120"  DataMemberBinding="{Binding AuditTime,StringFormat=yyyy-MM-dd HH:mm}"/>
- 
+                        <telerik:GridViewDataColumn Header="审核意见" DataMemberBinding="{Binding AuditOpinion}" TextWrapping="Wrap" Width="*" />
 
                     </telerik:RadGridView.Columns>
 

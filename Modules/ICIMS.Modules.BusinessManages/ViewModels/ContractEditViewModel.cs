@@ -205,9 +205,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             await InitBusinessAudits(); 
             if (info.Id == 0)
             {
-                //_contractCategory = new ContractItem();
-                //_vendorItem = new VendorItem();
-                //_itemDefine = new ItemDefine();
+                _contractCategory = new ContractItem();
+                _vendorItem = new VendorItem();
+                _itemDefine = new ItemDefine();
                 _contract = null ?? new Contract();
                 _contract.BeginTime = DateTime.Now;
                 _contract.EndTime = DateTime.Now;
@@ -339,9 +339,14 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
         private async void OnSave()
         { 
-            if (ContractCategory==null||ItemDefine==null||VendorItem.Id==0)
+            if (ContractCategory?.Id==0||ItemDefine.Id==0||VendorItem?.Id==0)
             {
                 MessageBox.Show("请选择相关分类数据");
+                return;
+            }
+            if (string.IsNullOrEmpty(Contract.ContractName))
+            {
+                MessageBox.Show("请输入合同名称");
                 return;
             }
             Contract.VendorId = VendorItem.Id;

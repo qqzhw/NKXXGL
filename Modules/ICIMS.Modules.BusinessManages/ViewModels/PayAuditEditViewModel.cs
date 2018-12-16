@@ -189,7 +189,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             PayAuditDetails.Add(detail);
 
             PayAudit.PayAmount = PayAuditDetails.Select(o => o.Amount).Sum();
-
+            RaisePropertyChanged("PayAuditDetails");
         }
 
         private void OnSelectedPaymentType()
@@ -289,6 +289,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             ItemDefine.DefineAmount = info.DefineAmount;
             UnitName = info.UnitName;
             PayAudit = info.PayAudit;
+            PayAudit.ItemTotalAmount = info.DefineAmount;
             PayAudit.ItemDefineId = info.PayAudit.ItemDefineId;
             PayAudit.PaymentTypeId = info.PayAudit.PaymentTypeId;
             _payAuditDetails = null ?? new ObservableCollection<PayAuditDetail>();
@@ -296,6 +297,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             RaisePropertyChanged("VendorItem");
             RaisePropertyChanged("ItemDefine");
             RaisePropertyChanged("Contract");
+            RaisePropertyChanged("PayAuditDetails");
+
             GetInfo();
             GetFiles(PayAudit);
             await LoadAuditMappings();
@@ -381,24 +384,44 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             _payAudit.ContractTotalAmount = Contract.ContractAmount;
             _payAudit.ContrctId = Contract.Id;
+            if (ItemDefine.Id==0)
+            {
+                MessageBox.Show("请选择立项项目");
+                return;
+            }
+            if (PaymentTypeItem.Id == 0)
+            {
+                MessageBox.Show("请选择支付类型");
+                return;
+            }
             _payAudit.ItemDefineId = ItemDefine.Id;
             _payAudit.ItemTotalAmount = ItemDefine.DefineAmount;
             _payAudit.PaymentTypeId = PaymentTypeItem.Id;
             //_payAudit.p = "文号110";
             //_payAudit.ItemName = "立项研究项目";
             //_payAudit.Remark = "beizhu";
-
-            _payAudit.PayAuditDetails = PayAuditDetails;
-            _payAudit.UnitId = _userModel.UnitId;
-            var item = await _payAuditService.CreateOrUpdate(_payAudit);
-            if (item.Id > 0)
+            try
             {
-                PayAudit.Id = item.Id;
-                PayAudit.PaymentNo = item.PaymentNo;
-                MessageBox.Show("保存成功！");
+                _payAudit.PayAuditDetails = PayAuditDetails;
+                _payAudit.UnitId = _userModel.UnitId;
+                var item = await _payAuditService.CreateOrUpdate(_payAudit);
+                if (item.Id > 0)
+                {
+                    PayAudit.Id = item.Id;
+                    PayAudit.PaymentNo = item.PaymentNo;
+                    CanChecked = true; 
+                    await GetNewStatus();
+                    MessageBox.Show("保存成功！");
+                }
+                else
+                    MessageBox.Show("保存失败！");
             }
-            else
-                MessageBox.Show("保存失败！");
+            catch (Exception ex)
+            {
+                MessageBox.Show("保存失败！"+ex.Message);
+
+            }
+            
         }
         private void OnSubmit()
         { 
@@ -898,8 +921,9 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     var no = $"{ItemDefine.ItemNo}_ZF{id}";
 
                     PayAudit.PaymentNo = no;
+                    RaisePropertyChanged("ItemDefine");
 
-
+                    RaisePropertyChanged("PayAudit");
                 }
                 int s = 0;
             });
@@ -953,17 +977,19 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 doc.Range.Replace("$UnitName$", UnitName, new FindReplaceOptions(FindReplaceDirection.Forward));
                  
                 doc.Range.Replace("$CreationTime$", PayAuditList.CreationTime.ToString("yyyy-MM-dd"), new FindReplaceOptions(FindReplaceDirection.Forward));
-                doc.Range.Replace("$ItemDefineName$", PayAuditList.ItemDefineName, new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$ItemDefineName$", PayAuditList.ItemDefineName==null?"": PayAuditList.ItemDefineName, new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$ContractName$", PayAuditList.ContractName == null ? "" : PayAuditList.ContractName, new FindReplaceOptions(FindReplaceDirection.Forward));
 
                 doc.Range.Replace("$DefineAmount$", PayAuditList.DefineAmount.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
                 doc.Range.Replace("$ItemDescription$", ItemDefine.ItemDescription == null ? "" : ItemDefine?.ItemDescription, new FindReplaceOptions(FindReplaceDirection.Forward));
-                doc.Range.Replace("$FundItems$", PayAuditList.AccountName.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
-
-                doc.Range.Replace("$ContractName$", PayAuditList.ContractName, new FindReplaceOptions(FindReplaceDirection.Forward));
+                var fundItem = "";// string.Join(",",PayAudit.PayAuditDetails?.Select(n => n.FundName).ToArray());
+                doc.Range.Replace("$FundItems$", fundItem==null?"":fundItem, new FindReplaceOptions(FindReplaceDirection.Forward));
+                var openbank = VendorItem.OpenBank == null ? "" : VendorItem.OpenBank + VendorItem?.AccountName;
+                doc.Range.Replace("$OpenBank$", openbank, new FindReplaceOptions(FindReplaceDirection.Forward));
                 doc.Range.Replace("$ContractAmount$", PayAuditList.ContractAmount.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
 
 
-                doc.Range.Replace("$VendorName$", PayAuditList.VendorName, new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$VendorName$", PayAuditList.VendorName==null?"":PayAuditList.VendorName, new FindReplaceOptions(FindReplaceDirection.Forward));
                 doc.Range.Replace("$PayDescription$", PayAudit.PayDetail, new FindReplaceOptions(FindReplaceDirection.Forward));
                 doc.Range.Replace("$PayAmount$", PayAudit.PayAmount.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
                 //doc.Range.Replace("CreatorUserName","ffff", new FindReplaceOptions(FindReplaceDirection.Forward));
@@ -989,11 +1015,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 
                 for (int i = 0; i <AuditMappings.Count; i++)
                 {
-                    var roww = table.Rows[10];
+                    var roww = table.Rows[11];
                     //var row = table.LastRow.Clone(true);
                     var row = roww.Clone(true);//复制第三行(绿色行)
-                    table.Rows.Insert(11 + i, row);//将复制的行插入当前行的上方
-                    var currentrow = table.Rows[11+i];
+                    table.Rows.Insert(12 + i, row);//将复制的行插入当前行的上方
+                    var currentrow = table.Rows[12+i];
                     //Cell lshCell = table.Rows[11].Cells[0];
                     //lshCell.Range.Replace("$a1$", BusinessAudits[i].Name + "意见", new FindReplaceOptions(FindReplaceDirection.Forward));
                     currentrow.Range.Replace("$RoleName$", AuditMappings[i].RoleName + "意见", new FindReplaceOptions(FindReplaceDirection.Forward));
@@ -1015,7 +1041,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                     //builder.MoveToCell(0, 11 + i, 1, 0);
                    // builder.Write("$Title$" + i.ToString()); 
                 }
-                builder.DeleteRow(0, 10);
+                builder.DeleteRow(0, 11);
                 //doc.Range.Replace("$Title$", "真的啊", new FindReplaceOptions(FindReplaceDirection.Forward));
                 //builder.MoveToCell(0, 3, 0, 0); //移动到第一个表格的第四行第一个格子
                 //builder.Write("test"); //单元格填充文字

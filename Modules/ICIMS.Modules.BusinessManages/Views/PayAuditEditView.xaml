@@ -98,14 +98,14 @@
                         </DockPanel>
                         <DockPanel Grid.Row="4" >
                             <TextBlock Text="预算总额" VerticalAlignment="Center"/>
-                        <TextBox  Height="22" HorizontalAlignment="Left"  IsReadOnly="True"  Text="{Binding PayAudit.ItemYsTotalAmount}" Margin="5,0,0,0"  VerticalAlignment="Center"/>
+                        <TextBox  Height="22" HorizontalAlignment="Left"  IsReadOnly="True"  Text="{Binding PayAudit.ItemYsTotalAmount,UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0"  VerticalAlignment="Center"/>
                             
                             <TextBlock Text="项目总额" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <telerik:RadNumericUpDown Width="120"  IsReadOnly="True"  Value="{Binding PayAudit.ItemTotalAmount}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
+                        <telerik:RadNumericUpDown Width="120"  IsReadOnly="True"  Value="{Binding PayAudit.ItemTotalAmount,UpdateSourceTrigger=PropertyChanged}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
 
                         <TextBlock VerticalAlignment="Center" Width="12">元</TextBlock>
                             <TextBlock Text="合同总额" Margin="30,0,0,0" VerticalAlignment="Center"/>
-                        <telerik:RadNumericUpDown Width="140" HorizontalAlignment="Left"   IsReadOnly="True"  Value="{Binding PayAudit.ContractTotalAmount}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
+                        <telerik:RadNumericUpDown Width="140" HorizontalAlignment="Left"   IsReadOnly="True"  Value="{Binding PayAudit.ContractTotalAmount,UpdateSourceTrigger=PropertyChanged}" Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
                         <TextBlock Text="初始已付金额" VerticalAlignment="Center" Margin="18,0,0,0"/>
                         <telerik:RadNumericUpDown Width="120" HorizontalAlignment="Left"  Value="{Binding PayAudit.InitPayAmount}"  Minimum="0" Margin="5,0,0,0" VerticalAlignment="Center" telerik:StyleManager.Theme="Windows8" ValueFormat="Currency" Maximum="100000000000" />
                     </DockPanel>
@@ -124,7 +124,7 @@
                         </DockPanel>
                     <DockPanel Grid.Row="6">
                         <TextBlock VerticalAlignment="Center" Width="48" TextWrapping="Wrap" Text="支付明细"></TextBlock>
-                        <TextBox Height="36" VerticalContentAlignment="Center" Foreground="OrangeRed" Margin="5,0,0,0" Background="#F5F5F5" IsReadOnly="True"  Text="{Binding PayAudit.PayDetail}" />
+                        <TextBox Height="36" VerticalContentAlignment="Center" Foreground="OrangeRed" Margin="5,0,0,0" Background="#F5F5F5" IsReadOnly="True"  Text="{Binding PayAudit.PayDetail,UpdateSourceTrigger=PropertyChanged}" />
                     </DockPanel>
                     <DockPanel Grid.Row="7">
                             <TextBlock VerticalAlignment="Center" Width="48" TextWrapping="Wrap" Text="付款方式及比例"></TextBlock>
@@ -212,15 +212,15 @@
                             <telerik:EventBinding Command="{Binding ListRightMenue}" EventName="MouseRightButtonUp" 
                         PassEventArgsToCommand="True" /> 
                         </telerik:EventToCommandBehavior.EventBindings>-->
-                        <telerik:RadGridView.Columns>                            
-                            <telerik:GridViewDataColumn Header="审核业务" Width="100" TextBlock.FontFamily="SimSun"   DataMemberBinding="{Binding BusinessTypeName}" />
+                        <telerik:RadGridView.Columns>
+                            <!--<telerik:GridViewDataColumn Header="审核业务" Width="100" TextBlock.FontFamily="SimSun"   DataMemberBinding="{Binding BusinessTypeName}" />-->
 
-                            <telerik:GridViewDataColumn Header="审核角色"  DataMemberBinding="{Binding RoleName}" TextWrapping="Wrap" Width="80" />
-                            <telerik:GridViewDataColumn Header="审核意见" DataMemberBinding="{Binding AuditOpinion}" TextWrapping="Wrap" Width="*" />
+                            <telerik:GridViewDataColumn Header="审核角色"  DataMemberBinding="{Binding RoleName}" TextWrapping="Wrap" Width="120" />
+
                             <telerik:GridViewDataColumn Header="审核人" DataMemberBinding="{Binding AuditUserName}" TextWrapping="Wrap" Width="80" />
 
                             <telerik:GridViewDataColumn Header="审核时间" Width="120"  DataMemberBinding="{Binding AuditTime,StringFormat=yyyy-MM-dd HH:mm}"/>
-
+                            <telerik:GridViewDataColumn Header="审核意见" DataMemberBinding="{Binding AuditOpinion}" TextWrapping="Wrap" Width="*" />
                         </telerik:RadGridView.Columns>
 
                     </telerik:RadGridView>

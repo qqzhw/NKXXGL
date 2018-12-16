@@ -59,7 +59,7 @@
                         <TextBlock Text="立项文号" Margin="5,0,0,0"  VerticalAlignment="Center"/>
                         <TextBox   Margin="5,0,0,0" Width="140"  IsReadOnly="True" Text="{Binding ItemDefine.ItemDocNo,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                         <TextBlock Text="立项金额"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <TextBox    Margin="5,0,0,0"  IsReadOnly="True" Text="{Binding ItemDefine.DefineAmount}" VerticalAlignment="Center"/>
+                        <TextBox    Margin="5,0,0,0"  IsReadOnly="True" Width="140" Text="{Binding ItemDefine.DefineAmount}" VerticalAlignment="Center"/>
                         <TextBlock Text="元"  Margin="2,0,0,0" VerticalAlignment="Center" />
                     </StackPanel>
                     <DockPanel  Grid.Row="2" HorizontalAlignment="Stretch">
@@ -259,14 +259,14 @@
 
                     <telerik:RadGridView.Columns>
 
-                        <telerik:GridViewDataColumn Header="审核业务" Width="100" TextBlock.FontFamily="SimSun"   DataMemberBinding="{Binding BusinessTypeName}" />
+                        <!--<telerik:GridViewDataColumn Header="审核业务" Width="100" TextBlock.FontFamily="SimSun"   DataMemberBinding="{Binding BusinessTypeName}" />-->
 
-                        <telerik:GridViewDataColumn Header="审核角色"  DataMemberBinding="{Binding RoleName}" TextWrapping="Wrap" Width="80" />
-                        <telerik:GridViewDataColumn Header="审核意见" DataMemberBinding="{Binding AuditOpinion}" TextWrapping="Wrap" Width="*" />
+                        <telerik:GridViewDataColumn Header="审核角色"  DataMemberBinding="{Binding RoleName}" TextWrapping="Wrap" Width="120" />
+                      
                         <telerik:GridViewDataColumn Header="审核人" DataMemberBinding="{Binding AuditUserName}" TextWrapping="Wrap" Width="80" />
 
                         <telerik:GridViewDataColumn Header="审核时间" Width="120"  DataMemberBinding="{Binding AuditTime,StringFormat=yyyy-MM-dd HH:mm}"/>
-
+                       <telerik:GridViewDataColumn Header="审核意见" DataMemberBinding="{Binding AuditOpinion}" TextWrapping="Wrap" Width="*" />
 
                     </telerik:RadGridView.Columns>
 

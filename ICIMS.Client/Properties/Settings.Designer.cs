@@ -49,18 +49,6 @@ namespace ICIMS.Client.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:21025/")]
-        public string ServerApi {
-            get {
-                return ((string)(this["ServerApi"]));
-            }
-            set {
-                this["ServerApi"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string UserName {
             get {
@@ -68,6 +56,18 @@ namespace ICIMS.Client.Properties {
             }
             set {
                 this["UserName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://lkxt.gnway.cc:7200/")]
+        public string ServerApi {
+            get {
+                return ((string)(this["ServerApi"]));
+            }
+            set {
+                this["ServerApi"] = value;
             }
         }
     }
