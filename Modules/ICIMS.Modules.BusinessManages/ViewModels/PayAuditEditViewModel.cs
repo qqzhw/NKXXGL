@@ -1,5 +1,6 @@
 ﻿using Aspose.Words;
 using Aspose.Words.Replacing;
+using Aspose.Words.Tables;
 using AutoMapper;
 using ICIMS.Core.Interactivity;
 using ICIMS.Core.Interactivity.InteractionRequest;
@@ -255,14 +256,14 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             PayAudit.ItemDefineId = info.PayAudit.ItemDefineId;
             PayAudit.PaymentTypeId = info.PayAudit.PaymentTypeId;
             _payAuditDetails = null ?? new ObservableCollection<PayAuditDetail>();
-            //PayAuditDetails.Add(new PayAuditDetail()
-            //{
-            //    Amount = 1000,
-            //    FundName = "市局",
-            //    Remark = "市局款项",
-            //});
+            RaisePropertyChanged("PaymentTypeItem");
+            RaisePropertyChanged("VendorItem");
+            RaisePropertyChanged("ItemDefine");
+            RaisePropertyChanged("Contract");
             GetInfo();
             GetFiles(PayAudit);
+            await LoadAuditMappings();
+            await GetNewStatus();
         }
         private async void GetInfo()
         {
@@ -901,7 +902,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             {
                 var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "666.docx");
 
-                var file1 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "777.docx");
+                var file1 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, PayAudit.PaymentNo+".pdf");
                 var content = "evento";
                 // Open the document.
                 Document doc = new Document(file);
@@ -909,12 +910,12 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
 
                 //// Replace the text in the document.
                 doc.Range.Replace("$UnitName$", UnitName, new FindReplaceOptions(FindReplaceDirection.Forward));
-                string cmdNo = string.Format("成联指【{0}】号", 511);
+                 
                 doc.Range.Replace("$CreationTime$", PayAuditList.CreationTime.ToString("yyyy-MM-dd"), new FindReplaceOptions(FindReplaceDirection.Forward));
                 doc.Range.Replace("$ItemDefineName$", PayAuditList.ItemDefineName, new FindReplaceOptions(FindReplaceDirection.Forward));
 
                 doc.Range.Replace("$DefineAmount$", PayAuditList.DefineAmount.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
-                doc.Range.Replace("$ItemDescription$", ItemDefine?.ItemDescription == null ? "" : ItemDefine?.ItemDescription, new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$ItemDescription$", ItemDefine.ItemDescription == null ? "" : ItemDefine?.ItemDescription, new FindReplaceOptions(FindReplaceDirection.Forward));
                 doc.Range.Replace("$FundItems$", PayAuditList.AccountName.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
 
                 doc.Range.Replace("$ContractName$", PayAuditList.ContractName, new FindReplaceOptions(FindReplaceDirection.Forward));
@@ -924,9 +925,11 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 doc.Range.Replace("$VendorName$", PayAuditList.VendorName, new FindReplaceOptions(FindReplaceDirection.Forward));
                 doc.Range.Replace("$PayDescription$", PayAudit.PayDetail, new FindReplaceOptions(FindReplaceDirection.Forward));
                 doc.Range.Replace("$PayAmount$", PayAudit.PayAmount.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
-
-
-                doc.Range.Replace("$AuditOpinion1$", "", new FindReplaceOptions(FindReplaceDirection.Forward));
+                //doc.Range.Replace("CreatorUserName","ffff", new FindReplaceOptions(FindReplaceDirection.Forward));
+                doc.Range.Replace("$PayProgress$", "第"+PayAudit.PaymentCount.ToString()+"次支付", new FindReplaceOptions(FindReplaceDirection.Forward));
+                //doc.Range.Replace("CreationTime", PayAudit.PayAmount.ToString(), new FindReplaceOptions(FindReplaceDirection.Forward));
+                var filesName = string.Join(",", FilesManages.Select(f => f.FileName).ToArray());
+                 doc.Range.Replace("$FilesName$", filesName, new FindReplaceOptions(FindReplaceDirection.Forward));
 
                 DocumentBuilder builder = new DocumentBuilder(doc);
                 NodeCollection allTables = doc.GetChildNodes(NodeType.Table, true);
@@ -942,17 +945,36 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 //  DataTable products = this.GetData(); //数据源
                 //builder.InsertCell();
                 //builder.InsertCell();
-                //for (int i = 0; i < 3; i++)
-                //{
-                //    var roww = table.Rows[rowCount-2];
-                //    //var row = table.LastRow.Clone(true);
-                //    var row = roww.Clone(true);//复制第三行(绿色行)
-                //    table.Rows.Insert(rowCount + i, row);//将复制的行插入当前行的上方
-                //    builder.MoveToCell(0, rowCount+i, 0, 0);
-                //    builder.Writeln($"asdas还是审核人{i+1}");
-                //    builder.MoveToCell(0, rowCount + i, 1, 0);
-                //    builder.Write("$Title$" + i.ToString());
-                //}
+                
+                for (int i = 0; i <AuditMappings.Count; i++)
+                {
+                    var roww = table.Rows[10];
+                    //var row = table.LastRow.Clone(true);
+                    var row = roww.Clone(true);//复制第三行(绿色行)
+                    table.Rows.Insert(11 + i, row);//将复制的行插入当前行的上方
+                    var currentrow = table.Rows[11+i];
+                    //Cell lshCell = table.Rows[11].Cells[0];
+                    //lshCell.Range.Replace("$a1$", BusinessAudits[i].Name + "意见", new FindReplaceOptions(FindReplaceDirection.Forward));
+                    currentrow.Range.Replace("$RoleName$", AuditMappings[i].RoleName + "意见", new FindReplaceOptions(FindReplaceDirection.Forward));
+                    currentrow.Range.Replace("$AuditOpinion$", AuditMappings[i].AuditOpinion, new FindReplaceOptions(FindReplaceDirection.Forward));
+                    currentrow.Range.Replace("$CreatorUserName$", AuditMappings[i].AuditUserName, new FindReplaceOptions(FindReplaceDirection.Forward));
+                    currentrow.Range.Replace("$CreationTime$", AuditMappings[i].AuditTime==null?"": AuditMappings[i].AuditTime.Value.ToString("yyyy-MM-dd"), new FindReplaceOptions(FindReplaceDirection.Forward));
+                    ////将单元格中的第一个段落移除
+                    //lshCell.FirstParagraph.Remove();
+                    ////新建一个段落
+                    //Paragraph p = new Paragraph(doc);
+                    ////设置一个string的值
+                    //string value = "新建一个string的值";
+                    ////把设置的值赋给之前新建的段落
+                    //p.AppendChild(new Run(doc, value));
+                    //将此段落加到单元格内
+                    //lshCell.AppendChild(p); 
+                    //builder.MoveToCell(0, 11+ i, 0, 0);
+                     
+                    //builder.MoveToCell(0, 11 + i, 1, 0);
+                   // builder.Write("$Title$" + i.ToString()); 
+                }
+                builder.DeleteRow(0, 10);
                 //doc.Range.Replace("$Title$", "真的啊", new FindReplaceOptions(FindReplaceDirection.Forward));
                 //builder.MoveToCell(0, 3, 0, 0); //移动到第一个表格的第四行第一个格子
                 //builder.Write("test"); //单元格填充文字
@@ -996,9 +1018,8 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
                 //doc.Range.Bookmarks["table"].Text = ""; // 清掉标示 
                 //builder.DeleteRow(0, 5);
                 // Save the modified document.
-                doc.Save(file1);
-
-
+                doc.Save(file1,SaveFormat.Pdf);
+                 
 
                 OpenDoc(file1);
             }

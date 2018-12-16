@@ -48,16 +48,16 @@
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Height="30">
                         <TextBlock Text="项目分类"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <TextBox    Width="150" Text="{Binding ItemDefine.ItemCategoryName}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox    Width="150" Text="{Binding ItemDefine.ItemCategoryName,UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="关联项目" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox  Margin="5,0,0,0"  Width="300"   Text="{Binding ItemDefine.ItemName}" VerticalAlignment="Center"/>
+                        <TextBox  Margin="5,0,0,0"  Width="300"   Text="{Binding ItemDefine.ItemName,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                         <Button Command="{Binding SearchItemCommand}" IsEnabled="True" Style="{x:Null}" BorderThickness="0" Height="18">
                             <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                         </Button>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Orientation="Horizontal"  HorizontalAlignment="Stretch" Height="30">
                         <TextBlock Text="立项文号" Margin="5,0,0,0"  VerticalAlignment="Center"/>
-                        <TextBox   Margin="5,0,0,0" Text="{Binding ItemDefine.ItemDocNo}" VerticalAlignment="Center"/>
+                        <TextBox   Margin="5,0,0,0" Text="{Binding ItemDefine.ItemDocNo,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                         <TextBlock Text="立项金额"  Margin="5,0,0,0" VerticalAlignment="Center" />
                         <TextBox    Margin="5,0,0,0" Text="{Binding ItemDefine.DefineAmount}" VerticalAlignment="Center"/>
                         <TextBlock Text="元"  Margin="2,0,0,0" VerticalAlignment="Center" />
@@ -88,7 +88,7 @@
                         <TextBlock Text="所属部门"   VerticalAlignment="Center"/>
                         <TextBox   Margin="5,0,0,0" Width="100" Text="{Binding Contract.UnitName,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                         <TextBlock Text="合同分类"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <TextBox   Text="{Binding ContractCategory.Name}"   Width="200" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox   Text="{Binding ContractCategory.Name,UpdateSourceTrigger=PropertyChanged}"   Width="200" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <Button Command="{Binding CaractTypeCommand}" IsEnabled="True" Style="{x:Null}" BorderThickness="0" Height="18">
                             <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                         </Button>
@@ -100,13 +100,13 @@
                     </StackPanel>
                     <DockPanel Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Top"  >
                         <TextBlock  HorizontalAlignment="Center"  TextAlignment="Center" Text="合同编号" VerticalAlignment="Center"/>
-                        <TextBox  AcceptsReturn="True" IsReadOnly="True" Width="100" Text="{Binding Contract.ContractNo}" Margin="5,0,0,0" TextWrapping="Wrap"   />
+                        <TextBox  AcceptsReturn="True" IsReadOnly="True" Width="100" Text="{Binding Contract.ContractNo,UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0" TextWrapping="Wrap"   />
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Margin="5,0,0,0" Text="合同名称" VerticalAlignment="Center"/>
                         <TextBox  AcceptsReturn="True" Text="{Binding Contract.ContractName,UpdateSourceTrigger=PropertyChanged}" Margin="5,0,10,0" TextWrapping="Wrap"   />
                     </DockPanel>
                     <DockPanel Grid.Row="2" HorizontalAlignment="Stretch"  VerticalAlignment="Top"  >
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="合同金额" VerticalAlignment="Center"/>
-                        <TextBox  AcceptsReturn="True" Width="100" Text="{Binding Contract.ContractAmount}"  Margin="5,0,0,0" TextWrapping="Wrap"   />
+                        <TextBox  AcceptsReturn="True" Width="100" Text="{Binding Contract.ContractAmount,UpdateSourceTrigger=PropertyChanged}"  Margin="5,0,0,0" TextWrapping="Wrap"   />
                         <TextBlock VerticalAlignment="Center" Width="12">元</TextBlock>
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Margin="5,0,0,0" Text="暂列金额" VerticalAlignment="Center"/>
                         <TextBox  AcceptsReturn="True" Width="100" Text="{Binding Contract.ProvisionalAmount}"  Margin="5,0,0,0" TextWrapping="Wrap"   />
@@ -130,7 +130,7 @@
                     </DockPanel>
                     <DockPanel Grid.Row="4" HorizontalAlignment="Stretch"  VerticalAlignment="Top"  >
                         <TextBlock  HorizontalAlignment="Center" TextAlignment="Center" Text="是否结算" VerticalAlignment="Center"/>
-                        <ComboBox    Margin="5,0,0,0"  SelectedIndex="{Binding Contract.IsClearing}" >
+                        <ComboBox    Margin="5,0,0,0"  SelectedIndex="{Binding Contract.IsClearing,UpdateSourceTrigger=PropertyChanged}" >
                             <ComboBoxItem Content="否"/>
                             <ComboBoxItem Content="是"/>
                         </ComboBox>
@@ -141,7 +141,7 @@
                         <TextBox  Text="{Binding Contract.ClearingPer}" Width="30" AcceptsReturn="True" Margin="5,0,0,0" TextWrapping="Wrap"   />
                         <TextBlock VerticalAlignment="Center" Width="12">%</TextBlock>
                         <TextBlock  TextAlignment="Center" HorizontalAlignment="Left" Text="预警" VerticalAlignment="Center"/>
-                        <TextBox  AcceptsReturn="True"  Text="{Binding Contract.Warining}" HorizontalAlignment="Left" Width="160" TextWrapping="Wrap"   />
+                        <TextBox  AcceptsReturn="True"  Text="{Binding Contract.Warining,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="160" TextWrapping="Wrap"   />
                         <TextBlock  HorizontalAlignment="Left" TextAlignment="Center" Margin="5,0,0,0" Text="预警日期" VerticalAlignment="Center"/>
                         <telerik:RadDatePicker DateTimeWatermarkTemplate="{StaticResource dateTemplate}" HorizontalAlignment="Left" telerik:StyleManager.Theme="Office2016"  FontFamily="SimSun" FontStyle="Normal"  Width="120"   Foreground="#222328"      SelectedValue="{Binding Contract.WariningDate}"   DisplayFormat="Long"  DateTimeWatermarkContent="签订日期" />
 

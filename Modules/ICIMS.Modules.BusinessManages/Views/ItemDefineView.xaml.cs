@@ -37,7 +37,7 @@ namespace ICIMS.Modules.BusinessManages.Views
         {
             var dialog = new SaveFileDialog();
             dialog.DefaultExt = "xls";
-            dialog.Filter = String.Format("{1} files (*.{0})|*.{0}|全部文件 (*.*)|*.*", "xls", ExportFormat.ExcelML);
+            dialog.Filter = String.Format("{1} files (*.{0})|*.{0}|全部文件 (*.*)|*.*", "xls", ExportFormat.Xlsx);
             dialog.FilterIndex = 1;
             radInfo.ElementExporting -= this.ElementExporting;
             radInfo.ElementExporting += this.ElementExporting;
@@ -46,7 +46,7 @@ namespace ICIMS.Modules.BusinessManages.Views
                 using (var stream = dialog.OpenFile())
                 {
                     var exportOptions = new GridViewExportOptions();
-                    exportOptions.Format = ExportFormat.ExcelML;
+                    exportOptions.Format = ExportFormat.Xlsx;
                     exportOptions.ShowColumnFooters = true;
                     exportOptions.ShowColumnHeaders = true;
                     exportOptions.ShowGroupFooters = true;

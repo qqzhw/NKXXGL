@@ -53,7 +53,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
         {
             try
             {
-                System.Diagnostics.Process.Start("Explorer", "/select," + SettingModel.LocalPath + FilesManage.FileName);
+                System.Diagnostics.Process.Start(SettingModel.LocalPath + FilesManage.FileName);
             }
             catch
             {
@@ -92,7 +92,7 @@ namespace ICIMS.Modules.BusinessManages.ViewModels
             //{
             //    Properties.Settings.Default.LocalPath += "\\";
             //}
-            var url = SettingModel.ServerApi + FilesManage.DownloadUrl.Replace("\\", "/");
+            var url = SettingModel.ServerApi + FilesManage.DownloadUrl.Replace("\\", "/").Replace("//","/");
             var saveFilePath = SettingModel.LocalPath + FilesManage.FileName;// Properties.Settings.Default.LocalPath + name;
             client = new WebClient();
 

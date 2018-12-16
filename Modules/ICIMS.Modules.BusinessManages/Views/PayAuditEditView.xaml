@@ -38,7 +38,7 @@
                 <ColumnDefinition Width="0.65*"/>
                 <ColumnDefinition Width="0.35*"/>
             </Grid.ColumnDefinitions>
-            <GroupBox Header="支付审核" FontFamily="SimSun" FontSize="12">
+            <GroupBox Header="支付审核" FontFamily="SimSun" FontSize="12" IsEnabled="{Binding CanEdit}">
                 <Grid VerticalAlignment="Top" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="25"/>
@@ -54,29 +54,29 @@
                     </Grid.RowDefinitions>
                     <DockPanel HorizontalAlignment="Stretch" >
                         <TextBlock Text="关联项目"   VerticalAlignment="Center" />
-                        <TextBox  Height="22" Text="{Binding ItemDefine.ItemName}"   Width="320"  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="22" Text="{Binding ItemDefine.ItemName,UpdateSourceTrigger=PropertyChanged}"   Width="320"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <Button Command="{Binding SearchItemCommand}" Style="{x:Null}" BorderThickness="0" Height="18">
                             <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                         </Button>
                         <TextBlock Text="关联合同" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox Text="{Binding Contract.ContractName}" Margin="5,0,0,0" Width="320"  Height="22" VerticalAlignment="Center"/>
+                        <TextBox Text="{Binding Contract.ContractName,UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0" Width="320"  Height="22" VerticalAlignment="Center"/>
                         <Button Command="{Binding SearchContractCommand}" Style="{x:Null}" HorizontalAlignment="Left" BorderThickness="0" Height="18">
                             <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                         </Button>
                     </DockPanel>
                     <StackPanel Grid.Row="1" Orientation="Horizontal"  HorizontalAlignment="Stretch" >
                         <TextBlock Text="承建单位"    VerticalAlignment="Center"/>
-                        <TextBox  Height="22" Width="250" Text="{Binding VendorItem.Name}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="22" Width="250" Text="{Binding VendorItem.Name,UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="开户行"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <TextBox  Height="22" HorizontalAlignment="Left" Text="{Binding VendorItem.OpenBank}" Width="200" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="22" HorizontalAlignment="Left" Text="{Binding VendorItem.OpenBank,UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="5,0,0,0" VerticalAlignment="Center"/>
                         <TextBlock Text="银行账户"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                        <TextBox  Height="22" Width="200"  Text="{Binding VendorItem.AccountName}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="22" Width="200"  Text="{Binding VendorItem.AccountName,UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                     </StackPanel> 
                         <DockPanel Grid.Row="2" >
                             <TextBlock Text="部 门" VerticalAlignment="Center" Margin="18,0,0,0"/>
-                            <TextBox  Height="22"  Margin="5,0,0,0" Text="{Binding UnitName}"  IsReadOnly="True" VerticalAlignment="Center"/>
+                        <TextBox  Height="22"  Margin="5,0,0,0" Text="{Binding UnitName,UpdateSourceTrigger=PropertyChanged}"  IsReadOnly="True" VerticalAlignment="Center"/>
                             <TextBlock Text="支付类型" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox  Height="22"  Margin="5,0,0,0" Text="{Binding PaymentTypeItem.Name}"  IsReadOnly="True"  Width="200" VerticalAlignment="Center"/>
+                        <TextBox  Height="22"  Margin="5,0,0,0" Text="{Binding PaymentTypeItem.Name,UpdateSourceTrigger=PropertyChanged}"  IsReadOnly="True"  Width="200" VerticalAlignment="Center"/>
                             <Button Command="{Binding SearchPaymentCommand}" Style="{x:Null}" HorizontalAlignment="Left" BorderThickness="0" Height="18">
                                 <iconPacks:PackIconFontAwesome Kind="SearchPlusSolid" Height="16" Foreground="#999999" />
                             </Button>
@@ -92,9 +92,9 @@
                     </DockPanel>
                         <DockPanel Grid.Row="3">
                             <TextBlock Text="支付编号" VerticalAlignment="Center"/>
-                        <TextBox  Height="22" FontFamily="SimSun"  Margin="5,0,0,0" IsReadOnly="True" Text="{Binding PayAudit.PaymentNo}"  VerticalAlignment="Center"/>
+                        <TextBox  Height="22" FontFamily="SimSun"  Margin="5,0,0,0" IsReadOnly="True" Text="{Binding PayAudit.PaymentNo,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Center"/>
                             <TextBlock Text="支付名称" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                        <TextBox  Height="22" Text="{Binding PayAudit.PaymentName}"  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox  Height="22" Text="{Binding PayAudit.PaymentName,UpdateSourceTrigger=PropertyChanged}"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                         </DockPanel>
                         <DockPanel Grid.Row="4" >
                             <TextBlock Text="预算总额" VerticalAlignment="Center"/>
@@ -261,7 +261,7 @@
 
                         <telerik:GridViewDataColumn Header="文件名称"  DataMemberBinding="{Binding FileName}" TextWrapping="Wrap" Width="*" />
                         <telerik:GridViewDataColumn Header="文件类型" DataMemberBinding="{Binding UploadType}" TextWrapping="Wrap" Width="80" />
-                        <telerik:GridViewDataColumn Header="文件大小" DataMemberBinding="{Binding FileSizeText}" TextWrapping="Wrap" Width="80" />
+                        <telerik:GridViewDataColumn Header="文件大小" DataMemberBinding="{Binding FileSizeText,Mode=TwoWay}" TextWrapping="Wrap" Width="80" />
                         <telerik:GridViewDataColumn Header="上传时间" Width="120"  DataMemberBinding="{Binding CreationTime,StringFormat=yyyy-MM-dd HH:mm}"/>
 
 
