@@ -37,14 +37,15 @@ namespace ICIMS.Client.Views
 
             // this.selectedDesktopAlertManager.CloseAlert(tt);
             //  tt.Content = new TextBlock() { Text = "asdasdasd" };
-            this.selectedDesktopAlertManager.CloseAlert(tt);
+            this.selectedDesktopAlertManager.CloseAlert(tt); 
             this.selectedDesktopAlertManager.ShowAlert(new DesktopAlertParameters
             {
                 Header = "提示",
-                Content = new TextBlock() { Text = "欢迎您使用内控信息化管理系统" },
-                ShowDuration = 3,
+                Content = new TextBlock() { Text = "欢迎使用内控信息化管理系统,您有待审批项目" },
+                ShowDuration =3000,
                 CanMove = true,
                 CanAutoClose = true,
+                
                 //Icon = new Image { Source = Application.Current.FindResource("DesktopAlertIcon") as ImageSource, Width = 48, Height = 48 },
                 IconColumnWidth = 48,
                 IconMargin = new Thickness(10, 0, 20, 0),

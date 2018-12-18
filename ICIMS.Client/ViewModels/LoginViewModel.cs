@@ -51,7 +51,7 @@ namespace ICIMS.Client.ViewModels
         private void Initializer()
         {
             AppName = "内控信息化管理系统【V2.81216】";
-            _tenancyName = "Default";
+            _tenancyName = "XJHJD";
              
             //_appName = Settings.Default.AppName;
              _userName = Settings.Default.UserName;
@@ -101,7 +101,7 @@ namespace ICIMS.Client.ViewModels
         private async void OnLogin()
         {
             Islogining = true;
-              TenancyName = "Default";
+            //  TenancyName = "Default";
             // string UserName = "admin";
             // string Password = "123qwe";
             try
@@ -115,8 +115,8 @@ namespace ICIMS.Client.ViewModels
                 }
                 var userInfo = await _userSerice.GetUserInfoById(user.Id);                
                 userInfo.AccessToken = user.AccessToken;
-                userInfo.UnitId = userInfo.Unit.Id;
-                userInfo.UnitName = userInfo.Unit.Name;
+                userInfo.UnitId = userInfo.Unit!=null?userInfo.Unit.Id:0;
+                userInfo.UnitName = userInfo.Unit!=null?userInfo.Name:"";
                 foreach (var role in userInfo.Roles)
                 {
                     foreach (var item  in role.Permissions)
