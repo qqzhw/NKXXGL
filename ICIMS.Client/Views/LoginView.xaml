@@ -22,7 +22,8 @@
                 <RowDefinition  Height="Auto"/>
                 <RowDefinition  Height="Auto"/>
                 <RowDefinition  Height="Auto"/>
-                <RowDefinition Height="60"/>
+                    <RowDefinition  Height="Auto"/>
+                    <RowDefinition Height="60"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition  Height="*"/>
             </Grid.RowDefinitions>
@@ -38,21 +39,25 @@
                 <Canvas HorizontalAlignment="Right" Grid.Column="0" Grid.ColumnSpan="2"  >
                     <TextBlock Text="×" x:Name="tClose" MouseLeftButtonDown="tClose_MouseLeftButtonDown" Canvas.Right="0" Foreground="White" Opacity="0.2"  FontSize="32" Canvas.Top="0" />
                 </Canvas>
-                <TextBlock HorizontalAlignment="Right" Margin="60,20,0,0" Grid.Row="1" TextWrapping="Wrap" Text="账套：" FontSize="16" VerticalAlignment="Center" Foreground="#7E87AD"/>
-                <TextBox  Grid.Column="1" VerticalContentAlignment="Center" Foreground="#222328"  Height="30" HorizontalAlignment="Left"   Margin="20,20,0,0" Grid.Row="1"  FontSize="16" TextWrapping="Wrap" Text="{Binding TenancyName}" VerticalAlignment="Center" Width="180"/>
-                <TextBlock HorizontalAlignment="Right" Margin="60,20,0,0" Grid.Row="2" TextWrapping="Wrap" Text="账号：" FontSize="16" VerticalAlignment="Center" Foreground="#7E87AD"/>
-                <TextBox    Grid.Column="1" Foreground="#222328" VerticalContentAlignment="Center" Height="30" HorizontalAlignment="Left"   Margin="20,20,0,0" Grid.Row="2"  FontSize="16" TextWrapping="Wrap" Text="{Binding UserName}" VerticalAlignment="Center" Width="180"/>
+                <TextBlock HorizontalAlignment="Right" Margin="60,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="登录账套：" FontSize="16" VerticalAlignment="Center" Foreground="#7E87AD"/>
+                <TextBox  Grid.Column="1" VerticalContentAlignment="Center" Foreground="#222328"  Height="30" HorizontalAlignment="Left"   Margin="20,10,0,0" Grid.Row="1"  FontSize="16" TextWrapping="Wrap" Text="{Binding TenancyName}" VerticalAlignment="Center" Width="180"/>
+                <TextBlock HorizontalAlignment="Right" Margin="60,10,0,0" Grid.Row="2" TextWrapping="Wrap" Text="用户账号：" FontSize="16" VerticalAlignment="Center" Foreground="#7E87AD"/>
+                <TextBox    Grid.Column="1" Foreground="#222328" VerticalContentAlignment="Center" Height="30" HorizontalAlignment="Left"   Margin="20,10,0,0" Grid.Row="2"  FontSize="16" TextWrapping="Wrap" Text="{Binding UserName}" VerticalAlignment="Center" Width="180"/>
                
-            <TextBlock HorizontalAlignment="Right" Margin="0,10,0,0"   Grid.Row="3" TextWrapping="Wrap" Foreground="#7E87AD" Text="密码："  FontSize="16" VerticalAlignment="Center"/>
+            <TextBlock HorizontalAlignment="Right" Margin="0,10,0,0"   Grid.Row="3" TextWrapping="Wrap" Foreground="#7E87AD" Text="用户密码："  FontSize="16" VerticalAlignment="Center"/>
                 <PasswordBox  Foreground="#222328" VerticalAlignment="Center" VerticalContentAlignment="Center" pw:PasswordBoxHelper.Attach="true"  FontSize="16" pw:PasswordBoxHelper.Password="{Binding Path=Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Grid.Column="1" HorizontalAlignment="Left"  Height="30" Margin="20,10,0,0" Grid.Row="3" Width="180">
                     <telerik:EventToCommandBehavior.EventBindings>
                         <telerik:EventBinding Command="{Binding KeyDown}" EventName="KeyDown" 
                         PassEventArgsToCommand="True" />
                     </telerik:EventToCommandBehavior.EventBindings>
                 </PasswordBox>
-            <!--<TextBlock HorizontalAlignment="Left" Margin="79,26,0,0" Grid.Row="3" TextWrapping="Wrap" Text="保存账号" VerticalAlignment="Top"/>-->
-                <CheckBox Content="保存账号"  Foreground="#7E87AD" IsChecked="{Binding IsSave}"  FontSize="16" Grid.Column="1" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="4" VerticalAlignment="Top"/> 
-            <Button HorizontalAlignment="Left"  Height="32" Margin="60,25,0,0"  VerticalAlignment="Top"  FontSize="16" Width="100"  Content="登 录" Style="{DynamicResource MetroFlatButton}"  Command="{Binding LoginCommand}" Grid.Column="1"  Grid.Row="5"/>
+
+                <TextBlock HorizontalAlignment="Right" Margin="0,5,0,0"   Grid.Row="4" TextWrapping="Wrap" Foreground="#7E87AD" Text="登录日期："  FontSize="16" VerticalAlignment="Center"/>
+                <telerik:RadDatePicker x:Name="chkTime" Grid.Row="4" Margin="20,0,0,0" DateTimeWatermarkContent="登录日期"  FontFamily="SimSun" HorizontalAlignment="Left" telerik:StyleManager.Theme="Office2016" Height="30" Width="180" Grid.Column="1" SelectedTime="{Binding CurrentDate}"/>
+
+                <!--<TextBlock HorizontalAlignment="Left" Margin="79,26,0,0" Grid.Row="3" TextWrapping="Wrap" Text="保存账号" VerticalAlignment="Top"/>-->
+                <CheckBox Content="保存账号"  Foreground="#7E87AD" IsChecked="{Binding IsSave}"  FontSize="16" Grid.Column="1" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="5" VerticalAlignment="Top"/> 
+            <Button HorizontalAlignment="Left"  Height="32" Margin="60,25,0,0"  VerticalAlignment="Top"  FontSize="16" Width="100"  Content="登 录" Style="{DynamicResource MetroFlatButton}"  Command="{Binding LoginCommand}" Grid.Column="1"  Grid.Row="6"/>
                 <Canvas Grid.Row="6" Grid.ColumnSpan="2">
                     <TextBlock Canvas.Top="75" Canvas.Left="200" Foreground="#7E87AD" FontSize="14" Text="版权所有@ 2018"/>
                 </Canvas>

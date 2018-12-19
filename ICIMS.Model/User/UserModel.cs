@@ -34,7 +34,12 @@ namespace ICIMS.Model.User
         {
             get => _unitId; set => SetProperty(ref _unitId, value);
         }
-
+        private DateTime _currentdate;
+        public DateTime CurrentDate
+        {
+            get { return _currentdate; }
+            set { SetProperty(ref _currentdate, value); }
+        }
         private string _unitName;
         public string UnitName
         {

@@ -28,6 +28,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition  Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.6*"/>
@@ -231,7 +232,23 @@
 
                 </telerik:RadGridView>
             </GroupBox>
+            <StatusBar Grid.Row="3" Grid.ColumnSpan="3" Height="30" BorderBrush="#999999" FontFamily="SimSun" Background="#DEDEDE" Foreground="Black" BorderThickness="0,1,0,0">
+                
+                <StatusBarItem Content="制单人：" Margin="10,0,0,0"/>
+                <StatusBarItem Content="{Binding UserModel.Name}"/>
+                <StatusBarItem Content="制单时间："/>
+                <StatusBarItem Content="{Binding UserModel.CurrentDate}"/>
+                <StatusBarItem Content="部门："/>
+                <StatusBarItem Content="{Binding UserModel.UnitName}"/>
+                <Separator  Foreground="#F5F5F5"/>
+                <StatusBarItem Content="结审人：" Margin="10,0,0,0"/>
+                <StatusBarItem  Content="{Binding DisplayNames}" />
 
+                <StatusBarItem Content="结审日期：" Margin="10,0,0,0"/>
+                <StatusBarItem  Content="{Binding DisplayNames}" />
+                 
+
+            </StatusBar>
         </Grid>
       
     </Grid>

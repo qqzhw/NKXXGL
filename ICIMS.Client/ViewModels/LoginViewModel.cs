@@ -52,9 +52,9 @@ namespace ICIMS.Client.ViewModels
         {
             AppName = "内控信息化管理系统【V2.81216】";
             _tenancyName = "XJHJD";
-             
+            CurrentDate = DateTime.Now;
             //_appName = Settings.Default.AppName;
-             _userName = Settings.Default.UserName;
+            _userName = Settings.Default.UserName;
             if (!string.IsNullOrEmpty(_userName))
             {
                 IsSave = true;
@@ -92,6 +92,12 @@ namespace ICIMS.Client.ViewModels
             get { return _issave; }
             set { SetProperty(ref _issave, value); }
         }
+        private DateTime _currentdate;
+        public DateTime CurrentDate
+        {
+            get { return _currentdate; }
+            set { SetProperty(ref _currentdate, value); }
+        }
         private string _appName;
         public string AppName
         {
@@ -103,7 +109,7 @@ namespace ICIMS.Client.ViewModels
             Islogining = true;
             //  TenancyName = "Default";
             // string UserName = "admin";
-            // string Password = "123qwe";
+            // string Password = "123qwe";        
             try
             {
                 var user =await Task.Run(()=> { return _userSerice.LoginAsync(UserName, Password, TenancyName); });
@@ -124,6 +130,7 @@ namespace ICIMS.Client.ViewModels
                         userInfo.Permissions.Add(item);
                     }
                 }
+                userInfo.CurrentDate = CurrentDate;
                 _container.RegisterInstance(userInfo, new ContainerControlledLifetimeManager());
                 //var roles = await _userSerice。.GetUserRoles();
                 //foreach (var item in roles.Items)

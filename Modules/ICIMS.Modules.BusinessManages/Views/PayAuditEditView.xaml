@@ -19,6 +19,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="34"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <DockPanel   Background="#F2F2F2"> 
@@ -279,6 +280,22 @@
 
          
         </Grid>
+        <StatusBar Grid.Row="2" Grid.ColumnSpan="2" Height="30" BorderBrush="#999999" FontFamily="SimSun" Background="#DEDEDE" Foreground="Black" BorderThickness="0,1,0,0">
 
+            <StatusBarItem Content="制单人：" Margin="10,0,0,0"/>
+            <StatusBarItem Content="{Binding UserModel.Name}"/>
+            <StatusBarItem Content="制单时间："/>
+            <StatusBarItem Content="{Binding UserModel.CurrentDate}"/>
+            <StatusBarItem Content="部门："/>
+            <StatusBarItem Content="{Binding UserModel.UnitName}"/>
+            <Separator  Foreground="#F5F5F5"/>
+            <StatusBarItem Content="结审人：" Margin="10,0,0,0"/>
+            <StatusBarItem  Content="{Binding DisplayNames}" />
+
+            <StatusBarItem Content="结审日期：" Margin="10,0,0,0"/>
+            <StatusBarItem  Content="{Binding DisplayNames}" />
+
+
+        </StatusBar>
     </Grid>
 </UserControl>
