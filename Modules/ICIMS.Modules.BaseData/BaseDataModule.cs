@@ -50,7 +50,9 @@ namespace ICIMS.Modules.BaseData
             containerRegistry.RegisterForNavigation<YsCategoryView>();
             containerRegistry.RegisterForNavigation<SubjectView>();
             containerRegistry.RegisterForNavigation<OrganizationUnitView>();
+            containerRegistry.RegisterForNavigation<ProjectPropsView>();
             
+
             //containerRegistry.RegisterForNavigation<ViewB>();
         }
     }

@@ -127,6 +127,8 @@
     <Compile Include="ViewModels\OrganizationUnitViewModel.cs" />
     <Compile Include="ViewModels\PaymentTypeEditViewModel.cs" />
     <Compile Include="ViewModels\PaymentTypeViewModel.cs" />
+    <Compile Include="ViewModels\ProjectPropsEditViewModel.cs" />
+    <Compile Include="ViewModels\ProjectPropsViewModel.cs" />
     <Compile Include="ViewModels\SubjectEditViewModel.cs" />
     <Compile Include="ViewModels\SubjectViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
@@ -175,6 +177,12 @@
     </Compile>
     <Compile Include="Views\PaymentTypeView.xaml.cs">
       <DependentUpon>PaymentTypeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProjectPropsEditView.xaml.cs">
+      <DependentUpon>ProjectPropsEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProjectPropsView.xaml.cs">
+      <DependentUpon>ProjectPropsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SubjectEditView.xaml.cs">
       <DependentUpon>SubjectEditView.xaml</DependentUpon>
@@ -262,6 +270,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PaymentTypeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProjectPropsEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProjectPropsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

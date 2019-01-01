@@ -125,6 +125,14 @@ namespace ICIMS.Client.ViewModels
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_基础资料_基础信息_资金来源.ico",
                 IsDefaultShow = false,
             }.IsEnabled(_userModel.Permissions, "Pages.FundFrom"));
+
+            _systemInfos.Add(new SystemInfoViewModel()
+            {
+                Id = "ProjectPropsView",
+                Title = "项目属性",
+                Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_基础资料_基础信息_文档分类.ico",
+                IsDefaultShow = false,
+            }.IsEnabled(_userModel.Permissions, "Pages.FundFrom"));
         }
 
         private void OnItemSelected(SystemInfoViewModel selectedItem)

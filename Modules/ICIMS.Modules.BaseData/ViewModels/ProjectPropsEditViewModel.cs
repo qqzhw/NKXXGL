@@ -12,23 +12,21 @@ using System.Windows.Input;
 
 namespace ICIMS.Modules.BaseData.ViewModels
 {
-    public class OrganizationUnitEditViewModel : BindableBase
+    public class ProjectPropsEditViewModel : BindableBase
     {
         private bool _showReAddBtn;
 
-        private OrganizationUnitItem _item;
-        public OrganizationUnitItem Item { get => _item; set => SetProperty(ref _item, value); }
-
+        private ProjectPorpsItem _item;
+        public ProjectPorpsItem Item { get => _item; set => SetProperty(ref _item, value); }
         public ICommand OkCmd { get; private set; }
         public ICommand CancelCmd { get; private set; }
         public ICommand ReAddCmd { get; private set; }
 
-        public OrganizationUnitEditViewModel()
+        public ProjectPropsEditViewModel()
         {
             this.OkCmd = new DelegateCommand<object>(OnOkCmd);
             this.CancelCmd = new DelegateCommand<object>(OnCancelCmd);
             this.ReAddCmd = new DelegateCommand<object>(OnReAddCmd);
-
         }
 
         private void OnReAddCmd(object obj)
