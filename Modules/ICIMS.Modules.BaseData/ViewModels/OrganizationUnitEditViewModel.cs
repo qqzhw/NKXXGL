@@ -28,6 +28,7 @@ namespace ICIMS.Modules.BaseData.ViewModels
             this.OkCmd = new DelegateCommand<object>(OnOkCmd);
             this.CancelCmd = new DelegateCommand<object>(OnCancelCmd);
             this.ReAddCmd = new DelegateCommand<object>(OnReAddCmd);
+
         }
 
         private void OnReAddCmd(object obj)
