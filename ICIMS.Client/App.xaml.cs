@@ -105,6 +105,7 @@ namespace ICIMS.Client
             containerRegistry.RegisterSingleton<IPaymentTypeService, PaymentTypeService>();
             containerRegistry.RegisterSingleton<IItemCategoryService, ItemCategoryService>();
             containerRegistry.RegisterSingleton<IDocumentTypeService, DocumentTypeService>();
+            containerRegistry.RegisterSingleton<IProjectPropsService, ProjectPropsService>();
             containerRegistry.RegisterSingleton<IContractCategoryService, ContractCategoryService>();
             containerRegistry.RegisterSingleton<IVendorService, VendorService>();
             containerRegistry.RegisterSingleton<IYsCategoryService, YsCategoryService>();

@@ -132,7 +132,7 @@ namespace ICIMS.Client.ViewModels
                 Title = "项目属性",
                 Icon = "pack://application:,,,/ICIMS.Controls;component/MenuImage/Menu3_基础资料_基础信息_文档分类.ico",
                 IsDefaultShow = false,
-            }.IsEnabled(_userModel.Permissions, "Pages.FundFrom"));
+            }.IsEnabled(_userModel.Permissions, "Pages.ProjectProps"));
         }
 
         private void OnItemSelected(SystemInfoViewModel selectedItem)
